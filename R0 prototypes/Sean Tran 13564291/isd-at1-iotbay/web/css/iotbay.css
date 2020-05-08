@@ -1,0 +1,290 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26/04/2020, 9:48:59 PM
+    Author     : seant
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Montserrat";
+}
+
+h1 {
+    color: rgb(0, 49, 105);
+    font-family: "Montserrat";
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0.07em 0.07em rgb(77, 255, 202);
+    text-transform: uppercase; 
+    letter-spacing: 0.3em;
+    padding: 0.5em;
+}
+
+
+h2 {
+    text-align: center;
+    font-size: 3em;
+    margin-top: 0.4em;
+    text-decoration: wavy;
+}
+
+h3 {
+    margin-bottom: 0.5em;
+    font-size: 2em;
+    color: rgb(77, 255, 246);
+    text-transform: capitalize;
+    font-weight: lighter;
+}
+
+p, ul, h4 {
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+h4 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1.7em;
+}
+p {
+    margin-bottom: 1em;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    border-bottom: 0em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+    max-width: 1000px;
+}
+
+table {
+    font-size: 1.2em;
+    border-collapse: collapse;
+    background-color: rgb(49, 49, 49);
+    color: rgb(224, 224, 224);
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+th, td {
+    border: 5px solid rgb(19, 19, 19);
+    padding: 0.5em;
+}
+th {
+    background-color: rgb(0, 65, 77);
+    border: 5px solid rgb(0, 25, 29);    
+}
+tr:nth-child(even) {
+    background-color: rgb(63, 63, 63);
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 1px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 0px solid #ccc;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: white;
+    font-size: 1em;
+}
+
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: white;
+        font-size: 1em;
+
+}
+
+input[type=text]:focus, input[type=password]:focus, select:focus {
+    border-bottom: 2px solid cyan;
+    outline: none;
+}
+
+input[type=submit], button {
+    width: 120px;
+    background-color: #0097b5;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+input[type=submit]:hover, button:hover {
+    background-color: #007991;
+}
+
+#title > a, a:link, a:visited, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: rgb(0, 49, 105);
+}
+
+#topLink {
+    color: rgb(0, 37, 94);
+}
+
+#CSSValidation {
+    border:0;width:88px;height:31px;
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+}
+
+#sillyIcon {
+    width: 1em;
+    margin: 0em;
+}
+
+#FRC {
+    background-color: rgb(233, 233, 233);
+    padding: 1em;
+}
+
+/* CLASSES */
+
+.link > a, a:link, a:visited, a:hover, a:focus, a:active {
+    color: rgb(0, 174, 255);
+    text-decoration: underline;
+}
+
+.header {
+    background: linear-gradient(120deg, rgb(234, 240, 241), rgb(219, 224, 224));
+}
+
+.navbar {
+    overflow: hidden;
+    padding: 0.7em 1.5em;
+    font-size: 1.5em;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.navbar > a {
+    float: right;
+    display: block;
+    color: rgb(32, 32, 32);
+    background: black;
+    text-align: center;
+    transition: color 0.4s ease-in-out;
+    background-color: transparent;
+    margin: 0.2em;
+    padding: 0.4em 1.4em;
+    text-decoration: none;
+}
+
+.navbar > a:hover {
+    transition: color 0.2s ease-in-out;
+    color: rgb(0, 223, 193);
+}
+
+.body {
+    color: rgb(224, 224, 224);
+    background: linear-gradient(90deg, rgb(25, 25, 25), rgb(20, 20, 20));
+    padding: 1.5em;
+    min-height: 100vh
+}
+
+.card {
+    overflow-x: auto;
+    background: linear-gradient(90deg, rgb(41, 41, 41), rgb(32, 32, 32));
+    margin: 2.5em 15vw;
+    padding: 3em;
+    padding-bottom: 1.5em;
+}
+
+.footer {
+    color: rgb(32, 32, 32);
+    background: linear-gradient(90deg, rgb(20, 255, 216), rgb(0, 225, 255));
+    text-align: center;
+    padding: 0.8em;
+    line-height: 2em;
+}
+
+.span {
+    color: rgb(0, 195, 255);
+    font-weight: bold;
+}
+
+ul {
+    margin: 1em;
+}
+
+
+@media screen and (max-width: 750px) {
+
+    .navbar {
+        float: none;
+        text-align: center;
+    }
+
+    .navbar > a {
+        float: none;
+        text-align: center;
+        padding: 0.3em;
+    }
+
+    table {
+        font-size: 1em;
+    }
+    th, td {
+        padding: 0.5em;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+
+    h1 {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 2em;
+        margin: 0.7em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    p, ul, h4 {
+        font-size: 1.2em;
+    }
+
+    .body {
+        padding: 0.1vw;
+    }
+
+    .card {
+        margin: 1em;
+        padding: 2em;
+    }
+
+    .navbar > a {
+        padding: 0.5em 0em;
+    }
+}
