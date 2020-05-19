@@ -1,0 +1,31 @@
+*****
+Group 27
+
+******
+Instructions to execute:
+
+Must have netbeans (netbeans8.2 installed with JDK 8)
+
+Note source code is accessible in the default package and files such as the css/images are available in respective packages within the war file. 
+
+To run -
+1. Unzip Assign1Prototype.zip
+2. Then open in netbeans via File > Open Project > where the file is saved in your directory
+2. Click run 
+
+
+ALTERNATIVELY 
+
+1. Unzip Assign1Prototype.war file where you’ll see files such as WED-INF/, META-INF etc… 
+2. Create a subfolder named web in the unzipped folder and place all these files inside
+3. The open netbeans and create a new project > Web application > Web application with existing sources 
+4. This creates a local project which you can run
+
+ELSE
+
+1. Open Assign1Prototype.war in netbeans by File > Open File > select zip provided Assign1Prototype.war 
+2. Once opened in netbeans run Assign1Prototype.war this is done in the following steps:
+        2.1) Open the <default package> and select index.page 
+        2.2) Go to Run > Repeat/Run/Assign1Prototype(run)
+3. After war file is run then index.jsp should load to display the interface landing page 
+***********
