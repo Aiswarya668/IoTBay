@@ -1,7 +1,5 @@
 *****
-Name: Aiswaryalakshmi Rajeev
-Student ID: 13539756
-
+Group 27
 
 ******
 Instructions to execute:
