@@ -9,16 +9,16 @@
  */
 
 CREATE TABLE Customer(
-CustomerEmail varchar (30) NOT NULL,
+CustomerEmail varchar (50) NOT NULL,
 FName varchar(20), 
 LName varchar(20),
 PhoneNumber varchar(10),
 Password varchar(30),
 StreetAddress varchar(30),
-UnitNumber varchar(4),
+UnitNumber varchar(5),
 City varchar(30),
 State varchar(30),
-PostalCode varchar(4),
+PostalCode varchar(5),
 LoginStatus boolean,
 RegisterDate timestamp,
 Gender boolean,
@@ -26,17 +26,17 @@ PRIMARY KEY (CustomerEmail)
 ); 
 
 CREATE TABLE Staff(
-StaffEmail varchar (30) NOT NULL,
+StaffEmail varchar (50) NOT NULL,
 FName varchar(20), 
 LName varchar(20),
 PhoneNumber varchar(10),
 Password varchar(30),
 StreetAddress varchar(30),
-UnitNumber varchar(4),
+UnitNumber varchar(5),
 City varchar(30),
 State varchar(30),
-PostalCode varchar(4),
-Manager varchar(30),
+PostalCode varchar(5),
+Manager varchar(50),
 LoginStatus boolean,
 RegisterDate timestamp,
 ContractType varchar(20),
@@ -47,14 +47,14 @@ PRIMARY KEY (StaffEmail)
 
 CREATE TABLE Device(
 DeviceID int GENERATED ALWAYS AS IDENTITY NOT NULL,
-DeviceName varchar(20),
+DeviceName varchar(100),
 Cost double,
 StockQuantity int,
 PRIMARY KEY (DeviceID)
 );
 
 CREATE TABLE ShippingCompany(
-CompanyEmail varchar(30) NOT NULL,
+CompanyEmail varchar(50) NOT NULL,
 Name varchar(20),
 PhoneNumber varchar(10),
 PRIMARY KEY (CompanyEmail)
@@ -62,20 +62,20 @@ PRIMARY KEY (CompanyEmail)
 
 CREATE TABLE CustomerOrder(
 OrderID int GENERATED ALWAYS AS IDENTITY NOT NULL,
-CustomerEmail varchar(30) NOT NULL,
+CustomerEmail varchar(50) NOT NULL,
 DateOrdered timestamp,
 TotalPrice double,
 EstArrivalDate timestamp,
 DepartureDate timestamp,
-CompanyEmail varchar(30),
+CompanyEmail varchar(50),
 ShipmentPrice double,
 ShippingType varchar(10),
 Status varchar(20),
 StreetAddress varchar(30),
-UnitNumber varchar(4),
+UnitNumber varchar(5),
 City varchar(30),
 State varchar(30),
-PostalCode integer,
+PostalCode varchar(5),
 PhoneNumber varchar(10),
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
 FOREIGN KEY (CompanyEmail) REFERENCES ShippingCompany(CompanyEmail),
@@ -84,8 +84,8 @@ PRIMARY KEY (OrderID)
 
 CREATE TABLE ApplicationAccessLogs(
 AccessLogID int GENERATED ALWAYS AS IDENTITY NOT NULL,
-CustomerEmail varchar(30),
-StaffEmail varchar(30),
+CustomerEmail varchar(50),
+StaffEmail varchar(50),
 timestamp timestamp,
 LogDescription varchar(1000),
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
@@ -104,9 +104,9 @@ PRIMARY KEY (DeviceID, OrderID)
 );
 
 CREATE TABLE SupportTicket(
-TicketID varchar(10) NOT NULL,
-StaffEmail varchar(30),
-CustomerEmail varchar(30),
+TicketID int GENERATED ALWAYS AS IDENTITY NOT NULL,
+StaffEmail varchar(50),
+CustomerEmail varchar(50),
 Description varchar(1000),
 ResolvedState boolean,
 TicketDate timestamp,
@@ -116,7 +116,7 @@ PRIMARY KEY (TicketID)
 );
 
 Create Table CartItem(
-CustomerEmail varchar(30) NOT NULL,
+CustomerEmail varchar(50) NOT NULL,
 DeviceID int NOT NULL,
 DeviceQuantity integer,
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
@@ -125,10 +125,10 @@ PRIMARY KEY (CustomerEmail, DeviceID)
 );
 
 Create Table PaymentDetails(
-CustomerEmail varchar(30) NOT NULL,
+CustomerEmail varchar(50) NOT NULL,
 MethodOfPayment varchar(20),
 HashedCardNumber varchar(32),
-CardSecurityCode integer,
+CardSecurityCode varchar(32),
 CardExpiryDate timestamp,
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
 PRIMARY KEY (CustomerEmail)
