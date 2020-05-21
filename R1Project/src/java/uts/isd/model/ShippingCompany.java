@@ -14,12 +14,14 @@ import java.io.Serializable;
 public class ShippingCompany implements Serializable {
     private String companyEmail;
     private String companyName;
-    private String companyPhoneNumber;
+    private String contactName;
+    private String companyAddress;
 
-    public ShippingCompany(String companyEmail, String companyName, String companyPhoneNumber) {
+    public ShippingCompany(String companyEmail, String companyName, String contactName, String companyAddress) {
         this.companyEmail = companyEmail;
         this.companyName = companyName;
-        this.companyPhoneNumber = companyPhoneNumber;
+        this.contactName = contactName;
+        this.companyAddress = companyAddress;
     }
 
     public String getCompanyEmail() {
@@ -38,14 +40,21 @@ public class ShippingCompany implements Serializable {
         this.companyName = companyName;
     }
 
-    public String getCompanyPhoneNumber() {
-        return companyPhoneNumber;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setCompanyPhoneNumber(String companyPhoneNumber) {
-        this.companyPhoneNumber = companyPhoneNumber;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
-    
+
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
     
     
 }
