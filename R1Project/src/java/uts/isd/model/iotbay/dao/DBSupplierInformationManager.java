@@ -5,7 +5,7 @@
  */
 package uts.isd.model.iotbay.dao;
 
-import uts.isd.model.ShippingCompany;
+import uts.isd.model.Supplier;
 import java.sql.*;
 import java.util.ArrayList;
 /**
@@ -20,49 +20,63 @@ public class DBSupplierInformationManager {
     }
     
     //Read (Find the Supplier)
-    public ShippingCompany findSupplier(String contactName, String companyName) throws SQLException {
-        String fetch ="select * from IOTBAYUSER.ShippingCompany where CONTACTNAME = '" + contactName + " ' and COMPANYNAME='" + companyName + "'";
+    public Supplier findSupplier(String contactName, String supplierName) throws SQLException {
+        String fetch ="select * from IOTBAYUSER.ShippingCompany where CONTACTNAME = '" + contactName + " ' and COMPANYNAME='" + supplierName + "'";
         ResultSet rs = st.executeQuery(fetch);
         
         while (rs.next()) {
-            String shippingCompanyContactName = rs.getString(1); 
-            String shippingCompanyCompanyName = rs.getString(2);
-            if (shippingCompanyContactName.equals(contactName) && shippingCompanyCompanyName.equals(companyName)) {
-                String companyEmail = rs.getString(3);
-                String companyAddress = rs.getString(4);
-                return new ShippingCompany(contactName, companyName, companyEmail, companyAddress);   
+            String supplierContactName = rs.getString(1); 
+            String supplierCompanyName = rs.getString(2);
+            if (supplierContactName.equals(contactName) && supplierCompanyName.equals(supplierName)) {
+                String supplierEmail = rs.getString(3);
+                String supplierAddress = rs.getString(4);
+                return new Supplier(contactName, supplierName, supplierEmail, supplierAddress);   
             }
         }
         return null;
     }
     
     //Create (Add Supplier data into the database)
-    public void addShippingCompany(String contactName, String companyName, String companyEmail, String companyAddress) throws SQLException {
-        st.executeUpdate("INSERT INTO IOTBAYUSER.ShippingCompany" + "VALUES ('" + contactName + "', '" + companyName + "', '" + companyEmail +"', '"+ companyAddress +"' )");
+    public void addSupplier(String contactName, String supplierName, String supplierEmail, String supplierAddress) throws SQLException {
+        st.executeUpdate("INSERT INTO IOTBAYUSER.Supplier" + "VALUES ('" + contactName + "', '" + supplierName + "', '" + supplierEmail +"', '"+ supplierAddress +"' )");
     }
     
     //Update (Update a Supplier's details in the database)
-    public void updateShippingCompany(String contactName, String companyName, String companyEmail, String companyAddress) throws SQLException {
-        st.executeUpdate("UPDATE IOTBAYUSER.ShippingCompany SET CONTACTNAME='" + contactName + "', COMPANYNAME='" + companyName + "', COMPANYADDRESS='" + companyAddress +"' WHERE COMPANYEMAIL='"+ companyEmail +"' )");
+    public void updateSupplier(String contactName, String supplierName, String supplierEmail, String supplierAddress) throws SQLException {
+        st.executeUpdate("UPDATE IOTBAYUSER.Supplier SET CONTACTNAME='" + contactName + "', COMPANYNAME='" + supplierName + "', COMPANYADDRESS='" + supplierAddress +"' WHERE COMPANYEMAIL='"+ supplierEmail +"' )");
     }
     
     //Delete (Delete a Supplier from the database)
-    public void deleteShippingCompany(String companyEmail) throws SQLException {
-        st.executeUpdate("DELTE FROM IOTBAYUSER.ShippingCompany WHERE EMAIL='" + companyEmail + "'");
+    public void deleteSupplier(String supplierEmail) throws SQLException {
+        st.executeUpdate("DELETE FROM IOTBAYUSER.Supplier WHERE EMAIL='" + supplierEmail + "'");
     }
     
-    public ArrayList<ShippingCompany> fectShipppingCompany() throws SQLException {
-    String fetch = "select * from SHIPPINGCOMPANY";
+    public ArrayList<Supplier> fectSupplier() throws SQLException {
+    String fetch = "select * from SUPPLIER";
     ResultSet rs = st.executeQuery(fetch);
-    ArrayList<ShippingCompany> temp = new ArrayList();
+    ArrayList<Supplier> temp = new ArrayList();
     
     while (rs.next()) {
         String contactName = rs.getString(1);
-        String companyName = rs.getString(2);
-        String companyEmail = rs.getString(3);
-        String companyAddress = rs.getString(4);
-        temp.add(new ShippingCompany(contactName, companyName, companyEmail, companyAddress));
+        String supplierName = rs.getString(2);
+        String supplierEmail = rs.getString(3);
+        String supplierAddress = rs.getString(4);
+        temp.add(new Supplier(contactName, supplierName, supplierEmail, supplierAddress));
     }
     return temp;
 }
+    
+    public boolean checkSupplier(String contactName, String supplierName) throws SQLException {
+        String fetch = "select * from IOTBAYUSER.Supplier where CONTACTNAME = '" + contactName + "' and SUPPLIERNAME='" + supplierName + "'";
+        ResultSet rs = st.executeQuery(fetch);
+        
+        while(rs.next()) {
+            String SupplierContactName = rs.getString(1);
+            String SupplierSupplierName = rs.getString(2);
+            if (SupplierContactName.equals(contactName) && SupplierSupplierName.equals(supplierName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
