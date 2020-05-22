@@ -18,19 +18,19 @@ public class CustomerOrder implements Serializable {
     private Date dateOrdered;
     private double totalPrice;
     private String estimatedArrivalDate;
-    private ShippingCompany shippingCompany;
+    private Supplier supplier;
     private double shippingCost;
     private String dateTimeDeparture;
     private String shippingType;
     private String status;
 
-    public CustomerOrder(String orderID, User user, Date dateOrdered, double totalPrice, String estimatedArrivalDate, ShippingCompany shippingCompany, double shippingCost, String dateTimeDeparture, String shippingType, String status) {
+    public CustomerOrder(String orderID, User user, Date dateOrdered, double totalPrice, String estimatedArrivalDate, Supplier supplier, double shippingCost, String dateTimeDeparture, String shippingType, String status) {
         this.orderID = orderID;
         this.user = user;
         this.dateOrdered = dateOrdered;
         this.totalPrice = totalPrice;
         this.estimatedArrivalDate = estimatedArrivalDate;
-        this.shippingCompany = shippingCompany;
+        this.supplier = supplier;
         this.shippingCost = shippingCost;
         this.dateTimeDeparture = dateTimeDeparture;
         this.shippingType = shippingType;
@@ -77,12 +77,12 @@ public class CustomerOrder implements Serializable {
         this.estimatedArrivalDate = estimatedArrivalDate;
     }
 
-    public ShippingCompany getShippingCompany() {
-        return shippingCompany;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setShippingCompany(ShippingCompany shippingCompany) {
-        this.shippingCompany = shippingCompany;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public double getShippingCost() {
