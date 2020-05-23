@@ -82,12 +82,12 @@ public class DBCustomerManager {
         stmt.setString(8, customerCity);
         stmt.setString(9, customerState);
         stmt.setString(10, customerPostC);
-        stmt.setBoolean(11, "true");
+        stmt.setBoolean(11, true);
         stmt.setTimestamp(12, date);
         stmt.setString(13, customerGender);
         
         stmt.executeUpdate();
-    st.executeUpdate(query);
+//    st.executeUpdate(query);
     }
     
     //Update (Update a Customer's details in the database)
