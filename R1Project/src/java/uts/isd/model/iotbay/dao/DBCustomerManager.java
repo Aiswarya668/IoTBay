@@ -9,7 +9,6 @@ import uts.isd.model.Customer;
 import java.sql.*;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -46,7 +45,7 @@ public class DBCustomerManager {
                 String customerPostCode = rs.getString(10);
                 boolean customerLoginStatus = rs.getBoolean(11);
                 java.util.Date customerRegisterDate = rs.getDate(12);
-                String customerGender = rs.getString(13);;
+                String customerGender = rs.getString(13);
                 return new Customer(customerFName, customerLName, customerEmail, customerPass, customerGender, customerUnitNo, customerStreetAddr, customerCity, customerState, customerPostCode, customerPhone, customerRegisterDate, customerLoginStatus);
             }
         }
@@ -64,7 +63,7 @@ public class DBCustomerManager {
     //update a customer details in the database   
     public void updateCustomer(String email, String fname, String lname, String phone, String password, String streetAddr, String unitNo, String city, String state, String postCode, String gender) throws SQLException {
         //code for update-operation
-        st.executeUpdate("UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', GENDER'" + gender + "' WHERE CUSTOMEREMAIL='" + email + "'");
+        st.executeUpdate("UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', GENDER='" + gender + "' WHERE CUSTOMEREMAIL='" + email + "'");
     }
 
     //delete a customer from the database   
