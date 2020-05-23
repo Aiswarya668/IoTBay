@@ -7,9 +7,7 @@ package uts.isd.model.iotbay.dao;
 
 import uts.isd.model.Customer;
 import java.sql.*;
-import java.util.ArrayList;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.*;
 
 /**
  *
@@ -44,7 +42,8 @@ public class DBCustomerManager {
                 String customerGender = rs.getString(13);
                 return new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender,  customerUnit, customerSAdd, 
-                    customerCity, customerState, customerPostC, customerPhone);
+                    customerCity, customerState, customerPostC, customerPhone,
+                    new java.util.Date(), true);
             }
         }
         return null;
@@ -57,7 +56,7 @@ public class DBCustomerManager {
             String customerState, String customerPostC, String customerPhone)
             throws SQLException {
         
-        Timestamp date = new Timestamp(new Date().getTime());
+        Timestamp date = new Timestamp(new java.util.Date().getTime());
         
 //        String query = "INSERT INTO IOTBAYUSER.Customer" + " VALUES ('" + 
 //                customerEmail + "', '" + customerFname + "', '" + customerLname +
@@ -142,7 +141,8 @@ public class DBCustomerManager {
         String customerGender = rs.getString(13);
         result.add(new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender,  customerUnit, customerSAdd, 
-                    customerCity, customerState, customerPostC, customerPhone));
+                    customerCity, customerState, customerPostC, customerPhone,
+                    new java.util.Date(), true));
     }
     
     return result;
