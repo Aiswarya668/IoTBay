@@ -17,8 +17,6 @@ public class Staff implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    private String dob;
-    private String gender;
     private String unitNumber;
     private String streetAddress;
     private String city;
@@ -30,13 +28,11 @@ public class Staff implements Serializable {
     private String contractType;
     private String hourlyPay;
 
-    public Staff(String firstName, String lastName, String email, String password, String dob, String gender, String unitNumber, String streetAddress, String city, String state, String postcode, Date dateRegistered, boolean loginStatus, String phoneNumber, String contractType, String hourlyPay) {
+    public Staff(String firstName, String lastName, String email, String password, String unitNumber, String streetAddress, String city, String state, String postcode, Date dateRegistered, boolean loginStatus, String phoneNumber, String contractType, String hourlyPay) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.dob = dob;
-        this.gender = gender;
         this.unitNumber = unitNumber;
         this.streetAddress = streetAddress;
         this.city = city;
@@ -79,22 +75,6 @@ public class Staff implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getUnitNumber() {
