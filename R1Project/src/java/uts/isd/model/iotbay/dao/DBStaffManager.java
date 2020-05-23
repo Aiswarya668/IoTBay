@@ -47,7 +47,7 @@ public class DBStaffManager {
                 boolean staffLoginStatus = rs.getBoolean(12);
                 java.util.Date staffRegisterDate = rs.getDate(13);
                 String staffContractType = rs.getString(14);
-                String staffPayHr = rs.getString(15);
+                int staffPayHr = rs.getInt(15);
                 return new Staff(staffFName, staffLName, staffEmail, staffPass, staffUnitNo, staffStreetAddr, staffCity, staffState, staffPostCode, staffRegisterDate, staffLoginStatus, staffPhone, staffContractType, staffPayHr, staffManager);
             }
         }
@@ -59,13 +59,13 @@ public class DBStaffManager {
         //code for add-operation
         Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentDate = formatter.format(new java.util.Date());
-        st.executeUpdate("INSERT INTO IOTBAYUSER.STAFF VALUES ('" + email + "', '" + fname + "', '" + lname + "', '" + phone + "', '" + password + "', '" + streetAddr + "', '" + unitNo + "', '" + city + "', '" + state + "', '" + postCode + "', '" + manager + "', '" + "false" + "', '" + currentDate + "', '" + contractType + "', '" + payHr + "')");
+        st.executeUpdate("INSERT INTO IOTBAYUSER.STAFF VALUES ('" + email + "', '" + fname + "', '" + lname + "', '" + phone + "', '" + password + "', '" + streetAddr + "', '" + unitNo + "', '" + city + "', '" + state + "', '" + postCode + "', '" + manager + "', '" + "false" + "', '" + currentDate + "', '" + contractType + "', " + payHr + ")"); // payHr is type int (does not have quotation marks)
     }
 
     //update a staff details in the database   
     public void updateStaff(String email, String fname, String lname, String phone, String password, String streetAddr, String unitNo, String city, String state, String postCode, String manager, String contractType, String payHr) throws SQLException {
         //code for update-operation
-        st.executeUpdate("UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', MANAGER='" + manager + "', CONTRACTTYPE='" + contractType + "', PAYHR='" + payHr + "' WHERE STAFFEMAIL='" + email + "'");
+        st.executeUpdate("UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', MANAGER='" + manager + "', CONTRACTTYPE='" + contractType + "', PAYHR=" + payHr + " WHERE STAFFEMAIL='" + email + "'");
     }
 
     //delete a staff from the database   
@@ -94,7 +94,7 @@ public class DBStaffManager {
             boolean staffLoginStatus = rs.getBoolean(12);
             java.util.Date staffRegisterDate = rs.getDate(13);
             String staffContractType = rs.getString(14);
-            String staffPayHr = rs.getString(15);
+            int staffPayHr = rs.getInt(15);
             temp.add(new Staff(staffFName, staffLName, staffEmail, staffPass, staffUnitNo, staffStreetAddr, staffCity, staffState, staffPostCode, staffRegisterDate, staffLoginStatus, staffPhone, staffContractType, staffPayHr, staffManager));
         }
         return temp;

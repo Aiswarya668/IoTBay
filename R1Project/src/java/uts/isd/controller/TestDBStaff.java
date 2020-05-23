@@ -144,6 +144,7 @@ public class TestDBStaff {
                 System.out.print("Staff contract type: ");
                 String contractType = in.nextLine();
                 System.out.print("Staff pay per hour: ");
+                String payHr = in.nextLine();
                 db.updateStaff(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, manager, contractType, payHr);
             } else {
                 System.out.println("Staff does not exist.");
