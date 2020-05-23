@@ -17,23 +17,27 @@ import java.util.ArrayList;
 public class DBManagerDevice {
     
     private Statement st;
+    private Connection conn;
     
     public DBManagerDevice(Connection conn) throws SQLException{
         st = conn.createStatement();
+        this.conn = conn;
     }
     
     //Find a device by name in iotdb database 
-    public Device findDevice(int deviceID, String deviceName, String type, double cost,  int stockQuantity, String description) throws SQLException{
+    public Device findDevice(String deviceName) throws SQLException{
         
         //Searches device by ID and puts in result set - rs enables iterative reading 
-        String fetch = "select * from IOTBAYUSER.Device where deviceName='" + deviceName + "' and type='" + type + "'";
+        String fetch = "select * from IOTBAYUSER.Device where deviceName='" + deviceName;
         ResultSet rs = st.executeQuery(fetch);
         
         while (rs.next()){
             String searchedDeviceName = rs.getString(2);
-            String searchedType = rs.getString(3);
-                if(searchedDeviceName.equals(deviceName) && searchedType.equals(type)){
+           
+                if(searchedDeviceName.equals(deviceName)){
                     int searchedDeviceID = rs.getInt(1);
+                    //String searchedDeviceName = rs.getString(2);
+                    String searchedType = rs.getString(3);
                     double searchedDeviceCost = rs.getDouble(4);
                     int searchedDeviceStock = rs.getInt(5);
                     String searchedDeviceDescription = rs.getString(6);
@@ -59,15 +63,15 @@ public class DBManagerDevice {
     }
     
     //Delete device
-    public void deleteDevice(int deviceID) throws SQLException{
-        st.executeUpdate("delete from IOTBAYUSER.Device where DEVICEID='" + deviceID + "' ");
+    public void deleteDevice(String deviceName) throws SQLException{
+        st.executeUpdate("delete from IOTBAYUSER.Device where DEVICEID='" + deviceName + "' ");
     }
     
     //Fetch all devices 
     public ArrayList<Device> fetchDevice()throws SQLException{
-        String fetch = "select * from DEVICES";
-        ResultSet rs = st.executeQuery(fetch);
-        ArrayList<Device> temp = new ArrayList();
+        String query = "select * from DEVICES";
+        ResultSet rs = st.executeQuery(query);
+        ArrayList<Device> result = new ArrayList();
         
             while (rs.next()){
                 int deviceID = rs.getInt(1);
@@ -76,15 +80,15 @@ public class DBManagerDevice {
                 double cost = rs.getDouble(4);
                 int stockQuantity = rs.getInt(5);
                 String description = rs.getString(6);
-                temp.add(new Device(deviceID, deviceName, type, cost, stockQuantity, description));
+                result.add(new Device(deviceID, deviceName, type, cost, stockQuantity, description));
             }
-        return temp;
+        return result;
     }
     
     //check Device by name and type 
     public boolean checkDevice(String deviceName, String type)throws SQLException{
-        String fetch = "select * from IOTBAYUSER.Device where NAME= '" + deviceName + "' and TYPE='" + type + "'";
-        ResultSet rs = st.executeQuery(fetch);
+        String query = "select * from IOTBAYUSER.Device where NAME= '" + deviceName + "' and TYPE='" + type + "'";
+        ResultSet rs = st.executeQuery(query);
         
         while (rs.next()){
             String searchedDeviceName = rs.getString(2);

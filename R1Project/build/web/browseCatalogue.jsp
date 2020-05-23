@@ -5,10 +5,10 @@
 --%>
 
 <%@page import="java.sql.*"%>
-<%@page import="uts.isd.model.iotbay.dao.DB"%>
-<%@page import="uts.isd.model.iotbay.dao.DBConnector"%>
-<%@page import="uts.isd.model.iotbay.dao.DBManagerDevice"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
+<%@page import="uts.isd.model.iotbay.dao.*"%>
+
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

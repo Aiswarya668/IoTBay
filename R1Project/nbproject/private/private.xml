@@ -3,20 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/ShippingCompany.java</file>
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBSupplierInformationManager.java</file>
-=======
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Customer.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/register.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBConnector.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/browseCatalogue.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/welcome.jsp</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Device.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/ShippingCompany.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBManagerDevice.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DB.java</file>
->>>>>>> Stashed changes
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/welcome.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/register.jsp</file>
         </group>
     </open-files>
 </project-private>
