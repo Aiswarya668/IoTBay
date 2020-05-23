@@ -115,10 +115,10 @@ public class DBCustomerManager {
     }
     
     //Delete (Delete a Customer from the database)
-    public void deleteCustomer(String CustomerEmail) throws SQLException {
+    public void deleteCustomer(String customerEmail) throws SQLException {
         String query = "DELETE FROM IOTBAYUSER.Customer WHERE EMAIL = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, CustomerEmail);
+        stmt.setString(1, customerEmail);
         
         stmt.executeUpdate();
     }
@@ -148,14 +148,14 @@ public class DBCustomerManager {
     return result;
 }
     
-    public boolean checkCustomer(String contactName, String CustomerName) throws SQLException {
-        String fetch = "select * from IOTBAYUSER.Customer where CONTACTNAME = '" + contactName + "' and CustomerNAME='" + CustomerName + "'";
-        ResultSet rs = st.executeQuery(fetch);
+    public boolean checkCustomer(String customerEmail) throws SQLException {
+        String query = "SELECT * FROM IOTBAYUSER.Customer "
+                + "where CUSTOMEREMAIL = " + customerEmail;
+        ResultSet rs = st.executeQuery(query);
         
         while(rs.next()) {
-            String CustomerContactName = rs.getString(1);
-            String CCustomerName = rs.getString(2);
-            if (CustomerContactName.equals(contactName) && CCustomerName.equals(CustomerName)) {
+            String email = rs.getString(1);
+            if (email.equals(customerEmail)) {
                 return true;
             }
         }
