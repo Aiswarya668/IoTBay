@@ -40,7 +40,7 @@ public class DBCustomerManager {
                 String customerState = rs.getString(9);
                 String customerPostC = rs.getString(10);
                 boolean customerLoginStatus = rs.getBoolean(11);
-                Date customerRegisterDate = rs.getDate(12);
+                java.util.Date customerRegisterDate = rs.getDate(12);
                 String customerGender = rs.getString(13);
                 return new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender,  customerUnit, customerSAdd, 
@@ -92,7 +92,7 @@ public class DBCustomerManager {
             String customerState, String customerPostC, String customerPhone)
             throws SQLException {
         
-        Timestamp date = new Timestamp(new Date().getTime());
+        Timestamp date = new Timestamp(new java.util.Date().getTime());
         
 //        String query = "INSERT INTO IOTBAYUSER.Customer" + " VALUES ('" + 
 //                customerEmail + "', '" + customerFname + "', '" + customerLname +
@@ -175,7 +175,7 @@ public class DBCustomerManager {
         String customerState = rs.getString(9);
         String customerPostC = rs.getString(10);
         boolean customerLoginStatus = rs.getBoolean(11);
-        Date customerRegisterDate = rs.getDate(12);
+        java.util.Date customerRegisterDate = rs.getDate(12);
         String customerGender = rs.getString(13);
         result.add(new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender,  customerUnit, customerSAdd, 
