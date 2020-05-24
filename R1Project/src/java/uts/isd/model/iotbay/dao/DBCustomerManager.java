@@ -128,10 +128,13 @@ public class DBCustomerManager {
             String customerUnit, String customerSAdd, String customerCity,
             String customerState, String customerPostC, String customerPhone)
             throws SQLException {
-        String query = "UPDATE IOTBAYUSER.Customer SET CUSTOMEREMAIL = ?, "
+        
+//                st.executeUpdate("UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL='" + customerEmail + "', FNAME='" + customerFname + "', LNAME='" + customerLname + "', PHONENUMBER='" + customerPhone + "', PASSWORD='" + customerPass + "', STREETADDRESS='" + customerSAdd + "', UNITNUMBER='" + customerUnit + "', CITY='" + customerCity + "', STATE='" + customerState + "', POSTALCODE='" + customerPostC + "', GENDER='" + customerGender + "' WHERE CUSTOMEREMAIL='" + customerEmail + "'");
+
+        String query = "UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?,"
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?,"
-                + "POSTALCODE = ?, GENDER = ?";
+                + "POSTALCODE = ?, GENDER = ? WHERE CUSTOMEREMAIL=?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
@@ -145,6 +148,7 @@ public class DBCustomerManager {
         stmt.setString(9, customerState);
         stmt.setString(10, customerPostC);
         stmt.setString(11, customerGender);
+        stmt.setString(12, customerEmail);
 
         stmt.executeUpdate();
     }
