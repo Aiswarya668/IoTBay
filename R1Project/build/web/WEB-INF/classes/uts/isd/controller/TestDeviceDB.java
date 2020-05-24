@@ -141,7 +141,6 @@ public class TestDeviceDB {
     }
         
         
-        
         private void testDelete() {
         
         System.out.print("Device name: ");
@@ -168,8 +167,9 @@ public class TestDeviceDB {
         try {
             ArrayList<Device> devices = db.fetchDevice();
             System.out.println("DEVICE TABLE: ");
+            // lambda expression for every device show all device fields 
             devices.stream().forEach((device) -> {
-                System.out.printf(device.getDeviceName(), device.getType(), device.getCost(), device.getStockQuantity(), device.getDescription());
+                System.out.printf("%-20s %-20s %-20s %-10s %-100s \n", device.getDeviceName(), device.getType(), device.getCost(), device.getStockQuantity(), device.getDescription());
             });
             System.out.println();
         } catch (SQLException ex) {
