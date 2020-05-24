@@ -39,6 +39,8 @@ public class DBCustomerManager {
                 String customerCity = rs.getString(8);
                 String customerState = rs.getString(9);
                 String customerPostC = rs.getString(10);
+                boolean customerLoginStatus = rs.getBoolean(11);
+                java.util.Date customerRegisterDate = rs.getDate(12);
                 String customerGender = rs.getString(13);
                 return new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender,  customerUnit, customerSAdd, 
@@ -138,11 +140,13 @@ public class DBCustomerManager {
         String customerCity = rs.getString(8);
         String customerState = rs.getString(9);
         String customerPostC = rs.getString(10);
+        boolean customerLoginStatus = rs.getBoolean(11);
+        java.util.Date customerRegisterDate = rs.getDate(12);
         String customerGender = rs.getString(13);
         result.add(new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender,  customerUnit, customerSAdd, 
                     customerCity, customerState, customerPostC, customerPhone,
-                    new java.util.Date(), true));
+                    customerRegisterDate, customerLoginStatus));
     }
     
     return result;
