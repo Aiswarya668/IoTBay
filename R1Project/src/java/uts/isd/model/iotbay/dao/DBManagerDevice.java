@@ -54,18 +54,21 @@ public class DBManagerDevice {
         
     //Add a device into iotdb
     public void addDevice(String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
-       //st.executeUpdate("INSERT INTO IOTBAYUSER.DEVICE VALUES ('" + deviceName + "', '" + type + "', " + cost + ", " + stockQuantity +", '" + description + "')"); //note that cost and stockQuanity do not have '' as int/double
-       String query = "INSERT INTO IOTBAYUSER.DEVICE VALUES "
-                + "(?,?,?,?,?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, deviceName);
-        stmt.setString(2, type);
-        stmt.setDouble(3, cost);
-        stmt.setInt(4, stockQuantity);
-        stmt.setString(5, description);
+       st.executeUpdate("INSERT INTO IOTBAYUSER.DEVICE VALUES ('" + deviceName + "', '" + type + "', " + cost + ", " + stockQuantity +", '" + description + "')"); //note that cost and stockQuanity do not have '' as int/double
+       
+       
+       
+       //String query = "INSERT INTO IOTBAYUSER.DEVICE VALUES "
+        //        + "(?,?,?,?,?)";
+        //PreparedStatement stmt = conn.prepareStatement(query);
+        //stmt.setString(1, deviceName);
+        //stmt.setString(2, type);
+        //stmt.setDouble(3, cost);
+        //stmt.setInt(4, stockQuantity);
+        //stmt.setString(5, description);
 
-        stmt.executeUpdate();
-        st.executeUpdate(query);
+        //stmt.executeUpdate();
+        //st.executeUpdate(query);
     }
     
     //Update device details 

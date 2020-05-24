@@ -150,6 +150,7 @@ public class TestDeviceDB {
         System.out.print("Device id: ");
         int deviceID = in.nextInt();
         
+        
         try {
             if (db.findDevice(deviceName, type) != null) {
                 db.deleteDevice(deviceID);
@@ -169,7 +170,7 @@ public class TestDeviceDB {
             System.out.println("DEVICE TABLE: ");
             // lambda expression for every device show all device fields 
             devices.stream().forEach((device) -> {
-                System.out.printf("%-20s %-20s %-20s %-10s %-100s \n", device.getDeviceName(), device.getType(), device.getCost(), device.getStockQuantity(), device.getDescription());
+                System.out.printf("%-20s %-20s %-20s %-20s %-10s %-100s \n", device.getDeviceID(), device.getDeviceName(), device.getType(), device.getCost(), device.getStockQuantity(), device.getDescription());
             });
             System.out.println();
         } catch (SQLException ex) {
