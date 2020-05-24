@@ -101,9 +101,6 @@ public class TestDBCustomer {
     private void testRead() throws SQLException {
         System.out.print("Customer email: ");
         String email = in.nextLine();
-        System.out.print("Customer password: ");
-        String password = in.nextLine();
-        // Customer customer = db.findCustomer(email, password);
         Customer customer = db.findCustomer(email);
         if (customer != null) {
             System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " exists in the database.");
