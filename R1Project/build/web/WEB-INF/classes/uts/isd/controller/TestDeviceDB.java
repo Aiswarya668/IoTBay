@@ -39,6 +39,7 @@ public class TestDeviceDB {
     private char readChoice() {
         System.out.print("Operation CRUDS or * to exit: ");
         return in.nextLine().charAt(0);
+        
     }
     
      private void runQueries() throws SQLException {

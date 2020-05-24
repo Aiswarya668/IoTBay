@@ -3,18 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBDeviceManager.java</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Customer.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBManagerDevice.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/CartItem.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DB.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/browseCatalogue.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Device.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleDevice.sql</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBSupplierInformationManager.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/createTables.sql</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/addDevice.jsp</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/TestDeviceDB.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/register.jsp</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBConnector.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/browseCatalogue.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/welcome.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Device.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DB.java</file>
         </group>
     </open-files>
 </project-private>
