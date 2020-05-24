@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uts.isd.model.iotbay.dao;
 
 import uts.isd.model.Device;
 import java.sql.*;
 import java.util.*;
 
-
 /**
  *
  * @author aiswarya.r
  */
-public class DBManagerDevice {
-    
-    private Statement st;
+public class DBDeviceManager {
+     private Statement st;
     private Connection conn;
     
-    public DBManagerDevice(Connection conn) throws SQLException{
+    public DBDeviceManager(Connection conn) throws SQLException{
         st = conn.createStatement();   
         this.conn = conn;
     }
@@ -52,29 +45,29 @@ public class DBManagerDevice {
         return null;
         }
         
-    //Add a device into iotdb
-    public void addDevice(String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
-       st.executeUpdate("INSERT INTO IOTBAYUSER.DEVICE VALUES ('" + deviceName + "', '" + type + "', " + cost + ", " + stockQuantity +", '" + description + "')"); //note that cost and stockQuanity do not have '' as int/double
+    //Add device 
+    
+    public void addDevice(String deviceName, String type, double cost, int stockQuantity, String description)throws SQLException {
        
-       
-       
-       //String query = "INSERT INTO IOTBAYUSER.DEVICE VALUES "
-        //        + "(?,?,?,?,?)";
-        //PreparedStatement stmt = conn.prepareStatement(query);
-        //stmt.setString(1, deviceName);
-        //stmt.setString(2, type);
-        //stmt.setDouble(3, cost);
-        //stmt.setInt(4, stockQuantity);
-        //stmt.setString(5, description);
-
-        //stmt.executeUpdate();
-        //st.executeUpdate(query);
+        
+        String query = "INSERT INTO IOTBAYUSER.Device (deviceName, type, cost, stockQuantity, description) VALUES " + "(?,?,?,?,?)";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, deviceName);
+        stmt.setString(2, type);
+        stmt.setDouble(3, cost);
+        stmt.setInt(4, stockQuantity);
+        stmt.setString(5, description);
+        
+        stmt.executeUpdate();
     }
     
-    //Update device details 
-    public void updateDevice(String deviceName, String type, double cost,  int stockQuantity, String description) throws SQLException{
-        st.executeUpdate("UPDATE IOTBAYUSER.DEVICE SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "'");
+   //Update device details 
+    public void updateDevice(String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
+        st.executeUpdate("UPDATE IOTBAYUSER.Device SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICENAME='" + deviceName + "'");
     }
+    
+    
     
     //Delete device
     public void deleteDevice(int deviceID) throws SQLException{
@@ -113,7 +106,4 @@ public class DBManagerDevice {
         }
         return false;
     }
-
 }
-    
-

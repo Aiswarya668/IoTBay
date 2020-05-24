@@ -2,7 +2,7 @@ package uts.isd.controller;
 import uts.isd.model.iotbay.dao.*;
 import uts.isd.model.iotbay.dao.DB;
 import uts.isd.model.iotbay.dao.DBConnector;
-import uts.isd.model.iotbay.dao.DBManagerDevice;
+import uts.isd.model.iotbay.dao.DBDeviceManager;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 /**
  *
  * @author aiswarya.r
- */
+
 public class DeviceServlet extends HttpServlet {
     
     //create a database connection
@@ -51,7 +51,7 @@ public class DeviceServlet extends HttpServlet {
         conn = db.openConnection();
         try{
             //creates deviceDBmanager 
-            deviceManager = new DBManagerDevice(conn);
+            deviceManager = new DBDeviceManager(conn);
         }
         catch (SQLException ex){
             Logger.getLogger(DeviceServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,3 +70,4 @@ public class DeviceServlet extends HttpServlet {
     }
     
 }
+ */

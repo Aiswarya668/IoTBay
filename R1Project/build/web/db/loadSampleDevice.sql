@@ -28,6 +28,7 @@ insert into device (devicename, type, cost, stockquantity, description)values
 
 ('DS1307 RTC', 'Navigation Sensor', 3.99, 792,  'A Realtime Clock (RTC) module once initialized, saves the current time – even if the power supply is not present – due to the small battery. This helps  in applications where no (permanent) Internet connection is given, but the date and the exact time is important (car PC, weather station, etc.'),
 
+
 ('433 MHz Set', 'Wireless Sensor', 2.99, 553, 'A simple method to transmit signals via radio are 433 MHz transmitter and receiver. Since these sets are very cheap, they are used in many projects.'),
 
 ('2.4 NRF24L01', 'Wireless Sensor',  4.99, 245, 'A more advanced method for wireless communication is the use of the 2.4 GHz frequency. The advantages compared to the 433 MHz transmission rate are mainly that a larger amount of data can be transferred at once, thus, whole sentences and commands can be sent with a signal or data package.' ),

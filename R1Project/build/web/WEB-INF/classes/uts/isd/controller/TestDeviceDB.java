@@ -6,7 +6,9 @@ import java.util.logging.*;
 import uts.isd.model.Device;
 import uts.isd.model.iotbay.dao.DB;
 import uts.isd.model.iotbay.dao.DBConnector;
-import uts.isd.model.iotbay.dao.DBManagerDevice;
+import uts.isd.model.iotbay.dao.DBDeviceManager;
+
+
 
 /**
  *
@@ -17,7 +19,7 @@ public class TestDeviceDB {
         private static Scanner in = new Scanner(System.in);
         private DBConnector connector;
         private Connection conn;
-        private DBManagerDevice db;
+        private DBDeviceManager db;
 
         
     public static void main(String[] args) throws SQLException {
@@ -28,7 +30,7 @@ public class TestDeviceDB {
         try {
             connector = new DBConnector();
             conn = connector.openConnection();
-            db = new DBManagerDevice(conn);
+            db = new DBDeviceManager(conn);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(TestDeviceDB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -140,8 +142,7 @@ public class TestDeviceDB {
         }
     }
         
-        
-        private void testDelete() {
+          private void testDelete() {
         
         System.out.print("Device name: ");
         String deviceName = in.nextLine();
@@ -163,7 +164,7 @@ public class TestDeviceDB {
         }
         
     }
-        
+    
         private void showAll() throws SQLException {
         try {
             ArrayList<Device> devices = db.fetchDevice();
@@ -173,7 +174,7 @@ public class TestDeviceDB {
                 System.out.printf("%-20s %-20s %-20s %-20s %-10s %-100s \n", device.getDeviceID(), device.getDeviceName(), device.getType(), device.getCost(), device.getStockQuantity(), device.getDescription());
             });
             System.out.println();
-        } catch (SQLException ex) {
+         } catch (SQLException ex) {
             Logger.getLogger(TestDeviceDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
