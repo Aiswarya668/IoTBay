@@ -114,7 +114,6 @@ public class TestDBCustomer {
         System.out.print("Customer email: ");
         String email = in.nextLine();
 
-
         try {
             if (db.findCustomer(email) != null) {
                 System.out.print("Customer first name: ");
@@ -135,9 +134,9 @@ public class TestDBCustomer {
                 String state = in.nextLine();
                 System.out.print("Customer post code: ");
                 String postCode = in.nextLine();
-                System.out.print("Customer gender (true/false): "); // to change to String
+                System.out.print("Customer gender: ");
                 String gender = in.nextLine();
-                db.updateCustomer(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, gender);
+                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone);;
             } else {
                 System.out.println("Customer does not exist.");
             }
