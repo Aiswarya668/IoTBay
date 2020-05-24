@@ -81,7 +81,7 @@ public class TestDeviceDB {
         int stockQuantity = in.nextInt();
         System.out.print("Device description: ");
         String description = in.next();
-        
+        in.nextLine(); 
   
         try {
             db.addDevice(deviceName, type, cost, stockQuantity, description);
@@ -128,10 +128,12 @@ public class TestDeviceDB {
                 //String type = in.nextLine();
                 System.out.print("Device cost: ");
                 double cost = in.nextDouble();
+                in.nextLine(); 
                 System.out.print("Device stock quantity: ");
                 int stockQuantity = in.nextInt();
+                in.nextLine(); 
                 System.out.print("Device description: ");
-                String description = in.next();
+                String description = in.nextLine();
                 
                 db.updateDevice(deviceName, type, cost, stockQuantity, description);
                 
@@ -151,6 +153,7 @@ public class TestDeviceDB {
         String type = in.nextLine();
         System.out.print("Device id: ");
         int deviceID = in.nextInt();
+        in.nextLine(); 
         
         
         try {

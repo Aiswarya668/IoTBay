@@ -4,6 +4,7 @@
     Author     : aiswarya.r
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
@@ -26,6 +27,15 @@
                     
     </head>
     <body>
+        
+          <%     
+                DBConnector dbConnector = new DBConnector();
+                Connection conn = dbConnector.openConnection();
+                DBDeviceManager dbManager = new DBDeviceManager(conn);
+                dbManager.fetchDevice();
+                
+            %>
+            
         <h1>Device Catalogue</h1>
         
         <%-- 
@@ -69,6 +79,7 @@
                     <td>Stock</td>
                     <td>Description</td>
                 </tr>
+                
                 
                
                 
