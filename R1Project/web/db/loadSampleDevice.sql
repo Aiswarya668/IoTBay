@@ -26,8 +26,7 @@ insert into device (devicename, type, cost, stockquantity, description)values
 
 ('GY-271 Compass', 'Navigation Sensor', 5.99, 156, 'As with analogue compasses, the directional display can also be read digitally. The HMC5883L sensor, which is read out via I2C, which returns an angle in radians, is suitable for this purpose. As with a normal compass, the value can be confounded by metal objects nearby.'),
 
-('DS1307 RTC', 'Navigation Sensor', 3.99, 792,  'A Realtime Clock (RTC) module once initialized, saves the current time – even if the power supply is not present – due to the small battery. This helps  in applications where no (permanent) Internet connection is given, but the date and the exact time is important (car PC, weather station, etc.')
-
+('DS1307 RTC', 'Navigation Sensor', 3.99, 792,  'A Realtime Clock (RTC) module once initialized, saves the current time – even if the power supply is not present – due to the small battery. This helps  in applications where no (permanent) Internet connection is given, but the date and the exact time is important (car PC, weather station, etc.'),
 
 ('433 MHz Set', 'Wireless Sensor', 2.99, 553, 'A simple method to transmit signals via radio are 433 MHz transmitter and receiver. Since these sets are very cheap, they are used in many projects.'),
 
