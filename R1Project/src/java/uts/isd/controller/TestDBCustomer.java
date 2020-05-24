@@ -101,9 +101,7 @@ public class TestDBCustomer {
     private void testRead() throws SQLException {
         System.out.print("Customer email: ");
         String email = in.nextLine();
-        System.out.print("Customer password: ");
-        String password = in.nextLine();
-        Customer customer = db.findCustomer(email, password);
+        Customer customer = db.findCustomer(email);
         if (customer != null) {
             System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " exists in the database.");
         } else {
@@ -115,15 +113,16 @@ public class TestDBCustomer {
     private void testUpdate() {
         System.out.print("Customer email: ");
         String email = in.nextLine();
-        System.out.print("Customer password: ");
-        String password = in.nextLine();
+
 
         try {
-            if (db.findCustomer(email, password) != null) {
+            if (db.findCustomer(email) != null) {
                 System.out.print("Customer first name: ");
                 String fname = in.nextLine();
                 System.out.print("Customer last name: ");
                 String lname = in.nextLine();
+                System.out.print("Customer password: ");
+                String password = in.nextLine();
                 System.out.print("Customer phone number: ");
                 String phone = in.nextLine();
                 System.out.print("Customer street address: ");
@@ -150,10 +149,8 @@ public class TestDBCustomer {
     private void testDelete() {
         System.out.print("Customer email: ");
         String email = in.nextLine();
-        System.out.print("Customer password: ");
-        String password = in.nextLine();
         try {
-            if (db.findCustomer(email, password) != null) {
+            if (db.findCustomer(email) != null) {
                 db.deleteCustomer(email);
                 System.out.println("Customer " + email + " was deleted from the database.");
             } else {
@@ -167,7 +164,7 @@ public class TestDBCustomer {
     private void showAll() throws SQLException {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            ArrayList<Customer> customers = db.fetchAll();
+            ArrayList<Customer> customers = db.fetchCustomers();
             System.out.println("CUSTOMERS TABLE: ");
             customers.stream().forEach((customer) -> {
                 System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-30s %-10s %-30s %-10s \n", customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(), customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(), customer.getCity(), customer.getState(), customer.getPostcode(), formatter.format(customer.getDateRegistered()), customer.getGender());
