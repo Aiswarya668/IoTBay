@@ -105,9 +105,7 @@ public class TestDBStaff {
     private void testRead() throws SQLException {
         System.out.print("Staff email: ");
         String email = in.nextLine();
-        System.out.print("Staff password: ");
-        String password = in.nextLine();
-        Staff staff = db.findStaff(email, password);
+        Staff staff = db.findStaff(email);
         if (staff != null) {
             System.out.println("Staff " + staff.getFirstName() + " " + staff.getLastName() + " exists in the database.");
         } else {
@@ -118,15 +116,15 @@ public class TestDBStaff {
     private void testUpdate() {
         System.out.print("Staff email: ");
         String email = in.nextLine();
-        System.out.print("Staff password: ");
-        String password = in.nextLine();
 
         try {
-            if (db.findStaff(email, password) != null) {
+            if (db.findStaff(email) != null) {
                 System.out.print("Staff first name: ");
                 String fname = in.nextLine();
                 System.out.print("Staff last name: ");
                 String lname = in.nextLine();
+                System.out.print("Staff password: ");
+                String password = in.nextLine();
                 System.out.print("Staff phone number: ");
                 String phone = in.nextLine();
                 System.out.print("Staff street address: ");
@@ -144,7 +142,8 @@ public class TestDBStaff {
                 System.out.print("Staff contract type: ");
                 String contractType = in.nextLine();
                 System.out.print("Staff pay per hour: ");
-                String payHr = in.nextLine();
+                int payHr = in.nextInt();
+                in.nextLine(); // Consumer newline left-over from nextInt()
                 db.updateStaff(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, manager, contractType, payHr);
             } else {
                 System.out.println("Staff does not exist.");
@@ -157,10 +156,8 @@ public class TestDBStaff {
     private void testDelete() {
         System.out.print("Staff email: ");
         String email = in.nextLine();
-        System.out.print("Staff password: ");
-        String password = in.nextLine();
         try {
-            if (db.findStaff(email, password) != null) {
+            if (db.findStaff(email) != null) {
                 db.deleteStaff(email);
                 System.out.println("Staff " + email + " was deleted from the database.");
             } else {
@@ -174,7 +171,7 @@ public class TestDBStaff {
     private void showAll() throws SQLException {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            ArrayList<Staff> staffs = db.fetchAll();
+            ArrayList<Staff> staffs = db.fetchStaffs();
             System.out.println("STAFF TABLE: ");
             staffs.stream().forEach((staff) -> {
                 System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-20s %-10s %-10s %-10s %-10s \n", staff.getEmail(), staff.getFirstName(), staff.getLastName(), staff.getPhoneNumber(), staff.getPassword(), staff.getStreetAddress(), staff.getUnitNumber(), staff.getCity(), staff.getState(), staff.getPostcode(), staff.getManager(), staff.isLoginStatus(), formatter.format(staff.getDateRegistered()), staff.getContractType(), staff.getHourlyPay());

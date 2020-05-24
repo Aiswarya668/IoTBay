@@ -7,8 +7,6 @@ package uts.isd.model.iotbay.dao;
 
 import uts.isd.model.Staff;
 import java.sql.*;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -18,26 +16,28 @@ import java.util.*;
 public class DBStaffManager {
 
     private Statement st;
+    private Connection conn;
 
     public DBStaffManager(Connection conn) throws SQLException {
         st = conn.createStatement();
+        this.conn = conn;
     }
 
     //Find staff by email and password in the database   
-    public Staff findStaff(String email, String password) throws SQLException {
+    public Staff findStaff(String email) throws SQLException {
         //setup the select sql query string       
-        String query = "SELECT * FROM IOTBAYUSER.STAFF WHERE STAFFEMAIL='" + email + "' AND PASSWORD='" + password + "'";
+        String query = "SELECT * FROM IOTBAYUSER.STAFF WHERE STAFFEMAIL='" + email + "'";
         //execute this query using the statement field
         //add the results to a ResultSet       
         ResultSet rs = st.executeQuery(query);
         //search the ResultSet for a staff using the parameters               
         while (rs.next()) {
             String staffEmail = rs.getString(1);
-            String staffPass = rs.getString(5);
-            if (staffEmail.equals(email) && staffPass.equals(password)) {
+            if (staffEmail.equals(email)) {
                 String staffFName = rs.getString(2);
                 String staffLName = rs.getString(3);
                 String staffPhone = rs.getString(4);
+                String staffPass = rs.getString(5);
                 String staffStreetAddr = rs.getString(6);
                 String staffUnitNo = rs.getString(7);
                 String staffCity = rs.getString(8);
@@ -48,33 +48,92 @@ public class DBStaffManager {
                 java.util.Date staffRegisterDate = rs.getDate(13);
                 String staffContractType = rs.getString(14);
                 int staffPayHr = rs.getInt(15);
-                return new Staff(staffFName, staffLName, staffEmail, staffPass, staffUnitNo, staffStreetAddr, staffCity, staffState, staffPostCode, staffRegisterDate, staffLoginStatus, staffPhone, staffContractType, staffPayHr, staffManager);
+                return new Staff(staffFName, staffLName, staffEmail, staffPass,
+                        staffUnitNo, staffStreetAddr, staffCity, staffState,
+                        staffPostCode, staffRegisterDate, staffLoginStatus,
+                        staffPhone, staffContractType, staffPayHr, staffManager);
             }
         }
         return null;
     }
 
     //Add a staff-data into the database   
-    public void addStaff(String email, String fname, String lname, String phone, String password, String streetAddr, String unitNo, String city, String state, String postCode, String manager, String contractType, String payHr) throws SQLException {
+    public void addStaff(String staffEmail, String staffFname, String staffLname,
+            String staffPhone, String staffPass, String staffSAdd,
+            String staffUnit, String staffCity, String staffState,
+            String staffPostC, String staffManager, String staffContractType,
+            String staffPayHr)
+            throws SQLException {
         //code for add-operation
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String currentDate = formatter.format(new java.util.Date());
-        st.executeUpdate("INSERT INTO IOTBAYUSER.STAFF VALUES ('" + email + "', '" + fname + "', '" + lname + "', '" + phone + "', '" + password + "', '" + streetAddr + "', '" + unitNo + "', '" + city + "', '" + state + "', '" + postCode + "', '" + manager + "', '" + "false" + "', '" + currentDate + "', '" + contractType + "', " + payHr + ")"); // payHr is type int (does not have quotation marks)
+        Timestamp date = new Timestamp(new java.util.Date().getTime());
+
+        String query = "INSERT INTO IOTBAYUSER.STAFF VALUES "
+                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, staffEmail);
+        stmt.setString(2, staffFname);
+        stmt.setString(3, staffLname);
+        stmt.setString(4, staffPhone);
+        stmt.setString(5, staffPass);
+        stmt.setString(6, staffSAdd);
+        stmt.setString(7, staffUnit);
+        stmt.setString(8, staffCity);
+        stmt.setString(9, staffState);
+        stmt.setString(10, staffPostC);
+        stmt.setString(11, staffManager);
+        stmt.setBoolean(12, true);
+        stmt.setTimestamp(13, date);
+        stmt.setString(14, staffContractType);
+        stmt.setString(15, staffPayHr);
+
+        stmt.executeUpdate();
     }
 
     //update a staff details in the database   
-    public void updateStaff(String email, String fname, String lname, String phone, String password, String streetAddr, String unitNo, String city, String state, String postCode, String manager, String contractType, String payHr) throws SQLException {
+    public void updateStaff(String staffEmail, String staffFname,
+            String staffLname, String staffPhone, String staffPass,
+            String staffSAdd, String staffUnit, String staffCity,
+            String staffState, String staffPostC, String staffManager,
+            String staffContractType, int staffPayHr)
+            throws SQLException {;
         //code for update-operation
-        st.executeUpdate("UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', MANAGER='" + manager + "', CONTRACTTYPE='" + contractType + "', PAYHR=" + payHr + " WHERE STAFFEMAIL='" + email + "'");
+//        st.executeUpdate("UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', MANAGER='" + manager + "', CONTRACTTYPE='" + contractType + "', PAYHR=" + payHr + " WHERE STAFFEMAIL='" + email + "'");
+        String query = "UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL = ?, "
+                + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?, "
+                + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?, "
+                + "POSTALCODE = ?, MANAGER = ?, CONTRACTTYPE = ?, PAYHR = ? "
+                + "WHERE STAFFEMAIL = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, staffEmail);
+        stmt.setString(2, staffFname);
+        stmt.setString(3, staffLname);
+        stmt.setString(4, staffPhone);
+        stmt.setString(5, staffPass);
+        stmt.setString(6, staffSAdd);
+        stmt.setString(7, staffUnit);
+        stmt.setString(8, staffCity);
+        stmt.setString(9, staffState);
+        stmt.setString(10, staffPostC);
+        stmt.setString(11, staffManager);
+        stmt.setString(12, staffContractType);
+        stmt.setInt(13, staffPayHr);
+        stmt.setString(14, staffEmail);
+
+        stmt.executeUpdate();
     }
 
     //delete a staff from the database   
-    public void deleteStaff(String email) throws SQLException {
+    public void deleteStaff(String staffEmail) throws SQLException {
         //code for delete-operation   
-        st.executeUpdate("DELETE FROM IOTBAYUSER.STAFF WHERE STAFFEMAIL='" + email + "'");
+        String query = "DELETE FROM IOTBAYUSER.STAFF WHERE STAFFEMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, staffEmail);
+
+        stmt.executeUpdate();
     }
 
-    public ArrayList<Staff> fetchAll() throws SQLException {
+    public ArrayList<Staff> fetchStaffs() throws SQLException {
         String fetch = "SELECT * FROM STAFF";
         ResultSet rs = st.executeQuery(fetch);
         ArrayList<Staff> temp = new ArrayList();
@@ -95,8 +154,25 @@ public class DBStaffManager {
             java.util.Date staffRegisterDate = rs.getDate(13);
             String staffContractType = rs.getString(14);
             int staffPayHr = rs.getInt(15);
-            temp.add(new Staff(staffFName, staffLName, staffEmail, staffPass, staffUnitNo, staffStreetAddr, staffCity, staffState, staffPostCode, staffRegisterDate, staffLoginStatus, staffPhone, staffContractType, staffPayHr, staffManager));
+            temp.add(new Staff(staffFName, staffLName, staffEmail, staffPass,
+                    staffUnitNo, staffStreetAddr, staffCity, staffState,
+                    staffPostCode, staffRegisterDate, staffLoginStatus,
+                    staffPhone, staffContractType, staffPayHr, staffManager));
         }
         return temp;
+    }
+
+    public boolean checkStaff(String staffEmail) throws SQLException {
+        String query = "SELECT * FROM IOTBAYUSER.STAFF "
+                + "where STAFFEMAIL = " + staffEmail;
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            String email = rs.getString(1);
+            if (email.equals(staffEmail)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
