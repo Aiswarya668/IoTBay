@@ -91,7 +91,7 @@ public class TestDBCustomer {
         System.out.print("Customer gender: ");
         String gender = in.nextLine();
         try {
-            db.addCustomer(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, gender);
+            db.addCustomer(fname, lname, email, password, gender, unitNo, streetAddr, city, state, postCode, phone);
         } catch (SQLException ex) {
             Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
