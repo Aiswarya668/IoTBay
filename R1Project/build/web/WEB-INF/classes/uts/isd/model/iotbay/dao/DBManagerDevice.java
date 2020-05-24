@@ -7,7 +7,7 @@ package uts.isd.model.iotbay.dao;
 
 import uts.isd.model.Device;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 
 /**
@@ -17,27 +17,27 @@ import java.util.ArrayList;
 public class DBManagerDevice {
     
     private Statement st;
-    private Connection conn;
     
     public DBManagerDevice(Connection conn) throws SQLException{
-        st = conn.createStatement();
-        this.conn = conn;
+        st = conn.createStatement();    
     }
     
-    //Find a device by name in iotdb database 
-    public Device findDevice(String deviceName) throws SQLException{
+    //Find a device by name + type in iotdb database
+    public Device findDevice(String deviceName, String type) throws SQLException{
         
         //Searches device by ID and puts in result set - rs enables iterative reading 
-        String fetch = "select * from IOTBAYUSER.Device where deviceName='" + deviceName;
-        ResultSet rs = st.executeQuery(fetch);
+        String query = "SELECT * FROM IOTBAYUSER.DEVICE WHERE DEVICENAME='" + deviceName + "' AND TYPE='" + type + "'";
+        // results added to result set 
+        ResultSet rs = st.executeQuery(query);
         
         while (rs.next()){
             String searchedDeviceName = rs.getString(2);
+            String searchedType = rs.getString(3);
            
-                if(searchedDeviceName.equals(deviceName)){
+                if(searchedDeviceName.equals(deviceName) && searchedType.equals(type)){
                     int searchedDeviceID = rs.getInt(1);
                     //String searchedDeviceName = rs.getString(2);
-                    String searchedType = rs.getString(3);
+                    //String searchedType = rs.getString(3);
                     double searchedDeviceCost = rs.getDouble(4);
                     int searchedDeviceStock = rs.getInt(5);
                     String searchedDeviceDescription = rs.getString(6);
@@ -51,36 +51,35 @@ public class DBManagerDevice {
         }
         
     //Add a device into iotdb
-    public void addDevice(String deviceName, String type, double cost,  int stockQuantity, String description) throws SQLException{
-       st.executeUpdate("insert into IOTBAYUSER.Device " + 
-               "VALUES ('" + deviceName + "', '" + type + "', '" + cost + "', '" + stockQuantity + "','" + description + "', '" + "' )");
+    public void addDevice(String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
+       st.executeUpdate("INSERT INTO IOTBAYUSER.DEVICE VALUES ('" + deviceName + "', '" + type + "', " + cost + ", " + stockQuantity +", '" + description + "')"); //note that cost and stockQuanity do not have '' as int/double
         
     }
     
     //Update device details 
     public void updateDevice(String deviceName, String type, double cost,  int stockQuantity, String description) throws SQLException{
-        st.executeUpdate("update IOTBAYUSER.Device set name='" + deviceName + "', type='" + type + "', cost='" + cost + "', stockquantity='" + stockQuantity + "', description='" + description + ")");
+        st.executeUpdate("UPDATE IOTBAYUSER.DEVICE SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "'");
     }
     
     //Delete device
-    public void deleteDevice(String deviceName) throws SQLException{
-        st.executeUpdate("delete from IOTBAYUSER.Device where DEVICEID='" + deviceName + "' ");
+    public void deleteDevice(int deviceID) throws SQLException{
+        st.executeUpdate("DELETE FROM IOTBAYUSER.Device WHERE DEVICEID=" + deviceID + "");
     }
     
     //Fetch all devices 
     public ArrayList<Device> fetchDevice()throws SQLException{
-        String query = "select * from DEVICES";
-        ResultSet rs = st.executeQuery(query);
+        String fetch = "SELECT * FROM DEVICES";
+        ResultSet rs = st.executeQuery(fetch);
         ArrayList<Device> result = new ArrayList();
         
             while (rs.next()){
-                int deviceID = rs.getInt(1);
-                String deviceName = rs.getString(2);
-                String type = rs.getString(3);
-                double cost = rs.getDouble(4);
-                int stockQuantity = rs.getInt(5);
-                String description = rs.getString(6);
-                result.add(new Device(deviceID, deviceName, type, cost, stockQuantity, description));
+                int searcheddeviceID = rs.getInt(1);
+                String searcheddeviceName = rs.getString(2);
+                String searchedtype = rs.getString(3);
+                double searchedcost = rs.getDouble(4);
+                int searchedstockQuantity = rs.getInt(5);
+                String searcheddescription = rs.getString(6);
+                result.add(new Device(searcheddeviceID, searcheddeviceName, searchedtype, searchedcost, searchedstockQuantity, searcheddescription));
             }
         return result;
     }

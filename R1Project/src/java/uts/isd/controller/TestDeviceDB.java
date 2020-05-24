@@ -1,7 +1,6 @@
 package uts.isd.controller;
+
 import java.sql.*;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.*;
 import uts.isd.model.Device;
@@ -57,9 +56,9 @@ public class TestDeviceDB {
                 case 'D':
                     testDelete();
                     break;
-                //case 'S':
-                  //  showAll();
-                  //  break;
+                case 'S':
+                    showAll();
+                    break;
                 default:
                     System.out.println("Unknown Command");
                     break;
@@ -68,7 +67,7 @@ public class TestDeviceDB {
     }
      
         private void testAdd() {
-        
+       
         System.out.print("Device name: ");
         String deviceName = in.nextLine();
         System.out.print("Device type: ");
@@ -78,7 +77,8 @@ public class TestDeviceDB {
         System.out.print("Device stock quantity: ");
         int stockQuantity = in.nextInt();
         System.out.print("Device description: ");
-        String description = in.nextLine();
+        String description = in.next();
+        
   
         try {
             db.addDevice(deviceName, type, cost, stockQuantity, description);
@@ -94,8 +94,10 @@ public class TestDeviceDB {
         
         System.out.print("Device name: ");
         String deviceName = in.nextLine();
+        System.out.print("Device type: ");
+        String type = in.nextLine();
         
-        Device device = db.findDevice(deviceName);
+        Device device = db.findDevice(deviceName, type);
         
         if (device != null) {
             System.out.println("Device: " + device.getDeviceName() + " " + device.getType() + " exists in the database.");
@@ -110,19 +112,24 @@ public class TestDeviceDB {
         private void testUpdate() {
         System.out.print("Device name: ");
         String deviceName = in.nextLine();
+        System.out.print("Device type: ");
+        String type = in.nextLine();
+        
        
         try {
-            if (db.findDevice(deviceName) != null) {
+            Device device = db.findDevice(deviceName, type);
+            if (device != null) {
                 //System.out.print("Device name: ");
                 //String deviceName = in.nextLine();
-                System.out.print("Device type: ");
-                String type = in.nextLine();
+                //System.out.print("Device type: ");
+                //String type = in.nextLine();
                 System.out.print("Device cost: ");
                 double cost = in.nextDouble();
                 System.out.print("Device stock quantity: ");
                 int stockQuantity = in.nextInt();
                 System.out.print("Device description: ");
-                String description = in.nextLine();
+                String description = in.next();
+                
                 db.updateDevice(deviceName, type, cost, stockQuantity, description);
                 
             } else {
@@ -139,12 +146,14 @@ public class TestDeviceDB {
         
         System.out.print("Device name: ");
         String deviceName = in.nextLine();
-        //System.out.print("Device id: ");
-        //int deviceID = in.nextInt();
+        System.out.print("Device type: ");
+        String type = in.nextLine();
+        System.out.print("Device id: ");
+        int deviceID = in.nextInt();
         
         try {
-            if (db.findDevice(deviceName) != null) {
-                db.deleteDevice(deviceName);
+            if (db.findDevice(deviceName, type) != null) {
+                db.deleteDevice(deviceID);
                 System.out.println("Device " + deviceName + " was deleted from the database.");
             } else {
                 System.out.println("Device does not exist.");
@@ -153,5 +162,18 @@ public class TestDeviceDB {
             Logger.getLogger(TestDeviceDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+        
+        private void showAll() throws SQLException {
+        try {
+            ArrayList<Device> devices = db.fetchDevice();
+            System.out.println("DEVICE TABLE: ");
+            devices.stream().forEach((device) -> {
+                System.out.printf(device.getDeviceName(), device.getType(), device.getCost(), device.getStockQuantity(), device.getDescription());
+            });
+            System.out.println();
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDeviceDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
