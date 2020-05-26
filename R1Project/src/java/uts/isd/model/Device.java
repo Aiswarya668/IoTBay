@@ -12,23 +12,27 @@ import java.io.Serializable;
  * @author aiswaryarajeev
  */
 public class Device implements Serializable {
-    private String deviceID;
+    private int deviceID;
     private String deviceName;
+    private String type;
     private double cost;
     private int stockQuantity;
+    private String description;
 
-    public Device(String deviceID, String deviceName, double cost, int stockQuantity) {
+    public Device(int deviceID, String deviceName, String type, double cost, int stockQuantity, String description) {
         this.deviceID = deviceID;
         this.deviceName = deviceName;
+        this.type = type;
         this.cost = cost;
         this.stockQuantity = stockQuantity;
+        this.description = description;
     }
 
-    public String getDeviceID() {
+    public int getDeviceID() {
         return deviceID;
     }
 
-    public void setDeviceID(String deviceID) {
+    public void setDeviceID(int deviceID) {
         this.deviceID = deviceID;
     }
 
@@ -39,6 +43,15 @@ public class Device implements Serializable {
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
 
     public double getCost() {
         return cost;
@@ -55,6 +68,12 @@ public class Device implements Serializable {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
-    
-    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

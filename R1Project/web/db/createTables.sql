@@ -21,7 +21,7 @@ State varchar(30),
 PostalCode varchar(5),
 LoginStatus boolean,
 RegisterDate timestamp,
-Gender boolean,
+Gender varchar(6),
 PRIMARY KEY (CustomerEmail)
 ); 
 
@@ -48,8 +48,10 @@ PRIMARY KEY (StaffEmail)
 CREATE TABLE Device(
 DeviceID int GENERATED ALWAYS AS IDENTITY NOT NULL,
 DeviceName varchar(100),
+Type varchar(100),
 Cost double,
 StockQuantity int,
+Description varchar(600),
 PRIMARY KEY (DeviceID)
 );
 
