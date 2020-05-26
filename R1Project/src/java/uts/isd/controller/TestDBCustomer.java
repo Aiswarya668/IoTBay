@@ -15,7 +15,7 @@ import uts.isd.model.iotbay.dao.DBConnector;
 import uts.isd.model.iotbay.dao.DBCustomerManager;
 
 public class TestDBCustomer {
- 
+
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection conn;
