@@ -36,7 +36,7 @@
             String state = request.getParameter("State");
             String postCode = request.getParameter("PostCode");
             String phoneNumber = request.getParameter("PhoneNumber");
-            %>
+        %>
             
     <body>     
             <h1>Hello <%= firstName %> <%= lastName %> !</h1>
