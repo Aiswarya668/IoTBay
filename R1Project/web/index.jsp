@@ -13,7 +13,8 @@
         <title>Landing Page</title>
     </head>
     <body>
-         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="center"/>
+         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+         <p class="right"> <a class ="button21" href="browseCatalogue.jsp">Browse as Guest</a> </p>
                 <div class="maincolumn1">
                     <div class="card">
         <h1>Welcome</h1>
