@@ -26,9 +26,10 @@ public class Staff implements Serializable {
     private boolean loginStatus;
     private String phoneNumber;
     private String contractType;
-    private String hourlyPay;
+    private int hourlyPay; // TODO: double?
+    private String manager;
 
-    public Staff(String firstName, String lastName, String email, String password, String unitNumber, String streetAddress, String city, String state, String postcode, Date dateRegistered, boolean loginStatus, String phoneNumber, String contractType, String hourlyPay) {
+    public Staff(String firstName, String lastName, String email, String password, String unitNumber, String streetAddress, String city, String state, String postcode, Date dateRegistered, boolean loginStatus, String phoneNumber, String contractType, int hourlyPay, String manager) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -43,6 +44,7 @@ public class Staff implements Serializable {
         this.phoneNumber = phoneNumber;
         this.contractType = contractType;
         this.hourlyPay = hourlyPay;
+        this.manager = manager;
     }
 
     public String getFirstName() {
@@ -149,15 +151,21 @@ public class Staff implements Serializable {
         this.contractType = contractType;
     }
 
-    public String getHourlyPay() {
+    public int getHourlyPay() {
         return hourlyPay;
     }
 
-    public void setHourlyPay(String hourlyPay) {
+    public void setHourlyPay(int hourlyPay) {
         this.hourlyPay = hourlyPay;
     }
 
-   
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
     
     
 }

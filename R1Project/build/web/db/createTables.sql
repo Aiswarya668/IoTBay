@@ -21,7 +21,7 @@ State varchar(30),
 PostalCode varchar(5),
 LoginStatus boolean,
 RegisterDate timestamp,
-Gender varchar(6),
+Gender boolean,
 PRIMARY KEY (CustomerEmail)
 ); 
 

@@ -27,7 +27,7 @@ public class Customer implements Serializable {
     private boolean loginStatus;
     private String phoneNumber;
 
-    public Customer(String firstName, String lastName, String email, String password, String gender, String unitNumber, String streetAddress, String city, String state, String postcode, String phoneNumber) {
+    public Customer(String firstName, String lastName, String email, String password, String gender, String unitNumber, String streetAddress, String city, String state, String postcode, String phoneNumber, Date dateRegistered, boolean loginStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,8 +39,10 @@ public class Customer implements Serializable {
         this.state = state;
         this.postcode = postcode;
         this.phoneNumber = phoneNumber;
+        this.dateRegistered = dateRegistered;
+        this.loginStatus = loginStatus;
     }
-
+    
     public String getFirstName() {
         return firstName;
     }
