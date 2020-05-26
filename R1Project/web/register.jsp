@@ -33,10 +33,7 @@
                 <tr><td>State</td><td><input type="text" placeholder="Enter state" name="State"></td></tr>
                 <tr><td>Postal Code</td><td><input type="text" placeholder="Enter post code" name="PostCode"></td></tr>
             </table>
-            <table>
-                <p>By creating an account, you agree to IoTBay's Conditions of Use and Privacy Notice.</p>
-                <tr><td>Agree to TOS</td><td><input type="checkbox" name="TOS" ></td></tr>
-            </table>
+            <input type="hidden" name="NewAccount" value="true" />
             <div>
                 <input class ="button4" type="submit" value="Sign Up">
                  <a class ="button3" href="index.jsp">Cancel</a>
