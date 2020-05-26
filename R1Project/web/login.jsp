@@ -22,6 +22,7 @@
                 <tr><td>Email</td><td><input type="text" placeholder="Enter email" name="Email"></td></tr>
                 <tr><td>Password</td><td><input type="password" placeholder="Enter password" name="Password"></td></tr>             
             </table>
+            <input type="hidden" name="NewAccount" value="false" />
             <div>
                 <a class ="button3" href="index.jsp">Cancel</a> 
                 <input class ="button4" type="submit" value="Sign in">
