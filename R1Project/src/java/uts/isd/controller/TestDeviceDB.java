@@ -9,7 +9,6 @@ import uts.isd.model.iotbay.dao.DBConnector;
 import uts.isd.model.iotbay.dao.DBDeviceManager;
 
 
-
 /**
  *
  * @author aiswarya.r

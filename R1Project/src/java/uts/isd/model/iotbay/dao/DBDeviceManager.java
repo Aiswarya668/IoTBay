@@ -9,7 +9,7 @@ import java.util.*;
  * @author aiswarya.r
  */
 public class DBDeviceManager {
-     private Statement st;
+    private Statement st;
     private Connection conn;
     
     public DBDeviceManager(Connection conn) throws SQLException{

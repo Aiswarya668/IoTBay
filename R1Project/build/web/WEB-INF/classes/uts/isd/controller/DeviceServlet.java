@@ -19,13 +19,15 @@ import javax.servlet.http.HttpSession;
 /**
  *
  * @author aiswarya.r
+ *  
+ */
 
 public class DeviceServlet extends HttpServlet {
     
     //create a database connection
     private DBConnector db;
     //share a database manager - device
-    private DBManagerDevice deviceManager;
+    private DBDeviceManager deviceManager;
     private Connection conn;
     
     
@@ -70,4 +72,3 @@ public class DeviceServlet extends HttpServlet {
     }
     
 }
- */
