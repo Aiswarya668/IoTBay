@@ -85,7 +85,6 @@ public class DBCustomerManager {
 //         }
 //         return null;
 //     }
-
     //Create (Add Customer data into the database)
     public void addCustomer(String customerFname, String customerLname,
             String customerEmail, String customerPass, String customerGender,

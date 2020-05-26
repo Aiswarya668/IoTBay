@@ -15,7 +15,7 @@ import uts.isd.model.iotbay.dao.DBConnector;
 import uts.isd.model.iotbay.dao.DBCustomerManager;
 
 public class TestDBCustomer {
-
+ 
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection conn;
@@ -91,7 +91,7 @@ public class TestDBCustomer {
         System.out.print("Customer gender: ");
         String gender = in.nextLine();
         try {
-            db.addCustomer(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, gender);
+            db.addCustomer(fname, lname, email, password, gender, unitNo, streetAddr, city, state, postCode, phone);
         } catch (SQLException ex) {
             Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -166,7 +166,7 @@ public class TestDBCustomer {
             ArrayList<Customer> customers = db.fetchCustomers();
             System.out.println("CUSTOMERS TABLE: ");
             customers.stream().forEach((customer) -> {
-                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-30s %-10s %-30s %-10s \n", customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(), customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(), customer.getCity(), customer.getState(), customer.getPostcode(), formatter.format(customer.getDateRegistered()), customer.getGender());
+                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s \n", customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(), customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(), customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(), formatter.format(customer.getDateRegistered()), customer.getGender());
             });
             System.out.println();
         } catch (SQLException ex) {
