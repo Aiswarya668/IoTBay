@@ -1,3 +1,4 @@
+/**
 package uts.isd.controller;
 import uts.isd.model.iotbay.dao.*;
 import uts.isd.model.iotbay.dao.DB;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
  *
  * @author aiswarya.r
  *  
+ 
 
 
 public class DeviceServlet extends HttpServlet {
@@ -72,4 +74,4 @@ public class DeviceServlet extends HttpServlet {
     }
     
 }
- */
+*/
