@@ -21,7 +21,7 @@ public class DBSupplierInformationManager {
     
     //Read (Find the Supplier)
     public Supplier findSupplier(String contactName, String supplierName) throws SQLException {
-        String fetch ="select * from IOTBAYUSER.ShippingCompany where CONTACTNAME = '" + contactName + " ' and COMPANYNAME='" + supplierName + "'";
+        String fetch ="select * from IOTBAYUSER.Supplier where CONTACTNAME = '" + contactName + " ' and SUPPLIERNAME='" + supplierName + "'";
         ResultSet rs = st.executeQuery(fetch);
         
         while (rs.next()) {
@@ -43,15 +43,15 @@ public class DBSupplierInformationManager {
     
     //Update (Update a Supplier's details in the database)
     public void updateSupplier(String supplierEmail, String supplierName, String contactName, String supplierAddress) throws SQLException {
-        st.executeUpdate("UPDATE IOTBAYUSER.Supplier SET COMPANYNAME='" + supplierName + "', CONTACTNAME='" + contactName + "', COMPANYADDRESS='" + supplierAddress +"' WHERE COMPANYEMAIL='"+ supplierEmail +"' )");
+        st.executeUpdate("UPDATE IOTBAYUSER.Supplier SET SUPPLIERNAME='" + supplierName + "', CONTACTNAME='" + contactName + "', SUPPLIERADDRESS='" + supplierAddress +"' WHERE SUPPLIEREMAIL='"+ supplierEmail +"' )");
     }
     
     //Delete (Delete a Supplier from the database)
-    public void deleteSupplier(String supplierEmail) throws SQLException {
-        st.executeUpdate("DELETE FROM IOTBAYUSER.Supplier WHERE EMAIL='" + supplierEmail + "'");
+    public void deleteSupplier(String contactName, String supplierName) throws SQLException {
+        st.executeUpdate("DELETE FROM IOTBAYUSER.Supplier WHERE CONTACTNAME='" + contactName + "', SUPPLIERNAME='" + supplierName + "'");
     }
     
-    public ArrayList<Supplier> fectSupplier() throws SQLException {
+    public ArrayList<Supplier> fetchSuppliers() throws SQLException {
     String fetch = "select * from SUPPLIER";
     ResultSet rs = st.executeQuery(fetch);
     ArrayList<Supplier> temp = new ArrayList();

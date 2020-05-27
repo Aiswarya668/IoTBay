@@ -11,6 +11,8 @@ import java.util.logging.*;
 import uts.isd.model.Supplier;
 import uts.isd.model.iotbay.dao.DBConnector;
 import uts.isd.model.iotbay.dao.DBSupplierInformationManager;
+import java.text.Format;
+
 /**
  *
  * @author Anastasia
@@ -34,6 +36,7 @@ public class TestDBSupplier {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
         
         
     private char readChoice() {
@@ -82,7 +85,7 @@ public class TestDBSupplier {
         } catch (SQLException ex) {
             Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Supplier is added to the database.");
+        System.out.println("Supplier with person of contact is added to the database.");
     }
     
     private void testRead() throws SQLException {
@@ -93,7 +96,8 @@ public class TestDBSupplier {
         Supplier supplier = db.findSupplier(contactName, supplierName);
         if (supplier != null) {
             System.out.println("Supplier " + supplier.getSupplierName()+ " with person of contact " + supplier.getContactName() + " exists in the database.");
-        } else {
+        } 
+        else {
             System.out.println("Supplier with person of contacts does not exits.");
         }
 
@@ -132,12 +136,31 @@ public class TestDBSupplier {
         
         try {
             if (db.findSupplier(contactName, supplierName) != null) {
-              
+              db.deleteSupplier(contactName, supplierName);
+                System.out.println("Supplier " + supplierName + " with person of contact " + contactName + "was deleted from the database.");
+            } else {
+                System.out.println("Supplier with person of contact does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     private void showAll() throws SQLException {
-        
-        
+        try {
+            ArrayList<Supplier> suppliers = db.fetchSuppliers();
+            System.out.println("SUPPLIERS TABLE: ");
+            suppliers.stream().forEach((supplier) -> {
+                System.out.printf("%-20s %-20s %-20s %-20s \n", supplier.getSupplierEmail(), supplier.getSupplierName(), supplier.getContactName(), supplier.getSupplierAddress());
+            });
+            System.out.println();
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+        
+    
     
 }
