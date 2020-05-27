@@ -15,34 +15,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/webpage.css">
 
-    <title>Device Creation</title>
+        <title>Device Creation</title>
     </head>
     <body>
-     
-         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-                <div class="maincolumn2">
-                     <div class="card">
-        <h1>Create new device </span> </h1>
-        <form method="post" method="get" action="createdDevice.jsp">
-            <table>
-                <tr><td>Device Name:</td><td><input type="text" placeholder="Enter device name" name="DeviceName"></td></tr>
-                <tr><td>Device Type:</td><td><input type="text" placeholder="Enter device type" name="DeviceType"></td></tr>
-                <tr><td>Price ($):</td><td><input type="text" placeholder="Enter price $0.00" name="DeviceCost"></td></tr>
-                <tr><td>Stock Quantity:</td><td><input type="text" placeholder="Enter stock quantity" name="DeviceStock"></td></tr>
-                <tr><td>Description</td><td><input type="text" placeholder="Enter breif description" name="DeviceDescription"></td></tr>   
-            </table>
-            
-            <div>
-                <input class ="button4" type="submit" value="Create device">
-                 <a class ="button3" href="index.jsp">Cancel</a>
+        <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+        <div class="maincolumn2">
+            <div class="card">
+                <h1>Create new device </span> </h1>
+                <form method="post" method="get" action="createdDevice.jsp">
+                    <table>
+                        <tr><td>Device Name:</td><td><input type="text" placeholder="Enter device name" name="DeviceName"></td></tr>
+                        <tr><td>Device Type:</td><td><input type="text" placeholder="Enter device type" name="DeviceType"></td></tr>
+                        <tr><td>Price ($):</td><td><input type="text" placeholder="Enter price $0.00" name="DeviceCost"></td></tr>
+                        <tr><td>Stock Quantity:</td><td><input type="text" placeholder="Enter stock quantity" name="DeviceStock"></td></tr>
+                        <tr><td>Description</td><td><input type="text" placeholder="Enter breif description" name="DeviceDescription"></td></tr>   
+                    </table>
+                    <div>
+                        <input class ="button4" type="submit" value="Create device">
+                        <a class ="button3" href="index.jsp">Cancel</a>
+                    </div>
+                </form>
             </div>
-            
-           
-        </form>
-        
-                </div>
-        
-        
-            </div>
+        </div>
     </body>
 </html>
