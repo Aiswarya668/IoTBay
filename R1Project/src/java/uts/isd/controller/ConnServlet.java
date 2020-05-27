@@ -24,7 +24,7 @@ import uts.isd.model.iotbay.dao.*;
 public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
-//       private DBManager manager;
+    private DBCustomerManager manager;
     private Connection conn;
 
     @Override //Create and instance of DBConnector for the deployment session
@@ -42,13 +42,13 @@ public class ConnServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         conn = db.openConnection();
-//        try {
-//            manager = new DBManager(conn);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        //export the DB manager to the view-session (JSPs)
-//        session.setAttribute("manager", manager);
+        try {
+            manager = new DBCustomerManager(conn);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        export the DB manager to the view-session (JSPs)
+        session.setAttribute("manager", manager);
         session.setAttribute("conn", conn);
     }
 
