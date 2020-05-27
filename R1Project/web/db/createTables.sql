@@ -55,11 +55,12 @@ Description varchar(600),
 PRIMARY KEY (DeviceID)
 );
 
-CREATE TABLE ShippingCompany(
-CompanyEmail varchar(50) NOT NULL,
-Name varchar(20),
-PhoneNumber varchar(10),
-PRIMARY KEY (CompanyEmail)
+CREATE TABLE Supplier(
+supplierEmail varchar(50) NOT NULL,
+supplierName varchar(30),
+contactName varchar(30),
+supplierAddress varchar(30),
+PRIMARY KEY (supplierEmail)
 );
 
 CREATE TABLE CustomerOrder(
@@ -69,7 +70,7 @@ DateOrdered timestamp,
 TotalPrice double,
 EstArrivalDate timestamp,
 DepartureDate timestamp,
-CompanyEmail varchar(50),
+supplierEmail varchar(50),
 ShipmentPrice double,
 ShippingType varchar(10),
 Status varchar(20),
@@ -80,7 +81,7 @@ State varchar(30),
 PostalCode varchar(5),
 PhoneNumber varchar(10),
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
-FOREIGN KEY (CompanyEmail) REFERENCES ShippingCompany(CompanyEmail),
+FOREIGN KEY (supplierEmail) REFERENCES Supplier(supplierEmail),
 PRIMARY KEY (OrderID)
 );
 
