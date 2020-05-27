@@ -13,14 +13,14 @@
         <title>Logout</title>
     </head>
     <body>
-         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="center"/>
-                <div class="maincolumn1">
-                     <div class="card">
-        
-        <p>You have logged out! Click <a href="index.jsp">here</a> to go back to the home page!</p>
-        <% session.invalidate();%>
-        
-                     </div>
-                </div>     
+        <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="center"/>
+        <div class="maincolumn1">
+            <div class="card">
+
+                <p>You have logged out! Click <a href="index.jsp">here</a> to go back to the home page!</p>
+                <% session.invalidate();%>
+
+            </div>
+        </div>     
     </body>
 </html>
