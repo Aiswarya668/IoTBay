@@ -4,6 +4,7 @@
     Author     : aiswaryarajeev
 --%>
 
+<%@page import="uts.isd.controller.ConnServlet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,5 +26,6 @@
 
                     </div>
                 </div>
+        <jsp:include page="./ConnServlet" flush="true" />
     </body>
 </html>
