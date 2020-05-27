@@ -24,7 +24,6 @@ import uts.isd.model.*;
 public class LoginServlet extends HttpServlet {
 
     @Override
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //1- retrieve the current session
@@ -54,7 +53,7 @@ public class LoginServlet extends HttpServlet {
             //9- redirect user back to the login.jsp     
             request.getRequestDispatcher("login.jsp").include(request, response);
         } 
-        else if (!validator.validatePassword(email)) {
+        else if (!validator.validatePassword(password)) {
             //11-set incorrect password error to the session 
             session.setAttribute("passErr", "Error: Password format incorrect");
             //12- redirect user back to the login.jsp 
@@ -68,8 +67,9 @@ public class LoginServlet extends HttpServlet {
         } 
         else {
             //15-set user does not exist error to the session 
-            session.setAttribute("existErr", "Student");
-            //16- redirect user back to the login.jsp       
+            session.setAttribute("existErr", "Customer does not exist in the database");
+            //16- redirect user back to the login.jsp
+            request.getRequestDispatcher("login.jsp").include(request, response);
         }
     }
 }

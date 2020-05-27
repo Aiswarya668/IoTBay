@@ -40,7 +40,7 @@ import javax.servlet.http.HttpSession;
     
     public void clear(HttpSession session) {
         session.setAttribute("emailErr", "Enter email");
-        session.setAttribute("passErr", "Enter email");
+        session.setAttribute("passErr", "Enter password");
         session.setAttribute("existErr", "");
         session.setAttribute("nameErr", "Enter name");
     }
