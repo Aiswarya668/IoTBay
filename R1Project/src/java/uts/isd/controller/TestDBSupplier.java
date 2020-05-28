@@ -85,7 +85,7 @@ public class TestDBSupplier {
         } catch (SQLException ex) {
             Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Supplier with person of contact is added to the database.");
+        System.out.println("Supplier with point of contact is added to the database.");
     }
     
     private void testRead() throws SQLException {
@@ -98,7 +98,7 @@ public class TestDBSupplier {
             System.out.println("Supplier " + supplier.getSupplierName()+ " with person of contact " + supplier.getContactName() + " exists in the database.");
         } 
         else {
-            System.out.println("Supplier with person of contacts does not exits.");
+            System.out.println("Supplier with point of contact does not exits.");
         }
 
     }
@@ -121,7 +121,7 @@ public class TestDBSupplier {
                 String supplierAddress = in.nextLine();
                 db.updateSupplier(supplierEmail, newSupplierName, newContactName, supplierAddress);
             } else {
-                System.out.println("Supplier with person of contact does not exist.");
+                System.out.println("Supplier with point of contact does not exist.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,11 +25,11 @@ public class DBSupplierInformationManager {
         ResultSet rs = st.executeQuery(fetch);
         
         while (rs.next()) {
-            String supplierContactName = rs.getString(3); 
+            String supplierEmail = rs.getString(1);
             String supplierCompanyName = rs.getString(2);
-            if (supplierContactName.equals(contactName) && supplierCompanyName.equals(supplierName)) {
-                String supplierEmail = rs.getString(1);
-                String supplierAddress = rs.getString(4);
+            String supplierContactName = rs.getString(3);
+            String supplierAddress = rs.getString(4);
+            if (supplierContactName.equals(contactName) && supplierCompanyName.equals(supplierName)) { 
                 return new Supplier(contactName, supplierName, supplierEmail, supplierAddress);   
             }
         }
@@ -43,7 +43,7 @@ public class DBSupplierInformationManager {
     
     //Update (Update a Supplier's details in the database)
     public void updateSupplier(String supplierEmail, String supplierName, String contactName, String supplierAddress) throws SQLException {
-        st.executeUpdate("UPDATE IOTBAYUSER.Supplier SET SUPPLIERNAME='" + supplierName + "', CONTACTNAME='" + contactName + "', SUPPLIERADDRESS='" + supplierAddress +"' WHERE SUPPLIEREMAIL='"+ supplierEmail +"' )");
+        st.executeUpdate("UPDATE IOTBAYUSER.Supplier SET SUPPLIERNAME='" + supplierName + "', CONTACTNAME='" + contactName + "', SUPPLIERADDRESS='" + supplierAddress +"' WHERE SUPPLIEREMAIL='"+ supplierEmail +"'");
     }
     
     //Delete (Delete a Supplier from the database)
@@ -57,9 +57,9 @@ public class DBSupplierInformationManager {
     ArrayList<Supplier> temp = new ArrayList();
     
     while (rs.next()) {
-        String contactName = rs.getString(3);
-        String supplierName = rs.getString(2);
         String supplierEmail = rs.getString(1);
+        String supplierName = rs.getString(2);
+        String contactName = rs.getString(3);
         String supplierAddress = rs.getString(4);
         temp.add(new Supplier(supplierEmail, supplierName, contactName, supplierAddress));
     }
