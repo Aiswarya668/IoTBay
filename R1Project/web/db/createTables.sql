@@ -22,6 +22,7 @@ PostalCode varchar(5),
 LoginStatus boolean,
 RegisterDate timestamp,
 Gender varchar(6),
+active boolean,
 PRIMARY KEY (CustomerEmail)
 ); 
 
@@ -41,6 +42,7 @@ LoginStatus boolean,
 RegisterDate timestamp,
 ContractType varchar(20),
 PayHr integer,
+active boolean,
 FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail), 
 PRIMARY KEY (StaffEmail)
 );
@@ -60,6 +62,7 @@ supplierEmail varchar(50) NOT NULL,
 supplierName varchar(30),
 contactName varchar(30),
 supplierAddress varchar(30),
+active boolean,
 PRIMARY KEY (supplierEmail)
 );
 
