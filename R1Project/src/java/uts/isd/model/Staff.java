@@ -13,6 +13,7 @@ import java.util.Date;
  * @author aiswaryarajeev
  */
 public class Staff implements Serializable {
+
     private String firstName;
     private String lastName;
     private String email;
@@ -28,8 +29,9 @@ public class Staff implements Serializable {
     private String contractType;
     private int hourlyPay; // TODO: double?
     private String manager;
+    private boolean active;
 
-    public Staff(String firstName, String lastName, String email, String password, String unitNumber, String streetAddress, String city, String state, String postcode, Date dateRegistered, boolean loginStatus, String phoneNumber, String contractType, int hourlyPay, String manager) {
+    public Staff(String firstName, String lastName, String email, String password, String unitNumber, String streetAddress, String city, String state, String postcode, Date dateRegistered, boolean loginStatus, String phoneNumber, String contractType, int hourlyPay, String manager, boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -45,6 +47,7 @@ public class Staff implements Serializable {
         this.contractType = contractType;
         this.hourlyPay = hourlyPay;
         this.manager = manager;
+        this.active = active;
     }
 
     public String getFirstName() {
@@ -166,6 +169,13 @@ public class Staff implements Serializable {
     public void setManager(String manager) {
         this.manager = manager;
     }
-    
-    
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 }
