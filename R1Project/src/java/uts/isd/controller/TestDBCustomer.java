@@ -173,7 +173,7 @@ public class TestDBCustomer {
                 System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s %-10s \n",
                         customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(),
                         customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(),
-                        customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(),
+                        customer.getCity(), customer.getState(), customer.getPostcode(), customer.getLoginStatus(),
                         formatter.format(customer.getDateRegistered()), customer.getGender(), customer.getActive());
             });
             System.out.println();
