@@ -93,7 +93,6 @@ public class DBCustomerManager {
 
         Timestamp date = new Timestamp(new java.util.Date().getTime());
 
-<<<<<<< HEAD
 //        String query = "INSERT INTO IOTBAYUSER.Customer" + " VALUES ('" + 
 //                customerEmail + "', '" + customerFname + "', '" + customerLname +
 //                "', '" + customerPhone + "', '" + customerPass + "', '" + 
@@ -102,9 +101,6 @@ public class DBCustomerManager {
 //                "true" + "', '" + date.toString() + "', '" + 
 //                customerGender + "' )";
         String query = "INSERT INTO IOTBAYUSER.Customer VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
-=======
-        String query = "INSERT INTO IOTBAYUSER.Customer VALUES " + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
->>>>>>> add edit servlet
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
         stmt.setString(2, customerFname);
@@ -124,7 +120,6 @@ public class DBCustomerManager {
         stmt.executeUpdate();
     }
 
-<<<<<<< HEAD
     //Update (Update a Customer's details in the database)
     public void updateCustomer(String customerEmail, String customerFname,
             String customerLname, String customerPass, String customerGender,
@@ -133,15 +128,6 @@ public class DBCustomerManager {
             boolean customerActive)
             throws SQLException {
         
-=======
-    // Update (Update a Customer's details in the database)
-    // Active is not in here because a customer should not change 
-    // active status amongst their other registration details
-    public void updateCustomer(String customerEmail, String customerFname, String customerLname, String customerPass,
-            String customerGender, String customerUnit, String customerSAdd, String customerCity, String customerState,
-            String customerPostC, String customerPhone) throws SQLException {
-
->>>>>>> add edit servlet
         String query = "UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?,"
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?,"
@@ -193,24 +179,11 @@ public class DBCustomerManager {
             boolean customerLoginStatus = rs.getBoolean(11);
             java.util.Date customerRegisterDate = rs.getDate(12);
             String customerGender = rs.getString(13);
-<<<<<<< HEAD
-<<<<<<< HEAD
             boolean customerActive = rs.getBoolean(14);
             result.add(new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender, customerUnit, customerSAdd,
                     customerCity, customerState, customerPostC, customerPhone,
                     customerRegisterDate, customerLoginStatus, customerActive));
-=======
-            result.add(new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
-                    customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
-                    customerRegisterDate, customerLoginStatus));
->>>>>>> more on customer register validation
-=======
-            boolean customerActive = rs.getBoolean(14);
-            result.add(new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
-                    customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
-                    customerRegisterDate, customerLoginStatus, customerActive));
->>>>>>> add edit servlet
         }
 
         return result;

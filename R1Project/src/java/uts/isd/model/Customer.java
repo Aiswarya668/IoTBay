@@ -135,7 +135,7 @@ public class Customer implements Serializable {
         this.dateRegistered = dateRegistered;
     }
 
-    public boolean isLoginStatus() {
+    public boolean getLoginStatus() {
         return loginStatus;
     }
 
