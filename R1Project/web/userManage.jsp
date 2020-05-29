@@ -4,10 +4,12 @@
     Author     : aiswarya.r
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<%@page import="uts.isd.model.Customer"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="uts.isd.model.Device"%>
 <%@page import="uts.isd.model.iotbay.dao.*"%>
 
 
@@ -31,56 +33,53 @@
                 <%
                     DBConnector dbConnector = new DBConnector();
                     Connection conn = dbConnector.openConnection();
-                    DBDeviceManager dbManager = new DBDeviceManager(conn);
-                    dbManager.fetchDevice();
-
+                    DBCustomerManager dbManager = new DBCustomerManager(conn);
+                    List<Customer> customers = dbManager.fetchCustomers();
+                    request.setAttribute("customers", customers);
                 %>
 
                 <h1>User Management</h1>
-
-                <%-- 
-                Note that this is a test 
-                
-                
-                <%!
-                    public class Device {
-                     String url = "jdbc:derby://localhost:1527/iot_db";
-                     String dbuser = "iotbayUser";
-                     String dbpass = "Group27";
-
-             Connection conn = null;
-             PreparedStatement sd = null;
-             ResultSet rs = null;
-
-             public Device(){
-             
-                try {
-                    conn = DriverManager.getConnection(url, dbuser, dbpass);
-                    sd = conn.prepareStatement("SELECT deviceID, deviceName, type, cost, stockQuantity, description from DEVICE");
-
-                } catch(SQLException e){
-                    e.printStackTrace();
-                }
-            
-                }
-              
-                
-                
-            }
-        %>
-                --%>
-
-                <form method="post" method="get">
-                    <table>
+                <table border="1">
+                    <thead>
                         <tr>
-                            <td>Device Name</td>
-                            <td>Type</td>
-                            <td>Cost</td>
-                            <td>Stock</td>
-                            <td>Description</td>
+                            <th>Email</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Phone number</th>
+                            <th>Password</th>
+                            <th>Street address</th>
+                            <th>Unit number</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Postcode</th>
+                            <th>Login status</th>
+                            <th>Register date</th>
+                            <th>Gender</th>
+                            <th>Active</th>
                         </tr>
-                    </table>
-                </form>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${customers}" var="c">
+                            <tr>
+                                <td>${c.getEmail()}</td>
+                                <td>${c.getFirstName()}</td>
+                                <td>${c.getLastName()}</td>
+                                <td>${c.getPhoneNumber()}</td>
+                                <td>${c.getPassword()}</td>
+                                <td>${c.getStreetAddress()}</td>
+                                <td>${c.getUnitNumber()}</td>
+                                <td>${c.getCity()}</td>
+                                <td>${c.getState()}</td>
+                                <td>${c.getPostcode()}</td>
+                                <td>${c.isLoginStatus()}</td>
+                                <td>${c.getDateRegistered()}</td>
+                                <td>${c.getGender()}</td>
+                                <td>${c.isActive()}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
             </body>
         </div>
     </div>
