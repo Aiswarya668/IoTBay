@@ -69,8 +69,7 @@ public class RegisterServlet extends HttpServlet {
         } 
         else if (!validator.validatePassword(password)) {
             // set incorrect password error to the session 
-            session.setAttribute("passErr", "Error: Password format incorrect. "
-                    + "Must be at least 4 characters long");
+            session.setAttribute("passErr", "Error: Must be at least 4 characters long");
             // redirect user back to the login.jsp 
             request.getRequestDispatcher("register.jsp").include(request, response);
         } 

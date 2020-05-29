@@ -54,14 +54,22 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").include(request, response);
         } else if (!validator.validatePassword(password)) {
             // 11-set incorrect password error to the session
-            session.setAttribute("passErr", "Error: Password format incorrect");
+            session.setAttribute("passErr", "Error: Password format incorrect: min. 4 characters");
             // 12- redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         } else if (customer != null) {
-            // 13-save the logged in user object to the session
-            session.setAttribute("customer", customer);
-            // 14- redirect user to the main.jsp
-            request.getRequestDispatcher("login.jsp").include(request, response);
+            if (customer.getPassword().equals(password)) {
+                // 13-save the logged in user object to the session
+                session.setAttribute("customer", customer);
+                // 14- redirect user to the main.jsp
+                request.getRequestDispatcher("login.jsp").include(request, response);
+            }
+            else {
+                // 11-set incorrect password error to the session
+                session.setAttribute("passErr", "Error: Incorrect password");
+                // 12- redirect user back to the login.jsp
+                request.getRequestDispatcher("login.jsp").include(request, response);
+            }
         } else {
             // 15-set user does not exist error to the session
             session.setAttribute("existErr", "Customer does not exist in the database");

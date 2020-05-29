@@ -24,18 +24,21 @@
                 <h1>Login</h1>
                 <form method="post" method="get" action="LoginServlet">
                     <table>
-                        <tr><td>Email</td><td><input type="text" 
-                                                     placeholder="<%=(emailErr != null ? emailErr : "Enter email")%>"
-                                                     name="Email"></td></tr>
-                        <tr><td>Password</td><td><input type="password" 
-                                                        placeholder="<%=(passErr != null ? passErr : "Enter password")%>"
-                                                        name="Password"></td></tr>             
+                        <tr><td>Email</td><td>
+                            <input type="text" 
+                                placeholder="<%=(emailErr != null ? emailErr : "Enter email")%>"
+                                name="Email"></td></tr>
+                        <tr><td>Password</td><td>
+                            <input type="password" 
+                                placeholder="<%=(passErr != null ? passErr : "Enter password")%>"
+                                name="Password"></td></tr>             
                     </table>
                     <input type="hidden" name="NewAccount" value="false" />
                     <div>
                         <a class ="button3" href="index.jsp">Cancel</a> 
                         <input class ="button4" type="submit" value="Sign in">
                     </div>
+                    <p><%=(existErr != null ? existErr : "")%></p>
                 </form>
             </div>
         </div>

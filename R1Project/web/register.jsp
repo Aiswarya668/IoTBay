@@ -16,7 +16,6 @@
     <%
         String emailErr = (String) session.getAttribute("emailErr");
         String passErr = (String) session.getAttribute("passErr");
-        String existErr = (String) session.getAttribute("existErr");
         String fNameErr = (String) session.getAttribute("fNameErr");
         String lNameErr = (String) session.getAttribute("lNameErr");
         String genderErr = (String) session.getAttribute("genderErr");
@@ -55,23 +54,28 @@
                             <label for="female">Female</label><br></td></tr>
                         <tr><td>Phone Number</td><td>
                             <input type="text" 
-                                   placeholder="<%=(phoneErr != null ? phoneErr : "Enter phone number")%>"
-                                   name="PhoneNumber"></td></tr>   
-                        <tr><td>Unit Number</td><td><input type="text" 
-                                    placeholder="<%=(unitErr != null ? unitErr : "Enter unit number")%>" 
-                                    name="UnitNumber"></td></tr>
-                        <tr><td>Street Address</td><td><input type="text" 
-                                    placeholder="<%=(unitErr != null ? unitErr : "Enter street address")%>"  
-                                    name="StreetAddress"></td></tr>
-                        <tr><td>City</td><td><input type="text" 
-                                    placeholder="<%=(cityErr != null ? cityErr : "Enter city")%>"  
-                                    name="City"></td></tr>
-                        <tr><td>State</td><td><input type="text" 
-                                    placeholder="<%=(stateErr != null ? stateErr : "Enter state")%>"   
-                                    name="State"></td></tr>
-                        <tr><td>Postal Code</td><td><input type="text" 
-                                    placeholder="<%=(postErr != null ? postErr : "Enter post code")%>"  
-                                    name="PostCode"></td></tr>
+                                placeholder="<%=(phoneErr != null ? phoneErr : "Enter phone number")%>"
+                                name="PhoneNumber"></td></tr>   
+                        <tr><td>Unit Number</td><td>
+                            <input type="text" 
+                                placeholder="<%=(unitErr != null ? unitErr : "Enter unit number")%>" 
+                                name="UnitNumber"></td></tr>
+                        <tr><td>Street Address</td><td>
+                            <input type="text" 
+                                placeholder="<%=(unitErr != null ? unitErr : "Enter street address")%>"  
+                                name="StreetAddress"></td></tr>
+                        <tr><td>City</td><td>
+                            <input type="text" 
+                                placeholder="<%=(cityErr != null ? cityErr : "Enter city")%>"  
+                                name="City"></td></tr>
+                        <tr><td>State</td><td>
+                            <input type="text" 
+                                placeholder="<%=(stateErr != null ? stateErr : "Enter state")%>"   
+                                name="State"></td></tr>
+                        <tr><td>Postal Code</td><td>
+                            <input type="text" 
+                                placeholder="<%=(postErr != null ? postErr : "Enter post code")%>"  
+                                name="PostCode"></td></tr>
                     </table>
                     <input type="hidden" name="NewAccount" value="true" />
                     <div>

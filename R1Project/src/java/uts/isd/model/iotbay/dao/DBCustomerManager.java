@@ -50,7 +50,7 @@ public class DBCustomerManager {
                         customerRegisterDate, customerLoginStatus, customerActive);
             }
         }
-        return null;
+        throw new SQLException("No such customer exists");
     }
 
     // //Find customer by email and password in the database

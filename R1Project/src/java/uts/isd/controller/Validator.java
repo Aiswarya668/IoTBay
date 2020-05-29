@@ -28,32 +28,37 @@ public class Validator implements Serializable {
 
    public Validator() {
    }
-
-   // customer validator - 
+   
    public boolean validate(String pattern, String input) {
       Pattern regEx = Pattern.compile(pattern);
       Matcher match = regEx.matcher(input);
       return match.matches();
    }
 
+   // commonly used validators
+
+   // validator - needs to be a valid single string
+   public boolean validateSingleString(String string) {
+//      return validate(passwordPattern, string);
+        return true; // testing purpose
+   }
+
+   // validator - needs to be valid single int
+   public boolean validateSingleInt(String number) {
+//      return validate(namePattern, number);
+        return true; // testing purpose
+   }
+
+
    // customer validator - needs to have @ sign
    public boolean validateEmail(String email) {
       return validate(emailPattern, email);
    }
 
-   // customer validator - needs to be a valid single string
-   public boolean validateSingleString(String name) {
-      return validate(namePattern, name);
-   }
-
-   // customer validator - needs to be valid single int
-   public boolean validateSingleInt(String name) {
-      return validate(namePattern, name);
-   }
-
    // customer validator - phone needs to start with 0
-   public boolean validatePhone(String name) {
-      return validate(namePattern, name);
+   public boolean validatePhone(String phoneNumber) {
+//      return validate(passwordPattern, phoneNumber);
+      return true; // testing purpose
    }
 
    // customer validator - password needs 4 char

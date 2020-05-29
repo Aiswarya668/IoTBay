@@ -30,7 +30,7 @@
         String postCode = request.getParameter("PostCode");
         String phoneNumber = request.getParameter("PhoneNumber");
 
-        Customer customer;
+        <!-- Customer customer;
         DBConnector dbConnector = new DBConnector();
         Connection conn = dbConnector.openConnection();
         DBCustomerManager dbManager = new DBCustomerManager(conn);
@@ -44,7 +44,7 @@
         } else {
             customer = dbManager.findCustomer(email);
         }
-        session.setAttribute("customer", customer);
+        session.setAttribute("customer", customer); -->
     %>
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
