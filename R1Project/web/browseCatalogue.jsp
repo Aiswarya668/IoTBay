@@ -9,6 +9,8 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
 <%@page import="uts.isd.model.iotbay.dao.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 
 
@@ -22,66 +24,50 @@
         <title>Device Catalogue</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-    <div class="maincolumn2">
-        <div class="card">
+    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <div class="maincolumn3">
+        <div class="card1">
 
             </head>
             <body>
-
-                <%
-                    DBConnector dbConnector = new DBConnector();
-                    Connection conn = dbConnector.openConnection();
-                    DBDeviceManager dbManager = new DBDeviceManager(conn);
-                    dbManager.fetchDevice();
-
-                %>
-
                 <h1>Device Catalogue</h1>
-
-                <%-- 
-                Note that this is a test 
-                
-                
-                <%!
-                    public class Device {
-                     String url = "jdbc:derby://localhost:1527/iot_db";
-                     String dbuser = "iotbayUser";
-                     String dbpass = "Group27";
-
-             Connection conn = null;
-             PreparedStatement sd = null;
-             ResultSet rs = null;
-
-             public Device(){
-             
-                try {
-                    conn = DriverManager.getConnection(url, dbuser, dbpass);
-                    sd = conn.prepareStatement("SELECT deviceID, deviceName, type, cost, stockQuantity, description from DEVICE");
-
-                } catch(SQLException e){
-                    e.printStackTrace();
-                }
-            
-                }
-              
-                
-                
-            }
-        %>
-                --%>
-
                 <form method="post" method="get">
-                    <table>
+
+                    <form>
+                        Search device: <input type="text" name="Name" placeholder="Name, Type">
+                        <input type ="submit" value="Search">
+                    </form>
+
+                    <table class="device Table">
                         <tr>
+                            <td>Device ID</td>
                             <td>Device Name</td>
                             <td>Type</td>
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>
+                            <td></td>
                         </tr>
+
+                        <c:forEach items="${display}" var="display">
+                            <tr class="device tr">
+                                <td>${display.deviceID }</td>
+                                <td>${display.deviceName }</td>
+                                <td>${display.type }</td>
+                                <td>${display.cost }</td>
+                                <td>${display.stockQuantity }</td>
+                                <td>${display.description }</td>
+                                <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                            </tr>
+                        </c:forEach>
                     </table>
+
                 </form>
             </body>
         </div>
+        <div class="footer">
+
+        </div>
     </div>
+
 </html>

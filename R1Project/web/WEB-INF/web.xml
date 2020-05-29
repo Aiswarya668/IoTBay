@@ -9,6 +9,14 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>uts.isd.controller.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeviceCreationServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeviceCreationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeviceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -16,6 +24,14 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeviceCreationServlet</servlet-name>
+        <url-pattern>/DeviceCreationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDeviceServlet</servlet-name>
+        <url-pattern>/ViewDeviceServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

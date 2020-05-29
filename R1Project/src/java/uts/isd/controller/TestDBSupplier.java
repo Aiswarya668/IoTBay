@@ -95,7 +95,7 @@ public class TestDBSupplier {
         String supplierName = in.nextLine();
         Supplier supplier = db.findSupplier(contactName, supplierName);
         if (supplier != null) {
-            System.out.println("Supplier " + supplier.getSupplierName()+ " with person of contact " + supplier.getContactName() + " exists in the database.");
+            System.out.println("Contac " + supplier.getContactName()+ " with person of contact " + supplier.getContactName() + " exists in the database.");
         } 
         else {
             System.out.println("Supplier with person of contacts does not exits.");

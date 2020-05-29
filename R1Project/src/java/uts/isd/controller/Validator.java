@@ -12,14 +12,14 @@
     private String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";       
     private String passwordPattern = "[a-z0-9]{4,}";       
     
-    //device manageemnt validator patterns
-    private String deviceNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
-    private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
+    //device management validator patterns - for server side validation
+    private String deviceNamePattern = "(([a-zA-Z0-9]+))";
+    private String deviceTypePattern = "(([a-zA-Z0-9]+))";
     //Numbers with 2 decimals (.00)
     private String deviceCostPattern = "^-?\\d*\\.\\d{2}$";
     //Positive integers of undefined length
     private String deviceStockPattern = "^\\d+$";
-    private String deviceDescriptionPattern = "[A-Z][a-z]*";
+    private String deviceDescriptionPattern = "(([a-zA-Z0-9]+))";
 
     public Validator(){    }       
 
@@ -84,5 +84,11 @@
         session.setAttribute("passErr", "Enter password");
         session.setAttribute("existErr", "");
         session.setAttribute("nameErr", "Enter name");
+        //deviceCreation clear()
+        session.setAttribute("deviceNameErr", "Enter device name");
+        session.setAttribute("typeErr", "Enter device type");
+        session.setAttribute("priceErr", "Enter price $0.00");
+        session.setAttribute("stockErr", "Enter stock quantity");
+        session.setAttribute("descriptionErr", "Enter device description");
     }
 }
