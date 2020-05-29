@@ -136,7 +136,10 @@ public class TestDBCustomer {
                 String postCode = in.nextLine();
                 System.out.print("Customer gender: ");
                 String gender = in.nextLine();
-                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone);;
+                System.out.print("Customer active (true/false): ");
+                boolean active = in.nextBoolean();
+                in.nextLine(); // Consume newline left-over from nextBoolean()
+                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone, active);
             } else {
                 System.out.println("Customer does not exist.");
             }
@@ -166,7 +169,7 @@ public class TestDBCustomer {
             ArrayList<Customer> customers = db.fetchCustomers();
             System.out.println("CUSTOMERS TABLE: ");
             customers.stream().forEach((customer) -> {
-                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s \n", customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(), customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(), customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(), formatter.format(customer.getDateRegistered()), customer.getGender());
+                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s %-10s \n", customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(), customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(), customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(), formatter.format(customer.getDateRegistered()), customer.getGender(), customer.isActive());
             });
             System.out.println();
         } catch (SQLException ex) {
