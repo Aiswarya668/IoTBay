@@ -43,10 +43,11 @@ public class DBCustomerManager {
                 boolean customerLoginStatus = rs.getBoolean(11);
                 java.util.Date customerRegisterDate = rs.getDate(12);
                 String customerGender = rs.getString(13);
+                boolean customerActive = rs.getBoolean(14);
                 return new Customer(customerFname, customerLname, customerEmail,
                         customerPass, customerGender, customerUnit, customerSAdd,
                         customerCity, customerState, customerPostC, customerPhone,
-                        customerRegisterDate, customerLoginStatus);
+                        customerRegisterDate, customerLoginStatus, customerActive);
             }
         }
         return null;
@@ -181,10 +182,11 @@ public class DBCustomerManager {
             boolean customerLoginStatus = rs.getBoolean(11);
             java.util.Date customerRegisterDate = rs.getDate(12);
             String customerGender = rs.getString(13);
+            boolean customerActive = rs.getBoolean(14);
             result.add(new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender, customerUnit, customerSAdd,
                     customerCity, customerState, customerPostC, customerPhone,
-                    customerRegisterDate, customerLoginStatus));
+                    customerRegisterDate, customerLoginStatus, customerActive));
         }
 
         return result;
