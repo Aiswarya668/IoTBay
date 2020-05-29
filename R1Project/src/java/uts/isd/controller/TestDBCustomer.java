@@ -136,7 +136,10 @@ public class TestDBCustomer {
                 String postCode = in.nextLine();
                 System.out.print("Customer gender: ");
                 String gender = in.nextLine();
-                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone);;
+                System.out.print("Customer active (true/false): ");
+                boolean active = in.nextBoolean();
+                in.nextLine(); // Consume newline left-over from nextBoolean()
+                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone, active);
             } else {
                 System.out.println("Customer does not exist.");
             }

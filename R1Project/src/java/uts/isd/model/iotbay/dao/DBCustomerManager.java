@@ -103,7 +103,7 @@ public class DBCustomerManager {
 //                "true" + "', '" + date.toString() + "', '" + 
 //                customerGender + "' )";
         String query = "INSERT INTO IOTBAYUSER.Customer VALUES "
-                + "(?,?,?,?,?,?,?,?,?,?,?,?,? )";
+                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
         stmt.setString(2, customerFname);
@@ -118,6 +118,7 @@ public class DBCustomerManager {
         stmt.setBoolean(11, true);
         stmt.setTimestamp(12, date);
         stmt.setString(13, customerGender);
+        stmt.setBoolean(14, true);
 
         stmt.executeUpdate();
 //    st.executeUpdate(query);
@@ -127,7 +128,8 @@ public class DBCustomerManager {
     public void updateCustomer(String customerEmail, String customerFname,
             String customerLname, String customerPass, String customerGender,
             String customerUnit, String customerSAdd, String customerCity,
-            String customerState, String customerPostC, String customerPhone)
+            String customerState, String customerPostC, String customerPhone,
+            boolean customerActive)
             throws SQLException {
         
 //                st.executeUpdate("UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL='" + customerEmail + "', FNAME='" + customerFname + "', LNAME='" + customerLname + "', PHONENUMBER='" + customerPhone + "', PASSWORD='" + customerPass + "', STREETADDRESS='" + customerSAdd + "', UNITNUMBER='" + customerUnit + "', CITY='" + customerCity + "', STATE='" + customerState + "', POSTALCODE='" + customerPostC + "', GENDER='" + customerGender + "' WHERE CUSTOMEREMAIL='" + customerEmail + "'");
@@ -135,7 +137,7 @@ public class DBCustomerManager {
         String query = "UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?,"
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?,"
-                + "POSTALCODE = ?, GENDER = ? WHERE CUSTOMEREMAIL=?";
+                + "POSTALCODE = ?, GENDER = ?, ACTIVE = ? WHERE CUSTOMEREMAIL=?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
@@ -149,7 +151,8 @@ public class DBCustomerManager {
         stmt.setString(9, customerState);
         stmt.setString(10, customerPostC);
         stmt.setString(11, customerGender);
-        stmt.setString(12, customerEmail);
+        stmt.setBoolean(12, customerActive);
+        stmt.setString(13, customerEmail);
 
         stmt.executeUpdate();
     }
