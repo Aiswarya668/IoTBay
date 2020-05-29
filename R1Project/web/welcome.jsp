@@ -18,6 +18,7 @@
     </head>
     <%
         Boolean newAccount = Boolean.valueOf(request.getParameter("NewAccount"));
+        Customer customer = (Customer) session.getAttribute("customer");
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
         String email = request.getParameter("Email");
@@ -29,22 +30,6 @@
         String state = request.getParameter("State");
         String postCode = request.getParameter("PostCode");
         String phoneNumber = request.getParameter("PhoneNumber");
-
-        <!-- Customer customer;
-        DBConnector dbConnector = new DBConnector();
-        Connection conn = dbConnector.openConnection();
-        DBCustomerManager dbManager = new DBCustomerManager(conn);
-        if (newAccount) {
-            customer = new Customer(firstName, lastName, email,
-                    password, gender, unitNumber, streetAddress, city,
-                    state, postCode, phoneNumber, new Date(), true);
-            dbManager.addCustomer(firstName, lastName, email, password,
-                    gender, unitNumber, streetAddress, city, state,
-                    postCode, phoneNumber);
-        } else {
-            customer = dbManager.findCustomer(email);
-        }
-        session.setAttribute("customer", customer); -->
     %>
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
@@ -54,15 +39,15 @@
             <div class="card">
                 <body>     
                     <% if (newAccount) {%>
-                    <h1>Hello <%= firstName%> <%= lastName%> !</h1>
+                    <h1>Hello ${customer.firstName} ${customer.lastName} !</h1>
                     <% } else {%>
-                    <h1>Welcome back <%= firstName%> <%= lastName%> !</h1>
+                    <h1>Welcome back ${customer.firstName} ${customer.lastName} !</h1>
                     <% }%>
-                    <p class="p">Your email is: <%= email%> </p>
-                    <p class="p">Your password is: <%= password%> </p>
-                    <p class="p">Your gender is: <%= gender%> </p>
-                    <p class="p">Your address is: <%= unitNumber%>, <%= streetAddress%>,
-                        <%= city%> , <%= state%> , <%= postCode%></p>
+                    <p class="p">Your email is: ${customer.email} </p>
+                    <p class="p">Your password is: ${customer.password} </p>
+                    <p class="p">Your gender is: ${customer.gender}</p>
+                    <p class="p">Your address is: ${customer.unitNumber}, ${customer.streetAddress},
+                        ${customer.city} , ${customer.state} , ${customer.postcode}</p>
             </div>
         </div>
     </body>

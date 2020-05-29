@@ -151,12 +151,11 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
     }
-    
 }

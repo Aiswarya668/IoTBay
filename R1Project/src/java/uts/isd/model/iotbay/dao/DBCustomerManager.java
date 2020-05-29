@@ -43,10 +43,16 @@ public class DBCustomerManager {
                 boolean customerLoginStatus = rs.getBoolean(11);
                 java.util.Date customerRegisterDate = rs.getDate(12);
                 String customerGender = rs.getString(13);
+<<<<<<< HEAD
                 boolean customerActive = rs.getBoolean(14);
                 return new Customer(customerFname, customerLname, customerEmail,
                         customerPass, customerGender, customerUnit, customerSAdd,
                         customerCity, customerState, customerPostC, customerPhone,
+=======
+                Boolean customerActive = rs.getBoolean(14);
+                return new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
+                        customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
+>>>>>>> add edit servlet
                         customerRegisterDate, customerLoginStatus, customerActive);
             }
         }
@@ -94,6 +100,7 @@ public class DBCustomerManager {
 
         Timestamp date = new Timestamp(new java.util.Date().getTime());
 
+<<<<<<< HEAD
 //        String query = "INSERT INTO IOTBAYUSER.Customer" + " VALUES ('" + 
 //                customerEmail + "', '" + customerFname + "', '" + customerLname +
 //                "', '" + customerPhone + "', '" + customerPass + "', '" + 
@@ -102,6 +109,9 @@ public class DBCustomerManager {
 //                "true" + "', '" + date.toString() + "', '" + 
 //                customerGender + "' )";
         String query = "INSERT INTO IOTBAYUSER.Customer VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
+=======
+        String query = "INSERT INTO IOTBAYUSER.Customer VALUES " + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+>>>>>>> add edit servlet
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
         stmt.setString(2, customerFname);
@@ -119,9 +129,9 @@ public class DBCustomerManager {
         stmt.setBoolean(14, true);
 
         stmt.executeUpdate();
-        // st.executeUpdate(query);
     }
 
+<<<<<<< HEAD
     //Update (Update a Customer's details in the database)
     public void updateCustomer(String customerEmail, String customerFname,
             String customerLname, String customerPass, String customerGender,
@@ -130,6 +140,15 @@ public class DBCustomerManager {
             boolean customerActive)
             throws SQLException {
         
+=======
+    // Update (Update a Customer's details in the database)
+    // Active is not in here because a customer should not change 
+    // active status amongst their other registration details
+    public void updateCustomer(String customerEmail, String customerFname, String customerLname, String customerPass,
+            String customerGender, String customerUnit, String customerSAdd, String customerCity, String customerState,
+            String customerPostC, String customerPhone) throws SQLException {
+
+>>>>>>> add edit servlet
         String query = "UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?,"
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?,"
@@ -165,7 +184,7 @@ public class DBCustomerManager {
     public ArrayList<Customer> fetchCustomers() throws SQLException {
         String query = "SELECT * FROM Customer";
         ResultSet rs = st.executeQuery(query);
-        ArrayList<Customer> result = new ArrayList();
+        ArrayList<Customer> result = new ArrayList<Customer>();
 
         while (rs.next()) {
             String customerEmail = rs.getString(1);
@@ -182,6 +201,7 @@ public class DBCustomerManager {
             java.util.Date customerRegisterDate = rs.getDate(12);
             String customerGender = rs.getString(13);
 <<<<<<< HEAD
+<<<<<<< HEAD
             boolean customerActive = rs.getBoolean(14);
             result.add(new Customer(customerFname, customerLname, customerEmail,
                     customerPass, customerGender, customerUnit, customerSAdd,
@@ -192,14 +212,22 @@ public class DBCustomerManager {
                     customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
                     customerRegisterDate, customerLoginStatus));
 >>>>>>> more on customer register validation
+=======
+            boolean customerActive = rs.getBoolean(14);
+            result.add(new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
+                    customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
+                    customerRegisterDate, customerLoginStatus, customerActive));
+>>>>>>> add edit servlet
         }
 
         return result;
     }
 
     public boolean checkCustomer(String customerEmail) throws SQLException {
-        String query = "SELECT * FROM IOTBAYUSER.Customer " + "where CUSTOMEREMAIL = " + customerEmail;
-        ResultSet rs = st.executeQuery(query);
+        String query = "SELECT * FROM IOTBAYUSER.Customer WHERE CUSTOMEREMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, customerEmail);
+        ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
             String email = rs.getString(1);
@@ -208,5 +236,14 @@ public class DBCustomerManager {
             }
         }
         return false;
+    }
+
+    public void deactivateCustomer(String customerEmail) throws SQLException {
+        String query = "UPDATE IOTBAYUSER.CUSTOMER SET ACTIVE = ? WHERE CUSTOMEREMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setBoolean(1, false);
+        stmt.setString(2, customerEmail);
+        
+        stmt.executeUpdate();
     }
 }

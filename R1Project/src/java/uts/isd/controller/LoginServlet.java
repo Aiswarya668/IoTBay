@@ -48,32 +48,32 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (!validator.validateEmail(email)) {
-            // 8-set incorrect email error to the session
+            // set incorrect email error to the session
             session.setAttribute("emailErr", "Error: Email format incorrect");
-            // 9- redirect user back to the login.jsp
+            // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         } else if (!validator.validatePassword(password)) {
-            // 11-set incorrect password error to the session
+            // set incorrect password error to the session
             session.setAttribute("passErr", "Error: Password format incorrect: min. 4 characters");
-            // 12- redirect user back to the login.jsp
+            // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         } else if (customer != null) {
             if (customer.getPassword().equals(password)) {
-                // 13-save the logged in user object to the session
+                // save the logged in user object to the session
                 session.setAttribute("customer", customer);
-                // 14- redirect user to the main.jsp
-                request.getRequestDispatcher("login.jsp").include(request, response);
+                // redirect user to the main.jsp
+                request.getRequestDispatcher("welcome.jsp").include(request, response);
             }
             else {
-                // 11-set incorrect password error to the session
+                // set incorrect password error to the session
                 session.setAttribute("passErr", "Error: Incorrect password");
-                // 12- redirect user back to the login.jsp
+                // redirect user back to the login.jsp
                 request.getRequestDispatcher("login.jsp").include(request, response);
             }
         } else {
-            // 15-set user does not exist error to the session
+            // set user does not exist error to the session
             session.setAttribute("existErr", "Customer does not exist in the database");
-            // 16- redirect user back to the login.jsp
+            // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         }
     }

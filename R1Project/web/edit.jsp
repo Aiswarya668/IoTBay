@@ -58,7 +58,7 @@
                         String state = request.getParameter("State");
                         String postCode = request.getParameter("PostCode");
                         String phoneNumber = request.getParameter("PhoneNumber");
-                        customer = new Customer(firstName, lastName, email, password, gender, unitNumber, streetAddress, city, state, postCode, phoneNumber);
+                        
                         session.setAttribute("user", customer);
                     }
                 %>

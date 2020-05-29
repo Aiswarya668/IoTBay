@@ -44,23 +44,21 @@ public class ConnServlet extends HttpServlet {
         HttpSession session = request.getSession();
         conn = db.openConnection();
         try {
-            // instantiate new customer db manager
+            // instantiate new customer manager
             customerManager = new DBCustomerManager(conn);
-            // added DeviceManager
+            // instantiate new DeviceManager
             deviceManager = new DBDeviceManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // export the DB manager to the view-session (JSPs)
+        // export the DB manager(s) to the view-session (JSPs)
         session.setAttribute("customerManager", customerManager);
-        session.setAttribute("conn", conn);
-
-        // added setAttribute for deviceManager
         session.setAttribute("deviceManager", deviceManager);
     }
-
-    @Override // Destroy the servlet and release the resources of the application (terminate
-              // also the db connection)
+    
+    // Destroy the servlet and release the resources of the application (terminate
+    // also the db connection)
+    @Override
     public void destroy() {
         try {
             db.closeConnection();
