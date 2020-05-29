@@ -39,6 +39,8 @@
                 %>
 
                 <h1>User Management</h1>
+                <a class="button1" href="register.jsp">Add New</a>
+
                 <table border="1">
                     <thead>
                         <tr>
@@ -75,6 +77,8 @@
                                 <td>${c.getDateRegistered()}</td>
                                 <td>${c.getGender()}</td>
                                 <td>${c.isActive()}</td>
+                                <td><a class="button2" href="edit.jsp">Edit</a></td>
+                                <td><a class="button3" href="edit.jsp">Delete</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
