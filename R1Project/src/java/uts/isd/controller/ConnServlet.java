@@ -24,7 +24,7 @@ import uts.isd.model.iotbay.dao.*;
 public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
-    private DBCustomerManager manager;
+    private DBCustomerManager customerManager;
     private DBDeviceManager deviceManager;
     private Connection conn;
 
@@ -44,14 +44,15 @@ public class ConnServlet extends HttpServlet {
         HttpSession session = request.getSession();
         conn = db.openConnection();
         try {
-            manager = new DBCustomerManager(conn);
+            // instantiate new customer db manager
+            customerManager = new DBCustomerManager(conn);
             //added DeviceManager
             deviceManager = new DBDeviceManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        export the DB manager to the view-session (JSPs)
-        session.setAttribute("manager", manager);
+        session.setAttribute("customerManager", customerManager);
         session.setAttribute("conn", conn);
         
         //added setAttribute for deviceManager

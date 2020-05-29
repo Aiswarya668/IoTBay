@@ -35,8 +35,7 @@ public class LoginServlet extends HttpServlet {
         //4- capture the posted password
         String password = request.getParameter("Password");
         //5- retrieve the manager instance from session
-        DBCustomerManager customerManager = (DBCustomerManager)session.getAttribute("manager");
-//        Conn connection = (Connection)session.getAttribute("conn");
+        DBCustomerManager customerManager = (DBCustomerManager)session.getAttribute("customerManager");
             
         Customer customer = null;
         validator.clear(session);

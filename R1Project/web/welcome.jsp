@@ -22,7 +22,7 @@
         String lastName = request.getParameter("LastName");
         String email = request.getParameter("Email");
         String password = request.getParameter("Password");
-        String gender = request.getParameter("gender");
+        String gender = request.getParameter("Gender");
         String unitNumber = request.getParameter("UnitNumber");
         String streetAddress = request.getParameter("StreetAddress");
         String city = request.getParameter("City");

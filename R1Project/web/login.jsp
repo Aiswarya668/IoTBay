@@ -26,10 +26,10 @@
                     <table>
                         <tr><td>Email</td><td><input type="text" 
                                                      placeholder="<%=(emailErr != null ? emailErr : "Enter email")%>"
-                                                     name="Email" required></td></tr>
+                                                     name="Email"></td></tr>
                         <tr><td>Password</td><td><input type="password" 
                                                         placeholder="<%=(passErr != null ? passErr : "Enter password")%>"
-                                                        name="Password" required></td></tr>             
+                                                        name="Password"></td></tr>             
                     </table>
                     <input type="hidden" name="NewAccount" value="false" />
                     <div>
