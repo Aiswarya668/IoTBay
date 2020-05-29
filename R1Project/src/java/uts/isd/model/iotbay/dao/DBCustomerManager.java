@@ -43,16 +43,9 @@ public class DBCustomerManager {
                 boolean customerLoginStatus = rs.getBoolean(11);
                 java.util.Date customerRegisterDate = rs.getDate(12);
                 String customerGender = rs.getString(13);
-<<<<<<< HEAD
-                boolean customerActive = rs.getBoolean(14);
-                return new Customer(customerFname, customerLname, customerEmail,
-                        customerPass, customerGender, customerUnit, customerSAdd,
-                        customerCity, customerState, customerPostC, customerPhone,
-=======
                 Boolean customerActive = rs.getBoolean(14);
                 return new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
                         customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
->>>>>>> add edit servlet
                         customerRegisterDate, customerLoginStatus, customerActive);
             }
         }
