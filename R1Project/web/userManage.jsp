@@ -41,7 +41,9 @@
                 <h1>User Management</h1>
                 <a class="button1" href="register.jsp">Add New</a>
 
-                <table border="1">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+                <table id="userTable" border="1">
                     <thead>
                         <tr>
                             <th>Email</th>
@@ -83,6 +85,27 @@
                         </c:forEach>
                     </tbody>
                 </table>
+
+                <script>
+                    function myFunction() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("userTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[1];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                </script>
 
             </body>
         </div>
