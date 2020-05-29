@@ -16,14 +16,21 @@ public class Supplier implements Serializable {
     private String supplierName;
     private String contactName;
     private String supplierAddress;
+    private boolean active;
 
-    public Supplier(String supplierEmail, String supplierName, String contactName, String supplierAddress) {
+    public Supplier(String supplierEmail, String supplierName, String contactName, String supplierAddress, Boolean active) {
         this.supplierEmail = supplierEmail;
         this.supplierName = supplierName;
         this.contactName = contactName;
         this.supplierAddress = supplierAddress;
+        this.active = active;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    
     public String getSupplierEmail() {
         return supplierEmail;
     }
@@ -56,4 +63,9 @@ public class Supplier implements Serializable {
         this.supplierAddress = supplierAddress;
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    
 }
