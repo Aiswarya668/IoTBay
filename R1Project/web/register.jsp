@@ -26,6 +26,7 @@
         String cityErr = (String) session.getAttribute("cityErr");
         String stateErr = (String) session.getAttribute("stateErr");
         String postErr = (String) session.getAttribute("postErr");
+        String exceptionErr = (String) session.getAttribute("exceptionErr");
     %>
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
@@ -76,6 +77,7 @@
                     <div>
                         <input class ="button4" type="submit" value="Sign Up">
                         <a class ="button3" href="index.jsp">Cancel</a>
+                        <p><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     </div>
                 </form>
             </div>

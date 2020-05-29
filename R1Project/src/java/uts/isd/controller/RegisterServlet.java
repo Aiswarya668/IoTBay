@@ -56,32 +56,98 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if (customer != null) {
+             // set duplicate email error to the session 
             session.setAttribute("existErr", "Customer with that email already exists in the database");
+            // redirect user to the login.jsp to retry
+            request.getRequestDispatcher("register.jsp").include(request, response);
         }
         else if (!validator.validateEmail(email)) {
-            //8-set incorrect email error to the session 
+            // set incorrect email error to the session 
             session.setAttribute("emailErr", "Error: Email format incorrect");
-            //9- redirect user back to the login.jsp     
+            // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
         } 
         else if (!validator.validatePassword(password)) {
-            //11-set incorrect password error to the session 
+            // set incorrect password error to the session 
             session.setAttribute("passErr", "Error: Password format incorrect. "
                     + "Must be at least 4 characters long");
-            //12- redirect user back to the login.jsp 
+            // redirect user back to the login.jsp 
             request.getRequestDispatcher("register.jsp").include(request, response);
         } 
-        else if (customer != null) {
-            //13-save the logged in user object to the session  
-            session.setAttribute("customer", customer);
-            //14- redirect user to the main.jsp     
-            request.getRequestDispatcher("login.jsp").include(request, response);
+        else if (!validator.validateSingleString(firstName)) {
+            // set incorrect email error to the session 
+            session.setAttribute("fNameErr", "Error: First name is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        } 
+        else if (!validator.validateSingleString(lastName)) {
+            // set incorrect email error to the session 
+            session.setAttribute("lNameErr", "Error: Last name is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        } 
+        else if (!validator.validateSingleInt(unitNumber)) {
+            // set incorrect email error to the session 
+            session.setAttribute("unitErr", "Error: Unit number is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        } 
+        else if (gender == null) {
+            // set incorrect email error to the session 
+            session.setAttribute("genderErr", "Error: Gender is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        }
+        else if (!validator.validateSingleString(streetAddress)) {
+            // set incorrect email error to the session 
+            session.setAttribute("streetErr", "Error: Street address is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        } 
+        else if (!validator.validateSingleString(city)) {
+            // set incorrect email error to the session 
+            session.setAttribute("emailErr", "Error: City is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("cityErr.jsp").include(request, response);
+        } 
+        else if (!validator.validateSingleString(state)) {
+            // set incorrect email error to the session 
+            session.setAttribute("stateErr", "Error: State is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        } 
+        else if (!validator.validateSingleInt(postCode)) {
+            // set incorrect email error to the session 
+            session.setAttribute("postErr", "Error: Post code is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        } 
+        else if (phoneNumber == null) {
+            // set incorrect phone number error to the session 
+            session.setAttribute("phoneErr", "Error: Phone number is mandatory");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
+        }
+        else if (!validator.validatePhone(phoneNumber)) {
+            // set incorrect phone number error to the session 
+            session.setAttribute("phoneErr", "Error: Phone number format is incorrect");
+            // redirect user back to the login.jsp     
+            request.getRequestDispatcher("register.jsp").include(request, response);
         } 
         else {
-            //15-set user does not exist error to the session 
-            session.setAttribute("existErr", "Customer does not exist in the database");
-            //16- redirect user back to the login.jsp
-            request.getRequestDispatcher("login.jsp").include(request, response);
+            // create new user
+            try {
+                customerManager.addCustomer(firstName, lastName, email, 
+                password, gender, unitNumber, streetAddress, city, 
+                state, postCode, phoneNumber);
+            }
+            catch (SQLException ex) {
+                // exception message if adding customer fails
+                session.setAttribute("exceptionErr", "Registration failed");
+                request.getRequestDispatcher("login.jsp").include(request, response);
+            }
+            // redirect new user to the welcome.jsp
+            request.getRequestDispatcher("welcome.jsp").include(request, response);
         }
     }
 }
