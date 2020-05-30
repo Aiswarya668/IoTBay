@@ -57,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
         
         if (customer != null) {
              // set duplicate email error to the session 
-            session.setAttribute("existErr", "Customer with that email already exists in the database");
+            session.setAttribute("exceptionErr", "Customer with that email already exists in the database");
             // redirect user to the login.jsp to retry
             request.getRequestDispatcher("register.jsp").include(request, response);
         }
@@ -107,7 +107,7 @@ public class RegisterServlet extends HttpServlet {
             // set incorrect email error to the session 
             session.setAttribute("emailErr", "Error: City is mandatory");
             // redirect user back to the login.jsp     
-            request.getRequestDispatcher("cityErr.jsp").include(request, response);
+            request.getRequestDispatcher("register.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(state)) {
             // set incorrect email error to the session 

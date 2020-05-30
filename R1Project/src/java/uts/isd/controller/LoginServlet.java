@@ -43,6 +43,13 @@ public class LoginServlet extends HttpServlet {
 
         try {
             customer = customerManager.findCustomer(email);
+            if (!customer.getActive()) {
+                // set user is not active error to the session
+                session.setAttribute("loginErr", "That account is no longer active");
+                // redirect user back to the login.jsp
+                request.getRequestDispatcher("login.jsp").include(request, response);
+                return;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,7 +79,7 @@ public class LoginServlet extends HttpServlet {
             }
         } else {
             // set user does not exist error to the session
-            session.setAttribute("existErr", "Customer does not exist in the database");
+            session.setAttribute("loginErr", "Customer does not exist in the database");
             // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         }

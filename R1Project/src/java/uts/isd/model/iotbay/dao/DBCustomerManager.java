@@ -86,20 +86,13 @@ public class DBCustomerManager {
     // }
     // return null;
     // }
+
     // Create (Add Customer data into the database)
     public void addCustomer(String customerFname, String customerLname, String customerEmail, String customerPass,
             String customerGender, String customerUnit, String customerSAdd, String customerCity, String customerState,
             String customerPostC, String customerPhone) throws SQLException {
 
         Timestamp date = new Timestamp(new java.util.Date().getTime());
-
-//        String query = "INSERT INTO IOTBAYUSER.Customer" + " VALUES ('" + 
-//                customerEmail + "', '" + customerFname + "', '" + customerLname +
-//                "', '" + customerPhone + "', '" + customerPass + "', '" + 
-//                customerSAdd + "', '" + customerUnit + "', '" + customerCity + 
-//                "', '" + customerState + "', '" + customerPostC+ "', '"  + 
-//                "true" + "', '" + date.toString() + "', '" + 
-//                customerGender + "' )";
         String query = "INSERT INTO IOTBAYUSER.Customer VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
@@ -204,6 +197,7 @@ public class DBCustomerManager {
         return false;
     }
 
+    // deactivate a customer - set their active status to false
     public void deactivateCustomer(String customerEmail) throws SQLException {
         String query = "UPDATE IOTBAYUSER.CUSTOMER SET ACTIVE = ? WHERE CUSTOMEREMAIL = ?";
         PreparedStatement stmt = conn.prepareStatement(query);

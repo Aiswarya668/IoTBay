@@ -18,18 +18,18 @@
     </head>
     <%
         Boolean newAccount = Boolean.valueOf(request.getParameter("NewAccount"));
-        Customer customer = (Customer) session.getAttribute("customer");
-        String firstName = request.getParameter("FirstName");
-        String lastName = request.getParameter("LastName");
-        String email = request.getParameter("Email");
-        String password = request.getParameter("Password");
-        String gender = request.getParameter("Gender");
-        String unitNumber = request.getParameter("UnitNumber");
-        String streetAddress = request.getParameter("StreetAddress");
-        String city = request.getParameter("City");
-        String state = request.getParameter("State");
-        String postCode = request.getParameter("PostCode");
-        String phoneNumber = request.getParameter("PhoneNumber");
+//        Customer customer = (Customer) session.getAttribute("customer");
+//        String firstName = request.getParameter("FirstName");
+//        String lastName = request.getParameter("LastName");
+//        String email = request.getParameter("Email");
+//        String password = request.getParameter("Password");
+//        String gender = request.getParameter("Gender");
+//        String unitNumber = request.getParameter("UnitNumber");
+//        String streetAddress = request.getParameter("StreetAddress");
+//        String city = request.getParameter("City");
+//        String state = request.getParameter("State");
+//        String postCode = request.getParameter("PostCode");
+//        String phoneNumber = request.getParameter("PhoneNumber");
     %>
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
