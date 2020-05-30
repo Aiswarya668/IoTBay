@@ -23,7 +23,7 @@ import uts.isd.model.iotbay.dao.DBCustomerManager;
  * @author Kevin
  */
 public class EditServlet extends HttpServlet {
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,110 +65,145 @@ public class EditServlet extends HttpServlet {
         }
 
         Customer customer = null;
+        // reset
         validator.clear(session);
+        session.setAttribute("updateMsg", "");
+        session.setAttribute("existEditErr", "");
+        session.setAttribute("emailEditErr", "");
+        session.setAttribute("passEditErr", "");
+        session.setAttribute("fNameEditErr", "");
+        session.setAttribute("lNameEditErr", "");
+        session.setAttribute("genderEditErr", "");
+        session.setAttribute("phoneEditErr", "");
+        session.setAttribute("unitEditErr", "");
+        session.setAttribute("streetEditErr", "");
+        session.setAttribute("cityEditErr", "");
+        session.setAttribute("stateEditErr", "");
+        session.setAttribute("postEditErr", "");
 
         try {
             customer = customerManager.findCustomer(email);
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (!email.equals(existingCustomer.getEmail())) {
-            if (customer != null) {
-                // set duplicate email error to the session 
-               session.setAttribute("existErr", "Customer with that email already exists in the database");
-               // redirect user to the login.jsp to retry
-               request.getRequestDispatcher("edit.jsp").include(request, response);
-               return;
-           }
-        }
-        else if (!validator.validateEmail(email)) {
+
+        if (!validator.validateEmail(email)) {
             // set incorrect email error to the session 
-            session.setAttribute("emailErr", "Error: Email format incorrect");
-            // redirect user back to the login.jsp     
+            session.setAttribute("emailEditErr", "Error: Email format incorrect");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validatePassword(password)) {
             // set incorrect password error to the session 
-            session.setAttribute("passErr", "Error: Must be at least 4 characters long");
-            // redirect user back to the login.jsp 
+            session.setAttribute("passEditErr", "Error: Must be at least 4 characters long");
+            // redirect user back to the edit.jsp 
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(firstName)) {
             // set incorrect email error to the session 
-            session.setAttribute("fNameErr", "Error: First name is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("fNameEditErr", "Error: First name is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(lastName)) {
             // set incorrect email error to the session 
-            session.setAttribute("lNameErr", "Error: Last name is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("lNameEditErr", "Error: Last name is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleInt(unitNumber)) {
             // set incorrect email error to the session 
-            session.setAttribute("unitErr", "Error: Unit number is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("unitEditErr", "Error: Unit number is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (gender == null) {
             // set incorrect email error to the session 
-            session.setAttribute("genderErr", "Error: Gender is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("genderEditErr", "Error: Gender is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         }
         else if (!validator.validateSingleString(streetAddress)) {
             // set incorrect email error to the session 
-            session.setAttribute("streetErr", "Error: Street address is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("streetEditErr", "Error: Street address is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(city)) {
             // set incorrect email error to the session 
-            session.setAttribute("emailErr", "Error: City is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("emailEditErr", "Error: City is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(state)) {
             // set incorrect email error to the session 
-            session.setAttribute("stateErr", "Error: State is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("stateEditErr", "Error: State is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleInt(postCode)) {
             // set incorrect email error to the session 
-            session.setAttribute("postErr", "Error: Post code is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("postEditErr", "Error: Post code is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (phoneNumber == null) {
             // set incorrect phone number error to the session 
-            session.setAttribute("phoneErr", "Error: Phone number is mandatory");
-            // redirect user back to the login.jsp     
+            session.setAttribute("phoneEditErr", "Error: Phone number is mandatory");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         }
         else if (!validator.validatePhone(phoneNumber)) {
             // set incorrect phone number error to the session 
-            session.setAttribute("phoneErr", "Error: Phone number format is incorrect");
-            // redirect user back to the login.jsp     
+            session.setAttribute("phoneEditErr", "Error: Phone number format is incorrect");
+            // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
+        else if (!email.equals(existingCustomer.getEmail())) {
+            if (customer != null) {
+                // set duplicate email error to the session 
+               session.setAttribute("existEditErr", "Customer with that email already exists in the database");
+               // redirect user to the edit.jsp to retry
+               request.getRequestDispatcher("edit.jsp").include(request, response);
+           }
+           else {
+               // updating user if email is valid and empty
+               try {
+                customerManager.updateCustomer(firstName, lastName, email, 
+                password, gender, unitNumber, streetAddress, city, 
+                state, postCode, phoneNumber, true);
+                Customer updatedCustomer = customerManager.findCustomer(email);
+                session.setAttribute("customer", updatedCustomer);
+                // success message if updating customer successful
+                session.setAttribute("updateMsg", "Update was successful");
+                // redirect user to the edit.jsp
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+            }
+            catch (SQLException ex) {
+                // exception message if updating customer fails
+                session.setAttribute("updateMsg", "Update was not successful");
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+            }
+           }
+        }
         else {
-            // create new user
+            // updating user
             try {
                 customerManager.updateCustomer(firstName, lastName, email, 
                 password, gender, unitNumber, streetAddress, city, 
                 state, postCode, phoneNumber, true);
+                Customer updatedCustomer = customerManager.findCustomer(email);
+                session.setAttribute("customer", updatedCustomer);
+                // success message if updating customer successful
+                session.setAttribute("updateMsg", "Update was successful");
+                // redirect user to the edit.jsp
+                request.getRequestDispatcher("edit.jsp").include(request, response);
             }
             catch (SQLException ex) {
-                // exception message if adding customer fails
+                // exception message if updating customer fails
                 session.setAttribute("updateMsg", "Update was not successful");
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             }
-            // success message if adding customer successful
-            session.setAttribute("updateMsg", "Update was successful");
-            // redirect new user to the welcome.jsp
-            request.getRequestDispatcher("welcome.jsp").include(request, response);
         }
     }
 }

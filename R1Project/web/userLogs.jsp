@@ -4,9 +4,10 @@
     Author     : aiswaryarajeev
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="uts.isd.model.ApplicationAccessLogs"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="uts.isd.model.Customer"%>
+<%@page import="uts.isd.model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,7 @@
         <jsp:include page="./UserLogsServlet" flush="true" />
         <%
             Customer customer = (Customer) session.getAttribute("customer");
+            Staff staff = (Staff) session.getAttribute("staff");
             String noLogsErr = (String) session.getAttribute("noLogsErr");
             ArrayList<ApplicationAccessLogs> logs = 
                     (ArrayList<ApplicationAccessLogs>) session.getAttribute("logs");
@@ -34,38 +36,38 @@
                         <input type="search" placeholder="Search..">
                         <form method="post" action="UserLogsServlet">
                                 <table>
-                                        <tr>
-                                                <td>ID</td>
-                                                <td>Customer Email</td>
-                                                <td>Staff Email</td>
-                                                <td>Timestamp</td>
-                                                <td>Log Description</td>
-                                        </tr>
-                                        <% if (logs != null && !logs.isEmpty()) {
-                                        for (ApplicationAccessLogs log : logs) { %>
-                                        <tr>
-<!--                                                <td>${log.getAccessLogID()}</td>
-                                                <td>${log.getCustomerEmail()}</td>
-                                                <td>${log.getStaffEmail()}</td>
-                                                <td>${log.getTimestamp()}</td>
-                                                <td>${log.getLogDescription()}</td>-->
-                                            <td><% log.getAccessLogID(); %></td>
-                                            <td><% log.getCustomerEmail(); %></td>
-                                            <td><% log.getStaffEmail(); %></td>
-                                            <td><% log.getTimestamp().toString(); %></td>
-                                            <td><% log.getLogDescription(); %></td>
-                                        </tr>
-                                        <% } } 
+                                    <% if (logs != null && !logs.isEmpty()) { %>
+                                        <thead>
+                                                <tr>
+                                                        <th>ID</th>
+                                                        <% if (customer != null) { %>
+                                                        <th>Customer Email</th>
+                                                        <% } else if (staff != null) { %>
+                                                        <th>Staff Email</th>
+                                                        <% } %>
+                                                        <th>Timestamp</th>
+                                                        <th>Log Description</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${logs}" var="log">
+                                                    <tr>
+                                                            <td>${log.getAccessLogID()}</td>
+                                                            <% if (customer != null) { %>
+                                                            <td>${log.getCustomerEmail()}</td>
+                                                            <% } else if (staff != null) { %>
+                                                            <td>${log.getStaffEmail()}</td>
+                                                            <% } %>
+                                                            <td>${log.getTimestamp()}</td>
+                                                            <td>${log.getLogDescription()}</td>
+                                                    </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                        <% }
                                     else { %>
                                         <p><%=(noLogsErr != null ? noLogsErr : "")%></p>
                                         <% } %>
                                 </table>
-<!--                                <div>
-                                        <input class="button21" type="submit" name="Deactivate"
-                                                onclick="return confirm('Are you sure you want to deacivate your account?')"
-                                                value="Deactivate" </a>
-                                        <input class="button3" type="submit" value="Update" </a>
-                                </div>-->
                         </form>
                 </div>
         </div>

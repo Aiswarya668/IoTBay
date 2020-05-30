@@ -17,19 +17,19 @@
 
 <body>
         <%
-            String emailErr = (String) session.getAttribute("emailErr");
-            String passErr = (String) session.getAttribute("passErr");
-            String fNameErr = (String) session.getAttribute("fNameErr");
-            String lNameErr = (String) session.getAttribute("lNameErr");
-            String genderErr = (String) session.getAttribute("genderErr");
-            String phoneErr = (String) session.getAttribute("phoneErr");
-            String unitErr = (String) session.getAttribute("unitErr");
-            String streetErr = (String) session.getAttribute("streetErr");
-            String cityErr = (String) session.getAttribute("cityErr");
-            String stateErr = (String) session.getAttribute("stateErr");
-            String postErr = (String) session.getAttribute("postErr");
-            String exceptionErr = (String) session.getAttribute("exceptionErr");
-            String updatedMsg = request.getParameter("updatedMsg");
+            String existErr = (String) session.getAttribute("existEditErr");
+            String emailErr = (String) session.getAttribute("emailEditErr");
+            String passErr = (String) session.getAttribute("passEditErr");
+            String fNameErr = (String) session.getAttribute("fNameEditErr");
+            String lNameErr = (String) session.getAttribute("lNameEditErr");
+            String genderErr = (String) session.getAttribute("genderEditErr");
+            String phoneErr = (String) session.getAttribute("phoneEditErr");
+            String unitErr = (String) session.getAttribute("unitEditErr");
+            String streetErr = (String) session.getAttribute("streetEditErr");
+            String cityErr = (String) session.getAttribute("cityEditErr");
+            String stateErr = (String) session.getAttribute("stateEditErr");
+            String postErr = (String) session.getAttribute("postEditErr");
+            String updatedMsg = (String) session.getAttribute("updateMsg");
             
             Customer customer = (Customer) session.getAttribute("customer");
         %>
@@ -38,7 +38,19 @@
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2">
                 <div class="card">
-                        <h1>Edit profile <span> <%= (updatedMsg != null) ? updatedMsg : ""%> </span></h1>
+                        <h1>Edit profile</h1>
+                        <p><%= (updatedMsg != null) ? updatedMsg : ""%></p>
+                        <p><%= (existErr != null) ? existErr : ""%></p>
+                        <p><%=(emailErr != null ? emailErr : "")%></p>
+                        <p><%=(passErr != null ? passErr : "")%></p>
+                        <p><%=(fNameErr != null ? fNameErr : "")%></p>
+                        <p><%=(lNameErr != null ? lNameErr : "")%></p>
+                        <p><%=(genderErr != null ? genderErr : "")%></p>
+                        <p><%=(unitErr != null ? unitErr : "")%></p>
+                        <p><%=(streetErr != null ? streetErr : "")%></p>
+                        <p><%=(cityErr != null ? cityErr : "")%></p>
+                        <p><%=(stateErr != null ? stateErr : "")%></p>
+                        <p><%=(postErr != null ? postErr : "")%></p>
                         <form method="post" method="get" action="EditServlet">
                                 <table>
                                         <tr>
@@ -63,11 +75,18 @@
                                         <tr>
                                                 <td>Gender</td>
                                                 <td>
-                                                        <input type="radio" id="Male" value="${customer.gender}"
-                                                                name="Gender" value="Male">
+                                                        <input type="radio" id="Male" value="Male"
+                                                                name="Gender" value="Male" 
+                                                                <% if (customer.getGender().equals("male")) { %>
+                                                                checked
+                                                                <% } %>
                                                         <label for="Male">Male</label>
                                                         <br>
-                                                        <input type="radio" id="Female" name="gender" value="Female">
+                                                        <input type="radio" id="Female" 
+                                                               <% if (customer.getGender().equals("female")) { %>
+                                                                checked
+                                                                <% } %>
+                                                               name="Gender" value="Female">
                                                         <label for="Female">Female</label><br></td>
                                         </tr>
                                         <tr>
@@ -108,7 +127,6 @@
                         </form>
                 </div>
         </div>
-
 </body>
 
 </html>

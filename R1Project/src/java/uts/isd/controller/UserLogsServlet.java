@@ -25,7 +25,7 @@ import uts.isd.model.iotbay.dao.DBApplicationLogsManager;
  */
 public class UserLogsServlet extends HttpServlet {
 
-     @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

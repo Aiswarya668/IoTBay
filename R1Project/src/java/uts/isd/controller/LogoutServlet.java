@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uts.isd.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import uts.isd.model.ApplicationAccessLogs;
+import uts.isd.model.Customer;
+import uts.isd.model.iotbay.dao.DBApplicationLogsManager;
+
+/**
+ *
+ * @author Kevin
+ */
+public class LogoutServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // retrieve the current session
+        HttpSession session = request.getSession();
+        // retrieve the manager instance from session
+        DBApplicationLogsManager logsManager = 
+        (DBApplicationLogsManager) session.getAttribute("logsManager");
+        
+        Customer customer = (Customer) session.getAttribute("customer");
+        
+        try {
+            // add logout log to db
+            logsManager.addCustomerLog(customer.getEmail(), "Logout");
+        } 
+        catch (SQLException ex) {
+            // show no logs error
+            session.setAttribute("logErr", "Error: Issue adding logout log");
+        }
+        session.invalidate();
+    }
+}
