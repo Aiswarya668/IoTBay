@@ -56,7 +56,7 @@ public class DBStaffManager {
                         staffActive);
             }
         }
-        return null;
+        throw new SQLException("No such staff exists");
     }
 
     //Add a staff-data into the database   

@@ -170,7 +170,7 @@ public class Staff implements Serializable {
         this.manager = manager;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return active;
     }
 
