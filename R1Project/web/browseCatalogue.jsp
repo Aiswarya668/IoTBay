@@ -25,11 +25,15 @@
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
     <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <p class="right"> <a class ="button21" href="addDevice.jsp">Add Device</a> </p>
     <div class="maincolumn3">
         <div class="card1">
 
             </head>
             <body>
+                <%
+                    Device device = (Device) session.getAttribute("display");
+                %>
                 <h1>Device Catalogue</h1>
                 <form method="post" method="get">
 
@@ -38,7 +42,12 @@
                         <input type ="submit" value="Search">
                     </form>
 
-                    <table class="device Table">
+                    <p>Search device:</p>
+                    <input type="text" id="inputDeviceName" onkeyup="myFunction()" placeholder="Search Device Name" title="Type in a device name">
+                    <input type="text" id="inputDeviceType" onkeyup="myFunction()" placeholder="Search" title="Type in a device type">
+
+
+                    <table id="deviceTable" class="device Table">
                         <tr>
                             <td>Device ID</td>
                             <td>Device Name</td>
@@ -46,6 +55,8 @@
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                         </tr>
 
@@ -58,9 +69,36 @@
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
                                 <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                                <td><p class="right"> <a class="button2" type='submit' value='Add Device' href="EditDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
+                                <td><p class="right"> <a class="button3" type='submit' value='Delete Device' href="DeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
                             </tr>
                         </c:forEach>
                     </table>
+
+
+                    <script>
+                        function myFunction() {
+                            var input, filter, table, tr, tdDeviceName, tdType, i, txtValue;
+                            input = document.getElementById("inputDeviceName");
+                            filter = input.value.toUpperCase();
+                            input = document.getElementById("inputDeviceType");
+                            table = document.getElementById("deviceTable");
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                tdDeviceName = tr[i].getElementsByTagName("td")[1];
+                                tdType = tr[i].getElementsByTagName("td")[2];
+                                if (tdDeviceName && tdType) {
+                                    txtValue = tdDeviceName.textContent || tdDeviceName.innerText;
+                                    txtValue2 = tdType.textContent || tdType.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1 && txtValue2.toUpperCase().indexOf(filter2) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
 
                 </form>
             </body>

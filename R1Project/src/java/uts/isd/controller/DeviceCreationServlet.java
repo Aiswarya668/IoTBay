@@ -29,37 +29,51 @@ public class DeviceCreationServlet extends HttpServlet {
         //2) create an instance of the Validator class to check inputs
         Validator validator = new Validator();
         
-        //3) deviceID is defined for the creation of the device   
+        //3) Capture all the posted fields 
+       
         int deviceID = 0; // Just default value assigned 
             try {
                 deviceID = Integer.parseInt(request.getParameter("DeviceID"));
                 } catch (NumberFormatException e) {
                     // log the error or ignore it
                 }
-            
-        try {
         //4) capture the posted deviceName    
         String deviceName = request.getParameter("DeviceName");
         
         //5) capture the posted deviceType  
         String type = request.getParameter("DeviceType");
         
-        //6) capture the posted deviceCost - parse as a double as the input is a string in form  
+        //6) capture the posted deviceCost - parse as a double as the input is a string in form at bottom
         String cost = (request.getParameter("DeviceCost"));
-        //double cost = Double.parseDouble(request.getParameter("DeviceCost"));
         
-        //7) capture the posted stockQuantity - parse as a int as the input is a string in form  
+        //7) capture the posted stockQuantity - parse as a int as the input is a string in form at bottom 
         String stockQuantity = (request.getParameter("DeviceStock"));
-        //int stockQuantity = Integer.parseInt(request.getParameter("DeviceStock"));
         
         //8) capture the posted description   
         String description = request.getParameter("DeviceDescription");
                     
         //9) retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager)session.getAttribute("deviceManager");
+        
+        Device device = null;
         validator.clear(session);
         
-        if (!validator.validateDeviceName(deviceName)) {
+        //Check if device exsists first
+        try {
+            device = deviceManager.findDevice(deviceName, type);
+             } catch (SQLException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        if (device != null){
+            //send device name + type already exsists error 
+             session.setAttribute("exceptionErr", "Device with that name and type already exists in the database please try again");
+            // redirect back to addDevice
+            request.getRequestDispatcher("addDevice.jsp").include(request, response);
+        }
+        
+        else if (!validator.validateDeviceName(deviceName)) {
             //1- set incorrect email error to the session 
             session.setAttribute("deviceNameErr", "Error: Device name format incorrect");
             //2- redirect staff back to the addDevice.jsp     
@@ -91,18 +105,25 @@ public class DeviceCreationServlet extends HttpServlet {
         } 
 
         else {
-        Device device = new Device(deviceID, deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description );
-        deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
-        request.getRequestDispatcher("createdDevice.jsp").include(request, response);
-        session.setAttribute("device", device);
+            try{
+       // Device device = new Device(deviceID, deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description );
+                deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
+                request.setAttribute("device",device);
+                //session.setAttribute("device", device);
+          }
+            catch (SQLException ex) {
+                 session.setAttribute("exceptionErr", "Registration failed");
+                       
+                 request.getRequestDispatcher("addDevice.jsp").include(request, response);
         }
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+         
+            request.getRequestDispatcher("createdDevice.jsp").include(request, response);
+         //request.setAttribute("added",display);      
         }
        
     }
 
    
 
-}
+    }
+

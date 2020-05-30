@@ -17,6 +17,18 @@
         <servlet-name>ViewDeviceServlet</servlet-name>
         <servlet-class>uts.isd.controller.ViewDeviceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteDeviceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -32,6 +44,18 @@
     <servlet-mapping>
         <servlet-name>ViewDeviceServlet</servlet-name>
         <url-pattern>/ViewDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDeviceServlet</servlet-name>
+        <url-pattern>/EditDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDeviceServlet</servlet-name>
+        <url-pattern>/UpdateDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDeviceServlet</servlet-name>
+        <url-pattern>/DeleteDeviceServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

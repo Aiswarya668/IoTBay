@@ -28,8 +28,6 @@ public class ViewDeviceServlet extends HttpServlet {
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-      
-        
         //Create object of printwriter - and calling response of getWriter()
         //PrintWriter out =response.getWriter();
        

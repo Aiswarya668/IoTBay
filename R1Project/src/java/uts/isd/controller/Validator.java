@@ -14,12 +14,12 @@
     
     //device management validator patterns - for server side validation
     private String deviceNamePattern = "(([a-zA-Z0-9]+))";
-    private String deviceTypePattern = "(([a-zA-Z0-9]+))";
+    private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     //Numbers with 2 decimals (.00)
     private String deviceCostPattern = "^-?\\d*\\.\\d{2}$";
     //Positive integers of undefined length
     private String deviceStockPattern = "^\\d+$";
-    private String deviceDescriptionPattern = "(([a-zA-Z0-9]+))";
+    private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
 
     public Validator(){    }       
 

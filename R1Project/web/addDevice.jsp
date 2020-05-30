@@ -23,6 +23,7 @@
             String priceErr = (String) session.getAttribute("priceError");
             String stockErr = (String) session.getAttribute("stockErr");
             String descriptionErr = (String) session.getAttribute("descriptionErr");
+            String exceptionErr = (String) session.getAttribute("exceptionErr");
         %>
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
@@ -37,6 +38,7 @@
                         <tr><td>Stock Quantity:</td><td><input type="text" placeholder="<%=(stockErr != null ? stockErr :"Enter stock quantity")%>" name="DeviceStock"></td></tr>
                         <tr><td>Description</td><td><input type="text" placeholder="<%=(descriptionErr != null ? descriptionErr :"Enter breif description")%>" name="DeviceDescription"></td></tr>   
                     </table>
+                    <input type="hidden" name="NewDevice" value="true" />
                     <div>
                         <input class ="button4" type="submit" value="Create device">
                         <a class ="button3" href="index.jsp">Cancel</a>
