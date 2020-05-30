@@ -36,7 +36,10 @@ public class LoginServlet extends HttpServlet {
         // 4- capture the posted password
         String password = request.getParameter("Password");
         // 5- retrieve the manager instance from session
-        DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
+        DBCustomerManager customerManager = 
+                (DBCustomerManager) session.getAttribute("customerManager");
+        DBApplicationLogsManager logsManager = 
+                (DBApplicationLogsManager) session.getAttribute("logsManager");
 
         Customer customer = null;
         validator.clear(session);
@@ -68,6 +71,16 @@ public class LoginServlet extends HttpServlet {
             if (customer.getPassword().equals(password)) {
                 // save the logged in user object to the session
                 session.setAttribute("customer", customer);
+                try {
+                    logsManager.addCustomerLog(customer.getEmail(), "Login");
+                }
+                catch (SQLException ex) {
+                    // set user does not exist error to the session
+                    session.setAttribute("loginErr", "Error saving login entry");
+                    // redirect user back to the login.jsp
+                    request.getRequestDispatcher("login.jsp").include(request, response);
+                    return;
+                }
                 // redirect user to the main.jsp
                 request.getRequestDispatcher("welcome.jsp").include(request, response);
             }

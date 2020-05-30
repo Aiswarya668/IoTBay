@@ -17,6 +17,10 @@
         <servlet-name>EditServlet</servlet-name>
         <servlet-class>uts.isd.controller.EditServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserLogsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserLogsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -32,6 +36,10 @@
     <servlet-mapping>
         <servlet-name>EditServlet</servlet-name>
         <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserLogsServlet</servlet-name>
+        <url-pattern>/UserLogsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

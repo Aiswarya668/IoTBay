@@ -78,6 +78,7 @@ public class EditServlet extends HttpServlet {
                session.setAttribute("existErr", "Customer with that email already exists in the database");
                // redirect user to the login.jsp to retry
                request.getRequestDispatcher("edit.jsp").include(request, response);
+               return;
            }
         }
         else if (!validator.validateEmail(email)) {

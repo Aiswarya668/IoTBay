@@ -21,7 +21,8 @@
         %>
 
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-        <p class="right"> <a class="button21" href="edit.jsp">Account</a> </p>
+        <p class="right"> <a class="button21" href="edit.jsp">Edit Profile</a> </p>
+        <p class="right"> <a class="button21" href="userLogs.jsp">User Logs</a> </p>
         <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
 
         <div class="maincolumn2">
