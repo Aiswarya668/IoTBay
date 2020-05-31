@@ -84,11 +84,15 @@
                                     <td>${c.getDateRegistered()}</td>
                                     <td>${c.getGender()}</td>
                                     <td>${c.isActive()}</td>
-                                    <!--                                    <td><a class="button2" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
-                                                                        <td><a class="button3" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>-->
                                     <td>
-                                        <a href="#editEmployeeModal" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                        <a href="#deleteEmployeeModal" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                        <form method="post" method="get" action="UserDeleteServlet">
+                                            <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
+                                            <button type="submit"><i class="material-icons">&#xE872;</i></button>
+                                        </form>
+                                        <!--                                    <td><a class="button2" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
+                                                                            <td><a class="button3" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>-->
+                                        <!--                                        <a href="#editEmployeeModal" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                                <a href="#deleteEmployeeModal" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
                                     </td>
                                 </tr>
                             </c:forEach>
