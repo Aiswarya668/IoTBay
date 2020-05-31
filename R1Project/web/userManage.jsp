@@ -39,7 +39,13 @@
                 %>
 
                 <h1>User Management</h1>
-                <table border="1">
+                <a class="button1" href="register.jsp">Add New</a>
+
+                <input type="text" id="inputFName" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                <input type="text" id="inputLName" onkeyup="myFunction()" placeholder="Search for lnames.." title="Type in a name">
+                <input type="text" id="inputPhone" onkeyup="myFunction()" placeholder="Search for phone.." title="Type in a name">
+
+                <table id="userTable" border="1">
                     <thead>
                         <tr>
                             <th>Email</th>
@@ -75,10 +81,41 @@
                                 <td>${c.getDateRegistered()}</td>
                                 <td>${c.getGender()}</td>
                                 <td>${c.isActive()}</td>
+                                <td><a class="button2" href="edit.jsp">Edit</a></td>
+                                <td><a class="button3" href="edit.jsp">Delete</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+
+                <script>
+                    function myFunction() {
+                        var input, filter, table, tr, tdFName, tdLName, tdPhone, i, txtValue;
+                        input = document.getElementById("inputFName");
+                        filter = input.value.toUpperCase();
+                        input = document.getElementById("inputLName");
+                        filter2 = input.value.toUpperCase();
+                        input = document.getElementById("inputPhone");
+                        filter3 = input.value.toUpperCase();
+                        table = document.getElementById("userTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            tdFName = tr[i].getElementsByTagName("td")[1];
+                            tdLName = tr[i].getElementsByTagName("td")[2];
+                            tdPhone = tr[i].getElementsByTagName("td")[3];
+                            if (tdFName && tdLName) {
+                                txtValue = tdFName.textContent || tdFName.innerText;
+                                txtValue2 = tdLName.textContent || tdLName.innerText;
+                                txtValue3 = tdPhone.textContent || tdPhone.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1 && txtValue2.toUpperCase().indexOf(filter2) > -1 && txtValue3.toUpperCase().indexOf(filter3) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                </script>
 
             </body>
         </div>

@@ -11,6 +11,7 @@ import java.sql.Connection;
  * @author Anastasia
  */
 public abstract class DB {
+    // setup connection variables
     protected String URL = "jdbc:derby://localhost:1527/";
     protected String db = "iotdb";
     protected String dbuser = "iotbayUser";

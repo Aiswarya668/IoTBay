@@ -6,20 +6,22 @@
 package uts.isd.model.iotbay.dao;
 
 import java.sql.*;
+
 /**
  *
  * @author Anastasia
  */
-public class DBConnector extends DB{
+public class DBConnector extends DB {
+
     public DBConnector() throws ClassNotFoundException, SQLException {
-        Class.forName(driver);
-        conn = DriverManager.getConnection(URL+db, dbuser, dbpass);    
+        Class.forName(driver); // create JDBC driver instance
+        conn = DriverManager.getConnection(URL + db, dbuser, dbpass); // create database connection instance
     }
 
     public Connection openConnection() {
         return this.conn;
     }
-    
+
     public void closeConnection() throws SQLException {
         this.conn.close();
     }
