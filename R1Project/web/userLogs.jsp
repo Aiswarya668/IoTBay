@@ -23,6 +23,14 @@
         <%
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+            String logException = (String) session.getAttribute("logExceptionErr");
+            String name = "";
+            if (customer != null) {
+                name = customer.getFirstName();
+            }
+            else if (staff != null) {
+                name = staff.getFirstName();
+            }
             String noLogsErr = (String) session.getAttribute("noLogsErr");
             ArrayList<ApplicationAccessLogs> logs = 
                     (ArrayList<ApplicationAccessLogs>) session.getAttribute("logs");
@@ -30,11 +38,18 @@
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left" />
         <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
-        <div class="maincolumn2">
+        <div id="logsmaincolumn">
                 <div class="card">
-                        <h1>Logs for ${customer.firstName}</h1>
-                        <input type="search" placeholder="Search..">
-                        <form method="post" action="UserLogsServlet">
+                        <h1>Logs for <%= name %></h1>
+                        <form method="post" method="get" action="UserLogsServlet">
+                                <label>
+                                        Search from:
+                                <input type="date" name="FromDate">
+                                <label>
+                                        to:
+                                <input type="date" name="ToDate">
+                                <input class="button3" type="submit" value="Filter" </a>
+                                <p><%= (logException != null ? logException : "") %></p>
                                 <table>
                                     <% if (logs != null && !logs.isEmpty()) { %>
                                         <thead>

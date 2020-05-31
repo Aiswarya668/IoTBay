@@ -360,6 +360,17 @@ tbody {
   min-width: 500px;
 }
 
+#logsmaincolumn {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  height: 60%;
+  width: 55%;
+  margin: -16% 0 0 -20%;
+  text-align: center;
+  min-width: 500px;
+}
+
 
 .maincolumn3 {
   position: absolute;

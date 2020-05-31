@@ -7,8 +7,12 @@ package uts.isd.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Timestamp;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -32,93 +36,87 @@ public class UserLogsServlet extends HttpServlet {
         // retrieve the current session
         HttpSession session = request.getSession();
         // retrieve the manager instance from session
-        DBApplicationLogsManager logsManager = 
-                (DBApplicationLogsManager) session.getAttribute("logsManager");
+        DBApplicationLogsManager logsManager = (DBApplicationLogsManager) session.getAttribute("logsManager");
 
         Customer customer = (Customer) session.getAttribute("customer");
         Staff staff = (Staff) session.getAttribute("staff");
+        ArrayList<ApplicationAccessLogs> existingLogs = 
+                (ArrayList<ApplicationAccessLogs>) session.getAttribute("logs");
+        if (existingLogs != null) {
+            return;
+        }
         
-        ArrayList<ApplicationAccessLogs> logs = 
-                new ArrayList<ApplicationAccessLogs>();
+        ArrayList<ApplicationAccessLogs> logs = new ArrayList<ApplicationAccessLogs>();
         try {
             if (customer != null) {
-                logs = 
-                    logsManager.findCustomerLogs(customer.getEmail());
+                logs = logsManager.findCustomerLogs(customer.getEmail());
+            } else if (staff != null) {
+                logs = logsManager.findStaffLogs(staff.getEmail());
             }
-            else if (staff != null) {
-                logs = 
-                    logsManager.findStaffLogs(staff.getEmail());
-            }
-            
             // set logs to the session
             session.setAttribute("logs", logs);
-        } 
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             // show no logs error
             session.setAttribute("noLogsErr", "No logs for user exists");
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1- retrieve the current session
+        // retrieve the current session
         HttpSession session = request.getSession();
-        // 2- create an instance of the Validator class
-        Validator validator = new Validator();
-        // 3- capture the posted email
-        String email = request.getParameter("Email");
-        // 4- capture the posted password
-        String password = request.getParameter("Password");
-        // 5- retrieve the manager instance from session
+        // retrieve the manager instance from session
         DBApplicationLogsManager logsManager = (DBApplicationLogsManager) session.getAttribute("logsManager");
 
-        Customer customer = null;
-        validator.clear(session);
+        // retrieve customer/staff from session
+        Customer customer = (Customer) session.getAttribute("customer");
+        Staff staff = (Staff) session.getAttribute("staff");
+        String exceptionExists = (String) session.getAttribute("logException");
+        
+        // get the dates posted
+        String fromDate = request.getParameter("FromDate");
+        String toDate = request.getParameter("ToDate");
+        
+        // verify user actually wants to filter
+        if (toDate != null && fromDate != null) {
+            // convert to timestamp
+            java.sql.Timestamp fromDateTimestamp = convertToTimeStamp(fromDate, session);
+            java.sql.Timestamp toDateTimestamp = convertToTimeStamp(toDate, session);
+            
+            if (fromDateTimestamp == null || toDateTimestamp == null) {
+                session.setAttribute("logException", "Invalid date input");
+                request.getRequestDispatcher("userLogs.jsp").include(request, response);
+                return;
+            }
+            
+            ArrayList<ApplicationAccessLogs> logs = new ArrayList<ApplicationAccessLogs>();
+            try {
+                if (customer != null) {
+                    logs = logsManager.filterCustomerLogs(customer.getEmail(), fromDateTimestamp, toDateTimestamp);
+                } else if (staff != null) {
+                    logs = logsManager.filterStaffLogs(staff.getEmail(), fromDateTimestamp, toDateTimestamp);
+                }
 
-        try {
-            ArrayList<ApplicationAccessLogs> logs = 
-                    logsManager.findCustomerLogs(customer.getEmail());
-            // set user is not active error to the session
-            session.setAttribute("logs", logs);
-            // redirect user back to the login.jsp
-            request.getRequestDispatcher("userLogs.jsp").include(request, response);
-        } 
-        catch (SQLException ex) {
-            session.setAttribute("noLogsErr", "No logs for specified range exists");
-            // redirect user back to the userLogs.jsp
-            request.getRequestDispatcher("userLogs.jsp").include(request, response);
+                // set logs to the session
+                session.setAttribute("logs", logs);
+            } catch (SQLException ex) {
+                // show no logs error
+                session.setAttribute("noLogsErr", "No logs for user exists");
+            }
+//            request.getRequestDispatcher("userLogs.jsp").include(request, response);
         }
+    }
 
-        if (!validator.validateEmail(email)) {
-            // set incorrect email error to the session
-            session.setAttribute("emailErr", "Error: Email format incorrect");
-            // redirect user back to the login.jsp
-            request.getRequestDispatcher("login.jsp").include(request, response);
-        } else if (!validator.validatePassword(password)) {
-            // set incorrect password error to the session
-            session.setAttribute("passErr", "Error: Password format incorrect: min. 4 characters");
-            // redirect user back to the login.jsp
-            request.getRequestDispatcher("login.jsp").include(request, response);
-        } else if (customer != null) {
-            if (customer.getPassword().equals(password)) {
-                // save the logged in user object to the session
-                session.setAttribute("customer", customer);
-                // redirect user to the main.jsp
-                request.getRequestDispatcher("welcome.jsp").include(request, response);
-            }
-            else {
-                // set incorrect password error to the session
-                session.setAttribute("passErr", "Error: Incorrect password");
-                // redirect user back to the login.jsp
-                request.getRequestDispatcher("login.jsp").include(request, response);
-            }
-        } else {
-            // set user does not exist error to the session
-            session.setAttribute("loginErr", "Customer does not exist in the database");
-            // redirect user back to the login.jsp
-            request.getRequestDispatcher("login.jsp").include(request, response);
+    public java.sql.Timestamp convertToTimeStamp(String date, HttpSession session) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(date);
+            java.sql.Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+            return timestamp;
+        } catch (Exception ex) {
+            return null;
         }
     }
 }
