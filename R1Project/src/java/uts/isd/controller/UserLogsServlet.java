@@ -36,10 +36,20 @@ public class UserLogsServlet extends HttpServlet {
                 (DBApplicationLogsManager) session.getAttribute("logsManager");
 
         Customer customer = (Customer) session.getAttribute("customer");
+        Staff staff = (Staff) session.getAttribute("staff");
         
+        ArrayList<ApplicationAccessLogs> logs = 
+                new ArrayList<ApplicationAccessLogs>();
         try {
-            ArrayList<ApplicationAccessLogs> logs = 
+            if (customer != null) {
+                logs = 
                     logsManager.findCustomerLogs(customer.getEmail());
+            }
+            else if (staff != null) {
+                logs = 
+                    logsManager.findStaffLogs(staff.getEmail());
+            }
+            
             // set logs to the session
             session.setAttribute("logs", logs);
         } 

@@ -90,6 +90,7 @@ public class DBStaffManager {
         stmt.setBoolean(16, true);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     //update a staff details in the database   
@@ -125,6 +126,7 @@ public class DBStaffManager {
         stmt.setString(15, staffEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     //delete a staff from the database   
@@ -135,6 +137,7 @@ public class DBStaffManager {
         stmt.setString(1, staffEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     public ArrayList<Staff> fetchStaffs() throws SQLException {
@@ -180,5 +183,16 @@ public class DBStaffManager {
             }
         }
         return false;
+    }
+    
+    // deactivate a staff - set their active status to false
+    public void deactivateStaff(String staffEmail) throws SQLException {
+        String query = "UPDATE IOTBAYUSER.STAFF SET ACTIVE = ? WHERE STAFFEMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setBoolean(1, false);
+        stmt.setString(2, staffEmail);
+        
+        stmt.executeUpdate();
+        stmt.close();
     }
 }

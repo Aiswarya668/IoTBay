@@ -30,6 +30,7 @@ public class DBCustomerManager {
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
 
+
         while (rs.next()) {
             String customerEmail = rs.getString(1);
             String customerFname = rs.getString(2);
@@ -49,6 +50,7 @@ public class DBCustomerManager {
                         customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
                         customerRegisterDate, customerLoginStatus, customerActive);
         }
+        stmt.close();
         throw new SQLException("No such customer exists");
     }
 
@@ -111,6 +113,7 @@ public class DBCustomerManager {
         stmt.setBoolean(14, true);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     //Update (Update a Customer's details in the database)
@@ -142,6 +145,7 @@ public class DBCustomerManager {
         stmt.setString(13, customerEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     // Delete (Delete a Customer from the database)
@@ -151,6 +155,7 @@ public class DBCustomerManager {
         stmt.setString(1, customerEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     public ArrayList<Customer> fetchCustomers() throws SQLException {
@@ -191,10 +196,12 @@ public class DBCustomerManager {
         while (rs.next()) {
             String email = rs.getString(1);
             if (email.equals(customerEmail)) {
+                stmt.close();
                 return true;
             }
         }
         return false;
+        
     }
 
     // deactivate a customer - set their active status to false
@@ -203,7 +210,8 @@ public class DBCustomerManager {
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setBoolean(1, false);
         stmt.setString(2, customerEmail);
-        
+
         stmt.executeUpdate();
+        stmt.close();
     }
 }

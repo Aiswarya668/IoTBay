@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
+import uts.isd.model.Staff;
 import uts.isd.model.iotbay.dao.DBCustomerManager;
+import uts.isd.model.iotbay.dao.DBStaffManager;
 
 /**
  *
@@ -37,23 +39,38 @@ public class EditServlet extends HttpServlet {
         String lastName = request.getParameter("LastName");
         String email = request.getParameter("Email");
         String password = request.getParameter("Password");
-        String gender = request.getParameter("Gender");
         String unitNumber = request.getParameter("UnitNumber");
         String streetAddress = request.getParameter("StreetAddress");
         String city = request.getParameter("City");
         String state = request.getParameter("State");
         String postCode = request.getParameter("PostCode");
         String phoneNumber = request.getParameter("PhoneNumber");
+        
+        // customer
+        String gender = request.getParameter("Gender");
+        
+        // staff
+        String manager = request.getParameter("Manager");
+        String contractType = request.getParameter("ContractType");
+        String payHr = request.getParameter("PayHr");
+        
         //5- retrieve the manager instance from session
         DBCustomerManager customerManager = (DBCustomerManager)session.getAttribute("customerManager");
+        DBStaffManager staffManager = (DBStaffManager)session.getAttribute("staffManager");
         
         // retrieve old customer values from session
         Customer existingCustomer = (Customer) session.getAttribute("customer");
+        Staff existingStaff = (Staff) session.getAttribute("staff");
         
         // if user wants to deactivate account
         if (request.getParameter("Deactivate") != null && request.getParameter("Deactivate").equals("Deactivate")) {
             try {
-                customerManager.deactivateCustomer(existingCustomer.getEmail());
+                if (existingCustomer != null) {
+                    customerManager.deactivateCustomer(existingCustomer.getEmail());
+                }
+                else if (existingStaff != null) {
+                    staffManager.deactivateStaff(existingStaff.getEmail());
+                }
                 request.getRequestDispatcher("goodbye.jsp").include(request, response);
                 
             }
@@ -65,6 +82,8 @@ public class EditServlet extends HttpServlet {
         }
 
         Customer customer = null;
+        Staff staff = null;
+        
         // reset
         validator.clear(session);
         session.setAttribute("updateMsg", "");
@@ -73,13 +92,16 @@ public class EditServlet extends HttpServlet {
         session.setAttribute("passEditErr", "");
         session.setAttribute("fNameEditErr", "");
         session.setAttribute("lNameEditErr", "");
-        session.setAttribute("genderEditErr", "");
         session.setAttribute("phoneEditErr", "");
         session.setAttribute("unitEditErr", "");
         session.setAttribute("streetEditErr", "");
         session.setAttribute("cityEditErr", "");
         session.setAttribute("stateEditErr", "");
         session.setAttribute("postEditErr", "");
+        session.setAttribute("genderEditErr", "");
+        session.setAttribute("managerEditErr", "");
+        session.setAttribute("contractTypeEditErr", "");
+        session.setAttribute("payHrEditErr", "");
 
         try {
             customer = customerManager.findCustomer(email);
@@ -117,12 +139,6 @@ public class EditServlet extends HttpServlet {
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
-        else if (gender == null) {
-            // set incorrect email error to the session 
-            session.setAttribute("genderEditErr", "Error: Gender is mandatory");
-            // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
-        }
         else if (!validator.validateSingleString(streetAddress)) {
             // set incorrect email error to the session 
             session.setAttribute("streetEditErr", "Error: Street address is mandatory");
@@ -159,17 +175,50 @@ public class EditServlet extends HttpServlet {
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
-        else if (!email.equals(existingCustomer.getEmail())) {
-            if (customer != null) {
+        // if customer
+        else if (existingCustomer != null) {
+            // customer-specific validation
+            if (gender == null) {
+                // set incorrect email error to the session 
+                session.setAttribute("genderEditErr", "Error: Gender is mandatory");
+                // redirect user back to the edit.jsp     
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+                return;
+            }
+
+            //  and email has been changed
+            if (!email.equals(existingCustomer.getEmail())) {
+                // if user already exists with that email
+                if (customer != null) {
                 // set duplicate email error to the session 
-               session.setAttribute("existEditErr", "Customer with that email already exists in the database");
-               // redirect user to the edit.jsp to retry
-               request.getRequestDispatcher("edit.jsp").include(request, response);
-           }
-           else {
-               // updating user if email is valid and empty
-               try {
-                customerManager.updateCustomer(firstName, lastName, email, 
+                session.setAttribute("existEditErr", "Customer with that email already exists in the database");
+                // redirect user to the edit.jsp to retry
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+                }
+                else {
+                    // updating user if email is valid and empty
+                    try {
+                    customerManager.updateCustomer(email, firstName, lastName, 
+                    password, gender, unitNumber, streetAddress, city, 
+                    state, postCode, phoneNumber, true);
+                    Customer updatedCustomer = customerManager.findCustomer(email);
+                    session.setAttribute("customer", updatedCustomer);
+                    // success message if updating customer successful
+                    session.setAttribute("updateMsg", "Update was successful");
+                    // redirect user to the edit.jsp
+                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    }
+                    catch (SQLException ex) {
+                        // exception message if updating customer fails
+                        session.setAttribute("updateMsg", "Update was not successful");
+                        request.getRequestDispatcher("edit.jsp").include(request, response);
+                    }
+                }
+            }
+            // email has not changed, update as normal
+            else {
+                try {
+                customerManager.updateCustomer(email, firstName, lastName,
                 password, gender, unitNumber, streetAddress, city, 
                 state, postCode, phoneNumber, true);
                 Customer updatedCustomer = customerManager.findCustomer(email);
@@ -178,31 +227,80 @@ public class EditServlet extends HttpServlet {
                 session.setAttribute("updateMsg", "Update was successful");
                 // redirect user to the edit.jsp
                 request.getRequestDispatcher("edit.jsp").include(request, response);
+                }
+                catch (SQLException ex) {
+                    // exception message if updating customer fails
+                    session.setAttribute("updateMsg", "Update was not successful");
+                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                }
             }
-            catch (SQLException ex) {
-                // exception message if updating customer fails
-                session.setAttribute("updateMsg", "Update was not successful");
-                request.getRequestDispatcher("edit.jsp").include(request, response);
-            }
-           }
         }
-        else {
-            // updating user
-            try {
-                customerManager.updateCustomer(firstName, lastName, email, 
-                password, gender, unitNumber, streetAddress, city, 
-                state, postCode, phoneNumber, true);
-                Customer updatedCustomer = customerManager.findCustomer(email);
-                session.setAttribute("customer", updatedCustomer);
+        else if (existingStaff != null) {
+            // staff-specific validation
+            if (!validator.validateSingleString(manager)) {
+                // set incorrect email error to the session 
+                session.setAttribute("managerEditErr", "Error: Manager is mandatory");
+                // redirect user back to the edit.jsp     
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+            } 
+            else if (!validator.validateSingleString(contractType)) {
+                // set incorrect email error to the session 
+                session.setAttribute("contractTypeEditErr", "Error: Contract type is mandatory");
+                // redirect user back to the edit.jsp     
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+            } 
+            else if (!validator.validateSingleInt(payHr)) {
+                // set incorrect email error to the session 
+                session.setAttribute("payHrEditErr", "Error: Pay per hour is mandatory");
+                // redirect user back to the edit.jsp     
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+            } 
+
+            if (!email.equals(existingStaff.getEmail())) {
+                // if user already exists with that email
+                if (staff != null) {
+                // set duplicate email error to the session 
+                session.setAttribute("existEditErr", "Staff with that email already exists in the database");
+                // redirect user to the edit.jsp to retry
+                request.getRequestDispatcher("edit.jsp").include(request, response);
+                }
+                else {
+                    // updating user if email is valid and empty
+                    try {
+                    staffManager.updateStaff(email, firstName, lastName, 
+                    phoneNumber, password, streetAddress, unitNumber, city, 
+                    state, postCode, manager, contractType, Integer.parseInt(payHr), true);
+                    Staff updatedStaff = staffManager.findStaff(email);
+                    session.setAttribute("staff", updatedStaff);
+                    // success message if updating customer successful
+                    session.setAttribute("updateMsg", "Update was successful");
+                    // redirect user to the edit.jsp
+                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    }
+                    catch (SQLException ex) {
+                        // exception message if updating customer fails
+                        session.setAttribute("updateMsg", "Update was not successful");
+                        request.getRequestDispatcher("edit.jsp").include(request, response);
+                    }
+                }
+            }
+            else {
+                try {
+                staffManager.updateStaff(email, firstName, lastName, 
+                phoneNumber, password, streetAddress, unitNumber, city, 
+                state, postCode, manager, contractType, Integer.parseInt(payHr), true);
+                Staff updatedStaff = staffManager.findStaff(email);
+                session.setAttribute("staff", updatedStaff);
                 // success message if updating customer successful
                 session.setAttribute("updateMsg", "Update was successful");
                 // redirect user to the edit.jsp
                 request.getRequestDispatcher("edit.jsp").include(request, response);
-            }
-            catch (SQLException ex) {
-                // exception message if updating customer fails
-                session.setAttribute("updateMsg", "Update was not successful");
-                request.getRequestDispatcher("edit.jsp").include(request, response);
+                }
+                catch (SQLException ex) {
+                    // exception message if updating customer fails
+                    session.setAttribute("updateMsg", "Update was not successful");
+                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                }
             }
         }
     }

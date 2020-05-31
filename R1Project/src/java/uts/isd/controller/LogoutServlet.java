@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.ApplicationAccessLogs;
 import uts.isd.model.Customer;
+import uts.isd.model.Staff;
 import uts.isd.model.iotbay.dao.DBApplicationLogsManager;
 
 /**
@@ -35,10 +36,16 @@ public class LogoutServlet extends HttpServlet {
         (DBApplicationLogsManager) session.getAttribute("logsManager");
         
         Customer customer = (Customer) session.getAttribute("customer");
+        Staff staff = (Staff) session.getAttribute("staff");
         
         try {
             // add logout log to db
-            logsManager.addCustomerLog(customer.getEmail(), "Logout");
+            if (customer != null) {
+                logsManager.addCustomerLog(customer.getEmail(), "Logout");
+            }
+            else if (staff != null) {
+                logsManager.addStaffLog(staff.getEmail(), "Logout");
+            }
         } 
         catch (SQLException ex) {
             // show no logs error
