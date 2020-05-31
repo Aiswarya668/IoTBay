@@ -24,11 +24,11 @@ import uts.isd.model.iotbay.dao.*;
 public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
-    private DBCustomerManager manager;
+    private DBCustomerManager customerManager;
     private DBDeviceManager deviceManager;
     private Connection conn;
 
-    @Override //Create and instance of DBConnector for the deployment session
+    @Override // Create and instance of DBConnector for the deployment session
     public void init() {
         try {
             db = new DBConnector();
@@ -37,28 +37,28 @@ public class ConnServlet extends HttpServlet {
         }
     }
 
-    @Override //Add the DBConnector, DBManager, Connection instances to the session
+    @Override // Add the DBConnector, DBManager, Connection instances to the session
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         conn = db.openConnection();
         try {
-            manager = new DBCustomerManager(conn);
-            //added DeviceManager
+            // instantiate new customer manager
+            customerManager = new DBCustomerManager(conn);
+            // instantiate new DeviceManager
             deviceManager = new DBDeviceManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        export the DB manager to the view-session (JSPs)
-        session.setAttribute("manager", manager);
-        session.setAttribute("conn", conn);
-        
-        //added setAttribute for deviceManager
+        // export the DB manager(s) to the view-session (JSPs)
+        session.setAttribute("customerManager", customerManager);
         session.setAttribute("deviceManager", deviceManager);
     }
-
-    @Override //Destroy the servlet and release the resources of the application (terminate also the db connection)
+    
+    // Destroy the servlet and release the resources of the application (terminate
+    // also the db connection)
+    @Override
     public void destroy() {
         try {
             db.closeConnection();
