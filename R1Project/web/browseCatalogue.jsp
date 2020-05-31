@@ -9,6 +9,8 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
 <%@page import="uts.isd.model.iotbay.dao.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 
 
@@ -22,66 +24,88 @@
         <title>Device Catalogue</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-    <div class="maincolumn2">
-        <div class="card">
+    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <p class="right"> <a class ="button21" href="addDevice.jsp">Add Device</a> </p>
+    <div class="maincolumn3">
+        <div class="card1">
 
             </head>
             <body>
-
                 <%
-                    DBConnector dbConnector = new DBConnector();
-                    Connection conn = dbConnector.openConnection();
-                    DBDeviceManager dbManager = new DBDeviceManager(conn);
-                    dbManager.fetchDevice();
-
+                    Device device = (Device) session.getAttribute("display");
                 %>
-
                 <h1>Device Catalogue</h1>
-
-                <%-- 
-                Note that this is a test 
-                
-                
-                <%!
-                    public class Device {
-                     String url = "jdbc:derby://localhost:1527/iot_db";
-                     String dbuser = "iotbayUser";
-                     String dbpass = "Group27";
-
-             Connection conn = null;
-             PreparedStatement sd = null;
-             ResultSet rs = null;
-
-             public Device(){
-             
-                try {
-                    conn = DriverManager.getConnection(url, dbuser, dbpass);
-                    sd = conn.prepareStatement("SELECT deviceID, deviceName, type, cost, stockQuantity, description from DEVICE");
-
-                } catch(SQLException e){
-                    e.printStackTrace();
-                }
-            
-                }
-              
-                
-                
-            }
-        %>
-                --%>
-
                 <form method="post" method="get">
-                    <table>
+
+                    <form>
+                        Search device: <input type="text" name="Name" placeholder="Name, Type">
+                        <input type ="submit" value="Search">
+                    </form>
+
+                    <p>Search device:</p>
+                    <input type="text" id="inputDeviceName" onkeyup="myFunction()" placeholder="Search Device Name" title="Type in a device name">
+                    <input type="text" id="inputDeviceType" onkeyup="myFunction()" placeholder="Search" title="Type in a device type">
+
+
+                    <table id="deviceTable" class="device Table">
                         <tr>
+                            <td>Device ID</td>
                             <td>Device Name</td>
                             <td>Type</td>
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
+
+                        <c:forEach items="${display}" var="display">
+                            <tr class="device tr">
+                                <td>${display.deviceID }</td>
+                                <td>${display.deviceName }</td>
+                                <td>${display.type }</td>
+                                <td>${display.cost }</td>
+                                <td>${display.stockQuantity }</td>
+                                <td>${display.description }</td>
+                                <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                                <td><p class="right"> <a class="button2" type='submit' value='Add Device' href="EditDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
+                                <td><p class="right"> <a class="button3" type='submit' value='Delete Device' href="DeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
+                            </tr>
+                        </c:forEach>
                     </table>
+
+
+                    <script>
+                        function myFunction() {
+                            var input, filter, table, tr, tdDeviceName, tdType, i, txtValue;
+                            input = document.getElementById("inputDeviceName");
+                            filter = input.value.toUpperCase();
+                            input = document.getElementById("inputDeviceType");
+                            table = document.getElementById("deviceTable");
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                tdDeviceName = tr[i].getElementsByTagName("td")[1];
+                                tdType = tr[i].getElementsByTagName("td")[2];
+                                if (tdDeviceName && tdType) {
+                                    txtValue = tdDeviceName.textContent || tdDeviceName.innerText;
+                                    txtValue2 = tdType.textContent || tdType.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1 && txtValue2.toUpperCase().indexOf(filter2) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+
                 </form>
             </body>
         </div>
+        <div class="footer">
+
+        </div>
     </div>
+
 </html>

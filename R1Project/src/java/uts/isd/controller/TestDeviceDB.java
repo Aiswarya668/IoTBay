@@ -120,11 +120,14 @@ public class TestDeviceDB {
        
         try {
             Device device = db.findDevice(deviceName, type);
+            String oldDeviceName = device.getDeviceName();
+            String oldDeviceType = device.getType();
+            
             if (device != null) {
-                //System.out.print("Device name: ");
-                //String deviceName = in.nextLine();
-                //System.out.print("Device type: ");
-                //String type = in.nextLine();
+                System.out.print("Device name: ");
+                String newdeviceName = in.nextLine();
+                System.out.print("Device type: ");
+                String newtype = in.nextLine();
                 System.out.print("Device cost: ");
                 double cost = in.nextDouble();
                 in.nextLine(); 
@@ -134,7 +137,7 @@ public class TestDeviceDB {
                 System.out.print("Device description: ");
                 String description = in.nextLine();
                 
-                db.updateDevice(deviceName, type, cost, stockQuantity, description);
+                db.updateDevice(newdeviceName, newtype, cost, stockQuantity, description, oldDeviceName, oldDeviceType );
                 
             } else {
                 System.out.println("Device does not exist.");
