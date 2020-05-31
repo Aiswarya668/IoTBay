@@ -135,7 +135,7 @@ public class Customer implements Serializable {
         this.dateRegistered = dateRegistered;
     }
 
-    public boolean getLoginStatus() {
+    public boolean isLoginStatus() {
         return loginStatus;
     }
 
@@ -151,7 +151,7 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 

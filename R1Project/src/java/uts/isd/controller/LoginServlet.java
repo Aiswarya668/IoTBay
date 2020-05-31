@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             customer = customerManager.findCustomer(email);
-            if (!customer.getActive()) {
+            if (!customer.isActive()) {
                 // set user is not active error to the session
                 session.setAttribute("loginErr", "That account is no longer active");
                 // redirect user back to the login.jsp
