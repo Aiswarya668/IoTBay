@@ -33,63 +33,61 @@ public class AddSupplierServlet extends HttpServlet {
         //create an instance of the Validator class
         Validator validator = new Validator();
 
-        //capture deviceID field
-        String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
+       //capture the posted contactName   
+        String contactName = request.getParameter("contactName");
         
-        //capture deviceName field
-        String deviceName = request.getParameter("DeviceName");
+        //capture the posted supplierName 
+        String supplierName = request.getParameter("supplierName");
+        
+        //capture the posted supplierEmail 
+        String supplierEmail = request.getParameter("supplierEmail");
 
-        //capture deviceType field
-        String type = request.getParameter("DeviceType");
-
-        //capture deviceCost field - noted it is a string and must be parsed in as a double
-        String cost = request.getParameter("DeviceCost");
-
-        //capture stockQuantity field - noted it is a string and must be parsed in as a int
-        String stockQuantity = request.getParameter("DeviceStock");
-
-         //capture devicedescription field
-        String description = request.getParameter("DeviceDescription");
+        //capture the posted supplierAddress
+        String supplierAddress = request.getParameter("supplierAddress");
+        
+        //capture the posted active status - parse as a boolean as the input is a string in form  
+        Boolean active = Boolean.parseBoolean(request.getParameter("active"));
 
         //4) retrieve the manager instance from session - ConnServlet            
-        DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
+        DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
                
         
-        Device device = null;
+        Supplier supplier = null;
+        validator.clear(session);
 
+        //Check if device exsists first
         try {
-            device = deviceManager.findDevice(deviceName, type);
-       
-       //if device doesn't exsist after
-        if (device == null) {
-             //send device name + type already exsists error 
-             session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
-            request.getRequestDispatcher("editDevice.jsp").include(request, response);
-             
-        
-        //validators
-        
-        } else {
-            // deleting device
-            session.setAttribute("device", device);
-             // redirect back to addDevice
-             request.getRequestDispatcher("editDevice.jsp").include(request, response);
-             //deviceManager.deleteDevice(deviceID);
-                //deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
-                // redirect user to the edit.jsp
-                //request.getRequestDispatcher("editDevice.jsp").include(request, response);
-                
-            }
-        }   catch (SQLException ex) {
-                // exception message if updating customer fails
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-                
-                
-            }
-        //request.getRequestDispatcher("editDevice.jsp").include(request, response);
+            supplier = supplierManager.findSupplier(contactName, supplierName);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        //check if device is not null (if null = new device) 
+        if (supplier != null) {
+            //device name & type already exsists error 
+            session.setAttribute("exceptionErr", "Supplier with point of contact already exists");
+            // redirect back to addDevice
+            request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+        } 
+        
+        
+        else {
+            try {
+                //addDevice CRUD operation --- parseBoolean?? Boolean.parseBoolean(active)
+                supplierManager.addSupplier(contactName, supplierName, supplierEmail, supplierAddress, active);
+                //set session attribute
+                request.setAttribute("supplier", supplier);
+                //send to createdDevice.jsp
+                request.getRequestDispatcher("addedSupplier.jsp").include(request, response);
+            } catch (SQLException ex) {
+                //catch any exception
+                session.setAttribute("exceptionErr", "Registration failed");
+                request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+            }
+
+        }
+        
+
     }
 
-
-    
 }
