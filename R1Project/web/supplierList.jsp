@@ -31,13 +31,7 @@
             <body>
 
                 <%
-                    //DBConnector dbConnector = new DBConnector();
-                    //Connection conn = dbConnector.openConnection();
-                    //DBSupplierInformationManager dbManager = new DBSupplierInformationManager(conn);
-                    //List<Supplier> suppliers = dbManager.fetchSuppliers();
-                    //request.setAttribute("suppliers", suppliers);
-                    
-                    Supplier supplier = (Supplier) session.getAttribute("view");
+                    Supplier supplier = (Supplier) session.getAttribute("show");
                 %>
 
                 <h1>Supplier Information Management</h1>
@@ -48,17 +42,17 @@
                             <th>Company</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Status</th>
+                            <th>Active</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${suppliers}" var="s">
+                        <c:forEach items="${show}" var="show">
                             <tr>
-                                <td>${s.getContactName()}</td>
-                                <td>${s.getSupplierName()}</td>
-                                <td>${s.getSupplierEmail()}</td>
-                                <td>${s.getSupplierAddress()}</td>
-                                <td>${s.getStatus()}</td>
+                                <td>${show.contactName}</td>
+                                <td>${show.supplierName}</td>
+                                <td>${show.supplierEmail}</td>
+                                <td>${show.supplierAddress}</td>
+                                <td>${show.active}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

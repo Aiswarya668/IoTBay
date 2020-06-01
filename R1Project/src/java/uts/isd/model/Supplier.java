@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author aiswaryarajeev
+ * @author Anastasia
  */
 public class Supplier implements Serializable {
     private String supplierEmail;

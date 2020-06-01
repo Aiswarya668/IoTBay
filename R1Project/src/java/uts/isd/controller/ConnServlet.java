@@ -51,6 +51,7 @@ public class ConnServlet extends HttpServlet {
             deviceManager = new DBDeviceManager(conn);
             // instantiate new supplierManager
             supplierManager = new DBSupplierInformationManager(conn);
+            
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
