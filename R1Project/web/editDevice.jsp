@@ -69,7 +69,7 @@
                         </tr>
                          
                     </table>
-                       
+                       <p><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     <div>
                         <input class ="button3" type="submit" value="Update"</a>
                     </div>

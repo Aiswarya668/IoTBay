@@ -63,8 +63,8 @@ public class DBDeviceManager {
     }
     
    //Update device details 
-    public void updateDevice(String deviceName, String type, double cost, int stockQuantity, String description, String oldDeviceName, String oldDeviceType) throws SQLException{
-        st.executeUpdate("UPDATE IOTBAYUSER.Device SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICENAME='" + oldDeviceName + "'");
+    public void updateDevice(int deviceID, String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
+        st.executeUpdate("UPDATE IOTBAYUSER.Device SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICEID=" + deviceID + "");
     }
     
     
@@ -113,6 +113,33 @@ public class DBDeviceManager {
         return false;
     }
     
+    //for update find by device ID 
+    
+    public Device findDeviceID(int deviceID) throws SQLException{
+        
+        //Searches device by ID and puts in result set - rs enables iterative reading 
+        String query = "SELECT * FROM IOTBAYUSER.DEVICE WHERE DEVICEID=" + deviceID + "";
+        // results added to result set 
+        ResultSet rs = st.executeQuery(query);
+        
+        while (rs.next()){
+           int searchedDeviceID = rs.getInt(1);
+            
+                if(searchedDeviceID == deviceID){
+                    
+                    String searchedDeviceName = rs.getString(2);
+                    String searchedType = rs.getString(3);
+                    double searchedDeviceCost = rs.getDouble(4);
+                    int searchedDeviceStock = rs.getInt(5);
+                    String searchedDeviceDescription = rs.getString(6);
+
+                    //return device searched from query 
+                    return new Device (searchedDeviceID, searchedDeviceName, searchedType, searchedDeviceCost, searchedDeviceStock, searchedDeviceDescription);
+                }
+            }
+        //if not found - return null
+        return null;
+        }
   
     
 }

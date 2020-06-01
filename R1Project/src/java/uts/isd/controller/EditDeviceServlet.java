@@ -59,7 +59,7 @@ public class EditDeviceServlet extends HttpServlet {
 
         //Check if device exsists first
         try {
-            device = deviceManager.findDevice(deviceName, type);
+            device = deviceManager.findDeviceID(Integer.parseInt(deviceID));
            
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,14 +114,11 @@ public class EditDeviceServlet extends HttpServlet {
         else {
             try {
                 //addDevice CRUD operation
-                String oldDeviceName = device.getDeviceName();
-                String oldDeviceType = device.getType();
-                
-                deviceManager.updateDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description, oldDeviceName, oldDeviceType);
+                deviceManager.updateDevice(Integer.parseInt(deviceID), deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);
                 //set session attribute
                 request.setAttribute("device", device);
                 //send to createdDevice.jsp
-                request.getRequestDispatcher("updateDeviceConfirmation.jsp").include(request, response);
+                request.getRequestDispatcher("createdDevice.jsp").include(request, response);
             
           } catch (SQLException ex) {
                 //catch any exception
