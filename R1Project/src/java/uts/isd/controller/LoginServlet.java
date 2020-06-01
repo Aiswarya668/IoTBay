@@ -36,7 +36,12 @@ public class LoginServlet extends HttpServlet {
         // 4- capture the posted password
         String password = request.getParameter("Password");
         // 5- retrieve the manager instance from session
-        DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
+        DBCustomerManager customerManager = 
+                (DBCustomerManager) session.getAttribute("customerManager");
+        DBApplicationLogsManager logsManager = 
+                (DBApplicationLogsManager) session.getAttribute("logsManager");
+        DBStaffManager staffManager = 
+                (DBStaffManager) session.getAttribute("staffManager");
 
         Customer customer = null;
         validator.clear(session);
@@ -59,15 +64,27 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("emailErr", "Error: Email format incorrect");
             // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
-        } else if (!validator.validatePassword(password)) {
+        } 
+        else if (!validator.validatePassword(password)) {
             // set incorrect password error to the session
             session.setAttribute("passErr", "Error: Password format incorrect: min. 4 characters");
             // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
-        } else if (customer != null) {
+        } 
+        else if (customer != null) {
             if (customer.getPassword().equals(password)) {
                 // save the logged in user object to the session
                 session.setAttribute("customer", customer);
+                try {
+                    logsManager.addCustomerLog(customer.getEmail(), "Login");
+                }
+                catch (SQLException ex) {
+                    // set user does not exist error to the session
+                    session.setAttribute("loginErr", "Error saving login entry");
+                    // redirect user back to the login.jsp
+                    request.getRequestDispatcher("login.jsp").include(request, response);
+                    return;
+                }
                 // redirect user to the main.jsp
                 request.getRequestDispatcher("welcome.jsp").include(request, response);
             }
@@ -77,9 +94,45 @@ public class LoginServlet extends HttpServlet {
                 // redirect user back to the login.jsp
                 request.getRequestDispatcher("login.jsp").include(request, response);
             }
-        } else {
+        } 
+        else {
+            // staff check
+            try {
+                Staff staff = staffManager.findStaff(email);
+                if (!staff.getActive()) {
+                    // set user is not active error to the session
+                    session.setAttribute("loginErr", "That account is no longer active");
+                    // redirect user back to the login.jsp
+                    request.getRequestDispatcher("login.jsp").include(request, response);
+                }
+                else if (!staff.getPassword().equals(password)) {
+                    // set incorrect password error to the session
+                    session.setAttribute("passErr", "Error: Incorrect password");
+                    // redirect user back to the login.jsp
+                    request.getRequestDispatcher("login.jsp").include(request, response);
+                }
+                else {
+                    // save the logged in user object to the session
+                    session.setAttribute("staff", staff);
+                    try {
+                        logsManager.addStaffLog(staff.getEmail(), "Login");
+                    }
+                    catch (SQLException ex) {
+                        // set user does not exist error to the session
+                        session.setAttribute("loginErr", "Error saving login entry");
+                        // redirect user back to the login.jsp
+                        request.getRequestDispatcher("login.jsp").include(request, response);
+                    }
+                    // redirect user to the main.jsp
+                    request.getRequestDispatcher("welcome.jsp").include(request, response);
+                    }
+                return;
+                }
+            catch (SQLException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             // set user does not exist error to the session
-            session.setAttribute("loginErr", "Customer does not exist in the database");
+            session.setAttribute("loginErr", "User does not exist in the database");
             // redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         }

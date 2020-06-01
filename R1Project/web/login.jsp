@@ -14,10 +14,10 @@
     <title>Login Page</title>
 </head>
 <%
-        String emailErr = (String) session.getAttribute("emailErr");
-        String passErr = (String) session.getAttribute("passErr");
-        String loginErr = (String) session.getAttribute("loginErr");
-    %>
+    String emailErr = (String) session.getAttribute("emailErr");
+    String passErr = (String) session.getAttribute("passErr");
+    String loginErr = (String) session.getAttribute("loginErr");
+%>
 
 <body>
     <img src="images/Logo.png" alt="LOGO" style="width:15%; height:10%" class="left" />

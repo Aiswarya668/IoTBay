@@ -26,6 +26,8 @@ public class ConnServlet extends HttpServlet {
     private DBConnector db;
     private DBCustomerManager customerManager;
     private DBDeviceManager deviceManager;
+    private DBApplicationLogsManager logsManager;
+    private DBStaffManager staffManager;
     private Connection conn;
 
     @Override // Create and instance of DBConnector for the deployment session
@@ -48,12 +50,18 @@ public class ConnServlet extends HttpServlet {
             customerManager = new DBCustomerManager(conn);
             // instantiate new DeviceManager
             deviceManager = new DBDeviceManager(conn);
+            // instantiate new logs manager
+            logsManager = new DBApplicationLogsManager(conn);
+            // instantiate new staff manager
+            staffManager = new DBStaffManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         // export the DB manager(s) to the view-session (JSPs)
         session.setAttribute("customerManager", customerManager);
         session.setAttribute("deviceManager", deviceManager);
+        session.setAttribute("logsManager", logsManager);
+        session.setAttribute("staffManager", staffManager);
     }
     
     // Destroy the servlet and release the resources of the application (terminate

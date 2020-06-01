@@ -25,30 +25,32 @@ public class DBCustomerManager {
 
     // Read (Find the Customer)
     public Customer findCustomer(String email) throws SQLException {
-        String fetch = "select * from IOTBAYUSER.CUSTOMER where CUSTOMEREMAIL='" + email + "'";
-        ResultSet rs = st.executeQuery(fetch);
+        String query = "select * from IOTBAYUSER.CUSTOMER where CUSTOMEREMAIL=?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, email);
+        ResultSet rs = stmt.executeQuery();
+
 
         while (rs.next()) {
             String customerEmail = rs.getString(1);
-            if (customerEmail.equals(email)) {
-                String customerFname = rs.getString(2);
-                String customerLname = rs.getString(3);
-                String customerPhone = rs.getString(4);
-                String customerPass = rs.getString(5);
-                String customerSAdd = rs.getString(6);
-                String customerUnit = rs.getString(7);
-                String customerCity = rs.getString(8);
-                String customerState = rs.getString(9);
-                String customerPostC = rs.getString(10);
-                boolean customerLoginStatus = rs.getBoolean(11);
-                java.util.Date customerRegisterDate = rs.getDate(12);
-                String customerGender = rs.getString(13);
-                Boolean customerActive = rs.getBoolean(14);
+            String customerFname = rs.getString(2);
+            String customerLname = rs.getString(3);
+            String customerPhone = rs.getString(4);
+            String customerPass = rs.getString(5);
+            String customerSAdd = rs.getString(6);
+            String customerUnit = rs.getString(7);
+            String customerCity = rs.getString(8);
+            String customerState = rs.getString(9);
+            String customerPostC = rs.getString(10);
+            boolean customerLoginStatus = rs.getBoolean(11);
+            java.util.Date customerRegisterDate = rs.getDate(12);
+            String customerGender = rs.getString(13);
+            Boolean customerActive = rs.getBoolean(14);
                 return new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
                         customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
                         customerRegisterDate, customerLoginStatus, customerActive);
-            }
         }
+        stmt.close();
         throw new SQLException("No such customer exists");
     }
 
@@ -111,6 +113,7 @@ public class DBCustomerManager {
         stmt.setBoolean(14, true);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     //Update (Update a Customer's details in the database)
@@ -142,6 +145,7 @@ public class DBCustomerManager {
         stmt.setString(13, customerEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     // Delete (Delete a Customer from the database)
@@ -151,6 +155,7 @@ public class DBCustomerManager {
         stmt.setString(1, customerEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     public ArrayList<Customer> fetchCustomers() throws SQLException {
@@ -191,10 +196,12 @@ public class DBCustomerManager {
         while (rs.next()) {
             String email = rs.getString(1);
             if (email.equals(customerEmail)) {
+                stmt.close();
                 return true;
             }
         }
         return false;
+        
     }
 
     // deactivate a customer - set their active status to false
@@ -203,7 +210,8 @@ public class DBCustomerManager {
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setBoolean(1, false);
         stmt.setString(2, customerEmail);
-        
+
         stmt.executeUpdate();
+        stmt.close();
     }
 }
