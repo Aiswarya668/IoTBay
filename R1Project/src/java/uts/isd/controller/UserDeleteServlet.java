@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
+import uts.isd.model.Staff;
 import uts.isd.model.iotbay.dao.DBCustomerManager;
+import uts.isd.model.iotbay.dao.DBStaffManager;
 
 /**
  *
@@ -34,18 +36,32 @@ public class UserDeleteServlet extends HttpServlet {
         HttpSession session = request.getSession();
         // 3- capture the posted email
         String customerEmail = request.getParameter("customerEmail");
+        String staffEmail = request.getParameter("staffEmail");
         // 4- capture the posted password
 //        String password = request.getParameter("Password");
         // 5- retrieve the manager instance from session
         DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
+        DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
 
         Customer customer = null;
+        Staff staff = null;
         try {
             if (customerManager.findCustomer(customerEmail) != null) {
                 customerManager.deleteCustomer(customerEmail);
                 System.out.println("Customer " + customerEmail + " was deleted from the database.");
             } else {
                 System.out.println("Customer does not exist.");
+            }
+        } catch (SQLException ex) {
+            session.setAttribute("userDeleteErr", ex);
+            Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            if (staffManager.findStaff(staffEmail) != null) {
+                staffManager.deleteStaff(staffEmail);
+                System.out.println("Staff" + staffEmail + " was deleted from the database.");
+            } else {
+                System.out.println("Staff does not exist.");
             }
         } catch (SQLException ex) {
             session.setAttribute("userDeleteErr", ex);
