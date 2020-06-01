@@ -43,7 +43,7 @@ RegisterDate timestamp,
 ContractType varchar(20),
 PayHr integer,
 active boolean,
-FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
+FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail),
 PRIMARY KEY (StaffEmail)
 );
 
