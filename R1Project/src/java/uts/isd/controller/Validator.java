@@ -26,7 +26,8 @@ public class Validator implements Serializable {
     //Positive integers of undefined length
     private String deviceStockPattern = "(^\\d+$)";
     private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
-   //supplier management validator patterns
+   
+//supplier management validator patterns
    private String supplierStatus = "[A-Z][a-z]*";
 
    public Validator() {

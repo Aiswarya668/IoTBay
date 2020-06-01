@@ -31,11 +31,13 @@
             <body>
 
                 <%
-                    DBConnector dbConnector = new DBConnector();
-                    Connection conn = dbConnector.openConnection();
-                    DBSupplierInformationManager dbManager = new DBSupplierInformationManager(conn);
-                    List<Supplier> suppliers = dbManager.fetchSuppliers();
-                    request.setAttribute("suppliers", suppliers);
+                    //DBConnector dbConnector = new DBConnector();
+                    //Connection conn = dbConnector.openConnection();
+                    //DBSupplierInformationManager dbManager = new DBSupplierInformationManager(conn);
+                    //List<Supplier> suppliers = dbManager.fetchSuppliers();
+                    //request.setAttribute("suppliers", suppliers);
+                    
+                    Supplier supplier = (Supplier) session.getAttribute("view");
                 %>
 
                 <h1>Supplier Information Management</h1>

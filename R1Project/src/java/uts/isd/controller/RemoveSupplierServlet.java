@@ -58,10 +58,7 @@ public class RemoveSupplierServlet extends HttpServlet {
         
         } 
         }   catch (SQLException ex) {
-                // exception message if updating customer fails
-                //Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-                
-                //error message
+
                 session.setAttribute("exceptionErr", "Supplier doesn't exist");
                  request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
                 
