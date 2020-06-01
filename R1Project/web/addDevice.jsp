@@ -2,7 +2,9 @@
     Document   : addDevice
     Created on : 24/05/2020, 5:01:46 PM
     Author     : aiswarya.r
+    This page is used to add devices based on device name, type, price, stock and description
 --%>
+
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
 <%@page import="java.util.Date"%>

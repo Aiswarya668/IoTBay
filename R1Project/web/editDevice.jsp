@@ -3,6 +3,7 @@
     Document   : edit
     Created on : Apr 30, 2020, 12:01:31 AM
     Author     : aiswaryarajeev
+    This page allows for devices to be updated from the browseDevice.jsp 
 --%>
 
 <%@page import="uts.isd.model.Customer"%>

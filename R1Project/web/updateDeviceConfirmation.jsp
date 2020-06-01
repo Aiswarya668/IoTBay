@@ -2,6 +2,7 @@
     Document   : updateDeviceConfirmation
     Created on : 01/06/2020, 1:49:44 PM
     Author     : aiswarya.r
+    After successful device editing - this is the confirmation page 
 --%>
 
 <%@page import="java.sql.Connection"%>

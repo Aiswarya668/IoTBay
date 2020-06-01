@@ -33,28 +33,30 @@ public class EditDeviceServlet extends HttpServlet {
         Validator validator = new Validator();
 
         //3) Capture all the posted fields 
-       String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
+        // capture deviceID - noted it is string and needs to be parsed 
+        String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
 
-        //4) capture the posted deviceName    
+        //capture the posted deviceName    
         String deviceName = request.getParameter("DeviceName");
 
-        //5) capture the posted deviceType  
+        //capture the posted deviceType  
         String type = request.getParameter("DeviceType");
 
-        //6) capture the posted deviceCost - parse as a double as the input is a string in form at bottom
+        //capture the posted deviceCost - parse as a double as the input is a string in form at bottom
         String cost = (request.getParameter("DeviceCost"));
 
-        //7) capture the posted stockQuantity - parse as a int as the input is a string in form at bottom 
+        //capture the posted stockQuantity - parse as a int as the input is a string in form at bottom 
         String stockQuantity = (request.getParameter("DeviceStock"));
 
-        //8) capture the posted description   
+        //capture the posted description   
         String description = request.getParameter("DeviceDescription");
 
-        //9) retrieve the manager instance from session - ConnServlet            
+        //retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
         
         Device device = null;
+        
         validator.clear(session);
 
         //Check if device exsists first
@@ -65,10 +67,10 @@ public class EditDeviceServlet extends HttpServlet {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //check if device is not null (if null = new device) 
+        //check if device is not null (if null means that it is a new device) 
         if (device == null) {
-            //device name & type already exsists error 
-            session.setAttribute("exceptionErr", "Device with that name and type already exists in the database please try again");
+            //device name & type don't exsists error 
+            session.setAttribute("exceptionErr", "Device with that name and type does not exist in the database please try again");
             // redirect back to addDevice
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         } 

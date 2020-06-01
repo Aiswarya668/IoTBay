@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uts.isd.controller;
 
 import java.io.IOException;
@@ -22,6 +18,9 @@ import uts.isd.model.iotbay.dao.DBDeviceManager;
  *
  * @author aiswarya.r
  */
+
+//This servlet checks to see if the device exsists before allowing for the operation to delete 
+
 public class DeleteDeviceServlet extends HttpServlet {
 
      @Override
@@ -34,6 +33,7 @@ public class DeleteDeviceServlet extends HttpServlet {
         Validator validator = new Validator();
         
         //3- capture the posted parameters/info fields 
+        
         //capture deviceID field
         String deviceID = request.getParameter("DeviceID");
         
@@ -59,39 +59,28 @@ public class DeleteDeviceServlet extends HttpServlet {
         Device device = null;
 
         try {
-            device = deviceManager.findDevice(deviceName, type);
+            device = deviceManager.findDeviceID(Integer.parseInt(deviceID));
        
-       //if device doesn't exsist after
+       //if device doesn't exsist after findDevice
         if (device == null) {
-             //send device name + type already exsists error 
-             session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
+            //send device name + type already exsists error 
+            session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
+            //reload the deleteDevice.jsp
             request.getRequestDispatcher("deleteDevice.jsp").include(request, response);    
         
-        //validators
+        //validators to check inputs 
      
                 
         } else {
-            // deleting device
+            // if every condition is met - deleting device
             request.getRequestDispatcher("deleteDeviceConfirmation.jsp").include(request, response);
             deviceManager.deleteDevice(Integer.parseInt(deviceID));
-            
-            
-            
-             // redirect back to addDevice
-             
-             
-                //deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
-                // redirect user to the edit.jsp
-                //request.getRequestDispatcher("editDevice.jsp").include(request, response);
                 
             }
         }   catch (SQLException ex) {
                 // exception message if updating customer fails
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-                
-                
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);  
             }
-        //request.getRequestDispatcher("editDevice.jsp").include(request, response);
         }
     }
 

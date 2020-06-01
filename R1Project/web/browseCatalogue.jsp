@@ -2,6 +2,8 @@
     Document   : browseCatalogue
     Created on : 21/05/2020, 8:30:58 PM
     Author     : aiswarya.r
+    This page takes in the ViewDeviceServlet to display all the devices within our sample dataset and is the 
+    gateway into all CRUD operations 
 --%>
 
 <%@page import="java.util.ArrayList"%>

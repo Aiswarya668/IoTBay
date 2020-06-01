@@ -2,6 +2,7 @@
     Document   : deleteDeviceConfirmation
     Created on : 01/06/2020, 11:23:25 AM
     Author     : aiswarya.r
+    This page is the confirmation of device deletion
 --%>
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>

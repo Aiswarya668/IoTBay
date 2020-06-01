@@ -2,6 +2,7 @@
     Document   : delete
     Created on : Apr 30, 2020, 12:01:31 AM
     Author     : aiswaryarajeev
+    This page takes in the parametrs of ViewDeleteDeviceServlet to then prompt device deletion 
 --%>
 
 <%@page import="uts.isd.model.Device"%>

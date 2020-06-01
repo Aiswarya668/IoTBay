@@ -34,8 +34,9 @@ public class UpdateDeviceServlet extends HttpServlet {
         Validator validator = new Validator();
         
         //3- capture the posted parameters/info fields 
-        //capture deviceID field
-        String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
+        
+        //capture deviceID field - but not allowed to edit this field 
+        //String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
         
         //capture deviceName field
         String deviceName = request.getParameter("DeviceName");
