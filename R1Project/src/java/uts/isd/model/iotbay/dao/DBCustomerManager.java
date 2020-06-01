@@ -43,7 +43,7 @@ public class DBCustomerManager {
                 boolean customerLoginStatus = rs.getBoolean(11);
                 java.util.Date customerRegisterDate = rs.getDate(12);
                 String customerGender = rs.getString(13);
-                Boolean customerActive = rs.getBoolean(14);
+                boolean customerActive = rs.getBoolean(14);
                 return new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
                         customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
                         customerRegisterDate, customerLoginStatus, customerActive);
@@ -86,7 +86,6 @@ public class DBCustomerManager {
     // }
     // return null;
     // }
-
     // Create (Add Customer data into the database)
     public void addCustomer(String customerFname, String customerLname, String customerEmail, String customerPass,
             String customerGender, String customerUnit, String customerSAdd, String customerCity, String customerState,
@@ -120,7 +119,7 @@ public class DBCustomerManager {
             String customerState, String customerPostC, String customerPhone,
             boolean customerActive)
             throws SQLException {
-        
+
         String query = "UPDATE IOTBAYUSER.CUSTOMER SET CUSTOMEREMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?,"
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?,"
@@ -146,6 +145,8 @@ public class DBCustomerManager {
 
     // Delete (Delete a Customer from the database)
     public void deleteCustomer(String customerEmail) throws SQLException {
+//        st.executeUpdate("DELETE FROM IOTBAYUSER.CUSTOMER WHERE CUSTOMEREMAIL = '" + customerEmail + "'");
+        
         String query = "DELETE FROM IOTBAYUSER.CUSTOMER WHERE CUSTOMEREMAIL = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
@@ -203,7 +204,7 @@ public class DBCustomerManager {
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setBoolean(1, false);
         stmt.setString(2, customerEmail);
-        
+
         stmt.executeUpdate();
     }
 }

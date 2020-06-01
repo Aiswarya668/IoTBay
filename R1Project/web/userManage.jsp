@@ -33,18 +33,21 @@
                 <%
                     DBConnector dbConnector = new DBConnector();
                     Connection conn = dbConnector.openConnection();
-                    DBCustomerManager dbManager = new DBCustomerManager(conn);
-                    List<Customer> customers = dbManager.fetchCustomers();
-                    request.setAttribute("customers", customers);
+                    DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
+                    List<Customer> customers = customerManager.fetchCustomers();
+                    session.setAttribute("customers", customers);
+                    SQLException userDeleteErr = (SQLException) session.getAttribute("userDeleteErr");
                 %>
                 <div>
                     <h1>User Management</h1>
+                    <span>${userDeleteErr}</span>
+                    <br>
                     <i class="material-icons global-search-icon">&#xE8B6;</i>
 
                     <input type="text" id="inputFName" class="searchbox" onkeyup="myFunction()" placeholder="First name" title="Type in a name">
                     <input type="text" id="inputLName" class="searchbox" onkeyup="myFunction()" placeholder="Last name.." title="Type in a name">
                     <input type="text" id="inputPhone" class="searchbox" onkeyup="myFunction()" placeholder="Phone number" title="Type in a name">
-                    <a class="button1" href="register.jsp">Add New</a>
+                    <a class="button4" href="register.jsp">Add New</a>
                 </div>
 
                 <div class="table-wrapper">
@@ -85,9 +88,11 @@
                                     <td>${c.getGender()}</td>
                                     <td>${c.isActive()}</td>
                                     <td>
-                                        <form method="post" method="get" action="UserDeleteServlet">
+                                        <form method="post" action="UserDeleteServlet">
                                             <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
-                                            <button type="submit"><i class="material-icons">&#xE872;</i></button>
+                                            <input class="button4" type="submit" value="Delete">
+
+                                            <!--<button type="submit"><i class="material-icons">&#xE872;</i></button>-->
                                         </form>
                                         <!--                                    <td><a class="button2" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
                                                                             <td><a class="button3" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>-->
@@ -130,5 +135,6 @@
 
             </div>
         </div>
+        <jsp:include page="./ConnServlet" flush="true" />
     </body>
 </html>
