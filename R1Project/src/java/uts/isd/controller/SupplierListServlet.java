@@ -27,34 +27,31 @@ import uts.isd.model.iotbay.dao.DBSupplierInformationManager;
 public class SupplierListServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
         
-        //1) capture the posted contactName   
+        //capture the posted contactName   
         String contactName = request.getParameter("contactName");
         
-        //3) capture the posted supplierName 
+        //capture the posted supplierName 
         String supplierName = request.getParameter("supplierName");
         
-        //4) capture the posted supplierEmail 
+        //capture the posted supplierEmail 
         String supplierEmail = request.getParameter("supplierEmail");
 
-        //5) capture the posted supplierAddress
+        //capture the posted supplierAddress
         String supplierAddress = request.getParameter("supplierAddress");
         
-        //6) capture the posted active status - parse as a boolean as the input is a string in form  
+        //capture the posted active status - parse as a boolean as the input is a string in form  
         Boolean active = Boolean.parseBoolean(request.getParameter("active"));
                     
         try {
-           //1) retrieve the current session 
+           //retrieve the current session 
             HttpSession session = request.getSession();
         
-            //2) create an instance of the Validator class to check inputs
+            //create an instance of the Validator class to check inputs
             Validator validator = new Validator();
         
-            //9) retrieve the manager instance from session - ConnServlet            
+            //retrieve the manager instance from session - ConnServlet            
              DBSupplierInformationManager supplierManager = (DBSupplierInformationManager)session.getAttribute("supplierManager");
-        
-            //validator.clear(session);
-            
-            
+
             ArrayList<Supplier> show = supplierManager.fetchSuppliers();
             
             request.setAttribute("show",show);     
