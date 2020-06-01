@@ -50,9 +50,9 @@
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            
+                            <td colspan="3"> Actions</td>
+                            
                         </tr>
 
                         <c:forEach items="${display}" var="display">
