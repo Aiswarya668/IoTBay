@@ -46,13 +46,14 @@
                 <div>
                     <span>${userDeleteErr}</span>
                     <i class="material-icons global-search-icon">&#xE8B6;</i> 
-                   <input type="radio" id="customer" name="user" value="customer">
-                    <label for="customer">Customer</label>
-                    <input type="radio" id="staff" name="user" value="staff">
-                    <label for="staff">Staff</label>
-                    <input type="text" id="inputFName" class="searchbox" onkeyup="myFunction()" placeholder="First name" title="Type in a name">
-                    <input type="text" id="inputLName" class="searchbox" onkeyup="myFunction()" placeholder="Last name.." title="Type in a name">
-                    <input type="text" id="inputPhone" class="searchbox" onkeyup="myFunction()" placeholder="Phone number" title="Type in a name">
+                    <select id="inputType" onchange="filterTable()" >
+                        <option value="all">All</option>
+                        <option value="customer">Customers only</option>
+                        <option value="staff">Staff only</option>
+                    </select>
+                    <input type="text" id="inputFName" class="searchbox" onkeyup="filterTable()" placeholder="First name" title="Type in a name">
+                    <input type="text" id="inputLName" class="searchbox" onkeyup="filterTable()" placeholder="Last name.." title="Type in a name">
+                    <input type="text" id="inputPhone" class="searchbox" onkeyup="filterTable()" placeholder="Phone number" title="Type in a name">
                     <a class="button4" href="register.jsp">Add New</a>
                 </div>
                 <div class="table-wrapper">
@@ -60,6 +61,7 @@
                         <thead>
                             <tr><td><h2>Customers</h2></td></tr>
                             <tr>
+                                <th>Type</th>
                                 <th>Email</th>
                                 <th>First name</th>
                                 <th>Last name</th>
@@ -79,6 +81,7 @@
                         <tbody>
                             <c:forEach items="${customers}" var="c">
                                 <tr>
+                                    <td>Customer</td>
                                     <td>${c.getEmail()}</td>
                                     <td>${c.getFirstName()}</td>
                                     <td>${c.getLastName()}</td>
@@ -97,10 +100,7 @@
                                         <form method="post" action="UserDeleteServlet">
                                             <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
                                             <input class="button4" type="submit" value="Delete">
-
-                                 
                                         </form>
-                                 
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -108,6 +108,7 @@
                         <thead>
                             <tr><td><h2>Staff</h2></td></tr>
                             <tr>
+                                <th>Type</th>
                                 <th>Email</th>
                                 <th>First name</th>
                                 <th>Last name</th>
@@ -129,6 +130,7 @@
                         <tbody>
                             <c:forEach items="${staffs}" var="s">
                                 <tr>
+                                    <td>Staff</td>
                                     <td>${s.getEmail()}</td>
                                     <td>${s.getFirstName()}</td>
                                     <td>${s.getLastName()}</td>
@@ -163,28 +165,40 @@
                     </table>
                 </div>
                 <script>
-                    function myFunction() {
-                        var input, filterFName, table, tr, tdFName, tdLName, tdPhone, i, txtFName;
+                    function filterTable() {
+                        var input, filterFName, filterLName, filterPhone, filterType, table, tr, tdFName, tdLName, tdPhone, tdType, i, txtFName;
                         input = document.getElementById("inputFName");
                         filterFName = input.value.toUpperCase();
                         input = document.getElementById("inputLName");
                         filterLName = input.value.toUpperCase();
                         input = document.getElementById("inputPhone");
                         filterPhone = input.value.toUpperCase();
+                        input = document.getElementById("inputType");
+                        filterType = input.value.toUpperCase();
                         table = document.getElementById("userTable");
                         tr = table.getElementsByTagName("tr");
                         for (i = 0; i < tr.length; i++) {
-                            tdFName = tr[i].getElementsByTagName("td")[1];
-                            tdLName = tr[i].getElementsByTagName("td")[2];
-                            tdPhone = tr[i].getElementsByTagName("td")[3];
+                            tdType = tr[i].getElementsByTagName("td")[0];
+                            tdFName = tr[i].getElementsByTagName("td")[2];
+                            tdLName = tr[i].getElementsByTagName("td")[3];
+                            tdPhone = tr[i].getElementsByTagName("td")[4];
                             if (tdFName && tdLName) {
+                                txtType = tdType.textContent || tdType.innerText;
                                 txtFName = tdFName.textContent || tdFName.innerText;
                                 txtLName = tdLName.textContent || tdLName.innerText;
                                 txtPhone = tdPhone.textContent || tdPhone.innerText;
-                                if (txtFName.toUpperCase().indexOf(filterFName) > -1 && txtLName.toUpperCase().indexOf(filterLName) > -1 && txtPhone.toUpperCase().indexOf(filterPhone) > -1) {
-                                    tr[i].style.display = "";
+                                if (filterType === "CUSTOMER" || filterType === "STAFF") {
+                                    if (txtType.toUpperCase().indexOf(filterType) > -1 && txtFName.toUpperCase().indexOf(filterFName) > -1 && txtLName.toUpperCase().indexOf(filterLName) > -1 && txtPhone.toUpperCase().indexOf(filterPhone) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
                                 } else {
-                                    tr[i].style.display = "none";
+                                    if (txtFName.toUpperCase().indexOf(filterFName) > -1 && txtLName.toUpperCase().indexOf(filterLName) > -1 && txtPhone.toUpperCase().indexOf(filterPhone) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
                                 }
                             }
                         }
