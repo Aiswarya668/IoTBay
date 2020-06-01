@@ -43,7 +43,7 @@ RegisterDate timestamp,
 ContractType varchar(20),
 PayHr integer,
 active boolean,
-FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail), 
+FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
 PRIMARY KEY (StaffEmail)
 );
 
@@ -95,7 +95,7 @@ StaffEmail varchar(50),
 timestamp timestamp,
 LogDescription varchar(1000),
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
-FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail),
+FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
 PRIMARY KEY (AccessLogID)
 );
 
@@ -116,7 +116,7 @@ CustomerEmail varchar(50),
 Description varchar(1000),
 ResolvedState boolean,
 TicketDate timestamp,
-FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail),
+FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
 PRIMARY KEY (TicketID)
 );
