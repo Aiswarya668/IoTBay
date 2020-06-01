@@ -124,9 +124,9 @@ public class TestDeviceDB {
             String oldDeviceType = device.getType();
             
             if (device != null) {
-                System.out.print("Device name: ");
+                System.out.print("Device new name: ");
                 String newdeviceName = in.nextLine();
-                System.out.print("Device type: ");
+                System.out.print("Device  new type: ");
                 String newtype = in.nextLine();
                 System.out.print("Device cost: ");
                 double cost = in.nextDouble();

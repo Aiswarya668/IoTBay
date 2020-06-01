@@ -22,7 +22,7 @@ import uts.isd.model.iotbay.dao.DBDeviceManager;
  *
  * @author aiswarya.r
  */
-public class DeleteDeviceServlet extends HttpServlet {
+public class ViewDeleteDeviceServlet extends HttpServlet {
 
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class DeleteDeviceServlet extends HttpServlet {
         
         //3- capture the posted parameters/info fields 
         //capture deviceID field
-        String deviceID = request.getParameter("DeviceID");
+        String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
         
         //capture deviceName field
         String deviceName = request.getParameter("DeviceName");
@@ -65,21 +65,17 @@ public class DeleteDeviceServlet extends HttpServlet {
         if (device == null) {
              //send device name + type already exsists error 
              session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
-            request.getRequestDispatcher("deleteDevice.jsp").include(request, response);    
+            request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
+             
         
         //validators
-     
-                
+        
         } else {
             // deleting device
-            request.getRequestDispatcher("deleteDeviceConfirmation.jsp").include(request, response);
-            deviceManager.deleteDevice(Integer.parseInt(deviceID));
-            
-            
-            
+            session.setAttribute("device", device);
              // redirect back to addDevice
-             
-             
+             request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
+             //deviceManager.deleteDevice(deviceID);
                 //deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
                 // redirect user to the edit.jsp
                 //request.getRequestDispatcher("editDevice.jsp").include(request, response);

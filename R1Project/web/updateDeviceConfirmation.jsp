@@ -1,6 +1,6 @@
 <%-- 
-    Document   : createdDevice
-    Created on : 26/05/2020, 5:09:08 PM
+    Document   : updateDeviceConfirmation
+    Created on : 01/06/2020, 1:49:44 PM
     Author     : aiswarya.r
 --%>
 
@@ -28,7 +28,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>The ${display.deviceName} with type: ${display.type} was successfully created!</h1>
+                    <h1>This device was successfully updated!</h1>
 
             </div>
         </div>
