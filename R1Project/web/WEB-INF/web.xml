@@ -18,6 +18,11 @@
         <servlet-class>uts.isd.controller.EditServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserDeleteServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
         <servlet-name>UserLogsServlet</servlet-name>
         <servlet-class>uts.isd.controller.UserLogsServlet</servlet-class>
     </servlet>
@@ -48,6 +53,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <url-pattern>/UserDeleteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

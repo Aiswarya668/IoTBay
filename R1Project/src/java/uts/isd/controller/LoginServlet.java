@@ -99,7 +99,7 @@ public class LoginServlet extends HttpServlet {
             // staff check
             try {
                 Staff staff = staffManager.findStaff(email);
-                if (!staff.getActive()) {
+                if (!staff.isActive()) {
                     // set user is not active error to the session
                     session.setAttribute("loginErr", "That account is no longer active");
                     // redirect user back to the login.jsp

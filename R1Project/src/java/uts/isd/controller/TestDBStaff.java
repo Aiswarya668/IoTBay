@@ -177,7 +177,7 @@ public class TestDBStaff {
             ArrayList<Staff> staffs = db.fetchStaffs();
             System.out.println("STAFF TABLE: ");
             staffs.stream().forEach((staff) -> {
-                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-20s %-10s %-10s %-10s %-10s %-10s \n", staff.getEmail(), staff.getFirstName(), staff.getLastName(), staff.getPhoneNumber(), staff.getPassword(), staff.getStreetAddress(), staff.getUnitNumber(), staff.getCity(), staff.getState(), staff.getPostcode(), staff.getManager(), staff.isLoginStatus(), formatter.format(staff.getDateRegistered()), staff.getContractType(), staff.getHourlyPay(), staff.getActive());
+                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-20s %-10s %-10s %-10s %-10s %-10s \n", staff.getEmail(), staff.getFirstName(), staff.getLastName(), staff.getPhoneNumber(), staff.getPassword(), staff.getStreetAddress(), staff.getUnitNumber(), staff.getCity(), staff.getState(), staff.getPostcode(), staff.getManager(), staff.isLoginStatus(), formatter.format(staff.getDateRegistered()), staff.getContractType(), staff.getHourlyPay(), staff.isActive());
             });
             System.out.println();
         } catch (SQLException ex) {

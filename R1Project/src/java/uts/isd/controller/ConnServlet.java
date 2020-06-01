@@ -63,7 +63,7 @@ public class ConnServlet extends HttpServlet {
         session.setAttribute("logsManager", logsManager);
         session.setAttribute("staffManager", staffManager);
     }
-    
+
     // Destroy the servlet and release the resources of the application (terminate
     // also the db connection)
     @Override
