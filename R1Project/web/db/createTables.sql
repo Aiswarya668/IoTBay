@@ -101,7 +101,7 @@ DeviceID int NOT NULL,
 OrderID int NOT NULL, 
 Quantity integer, 
 Price double,
-FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID),
+FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID) ON DELETE CASCADE,
 FOREIGN KEY (OrderID) REFERENCES CustomerOrder(OrderID), 
 PRIMARY KEY (DeviceID, OrderID)
 );
@@ -123,7 +123,7 @@ CustomerEmail varchar(50) NOT NULL,
 DeviceID int NOT NULL,
 DeviceQuantity integer,
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
-FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID),
+FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID) ON DELETE CASCADE,
 PRIMARY KEY (CustomerEmail, DeviceID)
 );
 

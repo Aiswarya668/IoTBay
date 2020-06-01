@@ -1,9 +1,8 @@
 <%-- 
-    Document   : createdDevice
-    Created on : 26/05/2020, 5:09:08 PM
+    Document   : deleteDeviceConfirmation
+    Created on : 01/06/2020, 11:23:25 AM
     Author     : aiswarya.r
 --%>
-
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
 <%@page import="java.util.Date"%>
@@ -28,7 +27,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>The ${display.deviceName} with type: ${display.type} was successfully created!</h1>
+                    <h1>This device was successfully deleted!</h1>
 
             </div>
         </div>

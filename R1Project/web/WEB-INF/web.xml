@@ -29,6 +29,14 @@
         <servlet-name>DeleteDeviceServlet</servlet-name>
         <servlet-class>uts.isd.controller.DeleteDeviceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewDeleteDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeleteDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDeviceCreationServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeviceCreationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
@@ -56,6 +64,14 @@
     <servlet-mapping>
         <servlet-name>DeleteDeviceServlet</servlet-name>
         <url-pattern>/DeleteDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDeleteDeviceServlet</servlet-name>
+        <url-pattern>/ViewDeleteDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDeviceCreationServlet</servlet-name>
+        <url-pattern>/ViewDeviceCreationServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

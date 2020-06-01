@@ -14,11 +14,12 @@
     
     //device management validator patterns - for server side validation
     private String deviceNamePattern = "(([a-zA-Z0-9]+))";
+    //type = Word with capital (space) word with capital
     private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     //Numbers with 2 decimals (.00)
-    private String deviceCostPattern = "^-?\\d*\\.\\d{2}$";
+    private String deviceCostPattern = "(^-?\\d*\\.\\d{2}$)";
     //Positive integers of undefined length
-    private String deviceStockPattern = "^\\d+$";
+    private String deviceStockPattern = "(^\\d+$)";
     private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
 
     public Validator(){    }       
@@ -90,5 +91,7 @@
         session.setAttribute("priceErr", "Enter price $0.00");
         session.setAttribute("stockErr", "Enter stock quantity");
         session.setAttribute("descriptionErr", "Enter device description");
+        session.setAttribute("exceptionErr", "");
+        session.setAttribute("deviceEmptyErr", "");
     }
 }

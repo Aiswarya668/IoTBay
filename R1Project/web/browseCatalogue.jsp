@@ -69,8 +69,8 @@
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
                                 <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
-                                <td><p class="right"> <a class="button2" type='submit' value='Add Device' href="EditDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
-                                <td><p class="right"> <a class="button3" type='submit' value='Delete Device' href="DeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
+                                <td><p class="right"> <a class="button2" value='Add Device' href="ViewDeviceCreationServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
+                                <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
                             </tr>
                         </c:forEach>
                     </table>

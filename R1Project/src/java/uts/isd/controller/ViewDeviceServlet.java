@@ -71,7 +71,9 @@ public class ViewDeviceServlet extends HttpServlet {
             
             
             ArrayList<Device> display = deviceManager.fetchDevice();
-            request.setAttribute("display",display);             
+            
+            request.setAttribute("display",display);     
+            
             request.getRequestDispatcher("browseCatalogue.jsp").include(request, response);
             
             
@@ -79,11 +81,7 @@ public class ViewDeviceServlet extends HttpServlet {
            Logger.getLogger(ViewDeviceServlet.class.getName()).log(Level.SEVERE, null, ex);
        }
         
-        
-        
-       
-        
-        //session.setAttribute("device", device);
+      
    }
    
 }

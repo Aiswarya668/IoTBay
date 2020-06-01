@@ -25,7 +25,7 @@
             String descriptionErr = (String) session.getAttribute("descriptionErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
             String updatedMsg = request.getParameter("updatedMsg");
-
+            String deviceEmptyErr = (String) session.getAttribute("deviceEmptyErr");
             Device device = (Device) session.getAttribute("device");
         %>
         
@@ -35,8 +35,8 @@
         <div class="maincolumn2">
             <div class="card">
                 <h1>Delete device <span> <%= (updatedMsg != null) ? updatedMsg : ""%> </span></h1>
-                <form method="post" method="get" action="DeleteDeviceServlet">
-                    
+                <form method="get" action="DeleteDeviceServlet">
+                    <p><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
                   <table>
                         
                          <tr>
