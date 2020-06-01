@@ -38,14 +38,9 @@
                 <form method="post" method="get">
 
                     <form>
-                        Search device: <input type="text" name="Name" placeholder="Name, Type">
-                        <input type ="submit" value="Search">
+                        Search device: <input type="text" id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name">
+                    <input type="text" id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
                     </form>
-
-                    <p>Search device:</p>
-                    <input type="text" id="inputDeviceName" onkeyup="myFunction()" placeholder="Search Device Name" title="Type in a device name">
-                    <input type="text" id="inputDeviceType" onkeyup="myFunction()" placeholder="Search" title="Type in a device type">
-
 
                     <table id="deviceTable" class="device Table">
                         <tr>
@@ -78,10 +73,11 @@
 
                     <script>
                         function myFunction() {
-                            var input, filter, table, tr, tdDeviceName, tdType, i, txtValue;
+                            var input, input2, filter, filter2, table, tr, tdDeviceName, tdType, i, txtValue;
                             input = document.getElementById("inputDeviceName");
                             filter = input.value.toUpperCase();
-                            input = document.getElementById("inputDeviceType");
+                            input2 = document.getElementById("inputDeviceType");
+                            filter2 = input2.value.toUpperCase();
                             table = document.getElementById("deviceTable");
                             tr = table.getElementsByTagName("tr");
                             for (i = 0; i < tr.length; i++) {
