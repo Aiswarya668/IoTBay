@@ -24,7 +24,7 @@ import uts.isd.model.iotbay.dao.DBSupplierInformationManager;
  *
  * @author Anastasia
  */
-public class SupplierListServlet {
+public class SupplierListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
         
         //capture the posted contactName   

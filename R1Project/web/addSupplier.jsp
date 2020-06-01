@@ -24,16 +24,17 @@
         <div class="maincolumn2">
             <div class="card">
                 <h1>Add New Supplier </span> </h1>
-                <form method="post" method="get" action="createdDevice.jsp">
+                <form method="post" method="get" action="addedSupplier.jsp">
                     <table>
                         <tr><td>Contact Name:</td><td><input type="text" placeholder="Enter contact name" name="contactName"></td></tr>
                         <tr><td>Company:</td><td><input type="text" placeholder="Enter supplier company" name="supplierName"></td></tr>
                         <tr><td>Email:</td><td><input type="text" placeholder="Enter supplier email" name="supplierEmail"></td></tr>
-                        <tr><td>Address:</td><td><input type="text" placeholder="Enter supplier address" name="supplierAddress"></td></tr> 
+                        <tr><td>Address:</td><td><input type="text" placeholder="Enter supplier address" name="supplierAddress"></td></tr>
+                        <tr><td>Boolean:</td><td><input type="text" placeholder="Enter active status" name="supplierAddress"></td></tr> 
                     </table>
                     <div>
                         <input class ="button4" type="submit" value="Add Supplier">
-                        <a class ="button3" href="index.jsp">Cancel</a>
+                        <a class ="button3" href="SupplierListServlet">Cancel</a>
                     </div>
                 </form>
             </div>
