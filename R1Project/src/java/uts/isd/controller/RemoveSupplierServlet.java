@@ -44,35 +44,29 @@ public class RemoveSupplierServlet extends HttpServlet {
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplier");
                
         
-        Supplier supplier = null;
-
+        Supplier supplier;
+        
         try {
             supplier = supplierManager.findSupplier(contactName, supplierName);
        
-       //if (!deviceName.equals(existingDevice.getDeviceName()) && !type.equals(existingDevice.getType())) {
         if (supplier != null) {
-             session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
-            request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
-             
-        
-        } else {
-            // deleting device
             session.setAttribute("supplier", supplier);
-             // redirect back to addDevice
              request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
              supplierManager.deleteSupplier(contactName, supplierName);
-                //deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
-                // redirect user to the edit.jsp
-                //request.getRequestDispatcher("editDevice.jsp").include(request, response);
-                
-            }
+             
+            
+        
+        } 
         }   catch (SQLException ex) {
                 // exception message if updating customer fails
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                
+                //error message
+                session.setAttribute("exceptionErr", "Supplier doesn't exist");
+                 request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
                 
                 
             }
-        //request.getRequestDispatcher("editDevice.jsp").include(request, response);
         }
     }
 

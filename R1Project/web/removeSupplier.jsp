@@ -3,7 +3,7 @@
     Created on : 31/05/2020, 1:50:10 PM
     Author     : Anastasia
 --%>
-<%@page import="uts.isd.model.Device"%>
+<%@page import="uts.isd.model.Supplier"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/webpage.css">
-        <title>Delete Page</title>
+        <title>Remove Supplier</title>
     </head>
 
     <body>
@@ -28,7 +28,7 @@
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2">
             <div class="card">
-                <h1>Delete device <span> <%= (updatedMsg != null) ? updatedMsg : ""%> </span></h1>
+     
                 <form method="post" method="get" action="RemoveSupplierServlet">
                     
                   <table>
