@@ -64,7 +64,7 @@
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
                                 <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
-                                <td><p class="right"> <a class="button2" value='Add Device' href="ViewDeviceCreationServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
+                                <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
                                 <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
                             </tr>
                         </c:forEach>
