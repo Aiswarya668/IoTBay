@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
-import uts.isd.model.iotbay.dao.DBCustomerManager;
+import uts.isd.model.iotbay.dao.*;
 
 /**
  *
@@ -44,8 +44,10 @@ public class RegisterServlet extends HttpServlet {
         String postCode = request.getParameter("PostCode");
         String phoneNumber = request.getParameter("PhoneNumber");
         //5- retrieve the manager instance from session
-        DBCustomerManager customerManager = (DBCustomerManager)session.getAttribute("customerManager");
-            
+        DBCustomerManager customerManager = 
+                (DBCustomerManager)session.getAttribute("customerManager");
+        DBApplicationLogsManager logsManager = 
+                (DBApplicationLogsManager) session.getAttribute("logsManager");
         Customer customer = null;
         validator.clear(session);
         
@@ -134,16 +136,19 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("register.jsp").include(request, response);
         } 
         else {
-            // create new user
             try {
+                // create new user
                 customerManager.addCustomer(firstName, lastName, email, 
                 password, gender, unitNumber, streetAddress, city, 
                 state, postCode, phoneNumber);
+                // add login log
+                logsManager.addCustomerLog(customer.getEmail(), "Login");
             }
             catch (SQLException ex) {
                 // exception message if adding customer fails
                 session.setAttribute("exceptionErr", "Registration failed");
                 request.getRequestDispatcher("login.jsp").include(request, response);
+                return;
             }
             // redirect new user to the welcome.jsp
             request.getRequestDispatcher("welcome.jsp").include(request, response);

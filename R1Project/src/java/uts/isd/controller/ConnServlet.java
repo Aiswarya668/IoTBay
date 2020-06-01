@@ -26,6 +26,7 @@ public class ConnServlet extends HttpServlet {
     private DBConnector db;
     private DBCustomerManager customerManager;
     private DBDeviceManager deviceManager;
+    private DBApplicationLogsManager logsManager;
     private DBStaffManager staffManager;
     private Connection conn;
 
@@ -49,6 +50,8 @@ public class ConnServlet extends HttpServlet {
             customerManager = new DBCustomerManager(conn);
             // instantiate new DeviceManager
             deviceManager = new DBDeviceManager(conn);
+            // instantiate new logs manager
+            logsManager = new DBApplicationLogsManager(conn);
             // instantiate new staff manager
             staffManager = new DBStaffManager(conn);
         } catch (SQLException ex) {
@@ -57,6 +60,7 @@ public class ConnServlet extends HttpServlet {
         // export the DB manager(s) to the view-session (JSPs)
         session.setAttribute("customerManager", customerManager);
         session.setAttribute("deviceManager", deviceManager);
+        session.setAttribute("logsManager", logsManager);
         session.setAttribute("staffManager", staffManager);
     }
 
