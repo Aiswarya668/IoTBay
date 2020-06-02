@@ -28,22 +28,26 @@
             <body>
 
                 <%
-                    DBConnector dbConnector = new DBConnector();
-                    Connection conn = dbConnector.openConnection();
-                    DBSupplierInformationManager dbManager = new DBSupplierInformationManager(conn);
-                    dbManager.fetchSuppliers();
+                    //DBConnector dbConnector = new DBConnector();
+                    //Connection conn = dbConnector.openConnection();
+                    //DBSupplierInformationManager dbManager = new DBSupplierInformationManager(conn);
+                    //dbManager.fetchSuppliers();
 
                 %>
 
                 <h1>Search Supplier</h1>
 
-                <form method="post" method="get">
+                <form method="get" action="SearchSupplierServlet">
                     <table>
                         <tr>
-                            <td>Contact Name</td>
-                            <td>Company</td>
+                            <td><input type="text" placeholder="Enter contact name" name="contactName"></td>
+                            <td><input type="text" placeholder="Enter company name" name="supplierName"></td>
                         </tr>
                     </table>
+                    <div>
+                        <input class ="button4" type="submit" value="Search">
+                        <a class ="button3" href="SupplierListServlet">Cancel</a>
+                    </div>
                 </form>
             </body>
         </div>
