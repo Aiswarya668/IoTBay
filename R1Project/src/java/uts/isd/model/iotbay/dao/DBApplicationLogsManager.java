@@ -147,7 +147,7 @@ public class DBApplicationLogsManager {
     Timestamp fromDate, Timestamp toDate) throws SQLException {
 
         String query = "SELECT * FROM IOTBAYUSER.ApplicationAccessLogs" + 
-        "WHERE TIMESTAMP >= ? AND TIMESTAMP <= ? AND STAFFEMAIL = ?";
+        " WHERE TIMESTAMP >= ? AND TIMESTAMP <= ? AND STAFFEMAIL = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setTimestamp(1, fromDate);
         stmt.setTimestamp(2, toDate);
