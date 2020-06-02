@@ -75,7 +75,7 @@ public class EditDeviceServlet extends HttpServlet {
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         } 
         
-        //validators
+       //validators
        
         //if any fields are empty?
         else if(validator.checkDeviceEmpty(deviceName,type,cost,stockQuantity,description)){
@@ -84,31 +84,31 @@ public class EditDeviceServlet extends HttpServlet {
         }
         else if (!validator.validateDeviceName(deviceName)) {
             //1- set incorrect name error to the session 
-            session.setAttribute("deviceNameErr", "Error: Device name format incorrect");
+            session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
        
         } else if (!validator.validateDeviceType(type)) {
             //1- set incorrect type error to the session 
-            session.setAttribute("typeErr", "Error: Device type format incorrect");
+            session.setAttribute("deletetypeErr", "Error: Device type format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceCost(cost)) {
             //1- set incorrect type error to the session 
-            session.setAttribute("priceErr", "Error: Device price format incorrect");
+            session.setAttribute("deletepriceErr", "Error: Device price format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceStock(stockQuantity)) {
             //1- set incorrect type error to the session 
-            session.setAttribute("stockErr", "Error: Device stock format incorrect");
+            session.setAttribute("deletestockErr", "Error: Device stock format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceDesc(description)) {
             //1- set incorrect type error to the session 
-            session.setAttribute("descriptionErr", "Error: Device description format incorrect");
+            session.setAttribute("deletedescriptionErr", "Error: Device description format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         

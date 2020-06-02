@@ -20,28 +20,36 @@
 
     <body>
         <%
-            String deviceNameErr = (String) session.getAttribute("deviceNameErr");
-            String typeErr = (String) session.getAttribute("typeErr");
-            String priceErr = (String) session.getAttribute("priceError");
-            String stockErr = (String) session.getAttribute("stockErr");
-            String descriptionErr = (String) session.getAttribute("descriptionErr");
+            String deletedeviceNameErr = (String) session.getAttribute("deletedeviceNameErr");
+            String deletetypeErr = (String) session.getAttribute("deletetypeErr");
+            String deletepriceErr = (String) session.getAttribute("deletepriceErr");
+            String deletestockErr = (String) session.getAttribute("deletestockErr");
+            String deletedescriptionErr = (String) session.getAttribute("deletedescriptionErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
             String updatedMsg = request.getParameter("updatedMsg");
+            String deviceEmptyErr = (String) session.getAttribute("deviceEmptyErr");
 
             Device device = (Device) session.getAttribute("device");
         %>
-        
+
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left" />
         <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2">
             <div class="card">
-                <h1>Edit device <span> <%= (updatedMsg != null) ? updatedMsg : ""%> </span></h1>
+                <h1>Edit device </span></h1>
+                <p><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
+                <p class ="error"><%=(deletedeviceNameErr != null ? deletedeviceNameErr : "")%></p>
+                <p class ="error"><%=(deletetypeErr != null ? deletetypeErr : "")%></p>
+                <p class ="error"><%=(deletepriceErr != null ? deletepriceErr : "")%></p>
+                <p class ="error"><%=(deletestockErr != null ? deletestockErr : "")%></p>
+                <p class ="error"><%=(deletedescriptionErr != null ? deletedescriptionErr : "")%></p>
+                
                 <form method="post" method="get" action="EditDeviceServlet">
-                    
+
                     <table>
-                        
-                         <tr>
+
+                        <tr>
                             <td>Device ID</td>
                             <td><input type="text" value="${device.deviceID}" name="DeviceID"></td>
                         </tr>
@@ -68,9 +76,9 @@
                             <td>Description</td>
                             <td><input type="text" value="${device.description}" name="DeviceDescription">
                         </tr>
-                         
+
                     </table>
-                       <p><%=(exceptionErr != null ? exceptionErr : "")%></p>
+                    <p><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     <div>
                         <input class ="button3" type="submit" value="Update"</a>
                     </div>

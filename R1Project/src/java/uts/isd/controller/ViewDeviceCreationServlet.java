@@ -56,6 +56,7 @@ public class ViewDeviceCreationServlet extends HttpServlet {
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
         Device device = null;
+        validator.clear(session);
 
         try {
             device = deviceManager.findDevice(deviceName, type);
