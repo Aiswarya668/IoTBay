@@ -40,11 +40,6 @@ public class UserLogsServlet extends HttpServlet {
 
         Customer customer = (Customer) session.getAttribute("customer");
         Staff staff = (Staff) session.getAttribute("staff");
-        ArrayList<ApplicationAccessLogs> existingLogs = 
-                (ArrayList<ApplicationAccessLogs>) session.getAttribute("logs");
-        if (existingLogs != null) {
-            return;
-        }
         
         ArrayList<ApplicationAccessLogs> logs = new ArrayList<ApplicationAccessLogs>();
         try {
@@ -59,6 +54,7 @@ public class UserLogsServlet extends HttpServlet {
             // show no logs error
             session.setAttribute("noLogsErr", "No logs for user exists");
         }
+        request.getRequestDispatcher("userLogs.jsp").include(request, response);
     }
 
     @Override
@@ -73,11 +69,14 @@ public class UserLogsServlet extends HttpServlet {
         // retrieve customer/staff from session
         Customer customer = (Customer) session.getAttribute("customer");
         Staff staff = (Staff) session.getAttribute("staff");
-        String exceptionExists = (String) session.getAttribute("logException");
         
         // get the dates posted
         String fromDate = request.getParameter("FromDate");
         String toDate = request.getParameter("ToDate");
+        
+        // reset error
+        session.setAttribute("logResult", "");
+        session.setAttribute("noLogsErr", "");
         
         // verify user actually wants to filter
         if (toDate != null && fromDate != null) {
@@ -86,7 +85,7 @@ public class UserLogsServlet extends HttpServlet {
             java.sql.Timestamp toDateTimestamp = convertToTimeStamp(toDate, session);
             
             if (fromDateTimestamp == null || toDateTimestamp == null) {
-                session.setAttribute("logException", "Invalid date input");
+                session.setAttribute("logResult", "Invalid date input");
                 request.getRequestDispatcher("userLogs.jsp").include(request, response);
                 return;
             }
@@ -101,11 +100,12 @@ public class UserLogsServlet extends HttpServlet {
 
                 // set logs to the session
                 session.setAttribute("logs", logs);
+                session.setAttribute("logResult", "Successful query");
             } catch (SQLException ex) {
                 // show no logs error
                 session.setAttribute("noLogsErr", "No logs for user exists");
             }
-//            request.getRequestDispatcher("userLogs.jsp").include(request, response);
+            request.getRequestDispatcher("userLogs.jsp").include(request, response);
         }
     }
 

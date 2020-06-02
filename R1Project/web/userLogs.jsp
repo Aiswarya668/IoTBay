@@ -19,19 +19,21 @@
 </head>
 
 <body>
-        <jsp:include page="./UserLogsServlet" flush="true" />
         <%
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
-            String logException = (String) session.getAttribute("logExceptionErr");
+            String logResult = (String) session.getAttribute("logResult");
+            String noLogsErr = (String) session.getAttribute("noLogsErr");
+            
             String name = "";
+            
             if (customer != null) {
                 name = customer.getFirstName();
             }
             else if (staff != null) {
                 name = staff.getFirstName();
             }
-            String noLogsErr = (String) session.getAttribute("noLogsErr");
+            
             ArrayList<ApplicationAccessLogs> logs = 
                     (ArrayList<ApplicationAccessLogs>) session.getAttribute("logs");
         %>
@@ -49,9 +51,9 @@
                                         to:
                                 <input type="date" name="ToDate">
                                 <input class="button3" type="submit" value="Filter" </a>
-                                <p><%= (logException != null ? logException : "") %></p>
+                                <p><%= (logResult != null ? logResult : "") %></p>
                                 <table>
-                                    <% if (logs != null && !logs.isEmpty()) { %>
+                                    <% if (logs != null && (noLogsErr == null || noLogsErr.equals(""))) { %>
                                         <thead>
                                                 <tr>
                                                         <th>ID</th>
