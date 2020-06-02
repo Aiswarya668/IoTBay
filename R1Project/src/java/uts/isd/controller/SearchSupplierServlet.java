@@ -41,6 +41,12 @@ public class SearchSupplierServlet extends HttpServlet {
                     
         try {
             supplier = supplierManager.findSupplier(contactName, supplierName);
+            
+
+        request.setAttribute("supplier", supplier);
+        request.getRequestDispatcher("searchResultSupplier.jsp").include(request, response);
+        
+            
             //ArrayList<Supplier> search = supplierManager.fetchSuppliers();
             //request.setAttribute("search",search);     
             
@@ -48,7 +54,9 @@ public class SearchSupplierServlet extends HttpServlet {
        } catch (SQLException ex) {
            Logger.getLogger(SearchSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
        }
-
+        
+        
+        
    }
 }
     

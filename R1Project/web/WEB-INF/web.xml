@@ -18,6 +18,10 @@
         <servlet-class>uts.isd.controller.RemoveSupplierServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SearchSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>uts.isd.controller.LoginServlet</servlet-class>
     </servlet>
@@ -64,6 +68,10 @@
     <servlet-mapping>
         <servlet-name>RemoveSupplierServlet</servlet-name>
         <url-pattern>/RemoveSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSupplierServlet</servlet-name>
+        <url-pattern>/SearchSupplierServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

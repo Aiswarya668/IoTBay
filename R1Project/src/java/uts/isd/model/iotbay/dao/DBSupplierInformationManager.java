@@ -34,7 +34,7 @@ public class DBSupplierInformationManager {
                 String supplierEmail = rs.getString(1);
                 String supplierAddress = rs.getString(4);
                 Boolean active = rs.getBoolean(5);
-                return new Supplier( contactName, supplierName, supplierEmail, supplierAddress, active);   
+                return new Supplier( supplierEmail, supplierName, contactName, supplierAddress, active);   
             }
         }
         return null;
