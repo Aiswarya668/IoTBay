@@ -11,7 +11,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddSupplierServlet</servlet-name>
-        <servlet-class>uts.isd.controller.SupplierListServlet</servlet-class>
+        <servlet-class>uts.isd.controller.AddSupplierServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>

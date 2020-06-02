@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.sql.Connection"%>
-<%@page import="uts.isd.model.Device"%>
+<%@page import="uts.isd.model.Supplier"%>
 <%@page import="java.util.Date"%>
 <%@page import="uts.isd.model.iotbay.dao.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/webpage.css">
         <title>Added Supplier</title>
     </head>
-    
+
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         
