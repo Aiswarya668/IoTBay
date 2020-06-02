@@ -27,7 +27,7 @@
     <p class="right"> <a class="button21" href="addSupplier.jsp">Add Supplier</a> </p>
     <p class="right"> <a class="button21" href="AddSupplierServlet">Search Supplier</a> </p>
     <p class="right"> <a class="button21" href="AddSupplierServlet">Update Supplier</a> </p>
-    <p class="right"> <a class="button21" href="AddSupplierServlet">Remove Supplier</a> </p>
+    <p class="right"> <a class="button21" href="removeSupplier.jsp">Remove Supplier</a> </p>
     <div class="maincolumn2">
         <div class="card">
 

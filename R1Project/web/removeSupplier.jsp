@@ -17,9 +17,6 @@
 
     <body>
         <%
-            String contactName = (String) session.getAttribute("contactName");
-            String supplierName = (String) session.getAttribute("typeErr");
-
             Supplier supplier = (Supplier) session.getAttribute("supplier");
         %>
         
@@ -29,7 +26,7 @@
         <div class="maincolumn2">
             <div class="card">
      
-                <form method="post" method="get" action="RemoveSupplierServlet">
+                <form method="get" action="RemoveSupplierServlet">
                     
                   <table>
                         
@@ -40,8 +37,7 @@
                         <tr>
                             <td>Company</td>
                             <td><input type="text" value="${supplier.supplierName}" name="supplierName"></td>
-                        </tr>
-                         
+                        </tr> 
                     </table>
                        
                     <div>

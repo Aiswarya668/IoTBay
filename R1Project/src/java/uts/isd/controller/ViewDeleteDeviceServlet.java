@@ -64,7 +64,7 @@ public class ViewDeleteDeviceServlet extends HttpServlet {
        //if device doesn't exsist after
         if (device == null) {
              //send device name + type already exsists error 
-             session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
+             session.setAttribute("exceptionErr", "Device with that name, type and ID does not exist");
             request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
              
         

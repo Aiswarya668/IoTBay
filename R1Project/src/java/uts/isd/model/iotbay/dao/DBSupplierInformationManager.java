@@ -28,10 +28,10 @@ public class DBSupplierInformationManager {
         ResultSet rs = st.executeQuery(fetch);
         
         while (rs.next()) {
-            String supplierContactName = rs.getString(1); 
+            String supplierContactName = rs.getString(3); 
             String supplierCompanyName = rs.getString(2);
             if (supplierContactName.equals(contactName) && supplierCompanyName.equals(supplierName)) {
-                String supplierEmail = rs.getString(3);
+                String supplierEmail = rs.getString(1);
                 String supplierAddress = rs.getString(4);
                 Boolean active = rs.getBoolean(5);
                 return new Supplier( contactName, supplierName, supplierEmail, supplierAddress, active);   

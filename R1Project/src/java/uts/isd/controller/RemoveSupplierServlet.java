@@ -27,44 +27,41 @@ public class RemoveSupplierServlet extends HttpServlet {
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //1- retrieve the current session
         HttpSession session = request.getSession();
         
-        //2- create an instance of the Validator class
         Validator validator = new Validator();
         
-        //3- capture the posted parameters/info fields 
-        //capture contactName field
         String contactName = request.getParameter("contactName");
 
-        //capture supplierName field
         String supplierName = request.getParameter("supplierName");
-
-        //4 retrieve the manager instance from session - ConnServlet            
-        DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplier");
+         
+        DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
                
         
-        Supplier supplier;
+        Supplier supplier = null;
         
-        try {
+         try {
+
             supplier = supplierManager.findSupplier(contactName, supplierName);
        
-        if (supplier != null) {
-            session.setAttribute("supplier", supplier);
-             request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
-             supplierManager.deleteSupplier(contactName, supplierName);
-             
-            
+        if (supplier == null) {
+             session.setAttribute("exceptionErr", "Supplier with point of contact does not exist");
+            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);    
         
-        } 
+     
+                
+        } else {
+
+            request.getRequestDispatcher("removedSupplier.jsp").include(request, response);
+            supplierManager.deleteSupplier(contactName, supplierName);
+            
+                
+            }
         }   catch (SQLException ex) {
 
-                session.setAttribute("exceptionErr", "Supplier doesn't exist");
-                 request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
+                Logger.getLogger(RemoveSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
                 
                 
             }
         }
     }
-
-
