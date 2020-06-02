@@ -30,7 +30,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>The ${display.deviceName} with type: ${display.type} was successfully created!</h1>
+                    <h1>The device was successfully created!</h1>
 
             </div>
         </div>

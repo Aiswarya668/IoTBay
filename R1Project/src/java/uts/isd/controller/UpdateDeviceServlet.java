@@ -24,20 +24,19 @@ import uts.isd.model.iotbay.dao.DBDeviceManager;
  */
 public class UpdateDeviceServlet extends HttpServlet {
 
-   @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //1- retrieve the current session
         HttpSession session = request.getSession();
-        
+
         //2- create an instance of the Validator class
         Validator validator = new Validator();
-        
+
         //3- capture the posted parameters/info fields 
-        
-        //capture deviceID field - but not allowed to edit this field 
-        //String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
-        
+        //capture deviceID field 
+        String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
+
         //capture deviceName field
         String deviceName = request.getParameter("DeviceName");
 
@@ -50,44 +49,35 @@ public class UpdateDeviceServlet extends HttpServlet {
         //capture stockQuantity field - noted it is a string and must be parsed in as a int
         String stockQuantity = request.getParameter("DeviceStock");
 
-         //capture devicedescription field
+        //capture devicedescription field
         String description = request.getParameter("DeviceDescription");
 
         //4) retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
-               
-        
+
         Device device = null;
 
         try {
             device = deviceManager.findDevice(deviceName, type);
-       
-       //if device doesn't exsist after
-        if (device == null) {
-             //send device name + type already exsists error 
-             session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
-            request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
-             
-        
-        //validators
-        
-        } else {
-            // deleting device
-            session.setAttribute("device", device);
-             // redirect back to addDevice
-             request.getRequestDispatcher("editDevice.jsp").include(request, response);
-             //deviceManager.deleteDevice(deviceID);
-                //deviceManager.addDevice(deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);      
-                // redirect user to the edit.jsp
-                //request.getRequestDispatcher("editDevice.jsp").include(request, response);
-                
+
+            //if device doesn't exsist after
+            if (device == null) {
+                //send device name + type already exsists error 
+                session.setAttribute("exceptionErr", "Device with that name, type and ID does not exsist");
+                request.getRequestDispatcher("editDevice.jsp").include(request, response);
+
+                //validators
+            } else {
+                // editing device
+                session.setAttribute("device", device);
+                // redirect back to editDevice
+                request.getRequestDispatcher("editDevice.jsp").include(request, response);
+
             }
-        }   catch (SQLException ex) {
-                // exception message if updating customer fails
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-                
-                
-            }
-        //request.getRequestDispatcher("editDevice.jsp").include(request, response);
+        } catch (SQLException ex) {
+            // exception message if updating customer fails
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
+}

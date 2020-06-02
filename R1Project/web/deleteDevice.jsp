@@ -25,7 +25,7 @@
             String stockErr = (String) session.getAttribute("stockErr");
             String descriptionErr = (String) session.getAttribute("descriptionErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
-            String updatedMsg = request.getParameter("updatedMsg");
+            String deleteddMsg = request.getParameter("deleteddMsg");
             String deviceEmptyErr = (String) session.getAttribute("deviceEmptyErr");
             Device device = (Device) session.getAttribute("device");
         %>
@@ -35,7 +35,7 @@
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2">
             <div class="card">
-                <h1>Delete device <span> <%= (updatedMsg != null) ? updatedMsg : ""%> </span></h1>
+                <h1>Delete device <span> <%= (deleteddMsg != null) ? deleteddMsg : ""%> </span></h1>
                 <form method="get" action="DeleteDeviceServlet">
                     <p><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
                   <table>

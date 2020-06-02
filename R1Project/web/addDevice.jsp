@@ -30,11 +30,13 @@
         %>
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+         <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+         <p class="right"> <a class="button21" href="ViewDeviceServlet">Back to Browse</a> </p>
         <div class="maincolumn2">
             <div class="card">
                 <h1>Create new device </span> </h1>
                 <form method="post" method="get" action="DeviceCreationServlet">
-                    <p><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
+                    <p class ="error"><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
                     <table>
                         <tr><td>Device Name:</td><td><input type="text" placeholder="<%=(deviceNameErr != null ? deviceNameErr :"Enter device name")%>" name="DeviceName"></td></tr  
                         <tr><td>Device Type:</td><td><input type="text" placeholder="<%=(typeErr != null ? typeErr :"Enter device type")%>" name="DeviceType"></td></tr>
@@ -45,8 +47,8 @@
                     <input type="hidden" name="NewDevice" value="true" />
                     <div>
                         <input class ="button4" type="submit" value="Create device">
-                        <a class ="button3" href="index.jsp">Cancel</a>
-                        <p><%=(exceptionErr != null ? exceptionErr : "")%></p>
+                        <a class ="button3" href="ViewDeviceServlet">Cancel</a>
+                        <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     </div>
                 </form>
             </div>

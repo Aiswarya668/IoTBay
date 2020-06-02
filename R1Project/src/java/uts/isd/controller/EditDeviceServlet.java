@@ -120,7 +120,8 @@ public class EditDeviceServlet extends HttpServlet {
                 //set session attribute
                 request.setAttribute("device", device);
                 //send to createdDevice.jsp
-                request.getRequestDispatcher("createdDevice.jsp").include(request, response);
+                
+                request.getRequestDispatcher("updateDeviceConfirmation.jsp").include(request, response);
             
           } catch (SQLException ex) {
                 //catch any exception
