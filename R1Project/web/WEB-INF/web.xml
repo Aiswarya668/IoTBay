@@ -22,6 +22,14 @@
         <servlet-class>uts.isd.controller.SearchSupplierServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDetailsSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateDetailsSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>uts.isd.controller.LoginServlet</servlet-class>
     </servlet>
@@ -72,6 +80,14 @@
     <servlet-mapping>
         <servlet-name>SearchSupplierServlet</servlet-name>
         <url-pattern>/SearchSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSupplierServlet</servlet-name>
+        <url-pattern>/UpdateSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDetailsSupplierServlet</servlet-name>
+        <url-pattern>/UpdateDetailsSupplierServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

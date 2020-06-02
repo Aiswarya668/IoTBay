@@ -1,6 +1,6 @@
 <%-- 
-    Document   : searchResultSupplier
-    Created on : 02/06/2020, 3:23:19 PM
+    Document   : updateDetailsSupplier
+    Created on : 02/06/2020, 6:26:42 PM
     Author     : Anastasia
 --%>
 
@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
      <%
-            Supplier s = (Supplier)request.getAttribute("supplier");
+            Supplier s = (Supplier)session.getAttribute("supplier");
         %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,7 +28,8 @@
             <div class="card">
 
                 <body>     
-                    <h1>Supplier Search Result</h1>
+                    <h1>Supplier to be Updated</h1>
+                    <form method="get" action="UpdateDetailsSupplierServlet">
                 <table border="1">
                     <thead>
                         <tr>
@@ -49,7 +50,20 @@
                             </tr>
                     </tbody>
                 </table>
-
+                    <h1>Supplier's New Details</h1>
+                    
+                    <table>
+                        <tr><td>Contact Name:</td><td><input type="text" placeholder="Enter contact name" name="contactName"></td></tr>
+                        <tr><td>Company:</td><td><input type="text" placeholder="Enter supplier name" name="supplierName"></td></tr>
+                        <tr><td>Email:</td><td><input type="text" placeholder="Enter supplier email" name="supplierEmail"></td></tr>
+                        <tr><td>Address:</td><td><input type="text" placeholder="Enter supplier address" name="supplierAddress"></td></tr>
+                        <tr><td>Boolean:</td><td><input type="text" placeholder="Enter active status" name="active"></td></tr> 
+                    </table>
+                    <div>
+                        <input class ="button4" type="submit" value="Update">
+                        <a class ="button3" href="SupplierListServlet">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </body>

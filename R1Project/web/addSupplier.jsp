@@ -20,13 +20,7 @@
         <link rel="stylesheet" href="css/webpage.css">
         <title>Add Supplier</title>
     </head>
-    <%
-            String contactName = (String) session.getAttribute("contactName");
-            String supplierName = (String) session.getAttribute("supplierName");
-            String supplierEmail = (String) session.getAttribute("supplierEmail");
-            String supplierAddress = (String) session.getAttribute("supplierAddress");
-            String active = (String) session.getAttribute("active");
-        %>
+
             <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         <div class="maincolumn2">
             <div class="card">
@@ -40,7 +34,7 @@
                         <tr><td>Boolean:</td><td><input type="text" placeholder="Enter active status" name="active"></td></tr> 
                     </table>
                     <div>
-                        <input class ="button4" type="submit" value="Add Supplier">
+                        <input class ="button4" type="submit" value="Add">
                         <a class ="button3" href="SupplierListServlet">Cancel</a>
                     </div>
                 </form>

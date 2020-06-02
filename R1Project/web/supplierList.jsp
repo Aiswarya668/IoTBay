@@ -26,7 +26,7 @@
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
     <p class="right"> <a class="button21" href="addSupplier.jsp">Add Supplier</a> </p>
     <p class="right"> <a class="button21" href="searchSupplier.jsp">Search Supplier</a> </p>
-    <p class="right"> <a class="button21" href="AddSupplierServlet">Update Supplier</a> </p>
+    <p class="right"> <a class="button21" href="updateSupplier.jsp">Update Supplier</a> </p>
     <p class="right"> <a class="button21" href="removeSupplier.jsp">Remove Supplier</a> </p>
     <div class="maincolumn2">
         <div class="card">
