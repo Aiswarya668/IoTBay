@@ -96,8 +96,9 @@
                                     <td>${c.getGender()}</td>
                                     <td>${c.isActive()}</td>
                                     <td>
-                                        <form method="post" action="edit.jsp">
-                                            <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
+                                        <form method="get" action="EditServlet">
+                                            <input type="hidden" name="userEmail" value="${c.getEmail()}" />
+                                            <input type="hidden" name="userType" value="customer" />
                                             <!--<input class="button4" type="submit" value="Delete">-->
                                             <button type="submit"><i class="material-icons">&#xE254;</i></button>
                                         </form>
@@ -155,10 +156,10 @@
                                     <td>${s.getContractType()}</td>
                                     <td>${s.getHourlyPay()}</td>
                                     <td>
-                                        <form method="post" action="edit.jsp">
-                                            <input type="hidden" name="staffEmail" value="${s.getEmail()}" />
+                                        <form method="get" action="EditServlet">
+                                            <input type="hidden" name="userEmail" value="${s.getEmail()}" />
+                                            <input type="hidden" name="userType" value="staff" />
                                             <!--<input class="button4" type="submit" value="Edit">-->
-
                                             <button type="submit"><i class="material-icons">&#xE254;</i></button>
                                         </form>
                                     </td>
