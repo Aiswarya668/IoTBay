@@ -46,7 +46,9 @@ public class AddSupplierServlet extends HttpServlet {
         String supplierAddress = request.getParameter("supplierAddress");
         
         //capture the posted active status - parse as a boolean as the input is a string in form  
-        Boolean active = Boolean.parseBoolean(request.getParameter("active"));
+        // active = Boolean.parseBoolean(request.getParameter("active"));
+        //boolean active = (request.getParameter("active").equals("on") || request.getParameter("active").equals("null"));
+        boolean active = (request.getParameter("active") != null);
 
         //4) retrieve the manager instance from session - ConnServlet            
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
@@ -63,7 +65,7 @@ public class AddSupplierServlet extends HttpServlet {
 
         if (supplier != null) {
 
-            session.setAttribute("exceptionErr", "Supplier with point of contact already exists");
+            session.setAttribute("exceptionSupplierErr", "Supplier with point of contact already exists");
             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
         }
         
@@ -90,16 +92,17 @@ public class AddSupplierServlet extends HttpServlet {
         } else if (!validator.validateSupplierEmail(supplierEmail)) {
             //1- set incorrect type error to the session 
             session.setAttribute("supplierEmailErr", "Error: Supplier email format incorrect");
-            //2- redirect system admin back to the addSupplier.jsp    
+            //2- redirect system admin back to the addSupplier.jsp   
+            session.setAttribute("creationConfirmation", "ERROR");
             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
         
-        } /*else if (!validator.validateSupplierAddress(supplierAddress)) {
+        } else if (!validator.validateSupplierAddress(supplierAddress)) {
             //1- set incorrect type error to the session 
             session.setAttribute("supplierAddressErr", "Error: Supplier address format incorrect");
             //2- redirect system admin back to the addSupplier.jsp    
             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
         
-        } /* boolean validation */
+        } 
         
         
         
@@ -107,9 +110,10 @@ public class AddSupplierServlet extends HttpServlet {
             try {
                 supplierManager.addSupplier(contactName, supplierName, supplierEmail, supplierAddress, active);
                 request.setAttribute("supplier", supplier);
-                request.getRequestDispatcher("addedSupplier.jsp").include(request, response);
+                session.setAttribute("creationConfirmation", "Supplier creation was successful");
+                request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             } catch (SQLException ex) {
-                session.setAttribute("exceptionErr", "Submission Failed");
+                session.setAttribute("exception2Err", "Submission Failed");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             }
 
