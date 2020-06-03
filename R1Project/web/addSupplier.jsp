@@ -29,7 +29,7 @@
             String deleteSupplierNameErr = (String) session.getAttribute("deleteSupplierNameErr");
             String deleteSupplierEmailErr = (String) session.getAttribute("deleteSupplierEmailErr");
             String deleteSupplierAddressErr = (String) session.getAttribute("deleteSupplierAddressErr");
-            String exceptionErr = (String) session.getAttribute("exceptionErr");
+            String exceptionErr = (String) session.getAttribute("exceptionSupplierErr");
             String creationConfirmation = (String) session.getAttribute("creationConfirmation");
         %>
 
@@ -58,6 +58,9 @@
                         <input class ="button4" type="submit" value="Add">
                         <a class ="button3" href="SupplierListServlet">Cancel</a>
                         <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%>
+                            <%
+                                  session.setAttribute("exceptionSupplierErr", "");
+                                %>
                     </div>
                     
                 </form>
