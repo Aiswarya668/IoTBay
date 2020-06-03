@@ -39,7 +39,13 @@
                 %>
 
                 <h1>Supplier Information Management</h1>
-                <table border="1">
+                <form method="post" method="get">
+
+                    <form>
+                        Search supplier: <input type="text" id="inputContactName" onkeyup="myFunction()" placeholder="Contact Name" title="Type in a contact name">
+                    <input type="text" id="inputCompany" onkeyup="myFunction()" placeholder="Company" title="Type in a company">
+                    </form>
+                <table border="1" id="supplierTable">
                     <thead>
                         <tr>
                             <th>Contact Name</th>
@@ -61,7 +67,30 @@
                         </c:forEach>
                     </tbody>
                 </table>
-
+                <script>
+                        function myFunction() {
+                            var input, input2, filter, filter2, table, tr, tdContactName, tdCompany, i, txtValue;
+                            input = document.getElementById("inputContactName");
+                            filter = input.value.toUpperCase();
+                            input2 = document.getElementById("inputCompany");
+                            filter2 = input2.value.toUpperCase();
+                            table = document.getElementById("supplierTable");
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                tdContactName = tr[i].getElementsByTagName("td")[0];
+                                tdCompany = tr[i].getElementsByTagName("td")[1];
+                                if (tdContactName && tdCompany) {
+                                    txtValue = tdContactName.textContent || tdCompany.innerText;
+                                    txtValue2 = tdCompany.textContent || tdType.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1 && txtValue2.toUpperCase().indexOf(filter2) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
             </body>
         </div>
     </div>

@@ -49,7 +49,7 @@ public class UpdateSupplierServlet extends HttpServlet {
 
             
        } catch (SQLException ex) {
-           Logger.getLogger(SearchSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(UpdateSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
        }
         
         
