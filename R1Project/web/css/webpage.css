@@ -27,7 +27,7 @@ body {
     font-weight: 500;
     font-size: 15px;
     /*background: #f1f1f1; */
-    background: url(backg.png)no-repeat; /* sourced from: https://blog.silvatronics.com.br/wp-content/uploads/2020/02/Curso-de-eletronica-online-professor-Andr%C3%A9-Cisp.jpg */
+    background: url(backg.png)repeat; /* sourced from: https://blog.silvatronics.com.br/wp-content/uploads/2020/02/Curso-de-eletronica-online-professor-Andr%C3%A9-Cisp.jpg */
     background-attachment: fixed;
 }
 

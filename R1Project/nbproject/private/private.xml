@@ -3,9 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Kevin/Documents/NetBeansProjects/IoTBay/R1Project/web/removeSupplier.jsp</file>
-            <file>file:/C:/Users/Kevin/Documents/NetBeansProjects/IoTBay/R1Project/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Kevin/Documents/NetBeansProjects/IoTBay/R1Project/web/register.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeviceCreationServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBDeviceManager.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleStaff.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/welcome.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeleteDeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DB.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/main.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/createTables.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleSupplier.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/addDevice.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/browseCatalogue.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ConnServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeviceServletUsers.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleCustomerOrder.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleCustomers.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleOrderDeviceT.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBConnector.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleDevice.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleCartItem.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleApplicationAccessLogs-staff.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleSupportTicket.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleApplicationAccessLogs-customer.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSamplePaymentDetails.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/index.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/css/webpage.css</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/EditDeviceServlet.java</file>
         </group>
     </open-files>
 </project-private>
