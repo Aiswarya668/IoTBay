@@ -14,7 +14,7 @@ public class Validator implements Serializable {
 
    // online-user-access-specific management patterns
    private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
-   private String passwordPattern = "[a-z0-9]{4,}";
+   private String passwordPattern = "[a-zA-Z0-9]{4,}";
    private String phonePattern = "0([0-9]{0,10})";      
     
     //type = Word with capital (space) word with capital

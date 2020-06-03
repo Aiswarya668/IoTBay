@@ -104,43 +104,43 @@ public class EditServlet extends HttpServlet {
         } 
         else if (!validator.validateSingleString(firstName)) {
             // set incorrect email error to the session 
-            session.setAttribute("fNameEditErr", "Error: First name is mandatory");
+            session.setAttribute("fNameEditErr", "Error: First name format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(lastName)) {
             // set incorrect email error to the session 
-            session.setAttribute("lNameEditErr", "Error: Last name is mandatory");
+            session.setAttribute("lNameEditErr", "Error: Last name format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleInt(unitNumber)) {
             // set incorrect email error to the session 
-            session.setAttribute("unitEditErr", "Error: Unit number is mandatory");
+            session.setAttribute("unitEditErr", "Error: Unit number format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSentence(streetAddress)) {
             // set incorrect email error to the session 
-            session.setAttribute("streetEditErr", "Error: Street address is mandatory");
+            session.setAttribute("streetEditErr", "Error: Street address format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(city)) {
             // set incorrect email error to the session 
-            session.setAttribute("emailEditErr", "Error: City is mandatory");
+            session.setAttribute("emailEditErr", "Error: City format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleString(state)) {
             // set incorrect email error to the session 
-            session.setAttribute("stateEditErr", "Error: State is mandatory");
+            session.setAttribute("stateEditErr", "Error: State format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
         else if (!validator.validateSingleInt(postCode)) {
             // set incorrect email error to the session 
-            session.setAttribute("postEditErr", "Error: Post code is mandatory");
+            session.setAttribute("postEditErr", "Error: Post code format incorrect");
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
