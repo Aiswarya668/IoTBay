@@ -83,22 +83,6 @@ public class EditServlet extends HttpServlet {
         
         // reset
         validator.clear(session);
-        session.setAttribute("updateMsg", "");
-        session.setAttribute("existEditErr", "");
-        session.setAttribute("emailEditErr", "");
-        session.setAttribute("passEditErr", "");
-        session.setAttribute("fNameEditErr", "");
-        session.setAttribute("lNameEditErr", "");
-        session.setAttribute("phoneEditErr", "");
-        session.setAttribute("unitEditErr", "");
-        session.setAttribute("streetEditErr", "");
-        session.setAttribute("cityEditErr", "");
-        session.setAttribute("stateEditErr", "");
-        session.setAttribute("postEditErr", "");
-        session.setAttribute("genderEditErr", "");
-        session.setAttribute("managerEditErr", "");
-        session.setAttribute("contractTypeEditErr", "");
-        session.setAttribute("payHrEditErr", "");
 
         try {
             customer = customerManager.findCustomer(email);
@@ -136,7 +120,7 @@ public class EditServlet extends HttpServlet {
             // redirect user back to the edit.jsp     
             request.getRequestDispatcher("edit.jsp").include(request, response);
         } 
-        else if (!validator.validateSingleString(streetAddress)) {
+        else if (!validator.validateSentence(streetAddress)) {
             // set incorrect email error to the session 
             session.setAttribute("streetEditErr", "Error: Street address is mandatory");
             // redirect user back to the edit.jsp     

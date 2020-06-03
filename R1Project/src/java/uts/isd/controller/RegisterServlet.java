@@ -99,7 +99,7 @@ public class RegisterServlet extends HttpServlet {
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
         }
-        else if (!validator.validateSingleString(streetAddress)) {
+        else if (!validator.validateSentence(streetAddress)) {
             // set incorrect email error to the session 
             session.setAttribute("streetErr", "Error: Street address is mandatory");
             // redirect user back to the login.jsp     
