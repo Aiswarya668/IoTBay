@@ -109,7 +109,7 @@ public class AddSupplierServlet extends HttpServlet {
             try {
                 supplierManager.addSupplier(contactName, supplierName, supplierEmail, supplierAddress, active);
                 request.setAttribute("supplier", supplier);
-                request.getRequestDispatcher("addedSupplier.jsp").include(request, response);
+                request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             } catch (SQLException ex) {
                 session.setAttribute("exceptionErr", "Submission Failed");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);

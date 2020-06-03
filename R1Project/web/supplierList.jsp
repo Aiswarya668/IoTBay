@@ -35,9 +35,11 @@
 
                 <%
                     Supplier supplier = (Supplier) session.getAttribute("show");
+                    String creationConfirmation = (String) request.getParameter("creationConfirmation");
                 %>
 
                 <h1>Supplier Information Management</h1>
+                <span><%=creationConfirmation != null ? creationConfirmation : ""%></span>
                 <form method="post" method="get">
 
                     <form>
