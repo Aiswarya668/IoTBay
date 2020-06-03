@@ -47,7 +47,7 @@
                         <tr><td>Company:</td><td><input type="text" placeholder="<%=(supplierNameErr != null ? supplierNameErr :"Enter supplier name")%>" name="supplierName"></td></tr>
                         <tr><td>Email:</td><td><input type="text" placeholder="<%=(supplierEmailErr != null ? supplierEmailErr :"Enter supplier email")%>" name="supplierEmail"></td></tr>
                         <tr><td>Address:</td><td><input type="text" placeholder="<%=(supplierAddressErr != null ? supplierAddressErr :"Enter supplier address")%>" name="supplierAddress"></td></tr>
-                        <tr><td>Boolean:</td><td><input type="text" placeholder="Enter active status" name="active"></td></tr> 
+                        <tr><td>Activated:</td><td><input type="checkbox" name="active"></td></tr> 
                     </table>
                     <div>
                         <input class ="button4" type="submit" value="Add">

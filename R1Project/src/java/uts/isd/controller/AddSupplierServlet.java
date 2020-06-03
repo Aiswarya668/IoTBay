@@ -46,7 +46,9 @@ public class AddSupplierServlet extends HttpServlet {
         String supplierAddress = request.getParameter("supplierAddress");
         
         //capture the posted active status - parse as a boolean as the input is a string in form  
-        Boolean active = Boolean.parseBoolean(request.getParameter("active"));
+        // active = Boolean.parseBoolean(request.getParameter("active"));
+        //boolean active = (request.getParameter("active").equals("on") || request.getParameter("active").equals("null"));
+        boolean active = (request.getParameter("active") != null);
 
         //4) retrieve the manager instance from session - ConnServlet            
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
