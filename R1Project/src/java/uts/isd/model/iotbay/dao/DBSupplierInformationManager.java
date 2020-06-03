@@ -47,9 +47,9 @@ public class DBSupplierInformationManager {
         String query = "INSERT INTO IOTBAYUSER.Supplier (supplierEmail, supplierName, contactName, supplierAddress, active) VALUES " + "(?,?,?,?,?)";
 
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, supplierEmail);
+        stmt.setString(1, contactName);
         stmt.setString(2, supplierName);
-        stmt.setString(3, contactName);
+        stmt.setString(3, supplierEmail);
         stmt.setString(4, supplierAddress);
         stmt.setBoolean(5, active);
 
@@ -88,7 +88,7 @@ public class DBSupplierInformationManager {
         ResultSet rs = st.executeQuery(fetch);
         
         while(rs.next()) {
-            String SupplierContactName = rs.getString(3);
+            String SupplierContactName = rs.getString(1);
             String SupplierSupplierName = rs.getString(2);
             if (SupplierContactName.equals(contactName) && SupplierSupplierName.equals(supplierName)) {
                 return true;

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : searchSupplier
-    Created on : 31/05/2020, 12:45:42 PM
+    Document   : updateSupplier
+    Created on : 02/06/2020, 5:15:30 PM
     Author     : Anastasia
 --%>
 
@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/webpage.css">
-        <title>Search Supplier</title>
+        <title>Update Supplier</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
     <div class="maincolumn2">
@@ -27,17 +27,9 @@
             </head>
             <body>
 
-                <%
-                    //DBConnector dbConnector = new DBConnector();
-                    //Connection conn = dbConnector.openConnection();
-                    //DBSupplierInformationManager dbManager = new DBSupplierInformationManager(conn);
-                    //dbManager.fetchSuppliers();
+                <h1>Search Supplier to be Updated</h1>
 
-                %>
-
-                <h1>Search Supplier</h1>
-
-                <form method="get" action="SearchSupplierServlet">
+                <form method="get" action="UpdateSupplierServlet">
                     <table>
                         <tr>
                             <td><input type="text" placeholder="Enter contact name" name="contactName"></td>
@@ -46,7 +38,7 @@
                     </table>
                     <div>
                         <input class ="button4" type="submit" value="Search">
-                        <a class ="button3" href="SupplierListServlet">Cancel</a>
+                        <a class ="button3" href="UpdateSupplierServlet">Cancel</a>
                     </div>
                 </form>
             </body>

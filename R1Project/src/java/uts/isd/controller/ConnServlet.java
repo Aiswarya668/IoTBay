@@ -28,6 +28,7 @@ public class ConnServlet extends HttpServlet {
     private DBDeviceManager deviceManager;
     private DBApplicationLogsManager logsManager;
     private DBStaffManager staffManager;
+    private DBSupplierInformationManager supplierManager;
     private Connection conn;
 
     @Override // Create and instance of DBConnector for the deployment session
@@ -54,6 +55,9 @@ public class ConnServlet extends HttpServlet {
             logsManager = new DBApplicationLogsManager(conn);
             // instantiate new staff manager
             staffManager = new DBStaffManager(conn);
+            // instantiate new supplierManager
+            supplierManager = new DBSupplierInformationManager(conn);
+            
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,6 +66,7 @@ public class ConnServlet extends HttpServlet {
         session.setAttribute("deviceManager", deviceManager);
         session.setAttribute("logsManager", logsManager);
         session.setAttribute("staffManager", staffManager);
+        session.setAttribute("supplierManager", supplierManager);
     }
 
     // Destroy the servlet and release the resources of the application (terminate

@@ -15,18 +15,19 @@ public class Validator implements Serializable {
    private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
    private String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
    private String passwordPattern = "[a-z0-9]{4,}";
-   private String phonePattern = "0([0-9]+)";
-
-   // device manageemnt validator patterns
-   private String deviceNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
-   private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
-   // Numbers with 2 decimals (.00)
-   private String deviceCostPattern = "^-?\\d*\\.\\d{2}$";
-   // Positive integers of undefined length
-   private String deviceStockPattern = "^\\d+$";
-   private String deviceDescriptionPattern = "[A-Z][a-z]*";
+   private String phonePattern = "0([0-9]+)";      
+    
+    //device management validator patterns - for server side validation
+    private String deviceNamePattern = "(([a-zA-Z0-9]+))";
+    //type = Word with capital (space) word with capital
+    private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
+    //Numbers with 2 decimals (.00)
+    private String deviceCostPattern = "(^-?\\d*\\.\\d{2}$)";
+    //Positive integers of undefined length
+    private String deviceStockPattern = "(^\\d+$)";
+    private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
    
-   //supplier management validator patterns
+//supplier management validator patterns
    private String supplierStatus = "[A-Z][a-z]*";
 
    public Validator() {
@@ -68,43 +69,55 @@ public class Validator implements Serializable {
    public boolean validatePassword(String password) {
       return validate(passwordPattern, password);
    }
-
-   // device validators - check if fields are empty
-   public boolean checkDeviceEmpty(String deviceName, String type, String cost, String stockQuantity,
-         String description) {
-      return deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty()
-            || description.isEmpty();
-   }
-
-   // device validators - check deviceName
-   public boolean validateDeviceName(String deviceName) {
-      return validate(deviceNamePattern, deviceName);
-   }
-
-   // device validators - check deviceType
-   public boolean validateDeviceType(String type) {
-      return validate(deviceTypePattern, type);
-   }
-
-   // device validators - check deviceCost
-   public boolean validateDeviceCost(String cost) {
-      return validate(deviceCostPattern, cost);
-   }
-
-   // device validators - check deviceStock
-   public boolean validateDeviceStock(String stockQuantity) {
-      return validate(deviceStockPattern, stockQuantity);
-   }
-
-   // device validators - check deviceDescription
-   public boolean validateDeviceDesc(String description) {
-      return validate(deviceDescriptionPattern, description);
-   }
-
-   public void clear(HttpSession session) {
-      session.setAttribute("emailErr", "Enter email");
-      session.setAttribute("passErr", "Enter password");
-      session.setAttribute("existErr", "");
-      session.setAttribute("nameErr", "Enter name");
-   }
+    
+    //device validators - check if fields are empty
+     public boolean checkDeviceEmpty(String deviceName, String type, String cost, String stockQuantity, String description){       
+       return  deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
+    }
+    
+    //device validators - check deviceName
+    public boolean validateDeviceName(String deviceName){
+         return validate(deviceNamePattern, deviceName); 
+    }
+    
+    //device validators - check deviceType
+    public boolean validateDeviceType(String type){
+         return validate(deviceTypePattern, type); 
+    }
+    
+    //device validators - check deviceCost
+    public boolean validateDeviceCost(String cost){
+         return validate(deviceCostPattern, cost); 
+    }
+    
+    //device validators - check deviceStock
+    public boolean validateDeviceStock(String stockQuantity){
+         return validate(deviceStockPattern, stockQuantity); 
+    }
+    
+    //device validators - check deviceDescription
+    public boolean validateDeviceDesc(String description){
+         return validate(deviceDescriptionPattern, description); 
+    }
+    
+    
+    public void clear(HttpSession session) {
+        session.setAttribute("emailErr", "Enter email");
+        session.setAttribute("passErr", "Enter password");
+        session.setAttribute("existErr", "");
+        session.setAttribute("nameErr", "Enter name");
+        //deviceCreation clear()
+        session.setAttribute("deviceNameErr", "Enter device name");
+        session.setAttribute("typeErr", "Enter device type");
+        session.setAttribute("priceErr", "Enter price $0.00");
+        session.setAttribute("stockErr", "Enter stock quantity");
+        session.setAttribute("descriptionErr", "Enter device description");
+        session.setAttribute("deletedeviceNameErr", "");
+        session.setAttribute("deletetypeErr", "");
+        session.setAttribute("deletepriceErr", "");
+        session.setAttribute("deletestockErr", "");
+        session.setAttribute("deletedescriptionErr", "");
+        session.setAttribute("exceptionErr", "");
+        session.setAttribute("deviceEmptyErr", "");
+    }
 }

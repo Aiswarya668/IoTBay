@@ -112,19 +112,24 @@ public class TestDeviceDB {
         
         
         private void testUpdate() {
-        System.out.print("Device name: ");
-        String deviceName = in.nextLine();
-        System.out.print("Device type: ");
-        String type = in.nextLine();
-        
-       
+       // System.out.print("Device name: ");
+       // String deviceName = in.nextLine();
+       // System.out.print("Device type: ");
+       // String type = in.nextLine();
+        System.out.print("Device id: ");
+        int deviceID = in.nextInt();
+        in.nextLine(); 
+ 
         try {
-            Device device = db.findDevice(deviceName, type);
+            Device device = db.findDeviceID(deviceID);
+            //String oldDeviceName = device.getDeviceName();
+            //String oldDeviceType = device.getType();
+            
             if (device != null) {
-                //System.out.print("Device name: ");
-                //String deviceName = in.nextLine();
-                //System.out.print("Device type: ");
-                //String type = in.nextLine();
+                System.out.print("Device new name: ");
+                String deviceName = in.nextLine();
+                System.out.print("Device  new type: ");
+                String type = in.nextLine();
                 System.out.print("Device cost: ");
                 double cost = in.nextDouble();
                 in.nextLine(); 
@@ -134,7 +139,8 @@ public class TestDeviceDB {
                 System.out.print("Device description: ");
                 String description = in.nextLine();
                 
-                db.updateDevice(deviceName, type, cost, stockQuantity, description);
+                db.updateDevice(deviceID, deviceName, type, cost, stockQuantity, description);
+                System.out.println("Device with id" + deviceID + " was updated.");
                 
             } else {
                 System.out.println("Device does not exist.");
