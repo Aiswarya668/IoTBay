@@ -6,6 +6,30 @@
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet>
+        <servlet-name>SupplierListServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SupplierListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RemoveSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDetailsSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateDetailsSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>uts.isd.controller.LoginServlet</servlet-class>
     </servlet>
@@ -41,9 +65,46 @@
         <servlet-name>ViewDeviceServletUsers</servlet-name>
         <servlet-class>uts.isd.controller.ViewDeviceServletUsers</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserDeleteServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>UserLogsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserLogsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>uts.isd.controller.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SupplierListServlet</servlet-name>
+        <url-pattern>/SupplierListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSupplierServlet</servlet-name>
+        <url-pattern>/AddSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveSupplierServlet</servlet-name>
+        <url-pattern>/RemoveSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSupplierServlet</servlet-name>
+        <url-pattern>/SearchSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSupplierServlet</servlet-name>
+        <url-pattern>/UpdateSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDetailsSupplierServlet</servlet-name>
+        <url-pattern>/UpdateDetailsSupplierServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -80,6 +141,18 @@
     <servlet-mapping>
         <servlet-name>ViewDeviceServletUsers</servlet-name>
         <url-pattern>/ViewDeviceServletUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserLogsServlet</servlet-name>
+        <url-pattern>/UserLogsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <url-pattern>/UserDeleteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,16 +1,21 @@
-    package uts.isd.controller;
+package uts.isd.controller;
 
-   import java.io.Serializable;
-   import java.util.regex.Matcher;
-   import java.util.regex.Pattern;
-   import java.util.regex.*;
-   import javax.servlet.http.HttpSession;
+import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.*;
+import javax.servlet.http.HttpSession;
 
-
-   public class Validator implements Serializable{ 
-    private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";      
-    private String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";       
-    private String passwordPattern = "[a-z0-9]{4,}";       
+public class Validator implements Serializable {
+   // generic, common patterns
+   private String singleStringPattern = "?";
+   private String singleIntPattern = "?";
+   
+   // online-user-access-specific management patterns
+   private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
+   private String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
+   private String passwordPattern = "[a-z0-9]{4,}";
+   private String phonePattern = "0([0-9]+)";      
     
     //device management validator patterns - for server side validation
     private String deviceNamePattern = "(([a-zA-Z0-9]+))";
@@ -21,33 +26,49 @@
     //Positive integers of undefined length
     private String deviceStockPattern = "(^\\d+$)";
     private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
+   
+//supplier management validator patterns
+   private String supplierStatus = "[A-Z][a-z]*";
 
-    public Validator(){    }       
+   public Validator() {
+   }
+   
+   public boolean validate(String pattern, String input) {
+      Pattern regEx = Pattern.compile(pattern);
+      Matcher match = regEx.matcher(input);
+      return match.matches();
+   }
 
-    public boolean validate(String pattern, String input){       
-       Pattern regEx = Pattern.compile(pattern);       
-       Matcher match = regEx.matcher(input);       
-       return match.matches(); 
-    }       
+   // commonly used validators
 
-    public boolean checkEmpty(String email, String password){       
-       return  email.isEmpty() || password.isEmpty();   
-    }
+   // validator - needs to be a valid single string
+   public boolean validateSingleString(String string) {
+//      return validate(passwordPattern, string);
+        return true; // testing purpose
+   }
 
-
-    public boolean validateEmail(String email){                       
-       return validate(emailPattern,email);   
-    }
-
-
-    public boolean validateName(String name){
-       return validate(namePattern,name); 
-    }       
+   // validator - needs to be valid single int
+   public boolean validateSingleInt(String number) {
+//      return validate(namePattern, number);
+        return true; // testing purpose
+   }
 
 
-    public boolean validatePassword(String password){
-       return validate(passwordPattern,password); 
-    }
+   // customer validator - needs to have @ sign
+   public boolean validateEmail(String email) {
+      return validate(emailPattern, email);
+   }
+
+   // customer validator - phone needs to start with 0
+   public boolean validatePhone(String phoneNumber) {
+//      return validate(passwordPattern, phoneNumber);
+      return true; // testing purpose
+   }
+
+   // customer validator - password needs 4 char
+   public boolean validatePassword(String password) {
+      return validate(passwordPattern, password);
+   }
     
     //device validators - check if fields are empty
      public boolean checkDeviceEmpty(String deviceName, String type, String cost, String stockQuantity, String description){       

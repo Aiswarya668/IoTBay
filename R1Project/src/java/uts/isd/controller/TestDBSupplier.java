@@ -81,11 +81,14 @@ public class TestDBSupplier {
         String contactName = in.nextLine();
         System.out.print("Supplier Address: ");
         String supplierAddress = in.nextLine();
-        try {db.addSupplier(supplierEmail, supplierName, contactName, supplierAddress);
+        System.out.print("Active: ");
+        Boolean active = in.nextBoolean();
+        in.nextLine();
+        try {db.addSupplier(supplierEmail, supplierName, contactName, supplierAddress, active);
         } catch (SQLException ex) {
             Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Supplier with person of contact is added to the database.");
+        System.out.println("Supplier with point of contact is added to the database.");
     }
     
     private void testRead() throws SQLException {
@@ -95,10 +98,10 @@ public class TestDBSupplier {
         String supplierName = in.nextLine();
         Supplier supplier = db.findSupplier(contactName, supplierName);
         if (supplier != null) {
-            System.out.println("Contac " + supplier.getContactName()+ " with person of contact " + supplier.getContactName() + " exists in the database.");
+            System.out.println(supplier.getSupplierEmail() + " " + supplier.getSupplierName() + " " + supplier.getContactName() + " " + supplier.getSupplierAddress() + " " + supplier.isActive());
         } 
         else {
-            System.out.println("Supplier with person of contacts does not exits.");
+            System.out.println("Supplier with point of contact does not exist.");
         }
 
     }
@@ -108,9 +111,14 @@ public class TestDBSupplier {
         String contactName = in.nextLine();
         System.out.print("Supplier name: ");
         String supplierName = in.nextLine();
+        
+        System.out.println("Details to update");
 
         try {
-            if (db.findSupplier(contactName, supplierName) != null) {
+            Supplier supplier = db.findSupplier(contactName, supplierName);
+            String oldSupplierEmail = supplier.getSupplierEmail();
+            
+            if (supplier != null) {
                 System.out.print("Supplier email: ");
                 String supplierEmail = in.nextLine();
                 System.out.print("Supplier name: ");
@@ -119,14 +127,19 @@ public class TestDBSupplier {
                 String newContactName = in.nextLine();
                 System.out.print("Supplier Address: ");
                 String supplierAddress = in.nextLine();
-                db.updateSupplier(supplierEmail, newSupplierName, newContactName, supplierAddress);
+                System.out.print("Active: ");
+                Boolean active = in.nextBoolean();
+                in.nextLine();
+                db.updateSupplier(supplierEmail, newSupplierName, newContactName, supplierAddress, active, oldSupplierEmail);
             } else {
-                System.out.println("Supplier with person of contact does not exist.");
+                System.out.println("Supplier with point of contact does not exist.");
             }
         } catch (SQLException ex) {
             Logger.getLogger(TestDBSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
+                System.out.println("Supplier with point of contact has been updated.");
     }
+    
     
     private void testDelete() {
         System.out.print("Contact Name: ");
@@ -152,7 +165,7 @@ public class TestDBSupplier {
             ArrayList<Supplier> suppliers = db.fetchSuppliers();
             System.out.println("SUPPLIERS TABLE: ");
             suppliers.stream().forEach((supplier) -> {
-                System.out.printf("%-20s %-20s %-20s %-20s \n", supplier.getSupplierEmail(), supplier.getSupplierName(), supplier.getContactName(), supplier.getSupplierAddress());
+                System.out.printf("%-20s %-20s %-20s %-20s %-20s \n", supplier.getSupplierEmail(), supplier.getSupplierName(), supplier.getContactName(), supplier.getSupplierAddress(), supplier.isActive());
             });
             System.out.println();
         } 

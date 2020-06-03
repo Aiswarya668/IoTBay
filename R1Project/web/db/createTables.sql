@@ -22,6 +22,7 @@ PostalCode varchar(5),
 LoginStatus boolean,
 RegisterDate timestamp,
 Gender varchar(6),
+active boolean,
 PRIMARY KEY (CustomerEmail)
 ); 
 
@@ -41,7 +42,8 @@ LoginStatus boolean,
 RegisterDate timestamp,
 ContractType varchar(20),
 PayHr integer,
-FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail), 
+active boolean,
+FOREIGN KEY (Manager) REFERENCES Staff(StaffEmail),
 PRIMARY KEY (StaffEmail)
 );
 
@@ -60,6 +62,7 @@ supplierEmail varchar(50) NOT NULL,
 supplierName varchar(30),
 contactName varchar(30),
 supplierAddress varchar(30),
+active boolean,
 PRIMARY KEY (supplierEmail)
 );
 
@@ -80,7 +83,7 @@ City varchar(30),
 State varchar(30),
 PostalCode varchar(5),
 PhoneNumber varchar(10),
-FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
+FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail) ON DELETE CASCADE,
 FOREIGN KEY (supplierEmail) REFERENCES Supplier(supplierEmail),
 PRIMARY KEY (OrderID)
 );
@@ -91,8 +94,8 @@ CustomerEmail varchar(50),
 StaffEmail varchar(50),
 timestamp timestamp,
 LogDescription varchar(1000),
-FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
-FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail),
+FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail) ON DELETE CASCADE,
+FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
 PRIMARY KEY (AccessLogID)
 );
 
@@ -101,8 +104,8 @@ DeviceID int NOT NULL,
 OrderID int NOT NULL, 
 Quantity integer, 
 Price double,
-FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID) ON DELETE CASCADE,
-FOREIGN KEY (OrderID) REFERENCES CustomerOrder(OrderID), 
+FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID),
+FOREIGN KEY (OrderID) REFERENCES CustomerOrder(OrderID) ON DELETE CASCADE,
 PRIMARY KEY (DeviceID, OrderID)
 );
 
@@ -113,8 +116,8 @@ CustomerEmail varchar(50),
 Description varchar(1000),
 ResolvedState boolean,
 TicketDate timestamp,
-FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail),
-FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
+FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
+FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail) ON DELETE CASCADE,
 PRIMARY KEY (TicketID)
 );
 
@@ -122,8 +125,8 @@ Create Table CartItem(
 CustomerEmail varchar(50) NOT NULL,
 DeviceID int NOT NULL,
 DeviceQuantity integer,
-FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
-FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID) ON DELETE CASCADE,
+FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail) ON DELETE CASCADE,
+FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID),
 PRIMARY KEY (CustomerEmail, DeviceID)
 );
 
@@ -133,6 +136,6 @@ MethodOfPayment varchar(20),
 HashedCardNumber varchar(32),
 CardSecurityCode varchar(32),
 CardExpiryDate timestamp,
-FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail),
+FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail) ON DELETE CASCADE,
 PRIMARY KEY (CustomerEmail)
 );

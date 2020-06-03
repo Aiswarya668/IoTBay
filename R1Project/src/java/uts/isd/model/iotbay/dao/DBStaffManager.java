@@ -48,13 +48,15 @@ public class DBStaffManager {
                 java.util.Date staffRegisterDate = rs.getDate(13);
                 String staffContractType = rs.getString(14);
                 int staffPayHr = rs.getInt(15);
+                boolean staffActive = rs.getBoolean(16);
                 return new Staff(staffFName, staffLName, staffEmail, staffPass,
                         staffUnitNo, staffStreetAddr, staffCity, staffState,
                         staffPostCode, staffRegisterDate, staffLoginStatus,
-                        staffPhone, staffContractType, staffPayHr, staffManager);
+                        staffPhone, staffContractType, staffPayHr, staffManager,
+                        staffActive);
             }
         }
-        return null;
+        throw new SQLException("No such staff exists");
     }
 
     //Add a staff-data into the database   
@@ -68,7 +70,7 @@ public class DBStaffManager {
         Timestamp date = new Timestamp(new java.util.Date().getTime());
 
         String query = "INSERT INTO IOTBAYUSER.STAFF VALUES "
-                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
+                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, staffEmail);
         stmt.setString(2, staffFname);
@@ -85,8 +87,10 @@ public class DBStaffManager {
         stmt.setTimestamp(13, date);
         stmt.setString(14, staffContractType);
         stmt.setString(15, staffPayHr);
+        stmt.setBoolean(16, true);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     //update a staff details in the database   
@@ -94,15 +98,15 @@ public class DBStaffManager {
             String staffLname, String staffPhone, String staffPass,
             String staffSAdd, String staffUnit, String staffCity,
             String staffState, String staffPostC, String staffManager,
-            String staffContractType, int staffPayHr)
+            String staffContractType, int staffPayHr, boolean staffActive)
             throws SQLException {;
         //code for update-operation
 //        st.executeUpdate("UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', MANAGER='" + manager + "', CONTRACTTYPE='" + contractType + "', PAYHR=" + payHr + " WHERE STAFFEMAIL='" + email + "'");
         String query = "UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?, "
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?, "
-                + "POSTALCODE = ?, MANAGER = ?, CONTRACTTYPE = ?, PAYHR = ? "
-                + "WHERE STAFFEMAIL = ?";
+                + "POSTALCODE = ?, MANAGER = ?, CONTRACTTYPE = ?, PAYHR = ?, "
+                + "ACTIVE = ? WHERE STAFFEMAIL = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, staffEmail);
@@ -118,9 +122,11 @@ public class DBStaffManager {
         stmt.setString(11, staffManager);
         stmt.setString(12, staffContractType);
         stmt.setInt(13, staffPayHr);
-        stmt.setString(14, staffEmail);
+        stmt.setBoolean(14, staffActive);
+        stmt.setString(15, staffEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     //delete a staff from the database   
@@ -131,6 +137,7 @@ public class DBStaffManager {
         stmt.setString(1, staffEmail);
 
         stmt.executeUpdate();
+        stmt.close();
     }
 
     public ArrayList<Staff> fetchStaffs() throws SQLException {
@@ -154,10 +161,12 @@ public class DBStaffManager {
             java.util.Date staffRegisterDate = rs.getDate(13);
             String staffContractType = rs.getString(14);
             int staffPayHr = rs.getInt(15);
+            boolean staffActive = rs.getBoolean(16);
             temp.add(new Staff(staffFName, staffLName, staffEmail, staffPass,
                     staffUnitNo, staffStreetAddr, staffCity, staffState,
                     staffPostCode, staffRegisterDate, staffLoginStatus,
-                    staffPhone, staffContractType, staffPayHr, staffManager));
+                    staffPhone, staffContractType, staffPayHr, staffManager,
+                    staffActive));
         }
         return temp;
     }
@@ -174,5 +183,16 @@ public class DBStaffManager {
             }
         }
         return false;
+    }
+    
+    // deactivate a staff - set their active status to false
+    public void deactivateStaff(String staffEmail) throws SQLException {
+        String query = "UPDATE IOTBAYUSER.STAFF SET ACTIVE = ? WHERE STAFFEMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setBoolean(1, false);
+        stmt.setString(2, staffEmail);
+        
+        stmt.executeUpdate();
+        stmt.close();
     }
 }
