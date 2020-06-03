@@ -27,18 +27,6 @@
         <title>User Management</title>
     </head>
     <%
-        DBConnector dbConnector = new DBConnector();
-        Connection conn = dbConnector.openConnection();
-
-        DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
-        DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
-
-        List<Customer> customers = customerManager.fetchCustomers();
-        List<Staff> staffs = staffManager.fetchStaffs();
-
-        session.setAttribute("customers", customers);
-        session.setAttribute("staffs", staffs);
-
         SQLException userDeleteErr = (SQLException) session.getAttribute("userDeleteErr");
     %>
 
@@ -47,8 +35,8 @@
         <div class="maincolumn2-2">
             <div class="card">
                 <h1>User Management</h1>
+                <span>${userDeleteErr}</span>
                 <div>
-                    <span>${userDeleteErr}</span>
                     <i class="material-icons global-search-icon">&#xE8B6;</i> 
                     <select id="inputType" onchange="filterTable()" >
                         <option value="all">All</option>
@@ -58,7 +46,14 @@
                     <input type="text" id="inputFName" class="searchbox" onkeyup="filterTable()" placeholder="First name" title="Type in a name">
                     <input type="text" id="inputLName" class="searchbox" onkeyup="filterTable()" placeholder="Last name.." title="Type in a name">
                     <input type="text" id="inputPhone" class="searchbox" onkeyup="filterTable()" placeholder="Phone number" title="Type in a name">
-                    <a class="button4" href="register.jsp">Add New</a>
+                    <form method="get" action="register.jsp">
+                        <input type="hidden" name="userType" value="customer" />
+                        <button class="button4" type="submit">Add New Customer</button>
+                    </form>
+                    <form method="get" action="register.jsp">
+                        <input type="hidden" name="userType" value="staff" />
+                        <button class="button4" type="submit">Add New Staff</button>
+                    </form>
                 </div>
                 <div class="table-wrapper">
                     <table id="userTable">
