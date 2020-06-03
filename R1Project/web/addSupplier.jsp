@@ -30,7 +30,7 @@
             String deleteSupplierEmailErr = (String) session.getAttribute("deleteSupplierEmailErr");
             String deleteSupplierAddressErr = (String) session.getAttribute("deleteSupplierAddressErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
-            String creationConfirmation = request.getParameter("creationConfirmation");
+            String creationConfirmation = (String) session.getAttribute("creationConfirmation");
         %>
 
             <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
@@ -52,7 +52,6 @@
                         <tr><td>Activated:</td><td><input type="checkbox" name="active"></td></tr> 
                     </table>
                     <div>
-                        <input type="hidden" name="creationConfirmation" value="Supplier update was Successful">
                         <input class ="button4" type="submit" value="Add">
                         <a class ="button3" href="SupplierListServlet">Cancel</a>
                         <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%>
