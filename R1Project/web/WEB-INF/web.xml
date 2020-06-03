@@ -10,6 +10,10 @@
         <servlet-class>uts.isd.controller.SupplierListServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UserListServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserListServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddSupplierServlet</servlet-name>
         <servlet-class>uts.isd.controller.AddSupplierServlet</servlet-class>
     </servlet>
@@ -97,6 +101,10 @@
     <servlet-mapping>
         <servlet-name>SupplierListServlet</servlet-name>
         <url-pattern>/SupplierListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListServlet</servlet-name>
+        <url-pattern>/UserListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddSupplierServlet</servlet-name>

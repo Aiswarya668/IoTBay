@@ -43,107 +43,93 @@ public class RegisterServlet extends HttpServlet {
         String postCode = request.getParameter("PostCode");
         String phoneNumber = request.getParameter("PhoneNumber");
         //5- retrieve the manager instance from session
-        DBCustomerManager customerManager = 
-                (DBCustomerManager)session.getAttribute("customerManager");
-        DBApplicationLogsManager logsManager = 
-                (DBApplicationLogsManager) session.getAttribute("logsManager");
+        DBCustomerManager customerManager
+                = (DBCustomerManager) session.getAttribute("customerManager");
+        DBApplicationLogsManager logsManager
+                = (DBApplicationLogsManager) session.getAttribute("logsManager");
         Customer customer = null;
         validator.clear(session);
-        
+
         try {
             customer = customerManager.findCustomer(email);
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (customer != null) {
-             // set duplicate email error to the session 
+            // set duplicate email error to the session 
             session.setAttribute("exceptionErr", "Customer with that email already exists in the database");
             // redirect user to the login.jsp to retry
             request.getRequestDispatcher("register.jsp").include(request, response);
-        }
-        else if (!validator.validateEmail(email)) {
+        } else if (!validator.validateEmail(email)) {
             // set incorrect email error to the session 
             session.setAttribute("emailErr", "Error: Email format incorrect");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validatePassword(password)) {
+        } else if (!validator.validatePassword(password)) {
             // set incorrect password error to the session 
             session.setAttribute("passErr", "Error: Must be at least 4 characters long");
             // redirect user back to the login.jsp 
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validateSingleString(firstName)) {
+        } else if (!validator.validateSingleString(firstName)) {
             // set incorrect email error to the session 
             session.setAttribute("fNameErr", "Error: First name is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validateSingleString(lastName)) {
+        } else if (!validator.validateSingleString(lastName)) {
             // set incorrect email error to the session 
             session.setAttribute("lNameErr", "Error: Last name is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validateSingleInt(unitNumber)) {
+        } else if (!validator.validateSingleInt(unitNumber)) {
             // set incorrect email error to the session 
             session.setAttribute("unitErr", "Error: Unit number is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (gender == null) {
+        } else if (gender == null) {
             // set incorrect email error to the session 
             session.setAttribute("genderErr", "Error: Gender is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        }
-        else if (!validator.validateSentence(streetAddress)) {
+        } else if (!validator.validateSentence(streetAddress)) {
             // set incorrect email error to the session 
             session.setAttribute("streetErr", "Error: Street address is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validateSingleString(city)) {
+        } else if (!validator.validateSingleString(city)) {
             // set incorrect email error to the session 
             session.setAttribute("emailErr", "Error: City is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validateSingleString(state)) {
+        } else if (!validator.validateSingleString(state)) {
             // set incorrect email error to the session 
             session.setAttribute("stateErr", "Error: State is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (!validator.validateSingleInt(postCode)) {
+        } else if (!validator.validateSingleInt(postCode)) {
             // set incorrect email error to the session 
             session.setAttribute("postErr", "Error: Post code is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else if (phoneNumber == null) {
+        } else if (phoneNumber == null) {
             // set incorrect phone number error to the session 
             session.setAttribute("phoneErr", "Error: Phone number is mandatory");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        }
-        else if (!validator.validatePhone(phoneNumber)) {
+        } else if (!validator.validatePhone(phoneNumber)) {
             // set incorrect phone number error to the session 
             session.setAttribute("phoneErr", "Error: Phone number format is incorrect");
             // redirect user back to the login.jsp     
             request.getRequestDispatcher("register.jsp").include(request, response);
-        } 
-        else {
+        } else {
             try {
                 // create new user
-                customerManager.addCustomer(firstName, lastName, email, 
-                password, gender, unitNumber, streetAddress, city, 
-                state, postCode, phoneNumber);
+                customerManager.addCustomer(firstName, lastName, email,
+                        password, gender, unitNumber, streetAddress, city,
+                        state, postCode, phoneNumber);
                 // add login log
                 logsManager.addCustomerLog(customer.getEmail(), "Login");
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 // exception message if adding customer fails
                 session.setAttribute("exceptionErr", "Registration failed");
                 request.getRequestDispatcher("login.jsp").include(request, response);
