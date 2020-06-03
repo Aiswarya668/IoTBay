@@ -16,7 +16,7 @@
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         <p class="right"> <a class ="button21" href="ViewDeviceServletUsers">Browse as Guest</a> </p>
-        <p class="right"> <a class ="button21" href="ViewDeviceServlet">Staff View</a> </p>
+        <p class="right"> <a class ="button21" href="ViewDeviceServlet">Device Management</a> </p>
         <div class="maincolumn1">
             <div class="card">
                 <h1>Welcome</h1>
