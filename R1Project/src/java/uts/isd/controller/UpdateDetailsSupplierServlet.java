@@ -48,16 +48,14 @@ public class UpdateDetailsSupplierServlet extends HttpServlet {
         //capture the posted active status - parse as a boolean as the input is a string in form  
         Boolean active = Boolean.parseBoolean(request.getParameter("active"));
 
-        //4) retrieve the manager instance from session - ConnServlet            
+        // retrieve the manager instance from session - ConnServlet            
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
         
         
         Supplier supplier = null;
         validator.clear(session);
 
-        //Check if device exsists first
         try {
-            //could be null
             Supplier s = (Supplier)session.getAttribute("supplier");
             String oldSupplierEmail = s.getSupplierEmail();
             supplierManager.updateSupplier(supplierEmail, supplierName, contactName, supplierAddress, active, oldSupplierEmail);

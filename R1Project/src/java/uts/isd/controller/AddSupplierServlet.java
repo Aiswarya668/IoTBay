@@ -55,32 +55,25 @@ public class AddSupplierServlet extends HttpServlet {
         Supplier supplier = null;
         validator.clear(session);
 
-        //Check if device exsists first
         try {
             supplier = supplierManager.findSupplier(contactName, supplierName);
         } catch (SQLException ex) {
             Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //check if device is not null (if null = new device) 
         if (supplier != null) {
-            //device name & type already exsists error 
+
             session.setAttribute("exceptionErr", "Supplier with point of contact already exists");
-            // redirect back to addDevice
             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
         } 
         
         
         else {
             try {
-                //addDevice CRUD operation --- parseBoolean?? Boolean.parseBoolean(active)
                 supplierManager.addSupplier(contactName, supplierName, supplierEmail, supplierAddress, active);
-                //set session attribute
                 request.setAttribute("supplier", supplier);
-                //send to createdDevice.jsp
                 request.getRequestDispatcher("addedSupplier.jsp").include(request, response);
             } catch (SQLException ex) {
-                //catch any exception
                 session.setAttribute("exceptionErr", "Registration failed");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             }

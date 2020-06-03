@@ -47,9 +47,6 @@ public class SearchSupplierServlet extends HttpServlet {
         request.getRequestDispatcher("searchResultSupplier.jsp").include(request, response);
         
             
-            //ArrayList<Supplier> search = supplierManager.fetchSuppliers();
-            //request.setAttribute("search",search);     
-            
             
        } catch (SQLException ex) {
            Logger.getLogger(SearchSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
