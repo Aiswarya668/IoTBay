@@ -36,7 +36,7 @@ public class TestDBCustomer {
     }
 
     private char readChoice() {
-        System.out.print("Operation CRUDS or * to exit: ");
+        System.out.print("Operation CRUDSA or * to exit: ");
         return in.nextLine().charAt(0);
     }
 
@@ -59,6 +59,9 @@ public class TestDBCustomer {
                     break;
                 case 'S':
                     showAll();
+                    break;
+                case 'A':
+                    testDeactivate();
                     break;
                 default:
                     System.out.println("Unknown Command");
@@ -163,6 +166,21 @@ public class TestDBCustomer {
             Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void testDeactivate() {
+        System.out.print("Customer email: ");
+        String email = in.nextLine();
+        try {
+            if (db.findCustomer(email) != null) {
+                db.deactivateCustomer(email);
+                System.out.println("Customer " + email + " was deactivated in the database.");
+            } else {
+                System.out.println("Customer does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void showAll() throws SQLException {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -173,8 +191,8 @@ public class TestDBCustomer {
                 System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s %-10s \n",
                         customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(),
                         customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(),
-                        customer.getCity(), customer.getState(), customer.getPostcode(), customer.getLoginStatus(),
-                        formatter.format(customer.getDateRegistered()), customer.getGender(), customer.getActive());
+                        customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(),
+                        formatter.format(customer.getDateRegistered()), customer.getGender(), customer.isActive());
             });
             System.out.println();
         } catch (SQLException ex) {

@@ -12,14 +12,16 @@
         <link rel="stylesheet" href="css/webpage.css">
         <title>Logout</title>
     </head>
+    <%
+        String logErr = (String) session.getAttribute("logErr");
+    %>
     <body>
+        <jsp:include page="./LogoutServlet" flush="true" />
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="center"/>
         <div class="maincolumn1">
             <div class="card">
-
                 <p>You have logged out! Click <a href="index.jsp">here</a> to go back to the home page!</p>
-                <% session.invalidate();%>
-
+                <p><%=(logErr != null ? logErr : "")%></p>
             </div>
         </div>     
     </body>

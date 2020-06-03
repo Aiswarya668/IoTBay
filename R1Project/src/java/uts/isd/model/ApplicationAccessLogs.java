@@ -5,7 +5,7 @@
  */
 package uts.isd.model;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,16 +13,17 @@ import java.util.Date;
  */
 public class ApplicationAccessLogs implements Serializable {
     private String accessLogID;
-    private User user;
-    private String userID;
-    private Date timeStamp;
+    private String customerEmail;
+    private String staffEmail;
+    private Timestamp timestamp;
     private String logDescription;
 
-    public ApplicationAccessLogs(String accessLogID, User user, String userID, Date timeStamp, String logDescription) {
+    public ApplicationAccessLogs(String accessLogID, String customerEmail, String staffEmail, 
+    Timestamp timestamp, String logDescription) {
         this.accessLogID = accessLogID;
-        this.user = user;
-        this.userID = userID;
-        this.timeStamp = timeStamp;
+        this.customerEmail = customerEmail;
+        this.staffEmail = staffEmail;
+        this.timestamp = timestamp;
         this.logDescription = logDescription;
     }
 
@@ -34,28 +35,28 @@ public class ApplicationAccessLogs implements Serializable {
         this.accessLogID = accessLogID;
     }
 
-    public User getUser() {
-        return user;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getStaffEmail() {
+        return staffEmail;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setStaffEmail(String staffEmail) {
+        this.staffEmail = staffEmail;
     }
 
-    public Date getTimeStamp() {
-        return timeStamp;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(Timestamp timeStamp) {
+        this.timestamp = timeStamp;
     }
 
     public String getLogDescription() {
@@ -66,6 +67,9 @@ public class ApplicationAccessLogs implements Serializable {
         this.logDescription = logDescription;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return String.format("ID=%s; CustomerEmail=%s; StaffEmail=%s; Timestamp=%s; Description=%s;", 
+        accessLogID, customerEmail, staffEmail, timestamp, logDescription);
+    }
 }
