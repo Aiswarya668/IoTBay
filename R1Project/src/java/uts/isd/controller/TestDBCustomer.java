@@ -36,7 +36,7 @@ public class TestDBCustomer {
     }
 
     private char readChoice() {
-        System.out.print("Operation CRUDS or * to exit: ");
+        System.out.print("Operation CRUDSA or * to exit: ");
         return in.nextLine().charAt(0);
     }
 
@@ -59,6 +59,9 @@ public class TestDBCustomer {
                     break;
                 case 'S':
                     showAll();
+                    break;
+                case 'A':
+                    testDeactivate();
                     break;
                 default:
                     System.out.println("Unknown Command");
@@ -156,6 +159,21 @@ public class TestDBCustomer {
             if (db.findCustomer(email) != null) {
                 db.deleteCustomer(email);
                 System.out.println("Customer " + email + " was deleted from the database.");
+            } else {
+                System.out.println("Customer does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void testDeactivate() {
+        System.out.print("Customer email: ");
+        String email = in.nextLine();
+        try {
+            if (db.findCustomer(email) != null) {
+                db.deactivateCustomer(email);
+                System.out.println("Customer " + email + " was deactivated in the database.");
             } else {
                 System.out.println("Customer does not exist.");
             }
