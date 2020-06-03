@@ -97,6 +97,7 @@
                         <p><%=(passErr != null ? passErr : "")%></p>
                         <p><%=(fNameErr != null ? fNameErr : "")%></p>
                         <p><%=(lNameErr != null ? lNameErr : "")%></p>
+                        <p><%=(phoneErr != null ? phoneErr : "")%></p>
                         <p><%=(genderErr != null ? genderErr : "")%></p>
                         <p><%=(unitErr != null ? unitErr : "")%></p>
                         <p><%=(streetErr != null ? streetErr : "")%></p>

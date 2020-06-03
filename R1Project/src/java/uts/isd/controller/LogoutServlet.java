@@ -6,15 +6,12 @@
 package uts.isd.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.ApplicationAccessLogs;
 import uts.isd.model.Customer;
 import uts.isd.model.Staff;
 import uts.isd.model.iotbay.dao.DBApplicationLogsManager;
