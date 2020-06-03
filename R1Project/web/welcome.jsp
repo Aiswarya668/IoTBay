@@ -40,7 +40,7 @@
                         To visit your profile, click on 'Main'. 
                         To view our catalogue of product devices, click the button below!
                     </p>
-                    <a class="button21" href="browseCatalogue.jsp">Device Catalogue</a>
+                    <p class="right"> <a class ="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
                     <% } %>
                     <% if (staff != null) { %>
                     <h1>Welcome back ${staff.firstName} ${staff.lastName} !</h1>
