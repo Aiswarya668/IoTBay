@@ -65,7 +65,7 @@ public class AddSupplierServlet extends HttpServlet {
 
         if (supplier != null) {
 
-            session.setAttribute("exceptionErr", "Supplier with point of contact already exists");
+            session.setAttribute("exceptionSupplierErr", "Supplier with point of contact already exists");
             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
         }
         
@@ -113,7 +113,7 @@ public class AddSupplierServlet extends HttpServlet {
                 session.setAttribute("creationConfirmation", "Supplier creation was successful");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             } catch (SQLException ex) {
-                session.setAttribute("exceptionErr", "Submission Failed");
+                session.setAttribute("exception2Err", "Submission Failed");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             }
 

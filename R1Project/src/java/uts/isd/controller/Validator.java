@@ -178,6 +178,8 @@ public class Validator implements Serializable {
         session.setAttribute("deleteSupplierEmailErr", "");
         session.setAttribute("deleteSupplierAddressErr", "");
         session.setAttribute("supplierEmptyErr", "");
+        session.setAttribute("exceptionSupplierErr", "");
+        session.setAttribute("confirmationCreation", "");
         //session.setAttribute("deleteActiveErr", "");
     }
 }
