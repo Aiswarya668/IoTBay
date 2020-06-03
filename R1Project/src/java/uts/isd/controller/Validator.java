@@ -90,7 +90,7 @@
         session.setAttribute("typeErr", "Enter device type");
         session.setAttribute("priceErr", "Enter price $0.00");
         session.setAttribute("stockErr", "Enter stock quantity");
-        session.setAttribute("descriptionErr", "");
+        session.setAttribute("descriptionErr", "Enter device description");
         session.setAttribute("deletedeviceNameErr", "");
         session.setAttribute("deletetypeErr", "");
         session.setAttribute("deletepriceErr", "");

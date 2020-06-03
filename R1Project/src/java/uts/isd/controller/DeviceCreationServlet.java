@@ -92,7 +92,8 @@ public class DeviceCreationServlet extends HttpServlet {
         
         } else if (!validator.validateDeviceCost(cost)) {
             //1- set incorrect type error to the session 
-            session.setAttribute("priceErr", "Error: Device price format incorrect");
+            session.setAttribute("deletepriceErr", "Error: Device price format incorrect");
+            //session.setAttribute("deletepriceErr", "Error: Device type format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
         

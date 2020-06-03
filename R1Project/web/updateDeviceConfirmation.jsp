@@ -20,7 +20,7 @@
     
     <body>
          <%
-                    //Device device = (Device) session.getAttribute("device");
+                    Device device = (Device) session.getAttribute("device");
                 %>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         
@@ -29,7 +29,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>This device was successfully updated!</h1>
+                    <h1>The device ID "<%out.println(device.getDeviceID());%>" was successfully updated!</h1>
 
             </div>
         </div>

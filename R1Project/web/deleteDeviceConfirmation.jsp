@@ -19,7 +19,7 @@
     
     <body>
          <%
-                    //Device device = (Device) session.getAttribute("device");
+                    Device device = (Device) session.getAttribute("device");
                 %>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         
@@ -28,7 +28,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>This device was successfully deleted!</h1>
+                    <h1>The device "<% out.println(device.getDeviceName());%>" with type "<% out.println(device.getType());%>" was successfully deleted!</h1>
 
             </div>
         </div>

@@ -27,7 +27,13 @@
             String descriptionErr = (String) session.getAttribute("descriptionErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
             String deviceEmptyErr = (String) session.getAttribute("deviceEmptyErr");
+            String deletedeviceNameErr = (String) session.getAttribute("deletedeviceNameErr");
+            String deletetypeErr = (String) session.getAttribute("deletetypeErr");
+            String deletepriceErr = (String) session.getAttribute("deletepriceError");
+            String deletestockErr = (String) session.getAttribute("deletestockErr");
+            String deletedescriptionErr = (String) session.getAttribute("deletedescriptionErr");
         %>
+        
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
          <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
@@ -37,6 +43,12 @@
                 <h1>Create new device </span> </h1>
                 <form method="post" method="get" action="DeviceCreationServlet">
                     <p class ="error"><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
+                    <p class ="error"><%=(deletedeviceNameErr != null ? deletedeviceNameErr : "")%></p>
+                    <p class ="error"><%=(deletetypeErr != null ? deletetypeErr : "")%></p>
+                    <p class ="error"><%=(deletepriceErr != null ? deletepriceErr : "")%></p>
+                    <p class ="error"><%=(deletestockErr != null ? deletestockErr : "")%></p>
+                    <p class ="error"><%=(deletedescriptionErr != null ? deletedescriptionErr : "")%></p>
+                    
                     <table>
                         <tr><td>Device Name:</td><td><input type="text" placeholder="<%=(deviceNameErr != null ? deviceNameErr :"Enter device name")%>" name="DeviceName"></td></tr  
                         <tr><td>Device Type:</td><td><input type="text" placeholder="<%=(typeErr != null ? typeErr :"Enter device type")%>" name="DeviceType"></td></tr>

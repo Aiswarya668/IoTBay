@@ -112,6 +112,7 @@ public class DeleteDeviceServlet extends HttpServlet {
         else {
             // if every condition is met - deleting device
             request.getRequestDispatcher("deleteDeviceConfirmation.jsp").include(request, response);
+             request.setAttribute("device", device);
             deviceManager.deleteDevice(Integer.parseInt(deviceID));
                 
             }

@@ -82,13 +82,13 @@ public class EditDeviceServlet extends HttpServlet {
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("editDevice.jsp").include(request, response);
         }
-        else if (!validator.validateDeviceName(deviceName)) {
+        //else if (!validator.validateDeviceName(deviceName)) {
             //1- set incorrect name error to the session 
-            session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
-            //2- redirect staff back to the addDevice.jsp     
-            request.getRequestDispatcher("editDevice.jsp").include(request, response);
+        //    session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
+        //    //2- redirect staff back to the addDevice.jsp     
+        //    request.getRequestDispatcher("editDevice.jsp").include(request, response);
        
-        } else if (!validator.validateDeviceType(type)) {
+        else if (!validator.validateDeviceType(type)) {
             //1- set incorrect type error to the session 
             session.setAttribute("deletetypeErr", "Error: Device type format incorrect");
             //2- redirect staff back to the addDevice.jsp     
