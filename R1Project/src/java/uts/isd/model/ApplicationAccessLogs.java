@@ -66,4 +66,10 @@ public class ApplicationAccessLogs implements Serializable {
     public void setLogDescription(String logDescription) {
         this.logDescription = logDescription;
     }
+
+    @Override
+    public String toString() {
+        return String.format("ID=%s; CustomerEmail=%s; StaffEmail=%s; Timestamp=%s; Description=%s;", 
+        accessLogID, customerEmail, staffEmail, timestamp, logDescription);
+    }
 }

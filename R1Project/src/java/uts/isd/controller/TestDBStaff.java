@@ -60,6 +60,9 @@ public class TestDBStaff {
                 case 'S':
                     showAll();
                     break;
+                case 'A':
+                    testDeactivate();
+                    break;
                 default:
                     System.out.println("Unknown Command");
                     break;
@@ -168,6 +171,21 @@ public class TestDBStaff {
             }
         } catch (SQLException ex) {
             Logger.getLogger(TestDBStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        private void testDeactivate() {
+        System.out.print("Staff email: ");
+        String email = in.nextLine();
+        try {
+            if (db.findStaff(email) != null) {
+                db.deactivateStaff(email);
+                System.out.println("Staff " + email + " was deactivated in the database.");
+            } else {
+                System.out.println("Staff does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
