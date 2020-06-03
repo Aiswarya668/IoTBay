@@ -77,6 +77,7 @@
         <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
         <% if (staff != null) { %>
         <p class="right"> <a class ="button21" href="SupplierListServlet">View Suppliers</a> </p>
+        <p class="right"> <a class="button21" href="ViewDeviceServlet">Device Management</a> </p>
         <% } %>
         
         <div class="maincolumn2">

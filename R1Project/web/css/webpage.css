@@ -319,26 +319,26 @@ tbody {
 }
 
 .device td{
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 .device th{
     padding: 8px;
     text-align: left;
-     border-bottom: 1px solid #ddd;
-     background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    background-color: #f5f5f5;
 }
 
 .device tr:hover {background-color:#4CAF50;}
 
 .error{
-  font-family: Arial, Helvetica, sans-serif;
-  word-spacing: 1.5px;
-  letter-spacing: 0.4px;
-  line-height: 28px;
-  color: red;
+    font-family: Arial, Helvetica, sans-serif;
+    word-spacing: 1.5px;
+    letter-spacing: 0.4px;
+    line-height: 28px;
+    color: red;
 }
 
 .customer {
@@ -407,22 +407,22 @@ tbody {
 }
 
 #logsmaincolumn {
-  position: absolute;
-  top: 50%;
-  left: 45%;
-  height: 60%;
-  width: 55%;
-  margin: -16% 0 0 -20%;
-  text-align: center;
-  min-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    height: 60%;
+    width: 55%;
+    margin: -16% 0 0 -20%;
+    text-align: center;
+    min-width: 500px;
 }
 .maincolumn2-2 {
     margin: 15vw 1.5vw 3vw 1.5vw;
 }
 
 .maincolumn4 {
-  position: absolute;
-  column-count: 1;
+    position: absolute;
+    column-count: 1;
     top: 10%;
     left: 10%;
     margin: -16% 0 0 -16%;
@@ -546,6 +546,48 @@ img {
     margin-left: auto;
     margin-right: auto;
 }
+
+/*Device Table - css */   
+
+.Dtable {	
+    padding-bottom: 5em;	
+    width: 93%;	
+    padding-left: 5em;	
+    padding-right: 5em;	
+    font-family: Arial, Helvetica, sans-serif;	
+    word-spacing: 1.5px;	
+    letter-spacing: 0.4px;	
+    line-height: 28px;	
+}
+
+/*Table CSS for Catalogue*/   
+
+.device Table{	
+    padding-bottom: 5em;	
+    width: 93%;	
+    padding-left: 5em;	
+    padding-right: 5em;	
+    font-family: Arial, Helvetica, sans-serif;	
+    word-spacing: 1.5px;	
+    letter-spacing: 0.4px;	
+    line-height: 28px;	
+}
+
+.deviceCatcolumn {	
+    position: absolute;	
+    left: 10%;	
+    right: 10%;	
+    margin: 10% 0 0 0%;	
+    text-align: center;	
+}
+
+.deviceCatcard {	
+   outline: 2px solid gray;	
+   background-color: white;	
+   padding: 20px;	
+   margin-top: 20px;	
+}
+
 
 /*Image allignment*/
 

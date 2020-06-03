@@ -28,8 +28,8 @@
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
     <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <p class="right"> <a class ="button21" href="addDevice.jsp">Add Device</a> </p>
-    <div class="maincolumn3">
-        <div class="card1">
+    <div class="deviceCatcolumn">
+        <div class="deviceCatcard">
 
             </head>
             <body>
@@ -40,8 +40,7 @@
                 <form method="post" method="get">
 
                     <form>
-                        Search device: <input type="text" id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name">
-                    <input type="text" id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
+                        Search device: <input id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name"> <input id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
                     </form>
 
                     <table id="deviceTable" class="device Table">
