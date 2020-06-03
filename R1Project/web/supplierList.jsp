@@ -51,7 +51,7 @@
                             <th>Company</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Active</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +61,7 @@
                                 <td>${show.supplierName}</td>
                                 <td>${show.supplierEmail}</td>
                                 <td>${show.supplierAddress}</td>
-                                <td>${show.active}</td>
+                                <td>${show.active ? "Activated" : "Deactivated"}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
