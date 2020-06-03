@@ -469,11 +469,9 @@ tbody {
 
 /* Footer */
 .footer {
-    padding: 10px;
-    text-align: center;
-    font-size: 15px;
-    background: rgb(255, 242, 200);
-    margin-top: 20px;
+    text-align: center;	
+    font-size: 15px;	
+    margin-top: 20px;	
     font-style: italic;
 }
 
