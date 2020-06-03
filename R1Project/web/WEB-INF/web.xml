@@ -18,10 +18,6 @@
         <servlet-class>uts.isd.controller.RemoveSupplierServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchSupplierServlet</servlet-name>
-        <servlet-class>uts.isd.controller.SearchSupplierServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateSupplierServlet</servlet-name>
         <servlet-class>uts.isd.controller.UpdateSupplierServlet</servlet-class>
     </servlet>
@@ -44,6 +40,10 @@
     <servlet>
         <servlet-name>EditDeviceServlet</servlet-name>
         <servlet-class>uts.isd.controller.EditDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateDeviceServlet</servlet-name>
@@ -78,9 +78,21 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>uts.isd.controller.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RegisterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnServlet</servlet-name>
         <url-pattern>/ConnServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SupplierListServlet</servlet-name>
@@ -93,10 +105,6 @@
     <servlet-mapping>
         <servlet-name>RemoveSupplierServlet</servlet-name>
         <url-pattern>/RemoveSupplierServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchSupplierServlet</servlet-name>
-        <url-pattern>/SearchSupplierServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateSupplierServlet</servlet-name>
