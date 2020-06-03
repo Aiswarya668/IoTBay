@@ -38,6 +38,9 @@
             <div class="card">
                 <h1>Add New Supplier </h1>
                 <span><%= (creationConfirmation != null) ? creationConfirmation : ""%></span>
+                <% 
+                        session.setAttribute("creationConfirmation", "");
+                    %>
                 <form method="get" action="AddSupplierServlet">
                     <p class ="error"><%=(deleteContactNameErr != null ? deleteContactNameErr : "")%></p>
                     <p class ="error"><%=(deleteSupplierNameErr != null ? deleteSupplierNameErr : "")%></p>
