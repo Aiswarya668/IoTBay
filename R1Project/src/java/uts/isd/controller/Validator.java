@@ -28,7 +28,11 @@ public class Validator implements Serializable {
     private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
    
 //supplier management validator patterns
-   private String supplierStatus = "[A-Z][a-z]*";
+    private String contactNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
+    private String supplierNamePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
+    private String supplierEmailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
+    private String supplierAddressPattern = "^[#.0-9a-zA-Z\\s,-/]+$";
+    //private String supplierStatusPattern = "[A-Z][a-z]*";
 
    public Validator() {
    }
@@ -100,6 +104,36 @@ public class Validator implements Serializable {
          return validate(deviceDescriptionPattern, description); 
     }
     
+    //supplier validators - check contactName
+    public boolean validateContactName(String contactName) {
+        return validate(contactNamePattern, contactName);
+    }
+    
+    //supplier validators - check supplierName
+    public boolean validateSupplierName(String supplierName) {
+        return validate(supplierNamePattern, supplierName);
+    }
+    
+    //supplier validators - check supplierEmail
+    public boolean validateSupplierEmail(String supplierEmail) {
+        return validate(supplierEmailPattern, supplierEmail);
+    }
+    
+    //supplier validators - check supplierAddress
+    public boolean validateSupplierAddress(String supplierAddress) {
+        return validate(supplierAddressPattern, supplierAddress);
+    }
+    
+    //supplier validators - check active status
+    //public boolean validateActive(boolean active) {
+    //    return validate(supplierStatusPattern, active);
+    //}
+    
+    //supplier validators - check if fields are empty
+     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress /*,boolean active*/){       
+       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty() /*|| active boolean*/ ;   
+    }
+    
     
     public void clear(HttpSession session) {
         session.setAttribute("emailErr", "Enter email");
@@ -119,5 +153,18 @@ public class Validator implements Serializable {
         session.setAttribute("deletedescriptionErr", "");
         session.setAttribute("exceptionErr", "");
         session.setAttribute("deviceEmptyErr", "");
+        
+        //supplierCreation clear()
+        session.setAttribute("contactNameErr", "Enter contact name");
+        session.setAttribute("supplierNameErr", "Enter company name");
+        session.setAttribute("supplierEmailErr", "Enter email");
+        session.setAttribute("supplierAddressErr", "Enter address");
+        //session.setAttribute("active", "Enter active status");
+        session.setAttribute("deleteContactNameErr", "");
+        session.setAttribute("deleteSupplierNameErr", "");
+        session.setAttribute("deleteSupplierEmailErr", "");
+        session.setAttribute("deleteSupplierAddressErr", "");
+        session.setAttribute("supplierEmptyErr", "");
+        //session.setAttribute("deleteActiveErr", "");
     }
 }
