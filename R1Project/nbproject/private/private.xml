@@ -2,6 +2,33 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeviceCreationServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBDeviceManager.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/createdDevice.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeleteDeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeleteDeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBOrderManager.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/editDevice.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/addDevice.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/Validator.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/deleteDeviceConfirmation.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/UpdateDeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/browseCatalogue.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/deleteDevice.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ConnServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/edit.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/TestDeviceDB.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleDevice.sql</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/TestDBCustomer.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/TestDBStaff.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/updateDeviceConfirmation.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/index.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/css/webpage.css</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/login.jsp</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/EditDeviceServlet.java</file>
+            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeviceCreationServlet.java</file>
+        </group>
     </open-files>
 </project-private>

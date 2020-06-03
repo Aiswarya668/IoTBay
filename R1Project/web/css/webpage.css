@@ -318,13 +318,28 @@ tbody {
     width:100%;
 }
 
-.device td, .device th{
+.device td{
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
+.device th{
+    padding: 8px;
+    text-align: left;
+     border-bottom: 1px solid #ddd;
+     background-color: #f5f5f5;
+}
+
 .device tr:hover {background-color:#4CAF50;}
+
+.error{
+  font-family: Arial, Helvetica, sans-serif;
+  word-spacing: 1.5px;
+  letter-spacing: 0.4px;
+  line-height: 28px;
+  color: red;
+}
 
 .customer {
     border-collapse: collapse;
