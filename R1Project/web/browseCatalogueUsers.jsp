@@ -1,9 +1,7 @@
 <%-- 
-    Document   : browseCatalogue
-    Created on : 21/05/2020, 8:30:58 PM
+    Document   : browseCatalogueUsers
+    Created on : 02/06/2020, 11:11:44 AM
     Author     : aiswarya.r
-    This page takes in the ViewDeviceServlet to display all the devices within our sample dataset and is the 
-    gateway into all CRUD operations 
 --%>
 
 <%@page import="java.util.ArrayList"%>
@@ -27,7 +25,6 @@
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
     <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
-    <p class="right"> <a class ="button21" href="addDevice.jsp">Add Device</a> </p>
     <div class="maincolumn3">
         <div class="card1">
 
@@ -51,9 +48,8 @@
                             <td>Type</td>
                             <td>Cost</td>
                             <td>Stock</td>
-                            <td>Description</td>
-                            
-                            <td colspan="2"> Actions</td>
+                            <td>Description</td>                          
+                            <td> Actions</td>
                             
                         </tr>
 
@@ -65,8 +61,7 @@
                                 <td>${display.cost }</td>
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
-                                <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
-                                <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
+                                <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
                             </tr>
                         </c:forEach>
                     </table>

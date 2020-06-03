@@ -2,6 +2,7 @@
     Document   : deleteDeviceConfirmation
     Created on : 01/06/2020, 11:23:25 AM
     Author     : aiswarya.r
+    This page is the confirmation of device deletion
 --%>
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
@@ -18,7 +19,7 @@
     
     <body>
          <%
-                    //Device device = (Device) session.getAttribute("device");
+                    Device device = (Device) session.getAttribute("device");
                 %>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         
@@ -27,7 +28,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>This device was successfully deleted!</h1>
+                    <h1>The device "<% out.println(device.getDeviceName());%>" with type "<% out.println(device.getType());%>" was successfully deleted!</h1>
 
             </div>
         </div>

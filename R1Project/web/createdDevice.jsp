@@ -2,6 +2,8 @@
     Document   : createdDevice
     Created on : 26/05/2020, 5:09:08 PM
     Author     : aiswarya.r
+    This is the confirmation page after device has been added 
+
 --%>
 
 <%@page import="java.sql.Connection"%>
@@ -28,7 +30,7 @@
             <div class="card">
 
                 <body>     
-                    <h1>The ${display.deviceName} with type: ${display.type} was successfully created!</h1>
+                    <h1>The device was successfully created!</h1>
 
             </div>
         </div>

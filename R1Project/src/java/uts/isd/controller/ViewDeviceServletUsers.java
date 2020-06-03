@@ -1,11 +1,14 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package uts.isd.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.util.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -20,12 +23,9 @@ import uts.isd.model.iotbay.dao.DBDeviceManager;
  *
  * @author aiswarya.r
  */
-public class SearchDeviceServlet extends HttpServlet {
-
+public class ViewDeviceServletUsers extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-      
-        
         //Create object of printwriter - and calling response of getWriter()
         //PrintWriter out =response.getWriter();
        
@@ -68,19 +68,18 @@ public class SearchDeviceServlet extends HttpServlet {
             //validator.clear(session);
             
             
-            ArrayList<Device> search = deviceManager.fetchDevice();
-            request.setAttribute("search",search);             
-            //request.getRequestDispatcher("browseCatalogue.jsp").include(request, response);
+            ArrayList<Device> display = deviceManager.fetchDevice();
+            
+            request.setAttribute("display",display);     
+            
+            request.getRequestDispatcher("browseCatalogueUsers.jsp").include(request, response);
             
             
        } catch (SQLException ex) {
            Logger.getLogger(ViewDeviceServlet.class.getName()).log(Level.SEVERE, null, ex);
        }
         
-        
-        
-       
-        
-        //session.setAttribute("device", device);
+      
    }
+   
 }

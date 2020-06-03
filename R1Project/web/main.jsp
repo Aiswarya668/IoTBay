@@ -78,6 +78,7 @@
         <% if (staff != null) { %>
         <p class="right"> <a class ="button21" href="SupplierListServlet">View Suppliers</a> </p>
         <% } %>
+        
         <div class="maincolumn2">
             <div class="card">
 

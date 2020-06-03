@@ -62,6 +62,10 @@
         <servlet-class>uts.isd.controller.ViewDeviceCreationServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewDeviceServletUsers</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeviceServletUsers</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UserDeleteServlet</servlet-name>
         <servlet-class>uts.isd.controller.UserDeleteServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
@@ -133,6 +137,10 @@
     <servlet-mapping>
         <servlet-name>ViewDeviceCreationServlet</servlet-name>
         <url-pattern>/ViewDeviceCreationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDeviceServletUsers</servlet-name>
+        <url-pattern>/ViewDeviceServletUsers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserLogsServlet</servlet-name>
