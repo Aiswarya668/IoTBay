@@ -28,7 +28,7 @@ public class Validator implements Serializable {
     private String contactNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     private String supplierNamePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
     private String supplierEmailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
-    private String supplierAddressPattern = "[A-Za-z0-9/-]*";
+    private String supplierAddressPattern = "[A-Za-z0-9\\s,/-]*";
 
    public Validator() {
    }
