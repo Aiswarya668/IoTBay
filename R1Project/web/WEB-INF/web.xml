@@ -6,16 +6,60 @@
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet>
+        <servlet-name>SupplierListServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SupplierListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RemoveSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDetailsSupplierServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateDetailsSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>uts.isd.controller.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>uts.isd.controller.RegisterServlet</servlet-class>
+        <servlet-name>DeviceCreationServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeviceCreationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditServlet</servlet-name>
-        <servlet-class>uts.isd.controller.EditServlet</servlet-class>
+        <servlet-name>ViewDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDeleteDeviceServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeleteDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDeviceCreationServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewDeviceCreationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserDeleteServlet</servlet-name>
@@ -35,16 +79,60 @@
         <url-pattern>/ConnServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>SupplierListServlet</servlet-name>
+        <url-pattern>/SupplierListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSupplierServlet</servlet-name>
+        <url-pattern>/AddSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveSupplierServlet</servlet-name>
+        <url-pattern>/RemoveSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSupplierServlet</servlet-name>
+        <url-pattern>/SearchSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSupplierServlet</servlet-name>
+        <url-pattern>/UpdateSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDetailsSupplierServlet</servlet-name>
+        <url-pattern>/UpdateDetailsSupplierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/RegisterServlet</url-pattern>
+        <servlet-name>DeviceCreationServlet</servlet-name>
+        <url-pattern>/DeviceCreationServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditServlet</servlet-name>
-        <url-pattern>/EditServlet</url-pattern>
+        <servlet-name>ViewDeviceServlet</servlet-name>
+        <url-pattern>/ViewDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDeviceServlet</servlet-name>
+        <url-pattern>/EditDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDeviceServlet</servlet-name>
+        <url-pattern>/UpdateDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDeviceServlet</servlet-name>
+        <url-pattern>/DeleteDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDeleteDeviceServlet</servlet-name>
+        <url-pattern>/ViewDeleteDeviceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDeviceCreationServlet</servlet-name>
+        <url-pattern>/ViewDeviceCreationServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserLogsServlet</servlet-name>

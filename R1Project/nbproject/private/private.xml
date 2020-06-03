@@ -2,25 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/createdDevice.jsp</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleCustomers.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/userManage.jsp</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleCustomerOrder.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleOrderDeviceT.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleApplicationAccessLogs-staff.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/browseCatalogue.jsp</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleStaff.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSamplePaymentDetails.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleSupplier.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleApplicationAccessLogs-customer.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/addDevice.jsp</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/createTables.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleDevice.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/index.jsp</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/login.jsp</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleSupportTicket.sql</file>
-            <file>file:/C:/Users/seant/dev/uni/isd/IoTBay/R1Project/web/db/loadSampleCartItem.sql</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -31,8 +31,8 @@ public class DBDeviceManager {
            
                 if(searchedDeviceName.equals(deviceName) && searchedType.equals(type)){
                     int searchedDeviceID = rs.getInt(1);
-                    //String searchedDeviceName = rs.getString(2);
-                    //String searchedType = rs.getString(3);
+                    String newSearchedDeviceName = rs.getString(2);
+                    String newsearchedType = rs.getString(3);
                     double searchedDeviceCost = rs.getDouble(4);
                     int searchedDeviceStock = rs.getInt(5);
                     String searchedDeviceDescription = rs.getString(6);
@@ -63,8 +63,8 @@ public class DBDeviceManager {
     }
     
    //Update device details 
-    public void updateDevice(String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
-        st.executeUpdate("UPDATE IOTBAYUSER.Device SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICENAME='" + deviceName + "'");
+    public void updateDevice(String deviceName, String type, double cost, int stockQuantity, String description, String oldDeviceName, String oldDeviceType) throws SQLException{
+        st.executeUpdate("UPDATE IOTBAYUSER.Device SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICENAME='" + oldDeviceName + "'");
     }
     
     
@@ -72,6 +72,11 @@ public class DBDeviceManager {
     //Delete device
     public void deleteDevice(int deviceID) throws SQLException{
         st.executeUpdate("DELETE FROM IOTBAYUSER.Device WHERE DEVICEID=" + deviceID + "");
+    }
+    
+    public Device selectAll() throws SQLException{
+        String fetch = "SELECT * FROM DEVICE";
+        return null;
     }
     
     //Fetch all devices 
@@ -89,6 +94,7 @@ public class DBDeviceManager {
                 String searcheddescription = rs.getString(6);
                 result.add(new Device(searcheddeviceID, searcheddeviceName, searchedtype, searchedcost, searchedstockQuantity, searcheddescription));
             }
+            
         return result;
     }
     
@@ -106,4 +112,7 @@ public class DBDeviceManager {
         }
         return false;
     }
+    
+  
+    
 }

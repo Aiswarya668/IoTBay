@@ -318,6 +318,13 @@ tbody {
     width:100%;
 }
 
+.device td, .device th{
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.device tr:hover {background-color:#4CAF50;}
 
 .customer {
     border-collapse: collapse;
@@ -396,6 +403,15 @@ tbody {
 }
 .maincolumn2-2 {
     margin: 15vw 1.5vw 3vw 1.5vw;
+}
+
+.maincolumn4 {
+  position: absolute;
+  column-count: 1;
+    top: 10%;
+    left: 10%;
+    margin: -16% 0 0 -16%;
+    text-align: center;
 }
 
 
