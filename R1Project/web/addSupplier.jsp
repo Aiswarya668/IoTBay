@@ -30,12 +30,14 @@
             String deleteSupplierEmailErr = (String) session.getAttribute("deleteSupplierEmailErr");
             String deleteSupplierAddressErr = (String) session.getAttribute("deleteSupplierAddressErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
+            String creationConfirmation = request.getParameter("creationConfirmation");
         %>
 
             <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         <div class="maincolumn2">
             <div class="card">
-                <h1>Add New Supplier </span> </h1>
+                <h1>Add New Supplier </h1>
+                <span><%= (creationConfirmation != null) ? creationConfirmation : ""%></span>
                 <form method="get" action="AddSupplierServlet">
                     <p class ="error"><%=(deleteContactNameErr != null ? deleteContactNameErr : "")%></p>
                     <p class ="error"><%=(deleteSupplierNameErr != null ? deleteSupplierNameErr : "")%></p>
@@ -50,10 +52,12 @@
                         <tr><td>Activated:</td><td><input type="checkbox" name="active"></td></tr> 
                     </table>
                     <div>
+                        <input type="hidden" name="creationConfirmation" value="Supplier update was Successful">
                         <input class ="button4" type="submit" value="Add">
                         <a class ="button3" href="SupplierListServlet">Cancel</a>
                         <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%>
                     </div>
+                    
                 </form>
             </div>
         </div>
