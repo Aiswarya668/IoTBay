@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeviceCreationServlet.java</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBDeviceManager.java</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/db/loadSampleStaff.sql</file>
@@ -29,6 +30,12 @@
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/index.jsp</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/css/webpage.css</file>
             <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/EditDeviceServlet.java</file>
+=======
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/Validator.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/addSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/AddSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/DeviceCreationServlet.java</file>
+>>>>>>> master
         </group>
     </open-files>
 </project-private>

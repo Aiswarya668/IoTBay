@@ -97,4 +97,5 @@ insert into staff (staffemail, fname, lname, phonenumber, password, streetaddres
 ('hwilliamson2o@netscape.com', 'Hilliard', 'Williamson', '2397237778', '9WhCqe8bSe', 'Dare St', '3', 'Fort Myers', 'Florida', '3416', 'cbailes2@nasa.gov', true, '2020-12-23 16:20:52', 'Part Time', 32.62, true),
 ('rbisgrove2p@surveymonkey.com', 'Rose', 'Bisgrove', '5127759074', '0O6I0JTs5', 'Jacobi St', '07', 'Austin', 'Texas', '8196', 'cbailes2@nasa.gov', false, '2020-12-10 04:48:11', 'Full Time', 27.43, true),
 ('pewell2q@google.de', 'Perice', 'Ewell', '7021427250', 'crNzok69', 'Rogahn St', '62', 'Las Vegas', 'Nevada', '0815', 'cbailes2@nasa.gov', true, '2020-12-11 12:30:55', 'Full Time', 28.7, true),
-('aratnage2r@github.io', 'Andreas', 'Ratnage', '2108409529', 'HvljQDKIQ', 'Thompson St', '2154', 'San Antonio', 'Texas', '9725', 'cbailes2@nasa.gov', false, '2020-12-13 15:46:57', 'Full Time', 81.09, true);
+('aratnage2r@github.io', 'Andreas', 'Ratnage', '2108409529', 'HvljQDKIQ', 'Thompson St', '2154', 'San Antonio', 'Texas', '9725', 'cbailes2@nasa.gov', false, '2020-12-13 15:46:57', 'Full Time', 81.09, true),
+('admin@iotbay.com', 'System', 'Admin', '980000000', 'admin', 'Admin St', '24', 'Sydney', 'NSW', '2000', 'cbailes2@nasa.gov', false, '2020-05-18 15:46:57', 'Full Time', 35.5, true);
