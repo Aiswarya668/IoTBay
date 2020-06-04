@@ -22,7 +22,7 @@
                 <h1>Welcome</h1>
                 <p> New to IoTBay? </p>
                 <a class="button1" href="register.jsp">Register</a>
-                <p> Returning customer </p>
+                <p> Sign in </p>
                 <a class ="button2" href="login.jsp">Login</a>
             </div>
         </div>
