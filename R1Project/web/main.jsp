@@ -77,7 +77,9 @@
         <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
         <% if (staff.getEmail().equals("admin@iotbay.com") && staff.getPassword().equals("admin")) { %>
         <p class="right"> <a class ="button21" href="SupplierListServlet">View Suppliers</a> </p>
-        <p class="right"> <a class="button21" href="ViewDeviceServlet">Device Management</a> </p>
+        <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Management</a> </p>
+        <% } else if (staff != null) { %>
+        <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Management</a> </p>
         <% } %>
         
         <div class="maincolumn2">

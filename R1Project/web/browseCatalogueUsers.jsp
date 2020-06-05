@@ -4,6 +4,8 @@
     Author     : aiswarya.r
 --%>
 
+<%@page import="uts.isd.model.Staff"%>
+<%@page import="uts.isd.model.Customer"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.sql.Connection"%>
@@ -32,6 +34,8 @@
             <body>
                 <%
                     Device device = (Device) session.getAttribute("display");
+                    Customer customer = (Customer) session.getAttribute("customer");
+                    Staff staff = (Staff) session.getAttribute("staff");
                 %>
                 <h1>Device Catalogue</h1>
                 <form method="post" method="get">
@@ -60,7 +64,12 @@
                                 <td>${display.cost }</td>
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
+                                <% if (staff != null) { %>
+                                <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
+                                <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
+                                <% }else if (customer != null || customer == null) { %>
                                 <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                                <% } %>
                             </tr>
                         </c:forEach>
                     </table>

@@ -26,7 +26,7 @@
         <title>Device Catalogue</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <p class="right"> <a class="button21" href="welcome.jsp">Home</a> </p>
     <p class="right"> <a class ="button21" href="addDevice.jsp">Add Device</a> </p>
     <div class="deviceCatcolumn">
         <div class="deviceCatcard">
