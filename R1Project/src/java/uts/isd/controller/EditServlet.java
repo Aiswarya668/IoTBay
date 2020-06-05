@@ -40,6 +40,13 @@ public class EditServlet extends HttpServlet {
         //capture the posted userType
         String userType = request.getParameter("userType");
 
+        boolean sysadmin = (session.getAttribute("sysadmin") != null);
+        // hold sysadmin credentials while editing another user
+        if (sysadmin) {
+            Staff editor = (Staff) session.getAttribute("staff");
+            session.setAttribute("editor", editor);
+        }
+
         if (userType.equals("staff")) {
             // retrieve the manager instance from session - ConnServlet            
             DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");;
@@ -53,6 +60,7 @@ public class EditServlet extends HttpServlet {
             try {
                 staff = staffManager.findStaff(userEmail);
                 session.setAttribute("staff", staff);
+                session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,6 +78,7 @@ public class EditServlet extends HttpServlet {
             try {
                 customer = customerManager.findCustomer(userEmail);
                 session.setAttribute("customer", customer);
+                session.setAttribute("staff", null); // staff and customer cannot be in session simultaneously
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -226,8 +235,16 @@ public class EditServlet extends HttpServlet {
                                 state, postCode, phoneNumber, true);
                         Customer updatedCustomer = customerManager.findCustomer(email);
                         session.setAttribute("customer", updatedCustomer);
+                        session.setAttribute("staff", null); // staff and customer cannot be in session simultaneously
                         // success message if updating customer successful
                         session.setAttribute("updateMsg", "Update was successful");
+                        // reset staff session if sysadmin was editing another user
+                        Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                        if (editor != null) {
+                            session.setAttribute("staff", editor);
+                            session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                            session.setAttribute("editor", null);
+                        }
                         // redirect user to the edit.jsp
                         request.getRequestDispatcher("edit.jsp").include(request, response);
                     } catch (SQLException ex) {
@@ -244,6 +261,14 @@ public class EditServlet extends HttpServlet {
                             state, postCode, phoneNumber, true);
                     Customer updatedCustomer = customerManager.findCustomer(email);
                     session.setAttribute("customer", updatedCustomer);
+                    session.setAttribute("staff", null); // staff and customer cannot be in session simultaneously
+                    // reset staff session if sysadmin was editing another user
+                    Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                    if (editor != null) {
+                        session.setAttribute("staff", editor);
+                        session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                        session.setAttribute("editor", null);
+                    }
                     // success message if updating customer successful
                     session.setAttribute("updateMsg", "Update was successful");
                     // redirect user to the edit.jsp
@@ -288,8 +313,16 @@ public class EditServlet extends HttpServlet {
                                 state, postCode, manager, contractType, Integer.parseInt(payHr), true);
                         Staff updatedStaff = staffManager.findStaff(email);
                         session.setAttribute("staff", updatedStaff);
+                        session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                         // success message if updating customer successful
                         session.setAttribute("updateMsg", "Update was successful");
+                        // reset staff session if sysadmin was editing another user
+                        Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                        if (editor != null) {
+                            session.setAttribute("staff", editor);
+                            session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                            session.setAttribute("editor", null);
+                        }
                         // redirect user to the edit.jsp
                         request.getRequestDispatcher("edit.jsp").include(request, response);
                     } catch (SQLException ex) {
@@ -305,8 +338,16 @@ public class EditServlet extends HttpServlet {
                             state, postCode, manager, contractType, Integer.parseInt(payHr), true);
                     Staff updatedStaff = staffManager.findStaff(email);
                     session.setAttribute("staff", updatedStaff);
+                    session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                     // success message if updating customer successful
                     session.setAttribute("updateMsg", "Update was successful");
+                    // reset staff session if sysadmin was editing another user
+                    Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                    if (editor != null) {
+                        session.setAttribute("staff", editor);
+                        session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                        session.setAttribute("editor", null);
+                    }
                     // redirect user to the edit.jsp
                     request.getRequestDispatcher("edit.jsp").include(request, response);
                 } catch (SQLException ex) {

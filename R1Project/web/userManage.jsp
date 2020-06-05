@@ -32,6 +32,8 @@
 
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+        <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+        <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2-2">
             <div class="card">
                 <h1>User Management</h1>

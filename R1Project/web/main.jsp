@@ -39,6 +39,14 @@
             String contractType = "";
             String payHr = "";
 
+            // reset staff session if sysadmin was editing another user
+            Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+            if (editor != null) {
+                session.setAttribute("staff", editor);
+                session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                session.setAttribute("editor", null);
+            }
+
             if (customer != null) {
                 firstName = customer.getFirstName();
                 lastName = customer.getLastName();
