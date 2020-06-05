@@ -37,16 +37,18 @@ public class EditServlet extends HttpServlet {
         Staff staff = (Staff) session.getAttribute("staff");
         // sysadmin user management - capture current userEmail
         String userEmail = "";
-        if (request.getParameter("userEmail") != null) {
+        String userType = "";
+        if (request.getParameter("userEmail") != null && request.getParameter("userType") != null) {
             userEmail = request.getParameter("userEmail");
+            userType = request.getParameter("userType");
         } else if (staff != null) {
             userEmail = staff.getEmail();
+            userType = "staff";
             // sysadmin user management - capture the posted userType
         } else if (customer != null) {
             userEmail = customer.getEmail();
+            userType = "customer";
         }
-
-        String userType = (request.getParameter("userType") != null) ? request.getParameter("userType") : "customer";
 
         boolean sysadmin = (session.getAttribute("sysadmin") != null);
         // hold sysadmin credentials while editing another user
@@ -148,7 +150,7 @@ public class EditServlet extends HttpServlet {
 
             } catch (SQLException ex) {
                 session.setAttribute("updateMsg", "Failed to deactivate");
-                request.getRequestDispatcher("edit.jsp").include(request, response);
+                response.sendRedirect("EditServlet");
             }
             return;
         }
@@ -170,57 +172,57 @@ public class EditServlet extends HttpServlet {
             // set incorrect email error to the session 
             session.setAttribute("emailEditErr", "Error: Email format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validatePassword(password)) {
             // set incorrect password error to the session 
             session.setAttribute("passEditErr", "Error: Must be at least 4 characters long");
             // redirect user back to the edit.jsp 
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSingleString(firstName)) {
             // set incorrect email error to the session 
             session.setAttribute("fNameEditErr", "Error: First name format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSingleString(lastName)) {
             // set incorrect email error to the session 
             session.setAttribute("lNameEditErr", "Error: Last name format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSingleInt(unitNumber)) {
             // set incorrect email error to the session 
             session.setAttribute("unitEditErr", "Error: Unit number format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSentence(streetAddress)) {
             // set incorrect email error to the session 
             session.setAttribute("streetEditErr", "Error: Street address format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSingleString(city)) {
             // set incorrect email error to the session 
             session.setAttribute("emailEditErr", "Error: City format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSingleString(state)) {
             // set incorrect email error to the session 
             session.setAttribute("stateEditErr", "Error: State format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validateSingleInt(postCode)) {
             // set incorrect email error to the session 
             session.setAttribute("postEditErr", "Error: Post code format incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (phoneNumber == null) {
             // set incorrect phone number error to the session 
             session.setAttribute("phoneEditErr", "Error: Phone number is mandatory");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } else if (!validator.validatePhone(phoneNumber)) {
             // set incorrect phone number error to the session 
             session.setAttribute("phoneEditErr", "Error: Phone number format is incorrect");
             // redirect user back to the edit.jsp     
-            request.getRequestDispatcher("edit.jsp").include(request, response);
+            response.sendRedirect("EditServlet");
         } // if customer
         else if (existingCustomer != null) {
             // customer-specific validation
@@ -228,7 +230,7 @@ public class EditServlet extends HttpServlet {
                 // set incorrect email error to the session 
                 session.setAttribute("genderEditErr", "Error: Gender is mandatory");
                 // redirect user back to the edit.jsp     
-                request.getRequestDispatcher("edit.jsp").include(request, response);
+                response.sendRedirect("EditServlet");
                 return;
             }
 
@@ -239,7 +241,7 @@ public class EditServlet extends HttpServlet {
                     // set duplicate email error to the session 
                     session.setAttribute("existEditErr", "Customer with that email already exists in the database");
                     // redirect user to the edit.jsp to retry
-                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    response.sendRedirect("EditServlet");
                 } else {
                     // updating user if email is valid and empty
                     try {
@@ -267,7 +269,7 @@ public class EditServlet extends HttpServlet {
                     } catch (SQLException ex) {
                         // exception message if updating customer fails
                         session.setAttribute("updateMsg", "Update was not successful");
-                        request.getRequestDispatcher("edit.jsp").include(request, response);
+                        response.sendRedirect("EditServlet");
                     }
                 }
             } // email has not changed, update as normal
@@ -297,7 +299,7 @@ public class EditServlet extends HttpServlet {
                 } catch (SQLException ex) {
                     // exception message if updating customer fails
                     session.setAttribute("updateMsg", "Update was not successful");
-                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    response.sendRedirect("EditServlet");
                 }
             }
         } else if (existingStaff != null) {
@@ -306,17 +308,17 @@ public class EditServlet extends HttpServlet {
                 // set incorrect email error to the session 
                 session.setAttribute("managerEditErr", "Error: Manager is mandatory");
                 // redirect user back to the edit.jsp     
-                request.getRequestDispatcher("edit.jsp").include(request, response);
+                response.sendRedirect("EditServlet");
             } else if (contractType == null) {
                 // set incorrect email error to the session 
                 session.setAttribute("contractTypeEditErr", "Error: Contract type is mandatory");
                 // redirect user back to the edit.jsp     
-                request.getRequestDispatcher("edit.jsp").include(request, response);
+                response.sendRedirect("EditServlet");
             } else if (!validator.validateSingleInt(payHr)) {
                 // set incorrect email error to the session 
                 session.setAttribute("payHrEditErr", "Error: Pay per hour is mandatory");
                 // redirect user back to the edit.jsp     
-                request.getRequestDispatcher("edit.jsp").include(request, response);
+                response.sendRedirect("EditServlet");
             }
 
             if (!email.equals(existingStaff.getEmail())) {
@@ -325,7 +327,7 @@ public class EditServlet extends HttpServlet {
                     // set duplicate email error to the session 
                     session.setAttribute("existEditErr", "Staff with that email already exists in the database");
                     // redirect user to the edit.jsp to retry
-                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    response.sendRedirect("EditServlet");
                 } else {
                     // updating user if email is valid and empty
                     try {
@@ -353,7 +355,7 @@ public class EditServlet extends HttpServlet {
                     } catch (SQLException ex) {
                         // exception message if updating customer fails
                         session.setAttribute("updateMsg", "Update was not successful");
-                        request.getRequestDispatcher("edit.jsp").include(request, response);
+                        response.sendRedirect("EditServlet");
                     }
                 }
             } else {
@@ -382,7 +384,7 @@ public class EditServlet extends HttpServlet {
                 } catch (SQLException ex) {
                     // exception message if updating customer fails
                     session.setAttribute("updateMsg", "Update was not successful");
-                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    response.sendRedirect("EditServlet");
                 }
             }
         }
