@@ -33,10 +33,19 @@ public class EditServlet extends HttpServlet {
         //create an instance of the Validator class
         Validator validator = new Validator();
 
+        Customer customer = (Customer) session.getAttribute("customer");
+        Staff staff = (Staff) session.getAttribute("staff");
         // sysadmin user management - capture current userEmail
-        String userEmail = request.getParameter("userEmail");
+        String userEmail = "";
+        if (request.getParameter("userEmail") != null) {
+            userEmail = request.getParameter("userEmail");
+        } else if (staff != null) {
+            userEmail = staff.getEmail();
+            // sysadmin user management - capture the posted userType
+        } else if (customer != null) {
+            userEmail = customer.getEmail();
+        }
 
-        // sysadmin user management - capture the posted userType
         String userType = (request.getParameter("userType") != null) ? request.getParameter("userType") : "customer";
 
         boolean sysadmin = (session.getAttribute("sysadmin") != null);
@@ -46,11 +55,11 @@ public class EditServlet extends HttpServlet {
             session.setAttribute("editor", editor);
         }
 
-        if (userType.equals("staff")) {
+        if (userType.equals("staff") || staff != null) {
             // retrieve the manager instance from session - ConnServlet            
-            DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");;
+            DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
 
-            Staff staff = null;
+            staff = null;
             // sysadmin reset when editing another user
             session.setAttribute("customer", null);
             session.setAttribute("staff", null);
@@ -67,13 +76,13 @@ public class EditServlet extends HttpServlet {
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
-                request.getRequestDispatcher("userManage.jsp").include(request, response);
+                request.getRequestDispatcher("main.jsp").include(request, response);
             }
-        } else if (userType.equals("customer")) {
+        } else if (userType.equals("customer") || customer != null) {
             // retrieve the manager instance from session - ConnServlet            
             DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");;
 
-            Customer customer = null;
+            customer = null;
             session.setAttribute("customer", null);
             session.setAttribute("staff", null);
             validator.clear(session);
@@ -85,7 +94,7 @@ public class EditServlet extends HttpServlet {
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
-                request.getRequestDispatcher("userManage.jsp").include(request, response);
+                request.getRequestDispatcher("main.jsp").include(request, response);
             }
         }
     }
