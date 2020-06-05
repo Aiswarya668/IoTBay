@@ -45,6 +45,9 @@ public class EditServlet extends HttpServlet {
             DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");;
 
             Staff staff = null;
+            // sysadmin reset when editing another user
+            session.setAttribute("customer", null);
+            session.setAttribute("staff", null);
             validator.clear(session);
 
             try {
@@ -60,6 +63,8 @@ public class EditServlet extends HttpServlet {
             DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");;
 
             Customer customer = null;
+            session.setAttribute("customer", null);
+            session.setAttribute("staff", null);
             validator.clear(session);
 
             try {
