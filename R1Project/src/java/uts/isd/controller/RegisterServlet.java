@@ -47,6 +47,9 @@ public class RegisterServlet extends HttpServlet {
                 = (DBCustomerManager) session.getAttribute("customerManager");
         DBApplicationLogsManager logsManager
                 = (DBApplicationLogsManager) session.getAttribute("logsManager");
+        // retrieve sysadmin status
+        boolean sysadmin = (session.getAttribute("sysadmin") != null);
+
         Customer customer = null;
         validator.clear(session);
 
@@ -128,7 +131,7 @@ public class RegisterServlet extends HttpServlet {
                         password, gender, unitNumber, streetAddress, city,
                         state, postCode, phoneNumber);
                 // add login log
-                logsManager.addCustomerLog(customer.getEmail(), "Login");
+                logsManager.addCustomerLog(customerManager.findCustomer(email).getEmail(), "Login");
             } catch (SQLException ex) {
                 // exception message if adding customer fails
                 session.setAttribute("exceptionErr", "Registration failed");
@@ -136,7 +139,11 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
             // redirect new user to the welcome.jsp
-            request.getRequestDispatcher("welcome.jsp").include(request, response);
+            if (sysadmin) {
+                request.getRequestDispatcher("UserListServlet").include(request, response);
+            } else {
+                request.getRequestDispatcher("welcome.jsp").include(request, response);
+            }
         }
     }
 }

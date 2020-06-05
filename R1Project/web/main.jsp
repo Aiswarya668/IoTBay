@@ -18,6 +18,7 @@
         <%
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+            boolean sysadmin = (session.getAttribute("sysadmin") != null);
             // common attributes amongst staff and customer
             String firstName = "";
             String lastName = "";
@@ -74,7 +75,7 @@
         <p class="right"> <a class="button21" href="edit.jsp">Edit Profile</a> </p>
         <p class="right"> <a class="button21" href="UserLogsServlet">User Logs</a> </p>
         <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
-        <% if (staff.getEmail().equals("admin@iotbay.com") && staff.getPassword().equals("admin")) { %>
+        <% if (sysadmin) { %>
         <p class="right"> <a class ="button21" href="SupplierListServlet">View Suppliers</a> </p>
         <p class="right"> <a class ="button21" href="UserListServlet">View Users</a> </p>
         <% }%>
