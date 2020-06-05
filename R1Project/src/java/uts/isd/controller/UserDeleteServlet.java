@@ -67,7 +67,7 @@ public class UserDeleteServlet extends HttpServlet {
             session.setAttribute("userDeleteErr", ex);
             Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher("UserListServlet").include(request, response);
+        response.sendRedirect("UserListServlet");
 //        try {
 //            customerManager.deleteCustomer(customerEmail);
 ////            if (!customer.isActive()) {

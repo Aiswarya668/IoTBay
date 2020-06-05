@@ -46,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
 
             request.getRequestDispatcher("register.jsp").include(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UserListServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -196,13 +196,13 @@ public class RegisterServlet extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").include(request, response);
                 return;
             }
-        }
-        // redirect new user to the welcome.jsp
-        if (sysadmin) {
-            // redirect to another servlet
-            response.sendRedirect("UserListServlet");
-        } else {
-            request.getRequestDispatcher("welcome.jsp").include(request, response);
+            // redirect new user to the welcome.jsp
+            if (sysadmin) {
+                // redirect to another servlet
+                response.sendRedirect("UserListServlet");
+            } else {
+                request.getRequestDispatcher("welcome.jsp").include(request, response);
+            }
         }
     }
 }
