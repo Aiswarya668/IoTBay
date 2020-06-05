@@ -26,17 +26,27 @@
         <title>Device Catalogue</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <%
+        Device device = (Device) session.getAttribute("display");
+        Customer customer = (Customer) session.getAttribute("customer");
+        Staff staff = (Staff) session.getAttribute("staff");
+    %>
+    
+    
+    <% if (customer != null || staff != null) { %>
+        <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+    <% } else { %>
+        <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <% } %>
+    
+    
+    
     <div class="deviceCatcolumn">
         <div class="deviceCatcard">
 
             </head>
             <body>
-                <%
-                    Device device = (Device) session.getAttribute("display");
-                    Customer customer = (Customer) session.getAttribute("customer");
-                    Staff staff = (Staff) session.getAttribute("staff");
-                %>
+
                 <h1>Device Catalogue</h1>
                 <form method="post" method="get">
 
@@ -53,7 +63,7 @@
                             <td>Stock</td>
                             <td>Description</td>                          
                             <td> Actions</td>
-                            
+
                         </tr>
 
                         <c:forEach items="${display}" var="display">
@@ -67,9 +77,9 @@
                                 <% if (staff != null) { %>
                                 <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
                                 <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
-                                <% }else if (customer != null || customer == null) { %>
+                                <% } else if (customer != null || customer == null) { %>
                                 <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
-                                <% } %>
+                                <% }%>
                             </tr>
                         </c:forEach>
                     </table>
