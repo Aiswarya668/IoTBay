@@ -55,7 +55,7 @@ public class EditServlet extends HttpServlet {
             session.setAttribute("editor", editor);
         }
 
-        if (userType.equals("staff") || staff != null) {
+        if ((sysadmin && userType.equals("staff")) || (!sysadmin && staff != null)) {
             // retrieve the manager instance from session - ConnServlet            
             DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
 
@@ -78,9 +78,9 @@ public class EditServlet extends HttpServlet {
                 Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.getRequestDispatcher("main.jsp").include(request, response);
             }
-        } else if (userType.equals("customer") || customer != null) {
+        } else if ((sysadmin && userType.equals("customer")) || (!sysadmin && customer != null)) {
             // retrieve the manager instance from session - ConnServlet            
-            DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");;
+            DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
 
             customer = null;
             session.setAttribute("customer", null);
@@ -302,12 +302,12 @@ public class EditServlet extends HttpServlet {
             }
         } else if (existingStaff != null) {
             // staff-specific validation
-            if (manager == null) {
+            if (manager == null || manager.equals("")) {
                 // set incorrect email error to the session 
                 session.setAttribute("managerEditErr", "Error: Manager is mandatory");
                 // redirect user back to the edit.jsp     
                 request.getRequestDispatcher("edit.jsp").include(request, response);
-            } else if (!validator.validateSingleString(contractType)) {
+            } else if (contractType == null) {
                 // set incorrect email error to the session 
                 session.setAttribute("contractTypeEditErr", "Error: Contract type is mandatory");
                 // redirect user back to the edit.jsp     
