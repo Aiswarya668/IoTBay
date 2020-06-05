@@ -27,24 +27,18 @@
         <title>User Management</title>
     </head>
     <%
-        DBConnector dbConnector = new DBConnector();
-        Connection conn = dbConnector.openConnection();
-        DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
-        DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
-        List<Customer> customers = customerManager.fetchCustomers();
-        List<Staff> staffs = staffManager.fetchStaffs();
-        session.setAttribute("customers", customers);
-        session.setAttribute("staffs", staffs);
         SQLException userDeleteErr = (SQLException) session.getAttribute("userDeleteErr");
     %>
 
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+        <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+        <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2-2">
             <div class="card">
                 <h1>User Management</h1>
+                <span>${userDeleteErr}</span>
                 <div>
-                    <span>${userDeleteErr}</span>
                     <i class="material-icons global-search-icon">&#xE8B6;</i> 
                     <select id="inputType" onchange="filterTable()" >
                         <option value="all">All</option>
@@ -54,7 +48,14 @@
                     <input type="text" id="inputFName" class="searchbox" onkeyup="filterTable()" placeholder="First name" title="Type in a name">
                     <input type="text" id="inputLName" class="searchbox" onkeyup="filterTable()" placeholder="Last name.." title="Type in a name">
                     <input type="text" id="inputPhone" class="searchbox" onkeyup="filterTable()" placeholder="Phone number" title="Type in a name">
-                    <a class="button4" href="register.jsp">Add New</a>
+                    <form method="get" action="RegisterServlet">
+                        <input type="hidden" name="userType" value="customer" />
+                        <button class="button4" type="submit">Add New Customer</button>
+                    </form>
+                    <form method="get" action="RegisterServlet">
+                        <input type="hidden" name="userType" value="staff" />
+                        <button class="button4" type="submit">Add New Staff</button>
+                    </form>
                 </div>
                 <div class="table-wrapper">
                     <table id="userTable">
@@ -97,9 +98,18 @@
                                     <td>${c.getGender()}</td>
                                     <td>${c.isActive()}</td>
                                     <td>
+                                        <form method="get" action="EditServlet">
+                                            <input type="hidden" name="userEmail" value="${c.getEmail()}" />
+                                            <input type="hidden" name="userType" value="customer" />
+                                            <!--<input class="button4" type="submit" value="Delete">-->
+                                            <button type="submit"><i class="material-icons">&#xE254;</i></button>
+                                        </form>
+                                    </td>
+                                    <td>
                                         <form method="post" action="UserDeleteServlet">
                                             <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
-                                            <input class="button4" type="submit" value="Delete">
+                                            <!--<input class="button4" type="submit" value="Delete">-->
+                                            <button type="submit"><i class="material-icons">&#xE872;</i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -148,16 +158,24 @@
                                     <td>${s.getContractType()}</td>
                                     <td>${s.getHourlyPay()}</td>
                                     <td>
+                                        <form method="get" action="EditServlet">
+                                            <input type="hidden" name="userEmail" value="${s.getEmail()}" />
+                                            <input type="hidden" name="userType" value="staff" />
+                                            <!--<input class="button4" type="submit" value="Edit">-->
+                                            <button type="submit"><i class="material-icons">&#xE254;</i></button>
+                                        </form>
+                                    </td>
+                                    <td>
                                         <form method="post" action="UserDeleteServlet">
                                             <input type="hidden" name="staffEmail" value="${s.getEmail()}" />
-                                            <input class="button4" type="submit" value="Delete">
+                                            <!--<input class="button3" type="submit" value="Delete">-->
 
-                                            <!--<button type="submit"><i class="material-icons">&#xE872;</i></button>-->
+                                            <button type="submit"><i class="material-icons">&#xE872;</i></button>
                                         </form>
-                                        <!--                                    <td><a class="button2" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>
-                                                                            <td><a class="button3" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>-->
-                                        <!--                                        <a href="#editEmployeeModal" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                                                <a href="#deleteEmployeeModal" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+                                        <!--<td><a class="button2" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>-->
+                                        <!--<td><a class="button3" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>-->
+                                        <!--<a href="#editEmployeeModal" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
+                                        <!--<a href="#deleteEmployeeModal" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
                                     </td>
                                 </tr>
                             </c:forEach>
