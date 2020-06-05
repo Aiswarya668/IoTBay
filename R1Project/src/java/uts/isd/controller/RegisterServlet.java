@@ -183,6 +183,8 @@ public class RegisterServlet extends HttpServlet {
                 // create new user
                 if (userType.equals("staff")) {
                     staffManager.addStaff(email, firstName, lastName, phoneNumber, password, streetAddress, unitNumber, city, state, postCode, manager, contractType, payHr);
+                    // add login log
+                    logsManager.addStaffLog(staffManager.findStaff(email).getEmail(), "Login");
                 } else {
                     customerManager.addCustomer(firstName, lastName, email,
                             password, gender, unitNumber, streetAddress, city,
