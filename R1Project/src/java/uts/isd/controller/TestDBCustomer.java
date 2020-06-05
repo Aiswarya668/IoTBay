@@ -15,7 +15,7 @@ import uts.isd.model.iotbay.dao.DBConnector;
 import uts.isd.model.iotbay.dao.DBCustomerManager;
 
 public class TestDBCustomer {
- 
+
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection conn;
@@ -36,7 +36,7 @@ public class TestDBCustomer {
     }
 
     private char readChoice() {
-        System.out.print("Operation CRUDS or * to exit: ");
+        System.out.print("Operation CRUDSA or * to exit: ");
         return in.nextLine().charAt(0);
     }
 
@@ -59,6 +59,9 @@ public class TestDBCustomer {
                     break;
                 case 'S':
                     showAll();
+                    break;
+                case 'A':
+                    testDeactivate();
                     break;
                 default:
                     System.out.println("Unknown Command");
@@ -103,7 +106,8 @@ public class TestDBCustomer {
         String email = in.nextLine();
         Customer customer = db.findCustomer(email);
         if (customer != null) {
-            System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " exists in the database.");
+            System.out.println(
+                    "Customer " + customer.getFirstName() + " " + customer.getLastName() + " exists in the database.");
         } else {
             System.out.println("Customer does not exits.");
         }
@@ -136,7 +140,10 @@ public class TestDBCustomer {
                 String postCode = in.nextLine();
                 System.out.print("Customer gender: ");
                 String gender = in.nextLine();
-                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone);;
+                System.out.print("Customer active (true/false): ");
+                boolean active = in.nextBoolean();
+                in.nextLine(); // Consume newline left-over from nextBoolean()
+                db.updateCustomer(email, fname, lname, password, gender, unitNo, streetAddr, city, state, postCode, phone, active);
             } else {
                 System.out.println("Customer does not exist.");
             }
@@ -159,6 +166,21 @@ public class TestDBCustomer {
             Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void testDeactivate() {
+        System.out.print("Customer email: ");
+        String email = in.nextLine();
+        try {
+            if (db.findCustomer(email) != null) {
+                db.deactivateCustomer(email);
+                System.out.println("Customer " + email + " was deactivated in the database.");
+            } else {
+                System.out.println("Customer does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void showAll() throws SQLException {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -166,7 +188,11 @@ public class TestDBCustomer {
             ArrayList<Customer> customers = db.fetchCustomers();
             System.out.println("CUSTOMERS TABLE: ");
             customers.stream().forEach((customer) -> {
-                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s \n", customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(), customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(), customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(), formatter.format(customer.getDateRegistered()), customer.getGender());
+                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-10s %-20s %-10s %-10s \n",
+                        customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPhoneNumber(),
+                        customer.getPassword(), customer.getStreetAddress(), customer.getUnitNumber(),
+                        customer.getCity(), customer.getState(), customer.getPostcode(), customer.isLoginStatus(),
+                        formatter.format(customer.getDateRegistered()), customer.getGender(), customer.isActive());
             });
             System.out.println();
         } catch (SQLException ex) {

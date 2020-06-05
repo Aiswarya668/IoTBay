@@ -26,8 +26,11 @@ public class Customer implements Serializable {
     private Date dateRegistered;
     private boolean loginStatus;
     private String phoneNumber;
+    private boolean active;
 
-    public Customer(String firstName, String lastName, String email, String password, String gender, String unitNumber, String streetAddress, String city, String state, String postcode, String phoneNumber, Date dateRegistered, boolean loginStatus) {
+    public Customer(String firstName, String lastName, String email, String password, String gender, 
+    String unitNumber, String streetAddress, String city, String state, String postcode, String phoneNumber, 
+    Date dateRegistered, boolean loginStatus, boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -41,8 +44,9 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
         this.dateRegistered = dateRegistered;
         this.loginStatus = loginStatus;
+        this.active = active;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -74,7 +78,6 @@ public class Customer implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getGender() {
         return gender;
@@ -148,8 +151,11 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    
+    public Boolean isActive() {
+        return active;
+    }
 
-    
-    
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

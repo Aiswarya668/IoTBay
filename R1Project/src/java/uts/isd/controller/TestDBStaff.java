@@ -60,6 +60,9 @@ public class TestDBStaff {
                 case 'S':
                     showAll();
                     break;
+                case 'A':
+                    testDeactivate();
+                    break;
                 default:
                     System.out.println("Unknown Command");
                     break;
@@ -144,7 +147,10 @@ public class TestDBStaff {
                 System.out.print("Staff pay per hour: ");
                 int payHr = in.nextInt();
                 in.nextLine(); // Consumer newline left-over from nextInt()
-                db.updateStaff(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, manager, contractType, payHr);
+                System.out.print("Staff activated (true/false): ");
+                boolean active = in.nextBoolean();
+                in.nextLine(); // Consumer newline left-over from nextInt()
+                db.updateStaff(email, fname, lname, phone, password, streetAddr, unitNo, city, state, postCode, manager, contractType, payHr, active);
             } else {
                 System.out.println("Staff does not exist.");
             }
@@ -167,6 +173,21 @@ public class TestDBStaff {
             Logger.getLogger(TestDBStaff.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+        private void testDeactivate() {
+        System.out.print("Staff email: ");
+        String email = in.nextLine();
+        try {
+            if (db.findStaff(email) != null) {
+                db.deactivateStaff(email);
+                System.out.println("Staff " + email + " was deactivated in the database.");
+            } else {
+                System.out.println("Staff does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TestDBCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void showAll() throws SQLException {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -174,7 +195,7 @@ public class TestDBStaff {
             ArrayList<Staff> staffs = db.fetchStaffs();
             System.out.println("STAFF TABLE: ");
             staffs.stream().forEach((staff) -> {
-                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-20s %-10s %-10s %-10s %-10s \n", staff.getEmail(), staff.getFirstName(), staff.getLastName(), staff.getPhoneNumber(), staff.getPassword(), staff.getStreetAddress(), staff.getUnitNumber(), staff.getCity(), staff.getState(), staff.getPostcode(), staff.getManager(), staff.isLoginStatus(), formatter.format(staff.getDateRegistered()), staff.getContractType(), staff.getHourlyPay());
+                System.out.printf("%-40s %-20s %-20s %-20s %-30s %-20s %-10s %-20s %-20s %-10s %-20s %-10s %-10s %-10s %-10s %-10s \n", staff.getEmail(), staff.getFirstName(), staff.getLastName(), staff.getPhoneNumber(), staff.getPassword(), staff.getStreetAddress(), staff.getUnitNumber(), staff.getCity(), staff.getState(), staff.getPostcode(), staff.getManager(), staff.isLoginStatus(), formatter.format(staff.getDateRegistered()), staff.getContractType(), staff.getHourlyPay(), staff.isActive());
             });
             System.out.println();
         } catch (SQLException ex) {
