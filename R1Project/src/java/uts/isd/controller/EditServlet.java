@@ -7,6 +7,7 @@ package uts.isd.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -32,13 +33,11 @@ public class EditServlet extends HttpServlet {
         //create an instance of the Validator class
         Validator validator = new Validator();
 
-        //capture the posted staffEmail 
-//        String staffEmail = request.getParameter("staffEmail");
-//        String customerEmail = request.getParameter("customerEmail");
+        // sysadmin user management - capture current userEmail
         String userEmail = request.getParameter("userEmail");
 
-        //capture the posted userType
-        String userType = request.getParameter("userType");
+        // sysadmin user management - capture the posted userType
+        String userType = (request.getParameter("userType") != null) ? request.getParameter("userType") : "customer";
 
         boolean sysadmin = (session.getAttribute("sysadmin") != null);
         // hold sysadmin credentials while editing another user
@@ -56,14 +55,18 @@ public class EditServlet extends HttpServlet {
             session.setAttribute("customer", null);
             session.setAttribute("staff", null);
             validator.clear(session);
-
             try {
                 staff = staffManager.findStaff(userEmail);
                 session.setAttribute("staff", staff);
                 session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+
+                // get staff list for datalist dropdown
+                List<Staff> staffs = staffManager.fetchStaffs();
+                request.setAttribute("staffs", staffs);
+
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.getRequestDispatcher("userManage.jsp").include(request, response);
             }
         } else if (userType.equals("customer")) {
@@ -81,7 +84,7 @@ public class EditServlet extends HttpServlet {
                 session.setAttribute("staff", null); // staff and customer cannot be in session simultaneously
                 request.getRequestDispatcher("edit.jsp").include(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.getRequestDispatcher("userManage.jsp").include(request, response);
             }
         }
@@ -118,6 +121,7 @@ public class EditServlet extends HttpServlet {
         //5- retrieve the manager instance from session
         DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
         DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
+        boolean sysadmin = (session.getAttribute("sysadmin") != null);
 
         // retrieve old customer values from session
         Customer existingCustomer = (Customer) session.getAttribute("customer");
@@ -245,8 +249,12 @@ public class EditServlet extends HttpServlet {
                             session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                             session.setAttribute("editor", null);
                         }
-                        // redirect user to the edit.jsp
-                        request.getRequestDispatcher("edit.jsp").include(request, response);
+                        // redirect user
+                        if (sysadmin) {
+                            response.sendRedirect("UserListServlet");
+                        } else {
+                            request.getRequestDispatcher("welcome.jsp").include(request, response);
+                        }
                     } catch (SQLException ex) {
                         // exception message if updating customer fails
                         session.setAttribute("updateMsg", "Update was not successful");
@@ -271,8 +279,12 @@ public class EditServlet extends HttpServlet {
                     }
                     // success message if updating customer successful
                     session.setAttribute("updateMsg", "Update was successful");
-                    // redirect user to the edit.jsp
-                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    // redirect user
+                    if (sysadmin) {
+                        response.sendRedirect("UserListServlet");
+                    } else {
+                        request.getRequestDispatcher("welcome.jsp").include(request, response);
+                    }
                 } catch (SQLException ex) {
                     // exception message if updating customer fails
                     session.setAttribute("updateMsg", "Update was not successful");
@@ -281,7 +293,7 @@ public class EditServlet extends HttpServlet {
             }
         } else if (existingStaff != null) {
             // staff-specific validation
-            if (!validator.validateSingleString(manager)) {
+            if (manager == null) {
                 // set incorrect email error to the session 
                 session.setAttribute("managerEditErr", "Error: Manager is mandatory");
                 // redirect user back to the edit.jsp     
@@ -323,8 +335,12 @@ public class EditServlet extends HttpServlet {
                             session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                             session.setAttribute("editor", null);
                         }
-                        // redirect user to the edit.jsp
-                        request.getRequestDispatcher("edit.jsp").include(request, response);
+                        // redirect user
+                        if (sysadmin) {
+                            response.sendRedirect("UserListServlet");
+                        } else {
+                            request.getRequestDispatcher("welcome.jsp").include(request, response);
+                        }
                     } catch (SQLException ex) {
                         // exception message if updating customer fails
                         session.setAttribute("updateMsg", "Update was not successful");
@@ -348,8 +364,12 @@ public class EditServlet extends HttpServlet {
                         session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                         session.setAttribute("editor", null);
                     }
-                    // redirect user to the edit.jsp
-                    request.getRequestDispatcher("edit.jsp").include(request, response);
+                    // redirect user
+                    if (sysadmin) {
+                        response.sendRedirect("UserListServlet");
+                    } else {
+                        request.getRequestDispatcher("welcome.jsp").include(request, response);
+                    }
                 } catch (SQLException ex) {
                     // exception message if updating customer fails
                     session.setAttribute("updateMsg", "Update was not successful");

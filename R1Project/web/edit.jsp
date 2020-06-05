@@ -6,6 +6,8 @@
 
 <%@page import="uts.isd.model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -174,12 +176,25 @@
                         </tr>
                         <% } else if (staff != null) {%>
                         <tr>
-                            <td>Manager</td> 
-                            <td><input type="text" value="<%= manager%>" name="Manager"></td>
+                            <td>Manager</td>
+                            <td>
+                                <input list="managers" name="Manager" id="manager">
+                                <datalist id="managers">
+                                    <c:forEach items="${staffs}" var="s">
+                                        <option value="${s.getEmail()}">
+                                        </c:forEach>
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Contract Type</td> 
-                            <td><input type="text" value="<%= contractType%>" name="ContractType"></td>
+                            <td>Contract Type</td>
+                            <td>
+                                <select id="colour" name="ContractType">
+                                    <option value="Full Time">Full Time</option>
+                                    <option value="Part Time">Part Time</option>
+                                    <option value="Casual">Casual</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Pay Per Hour</td> 
