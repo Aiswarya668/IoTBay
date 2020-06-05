@@ -46,11 +46,11 @@
                     <input type="text" id="inputFName" class="searchbox" onkeyup="filterTable()" placeholder="First name" title="Type in a name">
                     <input type="text" id="inputLName" class="searchbox" onkeyup="filterTable()" placeholder="Last name.." title="Type in a name">
                     <input type="text" id="inputPhone" class="searchbox" onkeyup="filterTable()" placeholder="Phone number" title="Type in a name">
-                    <form method="get" action="register.jsp">
+                    <form method="get" action="RegisterServlet">
                         <input type="hidden" name="userType" value="customer" />
                         <button class="button4" type="submit">Add New Customer</button>
                     </form>
-                    <form method="get" action="register.jsp">
+                    <form method="get" action="RegisterServlet">
                         <input type="hidden" name="userType" value="staff" />
                         <button class="button4" type="submit">Add New Staff</button>
                     </form>

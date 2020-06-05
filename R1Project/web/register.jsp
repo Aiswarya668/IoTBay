@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -27,7 +28,8 @@
         String stateErr = (String) session.getAttribute("stateErr");
         String postErr = (String) session.getAttribute("postErr");
         String exceptionErr = (String) session.getAttribute("exceptionErr");
-        String userType = (request.getParameter("userType") != null) ? (String) request.getParameter("userType") : "none";
+        String userType = (request.getParameter("userType") != null) ? (String) request.getParameter("userType") : "customer";
+        boolean sysadmin = (session.getAttribute("sysadmin") != null);
     %>
 
     <body>
@@ -36,7 +38,7 @@
         <div class="maincolumn2">
             <div class="card">
                 <% if (userType.equals("customer")) { %>
-                <h1>Create New User Account</h1>
+                <h1>Create New Customer Account</h1>
                 <% } else if (userType.equals("staff")) { %>
                 <h1>Create New Staff Account</h1>
                 <% } else {%>
@@ -64,6 +66,7 @@
                             <td><input type="password" placeholder="<%=(passErr != null ? passErr : "Enter password")%>"
                                        name="Password"></td>
                         </tr>
+                        <% if (!userType.equals("staff")) {%>
                         <tr>
                             <td>Gender</td>
                             <td>
@@ -72,6 +75,7 @@
                                 <input type="radio" id="female" name="gender" value="female">
                                 <label for="female">Female</label><br></td>
                         </tr>
+                        <% }%>
                         <tr>
                             <td>Phone Number</td>
                             <td>
@@ -108,11 +112,49 @@
                                 <input type="text" placeholder="<%=(postErr != null ? postErr : "Enter post code")%>"
                                        name="PostCode"></td>
                         </tr>
+                        <% if (userType.equals("staff")) {%>
+                        <tr>
+                            <td>Manager</td>
+                            <td>
+                                <input list="managers" name="Manager" id="manager">
+                                <datalist id="managers">
+                                    <c:forEach items="${staffs}" var="s">
+                                        <option value="${s.getEmail()}">
+                                        </c:forEach>
+                                </datalist>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Contract Type</td>
+                            <td>
+                                <select id="colour" name="ContractType">
+                                    <option value="ft">Full Time</option>
+                                    <option value="pt">Part Time</option>
+                                    <option value="cas">Casual</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pay per hour</td>
+                            <td>
+                                <input type="text" placeholder="<%=(postErr != null ? postErr : "Enter pay per hour")%>"
+                                       name="PayHr"></td>
+                        </tr>
+                        <% }%>
                     </table>
                     <input type="hidden" name="NewAccount" value="true" />
                     <div>
+                        <% if (userType.equals("staff")) {%>
+                        <input type="hidden" name="userType" value="staff" />
+                        <% } else if (userType.equals("customer")) {%>
+                        <input type="hidden" name="userType" value="customer" />
+                        <% }%>
                         <input class="button4" type="submit" value="Sign Up">
+                        <% if (sysadmin) {%>
+                        <a class="button3" href="UserListServlet">Cancel</a>
+                        <% } else { %>
                         <a class="button3" href="index.jsp">Cancel</a>
+                        <% }%>
                         <p><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     </div>
                 </form>

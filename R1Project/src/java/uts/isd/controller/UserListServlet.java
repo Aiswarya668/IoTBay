@@ -28,6 +28,7 @@ import uts.isd.model.iotbay.dao.DBStaffManager;
  */
 public class UserListServlet extends HttpServlet {
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             //retrieve the current session 
