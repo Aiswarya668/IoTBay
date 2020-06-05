@@ -191,6 +191,7 @@ public class RegisterServlet extends HttpServlet {
                     customerManager.addCustomer(firstName, lastName, email,
                             password, gender, unitNumber, streetAddress, city,
                             state, postCode, phoneNumber);
+                    session.setAttribute("customer", customerManager.findCustomer(email)); // login after created
                     // add login log
                     logsManager.addCustomerLog(customerManager.findCustomer(email).getEmail(), "Login");
                 }
