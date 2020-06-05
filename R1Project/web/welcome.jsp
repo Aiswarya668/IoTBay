@@ -49,7 +49,7 @@
                         To view the catalogue of product devices, click "Device Catalogue".
                         To add product devices, click "Add Devices"
                     </p>
-                    <a class="button21" href="ViewDeviceServlet">Device Catalogue</a>
+                    <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a>
                     <a class="button21" href="addDevice.jsp">Add Devices</a>
                     <% } %>  
             </div>

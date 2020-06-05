@@ -76,7 +76,7 @@ public class ViewDeviceServletUsers extends HttpServlet {
             
             
        } catch (SQLException ex) {
-           Logger.getLogger(ViewDeviceServlet.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(ViewDeviceServletUsers.class.getName()).log(Level.SEVERE, null, ex);
        }
         
       
