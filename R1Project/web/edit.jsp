@@ -36,6 +36,7 @@
             String contractTypeErr = (String) session.getAttribute("contractTypeEditErr");
             String payHrErr = (String) session.getAttribute("payHrEditErr");
 
+            boolean sysadmin = (session.getAttribute("sysadmin") != null);
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
             Staff s = null; // JSTL core tag to Java
@@ -183,7 +184,7 @@
                                     <c:forEach items="${staffs}" var="s">
                                         <% s = (Staff) pageContext.getAttribute("s"); %>
                                         <option value="${s.getEmail()}" <% if (s.getEmail().equals(staff.getManager())) {%> selected <% }%>>${s.getEmail()}</option>
-                                        </c:forEach>
+                                    </c:forEach>
                                 </select>
                             </td>
                         </tr>
@@ -204,9 +205,38 @@
                         <% }%>
                     </table>
                     <div>
+                        <%
+                            if (customer != null) {
+                                if (customer.isActive()) {
+                        %>
                         <input class="button21" type="submit" name="Deactivate"
-                               onclick="return confirm('Are you sure you want to deacivate your account?')"
+                               onclick="return confirm('Are you sure you want to deactivate your account?')"
                                value="Deactivate" </a>
+                        <%
+                        } else if (sysadmin) {
+                        %>
+                        <input class="button21" type="submit" name="Activate"
+                               onclick="return confirm('Are you sure you want to activate this account?')"
+                               value="Activate" </a>
+                        <%
+                            }
+                        } else if (staff != null) {
+                            if (staff.isActive()) {
+                        %>    
+                        <input class="button21" type="submit" name="Deactivate"
+                               onclick="return confirm('Are you sure you want to deactivate your account?')"
+                               value="Deactivate" </a>
+                        <%
+                        } else if (sysadmin) {
+                        %>     
+                        <input class="button21" type="submit" name="Activate"
+                               onclick="return confirm('Are you sure you want to activate this account?')"
+                               value="Activate" </a>
+                        <%
+                                }
+                            }
+                        %>
+
                         <input class="button3" type="submit" value="Update" </a>
                     </div>
                 </form>

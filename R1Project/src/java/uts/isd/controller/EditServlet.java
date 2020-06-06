@@ -141,13 +141,57 @@ public class EditServlet extends HttpServlet {
             try {
                 if (existingCustomer != null) {
                     customerManager.deactivateCustomer(existingCustomer.getEmail());
-                } else if (existingStaff != null) {
+                    // success message if updating customer successful
+                    session.setAttribute("updateMsg", "Customer deactivated (" + existingCustomer.getEmail() + ")");
+                } else if (existingStaff != null) {;
                     staffManager.deactivateStaff(existingStaff.getEmail());
+                    // success message if updating staff successful
+                    session.setAttribute("updateMsg", "Staff deactivated (" + existingStaff.getEmail() + ")");
                 }
-                request.getRequestDispatcher("goodbye.jsp").include(request, response);
-
+                // reset staff session if sysadmin was editing another user
+                Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                if (editor != null) {
+                    session.setAttribute("staff", editor);
+                    session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                    session.setAttribute("editor", null);
+                }
+                // redirect user
+                if (sysadmin) {
+                    response.sendRedirect("UserListServlet");
+                } else {
+                    request.getRequestDispatcher("goodbye.jsp").include(request, response);
+                }
             } catch (SQLException ex) {
                 session.setAttribute("updateMsg", "Failed to deactivate");
+                response.sendRedirect("EditServlet");
+            }
+            return;
+        } else if (request.getParameter("Activate") != null && request.getParameter("Activate").equals("Activate")) {
+            try {
+                if (existingCustomer != null) {
+                    customerManager.activateCustomer(existingCustomer.getEmail());
+                    // success message if updating customer successful
+                    session.setAttribute("updateMsg", "Customer activated (" + existingCustomer.getEmail() + ")");
+                } else if (existingStaff != null) {;
+                    staffManager.activateStaff(existingStaff.getEmail());
+                    // success message if updating staff successful
+                    session.setAttribute("updateMsg", "Staff activated (" + existingStaff.getEmail() + ")");
+                }
+                // reset staff session if sysadmin was editing another user
+                Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                if (editor != null) {
+                    session.setAttribute("staff", editor);
+                    session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                    session.setAttribute("editor", null);
+                }
+                // redirect user
+                if (sysadmin) {
+                    response.sendRedirect("UserListServlet");
+                } else {
+                    request.getRequestDispatcher("goodbye.jsp").include(request, response);
+                }
+            } catch (SQLException ex) {
+                session.setAttribute("updateMsg", "Failed to activate");
                 response.sendRedirect("EditServlet");
             }
             return;
