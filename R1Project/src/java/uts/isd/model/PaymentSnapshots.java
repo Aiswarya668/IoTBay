@@ -4,34 +4,38 @@
  * and open the template in the editor.
  */
 package uts.isd.model;
-import java.io.Serializable;
-
+import java.util.Date;
 
 /**
  *
- * @author aiswaryarajeev
+ * @author James
  */
-public class PaymentDetails implements Serializable {
-    private String CustomerEmail;
+public class PaymentSnapshots {
+    
+    private int paymentID;
     private String methodOfPayment;
     private String hashedCreditedCardNumber;
     private String cardSecurityCode;
     private String cardExpiryDate;
+    private String payDate;
+    private double amountPaid;
 
-    public PaymentDetails(String CustomerEmail, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate) {
-        this.CustomerEmail = CustomerEmail;
+    public PaymentSnapshots(int paymentID, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate, String payDate, double amountPaid) {
+        this.paymentID = paymentID;
         this.methodOfPayment = methodOfPayment;
         this.hashedCreditedCardNumber = hashedCreditedCardNumber;
         this.cardSecurityCode = cardSecurityCode;
         this.cardExpiryDate = cardExpiryDate;
+        this.payDate = payDate;
+        this.amountPaid = amountPaid;
     }
 
-    public String getCustomerEmail() {
-        return CustomerEmail;
+    public int getPaymentID() {
+        return paymentID;
     }
 
-    public void setCustomerEmail(String CustomerEmail) {
-        this.CustomerEmail = CustomerEmail;
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
     }
 
     public String getMethodOfPayment() {
@@ -65,6 +69,22 @@ public class PaymentDetails implements Serializable {
     public void setCardExpiryDate(String cardExpiryDate) {
         this.cardExpiryDate = cardExpiryDate;
     }
+
+    public String getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(String payDate) {
+        this.payDate = payDate;
+    }
+
+    public double getAmountPaid() {
+        return amountPaid;
+    }
+
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
+    }
+        
+    
 }
-
-

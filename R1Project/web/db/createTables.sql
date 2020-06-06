@@ -66,9 +66,21 @@ active boolean,
 PRIMARY KEY (supplierEmail)
 );
 
+Create Table PaymentSnapshots(
+PaymentID int GENERATED ALWAYS AS IDENTITY NOT NULL,
+MethodOfPayment varchar(20),
+HashedCardNumber varchar(32),
+CardSecurityCode varchar(3),
+CardExpiryDate varchar(10),
+PayDate varchar(10),
+AmountPaid double,
+PRIMARY KEY (PaymentID)
+);
+
 CREATE TABLE CustomerOrder(
 OrderID int GENERATED ALWAYS AS IDENTITY NOT NULL,
 CustomerEmail varchar(50) NOT NULL,
+PaymentID int,
 DateOrdered timestamp,
 TotalPrice double,
 EstArrivalDate timestamp,
@@ -134,8 +146,8 @@ Create Table PaymentDetails(
 CustomerEmail varchar(50) NOT NULL,
 MethodOfPayment varchar(20),
 HashedCardNumber varchar(32),
-CardSecurityCode varchar(32),
-CardExpiryDate timestamp,
+CardSecurityCode varchar(3),
+CardExpiryDate varchar(32),
 FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail) ON DELETE CASCADE,
 PRIMARY KEY (CustomerEmail)
 );
