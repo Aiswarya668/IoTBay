@@ -185,6 +185,7 @@ public class RegisterServlet extends HttpServlet {
                     staffManager.addStaff(email, firstName, lastName,
                             phoneNumber, password, streetAddress, unitNumber,
                             city, state, postCode, manager, contractType, payHr);
+                    session.setAttribute("createMsg", "Staff added (" + email + ")");
                     // add login log
                     logsManager.addStaffLog(staffManager.findStaff(email).getEmail(), "Login");
                 } else {
@@ -194,6 +195,7 @@ public class RegisterServlet extends HttpServlet {
                     session.setAttribute("customer", customerManager.findCustomer(email)); // login after created
                     // add login log
                     logsManager.addCustomerLog(customerManager.findCustomer(email).getEmail(), "Login");
+                    session.setAttribute("createMsg", "Customer added (" + email + ")");
                 }
             } catch (SQLException ex) {
                 // exception message if adding customer fails

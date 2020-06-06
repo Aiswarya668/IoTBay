@@ -27,6 +27,10 @@
         <title>User Management</title>
     </head>
     <%
+        String createMsg = (String) session.getAttribute("createMsg");
+        String updateMsg = (String) session.getAttribute("updateMsg");
+        session.setAttribute("createMsg", "");
+        session.setAttribute("updateMsg", "");
         SQLException userDeleteErr = (SQLException) session.getAttribute("userDeleteErr");
     %>
 
@@ -36,8 +40,12 @@
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2-2">
             <div class="card">
-                <h1>User Management</h1>
-                <span>${userDeleteErr}</span>
+                <div>
+                    <h1>User Management</h1>
+                    <p><%= (updateMsg != null) ? updateMsg : ""%></p>
+                    <p><%= (createMsg != null) ? createMsg : ""%></p>
+                    <p class="error">${userDeleteErr}</p>
+                </div>
                 <div>
                     <i class="material-icons global-search-icon">&#xE8B6;</i> 
                     <select id="inputType" onchange="filterTable()" >
