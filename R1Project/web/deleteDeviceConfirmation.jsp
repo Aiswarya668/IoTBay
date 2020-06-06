@@ -23,7 +23,7 @@
                 %>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         
-        <p class="right"> <a  class="button21" href="ViewDeviceServlet">Browse</a> </p>
+        <p class="right"> <a  class="button21" href="ViewDeviceServletUsers">Browse</a> </p>
         <div class="maincolumn2">
             <div class="card">
 

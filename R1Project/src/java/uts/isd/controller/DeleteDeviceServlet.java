@@ -73,7 +73,7 @@ public class DeleteDeviceServlet extends HttpServlet {
         //validators
        
         //if any fields are empty?
-        else if(validator.checkDeviceEmpty(deviceName,type,cost,stockQuantity,description)){
+        else if(validator.checkDeviceEmpty(deviceID, deviceName,type,cost,stockQuantity,description)){
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
         }

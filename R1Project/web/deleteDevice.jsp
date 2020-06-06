@@ -32,6 +32,7 @@
         %>
 
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left" />
+        <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
         <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
         <p class="right"> <a class="button21" href="logout.jsp">Logout</a> </p>
         <div class="maincolumn2">
@@ -77,8 +78,9 @@
 
                     </table>
 
-                    <div>
+                    <div>                 
                         <input class ="button3" type="submit" value="Delete"</a>
+                        <a class="button21" href="ViewDeviceServletUsers">Cancel</a>
                     </div>
                 </form>
             </div>

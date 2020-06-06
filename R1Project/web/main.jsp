@@ -77,10 +77,12 @@
         <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
         <% if (staff != null && staff.getEmail().equals("admin@iotbay.com") && staff.getPassword().equals("admin")) { %>
         <p class="right"> <a class ="button21" href="SupplierListServlet">View Suppliers</a> </p>
-        <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Management</a> </p>
-        <% } else if (customer != null) { %>
+        <% } else if (staff != null) { %>
         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
-        <% } %>
+        <p class="right"> <a class="button21" href="addDevice.jsp">Add Devices</a> </p>
+        <% } else {%> 
+        <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
+        <% }%> 
         
         <div class="maincolumn2">
             <div class="card">

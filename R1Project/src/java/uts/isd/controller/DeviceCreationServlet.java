@@ -28,12 +28,8 @@ public class DeviceCreationServlet extends HttpServlet {
         Validator validator = new Validator();
 
         //3) Capture all the posted fields 
-        int deviceID = 0; // Just default initalising here this is automatically assigned 
-        try {
-            deviceID = Integer.parseInt(request.getParameter("DeviceID"));
-        } catch (NumberFormatException e) {
-            // log the error or ignore it
-        }
+        // capture deviceID - noted it is string and needs to be parsed 
+        //String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
 
         //4) capture the posted deviceName    
         String deviceName = request.getParameter("DeviceName");
@@ -74,26 +70,28 @@ public class DeviceCreationServlet extends HttpServlet {
         //validators
        
         //if any fields are empty?
-        else if(validator.checkDeviceEmpty(deviceName,type,cost,stockQuantity,description)){
+        else if(validator.checkDeviceFieldsEmpty(deviceName,type,cost,stockQuantity,description)){
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("addDevice.jsp").include(request, response);
         }
         else if (!validator.validateDeviceName(deviceName)) {
             //1- set incorrect name error to the session 
             session.setAttribute("deviceNameErr", "Error: Device name format incorrect");
+            session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
        
         } else if (!validator.validateDeviceType(type)) {
             //1- set incorrect type error to the session 
             session.setAttribute("typeErr", "Error: Device type format incorrect");
+            session.setAttribute("deletetypeErr", "Error: Device type format incorrect - 'Type' 'Sensor' ");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
-        
+       
         } else if (!validator.validateDeviceCost(cost)) {
             //1- set incorrect type error to the session 
-            session.setAttribute("deletepriceErr", "Error: Device price format incorrect");
-            //session.setAttribute("deletepriceErr", "Error: Device type format incorrect");
+            session.setAttribute("priceErr", "Error: Device price format incorrect");
+            session.setAttribute("deletepriceErr", "Error: Device price format incorrect - $0.00");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
         
@@ -110,6 +108,7 @@ public class DeviceCreationServlet extends HttpServlet {
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
         
         } //if all passess then add the device
+        
         else {
             try {
                 //addDevice CRUD operation
@@ -120,7 +119,7 @@ public class DeviceCreationServlet extends HttpServlet {
                 request.getRequestDispatcher("createdDevice.jsp").include(request, response);
             } catch (SQLException ex) {
                 //catch any exception
-                session.setAttribute("exceptionErr", "Registration failed");
+                session.setAttribute("exceptionErr", "Creation failed");
                 request.getRequestDispatcher("addDevice.jsp").include(request, response);
             }
 

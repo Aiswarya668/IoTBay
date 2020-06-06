@@ -48,12 +48,9 @@
             <body>
 
                 <h1>Device Catalogue</h1>
-                <form method="post" method="get">
-
-                    <form>
+                <form method="post" method="get">      
                         Search device: <input id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name"> <input id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
-                    </form>
-
+                    
                     <table id="deviceTable" class="device Table">
                         <tr>
                             <td>Device ID</td>
@@ -63,7 +60,6 @@
                             <td>Stock</td>
                             <td>Description</td>                          
                             <td> Actions</td>
-
                         </tr>
 
                         <c:forEach items="${display}" var="display">
@@ -78,7 +74,7 @@
                                 <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
                                 <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
                                 <% } else if (customer != null || customer == null) { %>
-                                <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                                <td><p class="right"> <a class="button1" href="createOrder.jsp ">Buy</a> </p></td>
                                 <% }%>
                             </tr>
                         </c:forEach>
