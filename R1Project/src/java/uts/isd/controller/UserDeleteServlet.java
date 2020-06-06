@@ -48,67 +48,26 @@ public class UserDeleteServlet extends HttpServlet {
         try {
             if (customerManager.findCustomer(customerEmail) != null) {
                 customerManager.deleteCustomer(customerEmail);
-                System.out.println("Customer " + customerEmail + " was deleted from the database.");
+                session.setAttribute("deleteMsg", "Customer deleted (" + customerEmail + ")");
             } else {
-                System.out.println("Customer does not exist.");
+                session.setAttribute("userDeleteErr", "Customer does not exist.");
             }
         } catch (SQLException ex) {
-            session.setAttribute("userDeleteErr", ex);
+            session.setAttribute("userDeleteErr", "Error: " + ex.getMessage());
             Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             if (staffManager.findStaff(staffEmail) != null) {
                 staffManager.deleteStaff(staffEmail);
-                System.out.println("Staff" + staffEmail + " was deleted from the database.");
+                session.setAttribute("deleteMsg", "Staff deleted (" + staffEmail + ")");
             } else {
-                System.out.println("Staff does not exist.");
+                session.setAttribute("userDeleteErr", "Staff does not exist.");
             }
         } catch (SQLException ex) {
-            session.setAttribute("userDeleteErr", ex);
+            session.setAttribute("userDeleteErr", "Error: " + ex.getMessage());
             Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         response.sendRedirect("UserListServlet");
-//        try {
-//            customerManager.deleteCustomer(customerEmail);
-////            if (!customer.isActive()) {
-////                // set user is not active error to the session
-////                session.setAttribute("loginErr", "That account is no longer active");
-////                // redirect user back to the login.jsp
-////                return;
-//            request.getRequestDispatcher("userManage.jsp").include(request, response);
-////            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-//        if (!validator.validateEmail(email)) {
-//            // set incorrect email error to the session
-//            session.setAttribute("emailErr", "Error: Email format incorrect");
-//            // redirect user back to the login.jsp
-//            request.getRequestDispatcher("login.jsp").include(request, response);
-//        } else if (!validator.validatePassword(password)) {
-//            // set incorrect password error to the session
-//            session.setAttribute("passErr", "Error: Password format incorrect: min. 4 characters");
-//            // redirect user back to the login.jsp
-//            request.getRequestDispatcher("login.jsp").include(request, response);
-//        } else if (customer != null) {
-//            if (customer.getPassword().equals(password)) {
-//                // save the logged in user object to the session
-//                session.setAttribute("customer", customer);
-//                // redirect user to the main.jsp
-//                request.getRequestDispatcher("welcome.jsp").include(request, response);
-//            } else {
-//                // set incorrect password error to the session
-//                session.setAttribute("passErr", "Error: Incorrect password");
-//                // redirect user back to the login.jsp
-//                request.getRequestDispatcher("login.jsp").include(request, response);
-//            }
-//        } else {
-//            // set user does not exist error to the session
-//            session.setAttribute("loginErr", "Customer does not exist in the database");
-//            // redirect user back to the login.jsp
-//            request.getRequestDispatcher("login.jsp").include(request, response);
-//        }
     }
 
 }

@@ -29,9 +29,12 @@
     <%
         String createMsg = (String) session.getAttribute("createMsg");
         String updateMsg = (String) session.getAttribute("updateMsg");
+        String deleteMsg = (String) session.getAttribute("deleteMsg");
+        String userDeleteErr = (String) session.getAttribute("userDeleteErr");
         session.setAttribute("createMsg", "");
         session.setAttribute("updateMsg", "");
-        SQLException userDeleteErr = (SQLException) session.getAttribute("userDeleteErr");
+        session.setAttribute("deleteMsg", "");
+        session.setAttribute("userDeleteErr", "");
     %>
 
     <body>
@@ -44,6 +47,7 @@
                     <h1>User Management</h1>
                     <p><%= (updateMsg != null) ? updateMsg : ""%></p>
                     <p><%= (createMsg != null) ? createMsg : ""%></p>
+                    <p><%= (deleteMsg != null) ? deleteMsg : ""%></p>
                     <p class="error">${userDeleteErr}</p>
                 </div>
                 <div>
