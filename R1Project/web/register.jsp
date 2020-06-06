@@ -4,6 +4,7 @@
     Author     : aiswarya.r
 --%>
 
+<%@page import="uts.isd.model.Staff"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -116,12 +117,11 @@
                         <tr>
                             <td>Manager</td>
                             <td>
-                                <input list="managers" name="Manager" id="manager">
-                                <datalist id="managers">
+                                <select name="Manager">
                                     <c:forEach items="${staffs}" var="s">
-                                        <option value="${s.getEmail()}">
-                                        </c:forEach>
-                                </datalist>
+                                        <option value="${s.getEmail()}">${s.getEmail()}</option>
+                                    </c:forEach>
+                                </select>
                             </td>
                         </tr>
                         <tr>
