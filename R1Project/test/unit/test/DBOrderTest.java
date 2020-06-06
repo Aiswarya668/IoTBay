@@ -12,7 +12,7 @@ import uts.isd.model.iotbay.dao.DBOrderManager;
 
 /**
  *
- * @author sanya dua
+ * @author sanyadua
  */
 public class DBOrderTest {
 
