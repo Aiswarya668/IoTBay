@@ -250,7 +250,7 @@ public class EditServlet extends HttpServlet {
                         session.setAttribute("customer", updatedCustomer);
                         session.setAttribute("staff", null); // staff and customer cannot be in session simultaneously
                         // success message if updating customer successful
-                        session.setAttribute("updateMsg", "Update was successful");
+                        session.setAttribute("updateMsg", "Customer updated (" + email + ")");
                         // reset staff session if sysadmin was editing another user
                         Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
                         if (editor != null) {
@@ -287,7 +287,7 @@ public class EditServlet extends HttpServlet {
                         session.setAttribute("editor", null);
                     }
                     // success message if updating customer successful
-                    session.setAttribute("updateMsg", "Update was successful");
+                    session.setAttribute("updateMsg", "Customer updated (" + email + ")");
                     // redirect user
                     if (sysadmin) {
                         response.sendRedirect("UserListServlet");
@@ -336,7 +336,7 @@ public class EditServlet extends HttpServlet {
                         session.setAttribute("staff", updatedStaff);
                         session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                         // success message if updating customer successful
-                        session.setAttribute("updateMsg", "Update was successful");
+                        session.setAttribute("updateMsg", "Staff updated (" + email + ")");
                         // reset staff session if sysadmin was editing another user
                         Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
                         if (editor != null) {
@@ -365,7 +365,7 @@ public class EditServlet extends HttpServlet {
                     session.setAttribute("staff", updatedStaff);
                     session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
                     // success message if updating customer successful
-                    session.setAttribute("updateMsg", "Update was successful");
+                    session.setAttribute("updateMsg", "Staff updated (" + email + ")");
                     // reset staff session if sysadmin was editing another user
                     Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
                     if (editor != null) {
