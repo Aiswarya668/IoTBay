@@ -27,10 +27,10 @@
         <title>User Management</title>
     </head>
     <%
-        String createMsg = (String) session.getAttribute("createMsg");
-        String updateMsg = (String) session.getAttribute("updateMsg");
-        String deleteMsg = (String) session.getAttribute("deleteMsg");
-        String userDeleteErr = (String) session.getAttribute("userDeleteErr");
+        String createMsg = (session.getAttribute("createMsg") != null) ? (String) session.getAttribute("createMsg") : "";
+        String updateMsg = (session.getAttribute("updateMsg") != null) ? (String) session.getAttribute("updateMsg") : "";
+        String deleteMsg = (session.getAttribute("deleteMsg") != null) ? (String) session.getAttribute("deleteMsg") : "";
+        String userDeleteErr = (session.getAttribute("userDeleteErr") != null) ? (String) session.getAttribute("userDeleteErr") : "";
         session.setAttribute("createMsg", "");
         session.setAttribute("updateMsg", "");
         session.setAttribute("deleteMsg", "");
@@ -72,8 +72,9 @@
                 <div class="table-wrapper">
                     <table id="userTable">
                         <thead>
-                            <tr><td><h2>Customers</h2></td></tr>
+                            <tr><td colspan="2"><h2>Customers</h2></td></tr>
                             <tr>
+                                <th colspan="2">Actions</th>
                                 <th>Type</th>
                                 <th>Email</th>
                                 <th>First name</th>
@@ -94,6 +95,19 @@
                         <tbody>
                             <c:forEach items="${customers}" var="c">
                                 <tr>
+                                    <td>
+                                        <form method="get" action="EditServlet">
+                                            <input type="hidden" name="userEmail" value="${c.getEmail()}" />
+                                            <input type="hidden" name="userType" value="customer" />
+                                            <button class="button2-small" type="submit"><i class="material-icons">&#xE254;</i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="UserDeleteServlet">
+                                            <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
+                                            <button class="button3-small" type="submit"><i class="material-icons">&#xE872;</i></button>
+                                        </form>
+                                    </td>
                                     <td>Customer</td>
                                     <td>${c.getEmail()}</td>
                                     <td>${c.getFirstName()}</td>
@@ -109,27 +123,13 @@
                                     <td>${c.getDateRegistered()}</td>
                                     <td>${c.getGender()}</td>
                                     <td>${c.isActive()}</td>
-                                    <td>
-                                        <form method="get" action="EditServlet">
-                                            <input type="hidden" name="userEmail" value="${c.getEmail()}" />
-                                            <input type="hidden" name="userType" value="customer" />
-                                            <!--<input class="button4" type="submit" value="Delete">-->
-                                            <button type="submit"><i class="material-icons">&#xE254;</i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="UserDeleteServlet">
-                                            <input type="hidden" name="customerEmail" value="${c.getEmail()}" />
-                                            <!--<input class="button4" type="submit" value="Delete">-->
-                                            <button type="submit"><i class="material-icons">&#xE872;</i></button>
-                                        </form>
-                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                         <thead>
                             <tr><td><h2>Staff</h2></td></tr>
                             <tr>
+                                <th colspan="2">Actions</th>
                                 <th>Type</th>
                                 <th>Email</th>
                                 <th>First name</th>
@@ -143,15 +143,29 @@
                                 <th>Postcode</th>
                                 <th>Login status</th>
                                 <th>Register date</th>
+                                <th>Pay per hour</th>
                                 <th>Active</th>
                                 <th>Manager</th>
                                 <th>Contract Type</th>
-                                <th>Pay per hour</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${staffs}" var="s">
                                 <tr>
+                                    <td>
+                                        <form method="get" action="EditServlet">
+                                            <input type="hidden" name="userEmail" value="${s.getEmail()}" />
+                                            <input type="hidden" name="userType" value="staff" />
+                                            <button class="button2-small" type="submit"><i class="material-icons">&#xE254;</i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="UserDeleteServlet">
+                                            <input type="hidden" name="staffEmail" value="${s.getEmail()}" />
+                                            <button class="button3-small" type="submit"><i class="material-icons">&#xE872;</i></button>
+                                        </form>
+                                        </div>
+                                    </td>
                                     <td>Staff</td>
                                     <td>${s.getEmail()}</td>
                                     <td>${s.getFirstName()}</td>
@@ -165,30 +179,10 @@
                                     <td>${s.getPostcode()}</td>
                                     <td>${s.isLoginStatus()}</td>
                                     <td>${s.getDateRegistered()}</td>
+                                    <td>${s.getHourlyPay()}</td>
                                     <td>${s.isActive()}</td>
                                     <td>${s.getManager()}</td>
                                     <td>${s.getContractType()}</td>
-                                    <td>${s.getHourlyPay()}</td>
-                                    <td>
-                                        <form method="get" action="EditServlet">
-                                            <input type="hidden" name="userEmail" value="${s.getEmail()}" />
-                                            <input type="hidden" name="userType" value="staff" />
-                                            <!--<input class="button4" type="submit" value="Edit">-->
-                                            <button type="submit"><i class="material-icons">&#xE254;</i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="UserDeleteServlet">
-                                            <input type="hidden" name="staffEmail" value="${s.getEmail()}" />
-                                            <!--<input class="button3" type="submit" value="Delete">-->
-
-                                            <button type="submit"><i class="material-icons">&#xE872;</i></button>
-                                        </form>
-                                        <!--<td><a class="button2" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a></td>-->
-                                        <!--<td><a class="button3" href="edit.jsp"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>-->
-                                        <!--<a href="#editEmployeeModal" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
-                                        <!--<a href="#deleteEmployeeModal" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
-                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -208,10 +202,10 @@
                         table = document.getElementById("userTable");
                         tr = table.getElementsByTagName("tr");
                         for (i = 0; i < tr.length; i++) {
-                            tdType = tr[i].getElementsByTagName("td")[0];
-                            tdFName = tr[i].getElementsByTagName("td")[2];
-                            tdLName = tr[i].getElementsByTagName("td")[3];
-                            tdPhone = tr[i].getElementsByTagName("td")[4];
+                            tdType = tr[i].getElementsByTagName("td")[2];
+                            tdFName = tr[i].getElementsByTagName("td")[4];
+                            tdLName = tr[i].getElementsByTagName("td")[5];
+                            tdPhone = tr[i].getElementsByTagName("td")[6];
                             if (tdFName && tdLName) {
                                 txtType = tdType.textContent || tdType.innerText;
                                 txtFName = tdFName.textContent || tdFName.innerText;
