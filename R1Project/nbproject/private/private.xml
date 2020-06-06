@@ -6,7 +6,10 @@
             <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/Validator.java</file>
             <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/addSupplier.jsp</file>
             <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/AddSupplierServlet.java</file>
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/DeviceCreationServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBSupplierInformationManager.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/updateSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBApplicationLogsManager.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBStaffManager.java</file>
         </group>
     </open-files>
 </project-private>

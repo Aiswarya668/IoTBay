@@ -18,6 +18,7 @@
     <body>
         <%
             Supplier supplier = (Supplier) session.getAttribute("supplier");
+  
         %>
         
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left" />

@@ -123,10 +123,14 @@ public class Validator implements Serializable {
     }
     
     //supplier validators - check if fields are empty
-     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress /*,boolean active*/){       
-       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty() /*|| active boolean*/ ;   
+     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress){       
+       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty();   
     }
     
+     //supplier validators - check if search fields for update are empty
+     public boolean checkSearchEmpty(String contactName, String supplierName){       
+       return  contactName.isEmpty() || supplierName.isEmpty();   
+    }
     
     public void clear(HttpSession session) {
         // login
@@ -173,13 +177,10 @@ public class Validator implements Serializable {
         session.setAttribute("supplierEmailErr", "Enter email");
         session.setAttribute("supplierAddressErr", "Enter address");
         //session.setAttribute("active", "Enter active status");
-        session.setAttribute("deleteContactNameErr", "");
-        session.setAttribute("deleteSupplierNameErr", "");
-        session.setAttribute("deleteSupplierEmailErr", "");
-        session.setAttribute("deleteSupplierAddressErr", "");
         session.setAttribute("supplierEmptyErr", "");
         session.setAttribute("exceptionSupplierErr", "");
         session.setAttribute("confirmationCreation", "");
+        session.setAttribute("formatErr", "");
         //session.setAttribute("deleteActiveErr", "");
     }
 }

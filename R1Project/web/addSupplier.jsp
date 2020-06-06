@@ -25,27 +25,24 @@
             String supplierNameErr = (String) session.getAttribute("supplierNameErr");
             String supplierEmailErr = (String) session.getAttribute("supplierEmailErr");
             String supplierAddressErr = (String) session.getAttribute("supplierAddressErr");
-            String deleteContactNameErr = (String) session.getAttribute("deleteContactNameErr");
-            String deleteSupplierNameErr = (String) session.getAttribute("deleteSupplierNameErr");
-            String deleteSupplierEmailErr = (String) session.getAttribute("deleteSupplierEmailErr");
-            String deleteSupplierAddressErr = (String) session.getAttribute("deleteSupplierAddressErr");
-            String exceptionErr = (String) session.getAttribute("exceptionSupplierErr");
+            String exceptionSupplierErr = (String) session.getAttribute("exceptionSupplierErr");
             String creationConfirmation = (String) session.getAttribute("creationConfirmation");
+            String supplierEmptyErr = (String) session.getAttribute("supplierEmptyErr");
+            String formatErr = (String) session.getAttribute("formatErr");
         %>
 
             <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+            <p class="right"> <a class="button21" href="SupplierListServlet">View Suppliers</a> </p>
         <div class="maincolumn2">
             <div class="card">
                 <h1>Add New Supplier </h1>
-                <span><%= (creationConfirmation != null) ? creationConfirmation : ""%></span>
-                <% 
-                        session.setAttribute("creationConfirmation", "");
-                    %>
+                
+                <p class ="error"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
+                <p class ="error"><%= (supplierEmptyErr != null) ? supplierEmptyErr : ""%></p>
+                <p class ="error"><%= (formatErr != null) ? formatErr : ""%></p>
+                <p class ="error"><%= (exceptionSupplierErr != null) ? exceptionSupplierErr : ""%></p>
+
                 <form method="get" action="AddSupplierServlet">
-                    <p class ="error"><%=(deleteContactNameErr != null ? deleteContactNameErr : "")%></p>
-                    <p class ="error"><%=(deleteSupplierNameErr != null ? deleteSupplierNameErr : "")%></p>
-                    <p class ="error"><%=(deleteSupplierEmailErr != null ? deleteSupplierEmailErr : "")%></p>
-                    <p class ="error"><%=(deleteSupplierAddressErr != null ? deleteSupplierAddressErr : "")%></p>
 
                     <table>
                         <tr><td>Contact Name:</td><td><input type="text" placeholder="<%=(contactNameErr != null ? contactNameErr :"Enter contact name")%>" name="contactName"></td></tr>
@@ -57,9 +54,12 @@
                     <div>
                         <input class ="button4" type="submit" value="Add">
                         <a class ="button3" href="SupplierListServlet">Cancel</a>
-                        <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%>
+                        
                             <%
                                   session.setAttribute("exceptionSupplierErr", "");
+                                  session.setAttribute("creationConfirmation", "");
+                                  session.setAttribute("supplierEmptyErr", "");
+                                  session.setAttribute("formatErr", "");
                                 %>
                     </div>
                     
