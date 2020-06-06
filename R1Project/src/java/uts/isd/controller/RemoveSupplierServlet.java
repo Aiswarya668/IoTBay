@@ -39,17 +39,13 @@ public class RemoveSupplierServlet extends HttpServlet {
                
         
         Supplier supplier = null;
+        validator.clear(session);
         
          try {
 
             supplier = supplierManager.findSupplier(contactName, supplierName);
        
-        if (supplier == null) {
-             session.setAttribute("exceptionErr", "Supplier with point of contact does not exist");
-            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);    
-        }
-        
-        else if(validator.checkSearchEmpty(contactName,supplierName)){
+         if(validator.checkSearchEmpty(contactName,supplierName)){
              session.setAttribute("supplierEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
         }
@@ -70,7 +66,12 @@ public class RemoveSupplierServlet extends HttpServlet {
         
      
                 
-        } else {
+        } else if (supplier == null) {
+             session.setAttribute("exceptionErr", "Supplier with point of contact does not exist");
+            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);    
+        }
+        
+        else {
 
             request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
             session.setAttribute("creationConfirmation", "Supplier with point of contact has been successfully deleted");

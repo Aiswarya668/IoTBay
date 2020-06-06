@@ -45,6 +45,10 @@
                 <form method="get" action="UpdateSupplierServlet">
                     <table>
                         <tr>
+                            <th>Contact Name</th>
+                            <th>Company</th>
+                        </tr>
+                        <tr>
                             <td><input type="text" name="contactName" placeholder="<%=(contactNameErr != null ? contactNameErr :"Enter contact name")%>"></td>
                             <td><input type="text" name="supplierName" placeholder="<%=(supplierNameErr != null ? supplierNameErr :"Enter contact name")%>"></td>
                         </tr>
