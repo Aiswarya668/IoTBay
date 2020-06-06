@@ -76,7 +76,7 @@
                     </table>
                     <div>
                         <input class ="button4" type="submit" value="Update">
-                        <a class ="button3" href="UpdateSupplierServlet">Cancel</a>
+                        <a class ="button3" href="updateSupplier.jsp">Cancel</a>
                         
                         <%
                                   session.setAttribute("exceptionSupplierErr", "");

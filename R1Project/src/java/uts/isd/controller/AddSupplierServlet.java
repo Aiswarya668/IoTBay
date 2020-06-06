@@ -115,7 +115,7 @@ public class AddSupplierServlet extends HttpServlet {
                 session.setAttribute("creationConfirmation", "Supplier creation was successful");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             } catch (SQLException ex) {
-                session.setAttribute("exception2Err", "Submission Failed");
+                session.setAttribute("exceptionSupplierErr", "Submission Failed");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             }
 
