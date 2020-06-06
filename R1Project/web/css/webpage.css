@@ -467,13 +467,10 @@ tbody {
     clear: both;
 }
 
-/* Footer */
 .footer {
-    padding: 10px;
-    text-align: center;
-    font-size: 15px;
-    background: rgb(255, 242, 200);
-    margin-top: 20px;
+    text-align: center;	
+    font-size: 15px;	
+    margin-top: 20px;	
     font-style: italic;
 }
 
@@ -586,4 +583,15 @@ img {
    background-color: white;
    padding: 20px;
    margin-top: 20px;
+}
+
+.supplierMainColumn {
+    position: absolute;
+    top: 50%;
+    right: 19%;
+    height: 60%;
+    width: 60%;
+    margin: -19% 0 0 -20%;
+    text-align: center;
+    min-width: 500px;
 }

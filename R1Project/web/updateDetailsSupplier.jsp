@@ -32,7 +32,7 @@
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
         
         <p class="right"> <a  class="button21" href="SupplierListServlet">View Suppliers</a> </p>
-        <div class="maincolumn2">
+        <div class="supplierMainColumn">
             <div class="card">
 
                 <body>     
@@ -40,8 +40,7 @@
                     
                     
                     <form method="get" action="UpdateDetailsSupplierServlet">
-                <table border="1">
-                    <thead>
+                <table>
                         <tr>
                             <th>Contact Name</th>
                             <th>Company</th>
@@ -49,8 +48,6 @@
                             <th>Address</th>
                             <th>Active</th>
                         </tr>
-                    </thead>
-                    <tbody>
                             <tr>
                                 <td><% out.println(s.getContactName()); %></td>
                                 <td><% out.println(s.getSupplierName()); %></td>
@@ -58,7 +55,6 @@
                                 <td><% out.println(s.getSupplierAddress()); %></td>
                                 <td><% out.println(s.isActive() ? "Activated" : "Deactivated"); %></td>
                             </tr>
-                    </tbody>
                 </table>
                     <h1>Supplier's New Details</h1>
                     

@@ -27,11 +27,13 @@
     <p class="right"> <a class="button21" href="addSupplier.jsp">Add Supplier</a> </p>
     <p class="right"> <a class="button21" href="updateSupplier.jsp">Update Supplier</a> </p>
     <p class="right"> <a class="button21" href="removeSupplier.jsp">Remove Supplier</a> </p>
-    <div class="maincolumn2">
-        <div class="card">
+    
+    <div class="supplierCatcolumn">
+        <div class="supplierCatcard">
 
             </head>
             <body>
+
 
                 <%
                     Supplier supplier = (Supplier) session.getAttribute("show");
@@ -43,10 +45,10 @@
                 <form method="post" method="get">
 
                     <form>
-                        Search supplier: <input type="text" id="inputContactName" onkeyup="myFunction()" placeholder="Contact Name" title="Type in a contact name">
-                    <input type="text" id="inputCompany" onkeyup="myFunction()" placeholder="Company" title="Type in a company">
+                        Search supplier: <input id="inputContactName" onkeyup="myFunction()" placeholder="Contact Name" title="Type in a contact name">
+                    <input id="inputCompany" onkeyup="myFunction()" placeholder="Company" title="Type in a company">
                     </form>
-                <table border="1" id="supplierTable">
+                <table id="supplierTable" >
                     <thead>
                         <tr>
                             <th>Contact Name</th>
@@ -93,7 +95,12 @@
                         }
                     </script>
             </body>
+            
+            
         </div>
+                <div class ="footer">
+                </div>
     </div>
+
 </html>
 
