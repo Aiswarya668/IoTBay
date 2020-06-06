@@ -64,8 +64,6 @@
                                 <td>${show.supplierEmail}</td>
                                 <td>${show.supplierAddress}</td>
                                 <td>${show.active ? "Activated" : "Deactivated"}</td>
-                                <td><p class="right"> <a class="button2" value='Update Supplier' href="">Update</a> </p></td>
-                                <td><p class="right"> <a class="button3" value='Delete Supplier' href="RemoveSupplierServlet?contactName=${show.contactName}&supplierName=${show.supplierName}">Delete</a> </p></td>
                             </tr>
                         </c:forEach>
                     </tbody>

@@ -47,12 +47,33 @@ public class RemoveSupplierServlet extends HttpServlet {
         if (supplier == null) {
              session.setAttribute("exceptionErr", "Supplier with point of contact does not exist");
             request.getRequestDispatcher("removeSupplier.jsp").include(request, response);    
+        }
+        
+        else if(validator.checkSearchEmpty(contactName,supplierName)){
+             session.setAttribute("supplierEmptyErr", "Error: All fields are mandatory!");
+             request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
+        }
+        
+        else if (!validator.validateContactName(contactName)) {
+            //1- set incorrect contactName error to the session 
+            session.setAttribute("contactNameErr", "Error: Contact name format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier name format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp     
+            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
+       
+        } else if (!validator.validateSupplierName(supplierName)) {
+            //1- set incorrect supplierName error to the session 
+            session.setAttribute("supplierNameErr", "Error: Company name type format incorrect");
+            session.setAttribute("formatErr", "Error: Company name type format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp    
+            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
         
      
                 
         } else {
 
-            request.getRequestDispatcher("removedSupplier.jsp").include(request, response);
+            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
+            session.setAttribute("creationConfirmation", "Supplier with point of contact has been successfully deleted");
             supplierManager.deleteSupplier(contactName, supplierName);
             
                 

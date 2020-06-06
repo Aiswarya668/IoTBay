@@ -561,3 +561,29 @@ img {
     margin-left: auto;
     margin-right: auto;
 }
+
+.supplierTable{
+    padding-bottom: 5em;
+    width: 93%;
+    padding-left: 5em;
+    padding-right: 5em;
+    font-family: Arial, Helvetica, sans-serif;
+    word-spacing: 1.5px;
+    letter-spacing: 0.4px;
+    line-height: 28px;
+}
+
+.supplierCatcolumn {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    margin: 10% 0 0 0%;
+    text-align: center;
+}
+
+.supplierCatcard {
+   outline: 2px solid gray;
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}

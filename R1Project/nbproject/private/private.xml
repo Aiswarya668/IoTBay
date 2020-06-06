@@ -3,13 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/Validator.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/UpdateDetailsSupplierServlet.java</file>
             <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/addSupplier.jsp</file>
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/AddSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/updateDetailsSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/SupplierListServlet.java</file>
             <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBSupplierInformationManager.java</file>
             <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/updateSupplier.jsp</file>
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBApplicationLogsManager.java</file>
-            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBStaffManager.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/RemoveSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/Validator.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/AddSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/browseCatalogue.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/removeSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/UpdateSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/supplierList.jsp</file>
         </group>
     </open-files>
 </project-private>
