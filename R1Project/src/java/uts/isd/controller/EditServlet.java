@@ -65,7 +65,6 @@ public class EditServlet extends HttpServlet {
             // sysadmin reset when editing another user
             session.setAttribute("customer", null);
             session.setAttribute("staff", null);
-            validator.clear(session);
             try {
                 staff = staffManager.findStaff(userEmail);
                 session.setAttribute("staff", staff);
@@ -87,7 +86,6 @@ public class EditServlet extends HttpServlet {
             customer = null;
             session.setAttribute("customer", null);
             session.setAttribute("staff", null);
-            validator.clear(session);
 
             try {
                 customer = customerManager.findCustomer(userEmail);
@@ -264,7 +262,7 @@ public class EditServlet extends HttpServlet {
                         if (sysadmin) {
                             response.sendRedirect("UserListServlet");
                         } else {
-                            request.getRequestDispatcher("welcome.jsp").include(request, response);
+                            request.getRequestDispatcher("main.jsp").include(request, response);
                         }
                     } catch (SQLException ex) {
                         // exception message if updating customer fails
@@ -294,7 +292,7 @@ public class EditServlet extends HttpServlet {
                     if (sysadmin) {
                         response.sendRedirect("UserListServlet");
                     } else {
-                        request.getRequestDispatcher("welcome.jsp").include(request, response);
+                        request.getRequestDispatcher("main.jsp").include(request, response);
                     }
                 } catch (SQLException ex) {
                     // exception message if updating customer fails
@@ -350,7 +348,7 @@ public class EditServlet extends HttpServlet {
                         if (sysadmin) {
                             response.sendRedirect("UserListServlet");
                         } else {
-                            request.getRequestDispatcher("welcome.jsp").include(request, response);
+                            request.getRequestDispatcher("main.jsp").include(request, response);
                         }
                     } catch (SQLException ex) {
                         // exception message if updating customer fails
@@ -379,7 +377,7 @@ public class EditServlet extends HttpServlet {
                     if (sysadmin) {
                         response.sendRedirect("UserListServlet");
                     } else {
-                        request.getRequestDispatcher("welcome.jsp").include(request, response);
+                        request.getRequestDispatcher("main.jsp").include(request, response);
                     }
                 } catch (SQLException ex) {
                     // exception message if updating customer fails
