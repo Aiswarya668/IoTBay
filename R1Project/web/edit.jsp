@@ -6,6 +6,8 @@
 
 <%@page import="uts.isd.model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -34,8 +36,10 @@
             String contractTypeErr = (String) session.getAttribute("contractTypeEditErr");
             String payHrErr = (String) session.getAttribute("payHrEditErr");
 
+            boolean sysadmin = (session.getAttribute("sysadmin") != null);
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+            Staff s = null; // JSTL core tag to Java
             // common attributes amongst staff and customer
             String firstName = "";
             String lastName = "";
@@ -174,12 +178,25 @@
                         </tr>
                         <% } else if (staff != null) {%>
                         <tr>
-                            <td>Manager</td> 
-                            <td><input type="text" value="<%= manager%>" name="Manager"></td>
+                            <td>Manager</td>
+                            <td>
+                                <select name="Manager">
+                                    <c:forEach items="${staffs}" var="s">
+                                        <% s = (Staff) pageContext.getAttribute("s"); %>
+                                        <option value="${s.getEmail()}" <% if (s.getEmail().equals(staff.getManager())) {%> selected <% }%>>${s.getEmail()}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Contract Type</td> 
-                            <td><input type="text" value="<%= contractType%>" name="ContractType"></td>
+                            <td>Contract Type</td>
+                            <td>
+                                <select name="ContractType">
+                                    <option value="Full Time" <% if (staff.getContractType().equals("Full Time")) {%> selected <% }%>>Full Time</option>
+                                    <option value="Part Time" <% if (staff.getContractType().equals("Part Time")) {%> selected <% }%>>Part Time</option>
+                                    <option value="Casual" <% if (staff.getContractType().equals("Casual")) {%> selected <% }%>>Casual</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Pay Per Hour</td> 
@@ -188,9 +205,34 @@
                         <% }%>
                     </table>
                     <div>
+                        <%
+                            if (customer != null) {
+                                if (customer.isActive()) {
+                        %>
                         <input class="button21" type="submit" name="Deactivate"
-                               onclick="return confirm('Are you sure you want to deacivate your account?')"
                                value="Deactivate" </a>
+                        <%
+                        } else if (sysadmin) {
+                        %>
+                        <input class="button21" type="submit" name="Activate"
+                               value="Activate" </a>
+                        <%
+                            }
+                        } else if (staff != null) {
+                            if (staff.isActive()) {
+                        %>    
+                        <input class="button21" type="submit" name="Deactivate"
+                               value="Deactivate" </a>
+                        <%
+                        } else if (sysadmin) {
+                        %>     
+                        <input class="button21" type="submit" name="Activate"
+                               value="Activate" </a>
+                        <%
+                                }
+                            }
+                        %>
+
                         <input class="button3" type="submit" value="Update" </a>
                     </div>
                 </form>

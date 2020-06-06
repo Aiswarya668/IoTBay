@@ -215,4 +215,14 @@ public class DBCustomerManager {
         stmt.executeUpdate();
         stmt.close();
     }
+    // activate a customer - set their active status to true
+    public void activateCustomer(String customerEmail) throws SQLException {
+        String query = "UPDATE IOTBAYUSER.CUSTOMER SET ACTIVE = ? WHERE CUSTOMEREMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setBoolean(1, true);
+        stmt.setString(2, customerEmail);
+
+        stmt.executeUpdate();
+        stmt.close();
+    }
 }

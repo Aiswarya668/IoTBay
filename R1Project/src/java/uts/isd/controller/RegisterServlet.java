@@ -44,6 +44,12 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("staffs", staffs);
             }
 
+            // hold sysadmin credentials while editing another user
+            if (sysadmin) {
+                Staff editor = (Staff) session.getAttribute("staff");
+                session.setAttribute("editor", editor);
+            }
+
             request.getRequestDispatcher("register.jsp").include(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,13 +188,34 @@ public class RegisterServlet extends HttpServlet {
             try {
                 // create new user
                 if (userType.equals("staff")) {
-                    staffManager.addStaff(email, firstName, lastName, phoneNumber, password, streetAddress, unitNumber, city, state, postCode, manager, contractType, payHr);
+                    staffManager.addStaff(email, firstName, lastName,
+                            phoneNumber, password, streetAddress, unitNumber,
+                            city, state, postCode, manager, contractType, payHr);
+                    session.setAttribute("createMsg", "Staff added (" + email + ")");
+                    // add login log
+                    logsManager.addStaffLog(staffManager.findStaff(email).getEmail(), "Login");
+                    // reset staff session if sysadmin was editing another user
+                    Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                    if (editor != null) {
+                        session.setAttribute("staff", editor);
+                        session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                        session.setAttribute("editor", null);
+                    }
                 } else {
                     customerManager.addCustomer(firstName, lastName, email,
                             password, gender, unitNumber, streetAddress, city,
                             state, postCode, phoneNumber);
+                    session.setAttribute("customer", customerManager.findCustomer(email)); // login after created
+                    session.setAttribute("createMsg", "Customer added (" + email + ")");
                     // add login log
                     logsManager.addCustomerLog(customerManager.findCustomer(email).getEmail(), "Login");
+                    // reset staff session if sysadmin was editing another user
+                    Staff editor = (session.getAttribute("editor") != null) ? (Staff) session.getAttribute("editor") : null;
+                    if (editor != null) {
+                        session.setAttribute("staff", editor);
+                        session.setAttribute("customer", null); // staff and customer cannot be in session simultaneously
+                        session.setAttribute("editor", null);
+                    }
                 }
             } catch (SQLException ex) {
                 // exception message if adding customer fails
