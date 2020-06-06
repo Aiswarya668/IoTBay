@@ -210,13 +210,11 @@
                                 if (customer.isActive()) {
                         %>
                         <input class="button21" type="submit" name="Deactivate"
-                               onclick="return confirm('Are you sure you want to deactivate your account?')"
                                value="Deactivate" </a>
                         <%
                         } else if (sysadmin) {
                         %>
                         <input class="button21" type="submit" name="Activate"
-                               onclick="return confirm('Are you sure you want to activate this account?')"
                                value="Activate" </a>
                         <%
                             }
@@ -224,13 +222,11 @@
                             if (staff.isActive()) {
                         %>    
                         <input class="button21" type="submit" name="Deactivate"
-                               onclick="return confirm('Are you sure you want to deactivate your account?')"
                                value="Deactivate" </a>
                         <%
                         } else if (sysadmin) {
                         %>     
                         <input class="button21" type="submit" name="Activate"
-                               onclick="return confirm('Are you sure you want to activate this account?')"
                                value="Activate" </a>
                         <%
                                 }
