@@ -224,6 +224,10 @@ hr {
     background-color: rgb(101, 109, 228); 
     color: white; 
 }
+
+.inline {
+    display: inline-block
+}
 /*Navigation bar just in case for CSS*/ 
 
 nav ul {
