@@ -127,7 +127,7 @@
                         <tr>
                             <td>Contract Type</td>
                             <td>
-                                <select id="colour" name="ContractType">
+                                <select name="ContractType">
                                     <option value="Full Time">Full Time</option>
                                     <option value="Part Time">Part Time</option>
                                     <option value="Casual">Casual</option>

@@ -38,6 +38,7 @@
 
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+            Staff s = null; // JSTL core tag to Java
             // common attributes amongst staff and customer
             String firstName = "";
             String lastName = "";
@@ -178,21 +179,21 @@
                         <tr>
                             <td>Manager</td>
                             <td>
-                                <input list="managers" name="Manager" id="manager">
-                                <datalist id="managers">
+                                <select name="Manager">
                                     <c:forEach items="${staffs}" var="s">
-                                        <option value="${s.getEmail()}">
+                                        <% s = (Staff) pageContext.getAttribute("s"); %>
+                                        <option value="${s.getEmail()}" <% if (s.getEmail().equals(staff.getManager())) {%> selected <% }%>>${s.getEmail()}</option>
                                         </c:forEach>
-                                </datalist>
+                                </select>
                             </td>
                         </tr>
                         <tr>
                             <td>Contract Type</td>
                             <td>
-                                <select id="colour" name="ContractType">
-                                    <option value="Full Time">Full Time</option>
-                                    <option value="Part Time">Part Time</option>
-                                    <option value="Casual">Casual</option>
+                                <select name="ContractType">
+                                    <option value="Full Time" <% if (staff.getContractType().equals("Full Time")) {%> selected <% }%>>Full Time</option>
+                                    <option value="Part Time" <% if (staff.getContractType().equals("Part Time")) {%> selected <% }%>>Part Time</option>
+                                    <option value="Casual" <% if (staff.getContractType().equals("Casual")) {%> selected <% }%>>Casual</option>
                                 </select>
                             </td>
                         </tr>
