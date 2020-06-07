@@ -57,6 +57,8 @@ public class SupplierListServlet extends HttpServlet {
             request.setAttribute("show",show);     
             
             request.getRequestDispatcher("supplierList.jsp").include(request, response);
+            validator.clear(session);
+            
             
             
        } catch (SQLException ex) {

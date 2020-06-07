@@ -195,4 +195,14 @@ public class DBStaffManager {
         stmt.executeUpdate();
         stmt.close();
     }
+    // activate a staff - set their active status to true
+    public void activateStaff(String staffEmail) throws SQLException {
+        String query = "UPDATE IOTBAYUSER.STAFF SET ACTIVE = ? WHERE STAFFEMAIL = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setBoolean(1, true);
+        stmt.setString(2, staffEmail);
+        
+        stmt.executeUpdate();
+        stmt.close();
+    }
 }

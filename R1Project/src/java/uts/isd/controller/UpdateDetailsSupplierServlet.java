@@ -55,18 +55,57 @@ public class UpdateDetailsSupplierServlet extends HttpServlet {
         Supplier supplier = null;
         validator.clear(session);
 
-        try {
+        
+            
             Supplier s = (Supplier)session.getAttribute("supplier");
             String oldSupplierEmail = s.getSupplierEmail();
-            supplierManager.updateSupplier(supplierEmail, supplierName, contactName, supplierAddress, active, oldSupplierEmail);
-            request.getRequestDispatcher("updateDetailsSupplierConfirmation.jsp").include(request, response);
             
+            if(validator.checkSupplierEmpty(contactName,supplierName,supplierEmail,supplierAddress)){
+             session.setAttribute("supplierEmptyErr", "Error: All fields are mandatory!");
+             request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
+        }
+        
+        else if (!validator.validateContactName(contactName)) {
+            //1- set incorrect contactName error to the session 
+            session.setAttribute("contactNameErr", "Error: Contact name format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier name format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp     
+            request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
+       
+        } else if (!validator.validateSupplierName(supplierName)) {
+            //1- set incorrect supplierName error to the session 
+            session.setAttribute("supplierNameErr", "Error: Company name type format incorrect");
+            session.setAttribute("formatErr", "Error: Company name type format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp    
+            request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
+        
+        } else if (!validator.validateSupplierEmail(supplierEmail)) {
+            //1- set incorrect type error to the session 
+            session.setAttribute("supplierEmailErr", "Error: Supplier email format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier email format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp   
+            request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
+        
+        } else if (!validator.validateSupplierAddress(supplierAddress)) {
+            //1- set incorrect type error to the session 
+            session.setAttribute("supplierAddressErr", "Error: Supplier address format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier address format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp    
+            request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
+        }
              
-        } 
+        
+    
+    else {
+    try {
+    supplierManager.updateSupplier(supplierEmail, supplierName, contactName, supplierAddress, active, oldSupplierEmail);
+    session.setAttribute("creationConfirmation", "Update has been successful!");
+    request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
+    }   
         catch (SQLException ex) {
             Logger.getLogger(UpdateDetailsSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
+    }
 }

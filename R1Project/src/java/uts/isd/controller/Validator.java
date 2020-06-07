@@ -30,7 +30,7 @@ public class Validator implements Serializable {
     private String contactNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     private String supplierNamePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
     private String supplierEmailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
-    private String supplierAddressPattern = "[A-Za-z0-9/-]*";
+    private String supplierAddressPattern = "[A-Za-z0-9\\s,/]*";
 
    public Validator() {
    }
@@ -133,17 +133,22 @@ public class Validator implements Serializable {
     }
     
     //supplier validators - check if fields are empty
-     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress /*,boolean active*/){       
-       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty() /*|| active boolean*/ ;   
+     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress){       
+       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty();   
     }
     
+     //supplier validators - check if search fields for update are empty
+     public boolean checkSearchEmpty(String contactName, String supplierName){       
+       return  contactName.isEmpty() || supplierName.isEmpty();   
+    }
     
     public void clear(HttpSession session) {
-        // login
+        // login and register
         session.setAttribute("emailErr", "Enter email");
         session.setAttribute("passErr", "Enter password");
         session.setAttribute("existErr", "");
         session.setAttribute("nameErr", "Enter name");
+        session.setAttribute("createMsg", "");
 
         // edit
         session.setAttribute("updateMsg", "");
@@ -162,6 +167,10 @@ public class Validator implements Serializable {
         session.setAttribute("managerEditErr", "");
         session.setAttribute("contractTypeEditErr", "");
         session.setAttribute("payHrEditErr", "");
+        
+        //delete
+        session.setAttribute("deleteMsg", "");
+        session.setAttribute("userDeleteErr", "");
 
         //deviceCreation clear()
         session.setAttribute("deviceupdateMsg", "");
@@ -188,13 +197,10 @@ public class Validator implements Serializable {
         session.setAttribute("supplierEmailErr", "Enter email");
         session.setAttribute("supplierAddressErr", "Enter address");
         //session.setAttribute("active", "Enter active status");
-        session.setAttribute("deleteContactNameErr", "");
-        session.setAttribute("deleteSupplierNameErr", "");
-        session.setAttribute("deleteSupplierEmailErr", "");
-        session.setAttribute("deleteSupplierAddressErr", "");
         session.setAttribute("supplierEmptyErr", "");
         session.setAttribute("exceptionSupplierErr", "");
         session.setAttribute("confirmationCreation", "");
+        session.setAttribute("formatErr", "");
         //session.setAttribute("deleteActiveErr", "");
     }
 }

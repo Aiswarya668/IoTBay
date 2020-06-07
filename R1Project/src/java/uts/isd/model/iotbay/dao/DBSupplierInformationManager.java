@@ -83,17 +83,52 @@ public class DBSupplierInformationManager {
     return temp;
 }
     
-    public boolean checkSupplier(String contactName, String supplierName) throws SQLException {
-        String fetch = "select * from IOTBAYUSER.SUPPLIER where CONTACTNAME = '" + contactName + "' and SUPPLIERNAME='" + supplierName + "'";
+    public boolean checkSupplier(String supplierEmail) throws SQLException {
+        String fetch = "select * from IOTBAYUSER.SUPPLIER where SUPPLIEREMAIL = '" + supplierEmail + "'";
         ResultSet rs = st.executeQuery(fetch);
         
         while(rs.next()) {
-            String SupplierContactName = rs.getString(1);
-            String SupplierSupplierName = rs.getString(2);
-            if (SupplierContactName.equals(contactName) && SupplierSupplierName.equals(supplierName)) {
+            String SupplierEmail = rs.getString(1);
+            if (SupplierEmail.equals(supplierEmail)) {
                 return true;
             }
         }
         return false;
     }
+    
+    public Supplier findSupplierPK(String supplierEmail) throws SQLException {
+        String fetch ="select * from IOTBAYUSER.Supplier where SUPPLIEREMAIL = '" + supplierEmail + "'";
+        ResultSet rs = st.executeQuery(fetch);
+        
+        while (rs.next()) {
+            String SupplierEmail = rs.getString(1);
+            
+            if (SupplierEmail.equals(supplierEmail)) {
+                String contactName = rs.getString(3); 
+                String supplierName = rs.getString(2);
+                String supplierAddress = rs.getString(4);
+                Boolean active = rs.getBoolean(5);
+                return new Supplier( supplierEmail, supplierName, contactName, supplierAddress, active);   
+            }
+        }
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
