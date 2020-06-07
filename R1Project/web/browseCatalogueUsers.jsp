@@ -61,7 +61,7 @@
                                 <td>${display.cost }</td>
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
-                                <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                                <td><p class="right"> <a class="button1" href="main.jsp"  >Buy</a> </p></td>
                             </tr>
                         </c:forEach>
                     </table>

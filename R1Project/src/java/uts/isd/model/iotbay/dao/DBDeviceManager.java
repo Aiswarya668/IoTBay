@@ -142,4 +142,39 @@ public class DBDeviceManager {
         }
   
     
+         // custom function by sanya that finds the device by using ID
+    public Device findDeviceByID(int deviceID) {
+        try {
+        //Searches device by ID and puts in result set - rs enables iterative reading 
+        String query = "SELECT * FROM IOTBAYUSER.DEVICE WHERE DEVICEID=" + deviceID + "";
+        PreparedStatement ps = conn.prepareStatement(query);
+
+        // results added to result set 
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+
+            String searchedDeviceName = rs.getString("DEVICENAME");
+            String searchedType = rs.getString("TYPE");
+            int searchedDeviceID = deviceID;
+
+            double searchedDeviceCost = Double.parseDouble(rs.getString("COST"));
+
+            int searchedDeviceStock = Integer.parseInt(rs.getString("STOCKQUANTITY"));
+
+            String searchedDeviceDescription = rs.getString("DESCRIPTION");
+
+            //return device searched from query 
+            return new Device(searchedDeviceID, searchedDeviceName, searchedType, searchedDeviceCost, searchedDeviceStock, searchedDeviceDescription);
+
+        }
+        } catch(SQLException sql){
+            System.out.println(sql);
+        }
+        
+        //if not found - return null
+        return null;
+    }
+  
+    
+    
 }
