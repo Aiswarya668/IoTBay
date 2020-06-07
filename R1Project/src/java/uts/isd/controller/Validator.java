@@ -10,32 +10,34 @@ public class Validator implements Serializable {
    // generic, common patterns
    private String deviceNamePattern = "(([a-zA-Z0-9]+))";
    private String singleIntPattern = "(\\d{0,20})";
-   private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
+   private String sentencePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
 
    // online-user-access-specific management patterns
    private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
    private String passwordPattern = "[a-zA-Z0-9]{4,}";
    private String phonePattern = "0([0-9]{0,10})";      
     
+   //Device manager validator
     //type = Word with capital (space) word with capital
     private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     //Numbers with 2 decimals (.00)
     private String deviceCostPattern = "(^-?\\d*\\.\\d{2}$)";
     //Positive integers of undefined length
     private String deviceStockPattern = "(^\\d+$)";
+    private String deviceIDPattern = "^[0-9]{0,}$";
    
 //supplier management validator patterns
     private String contactNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     private String supplierNamePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
     private String supplierEmailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
-    private String supplierAddressPattern = "[A-Za-z0-9/-]*";
-    
    //payment details valdator patterns
     private String methodOfPaymentPattern = "[A-Za-z\\s]*";
     private String hashedCreditedCardNumberPattern = "[0-9]{16}|[0-9]{4}[\\s]?[0-9]{4}[\\s]?[0-9]{4}[\\s]?[0-9]{4}";
     private String cardSecurityCodePattern = "^[0-9]{3}$";
     private String cardExpiryDatePattern = "^[0-9]{4}-[0-9]{2}$";
     
+    private String supplierAddressPattern = "[A-Za-z0-9\\s,/]*";
+
    public Validator() {
    }
    
@@ -59,7 +61,7 @@ public class Validator implements Serializable {
 
    // validator - needs to be valid single int
    public boolean validateSentence(String number) {
-     return validate(deviceDescriptionPattern, number);
+     return validate(sentencePattern, number);
    }
 
 
@@ -79,13 +81,21 @@ public class Validator implements Serializable {
    }
     
     //device validators - check if fields are empty
-     public boolean checkDeviceEmpty(String deviceName, String type, String cost, String stockQuantity, String description){       
-       return  deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
+     public boolean checkDeviceEmpty(String deviceID, String deviceName, String type, String cost, String stockQuantity, String description){       
+       return  deviceID.isEmpty()|| deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
     }
+     
+     public boolean checkDeviceFieldsEmpty(String deviceName, String type, String cost, String stockQuantity, String description){       
+       return deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
+    }
+     
+     public boolean validateDeviceID(String deviceID){
+         return validate(deviceIDPattern, deviceID);
+     }
     
     //device validators - check deviceName
     public boolean validateDeviceName(String deviceName){
-         return validate(deviceNamePattern, deviceName); 
+         return validate(sentencePattern, deviceName); 
     }
     
     //device validators - check deviceType
@@ -105,7 +115,7 @@ public class Validator implements Serializable {
     
     //device validators - check deviceDescription
     public boolean validateDeviceDesc(String description){
-         return validate(deviceDescriptionPattern, description); 
+         return validate(sentencePattern, description); 
     }
     
     //supplier validators - check contactName
@@ -129,12 +139,13 @@ public class Validator implements Serializable {
     }
     
     //supplier validators - check if fields are empty
-     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress /*,boolean active*/){       
-       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty() /*|| active boolean*/ ;   
+     public boolean checkSupplierEmpty(String contactName, String supplierName, String supplierEmail, String supplierAddress){       
+       return  contactName.isEmpty() || supplierName.isEmpty() || supplierEmail.isEmpty()|| supplierAddress.isEmpty();   
     }
     
-    public boolean validateMethodOfPayment(String methodOfPayment){
-        return validate(methodOfPaymentPattern, methodOfPayment);
+     //supplier validators - check if search fields for update are empty
+       return  contactName.isEmpty() || supplierName.isEmpty();   
+     public boolean checkSearchEmpty(String contactName, String supplierName){       
     }
     
     public boolean validatehashedCreditedCardNumber (String cardNumber) {
@@ -154,11 +165,12 @@ public class Validator implements Serializable {
     }
     
     public void clear(HttpSession session) {
-        // login
+        // login and register
         session.setAttribute("emailErr", "Enter email");
         session.setAttribute("passErr", "Enter password");
         session.setAttribute("existErr", "");
         session.setAttribute("nameErr", "Enter name");
+        session.setAttribute("createMsg", "");
 
         // edit
         session.setAttribute("updateMsg", "");
@@ -177,8 +189,16 @@ public class Validator implements Serializable {
         session.setAttribute("managerEditErr", "");
         session.setAttribute("contractTypeEditErr", "");
         session.setAttribute("payHrEditErr", "");
+        
+        //delete
+        session.setAttribute("deleteMsg", "");
+        session.setAttribute("userDeleteErr", "");
 
         //deviceCreation clear()
+        session.setAttribute("deviceupdateMsg", "");
+        session.setAttribute("deviceDeletedMsg", "");
+        session.setAttribute("devicecreatedMsg", "");
+        session.setAttribute("deviceIDErr", "Enter device ID");
         session.setAttribute("deviceNameErr", "Enter device name");
         session.setAttribute("typeErr", "Enter device type");
         session.setAttribute("priceErr", "Enter price $0.00");
@@ -191,6 +211,7 @@ public class Validator implements Serializable {
         session.setAttribute("deletedescriptionErr", "");
         session.setAttribute("exceptionErr", "");
         session.setAttribute("deviceEmptyErr", "");
+        session.setAttribute("deletedeviceIDErr", "");
         
         //supplierCreation clear()
         session.setAttribute("contactNameErr", "Enter contact name");
@@ -198,13 +219,10 @@ public class Validator implements Serializable {
         session.setAttribute("supplierEmailErr", "Enter email");
         session.setAttribute("supplierAddressErr", "Enter address");
         //session.setAttribute("active", "Enter active status");
-        session.setAttribute("deleteContactNameErr", "");
-        session.setAttribute("deleteSupplierNameErr", "");
-        session.setAttribute("deleteSupplierEmailErr", "");
-        session.setAttribute("deleteSupplierAddressErr", "");
         session.setAttribute("supplierEmptyErr", "");
         session.setAttribute("exceptionSupplierErr", "");
         session.setAttribute("confirmationCreation", "");
+        session.setAttribute("formatErr", "");
         //session.setAttribute("deleteActiveErr", "");
         
         //paymentDetail related errors clear()

@@ -9,6 +9,33 @@
         <servlet-name>SupplierListServlet</servlet-name>
         <servlet-class>uts.isd.controller.SupplierListServlet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>CreateOrder</servlet-name>
+        <servlet-class>uts.isd.controller.CreateOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderHistory</servlet-name>
+        <servlet-class>uts.isd.controller.OrderHistory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderHistorySearch</servlet-name>
+        <servlet-class>uts.isd.controller.OrderHistorySearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateOrder</servlet-name>
+        <servlet-class>uts.isd.controller.updateOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>cancelOrder</servlet-name>
+        <servlet-class>uts.isd.controller.cancelOrder</servlet-class>
+    </servlet>
+    
+    
+    
+    <servlet>
+        <servlet-name>UserListServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserListServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AddSupplierServlet</servlet-name>
         <servlet-class>uts.isd.controller.AddSupplierServlet</servlet-class>
@@ -99,6 +126,10 @@
         <url-pattern>/SupplierListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UserListServlet</servlet-name>
+        <url-pattern>/UserListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddSupplierServlet</servlet-name>
         <url-pattern>/AddSupplierServlet</url-pattern>
     </servlet-mapping>
@@ -161,6 +192,28 @@
     <servlet-mapping>
         <servlet-name>UserDeleteServlet</servlet-name>
         <url-pattern>/UserDeleteServlet</url-pattern>
+    </servlet-mapping>
+    
+    
+        <servlet-mapping>
+        <servlet-name>CreateOrder</servlet-name>
+        <url-pattern>/CreateOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderHistory</servlet-name>
+        <url-pattern>/OrderHistory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderHistorySearch</servlet-name>
+        <url-pattern>/OrderHistorySearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateOrder</servlet-name>
+        <url-pattern>/updateOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cancelOrder</servlet-name>
+        <url-pattern>/cancelOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

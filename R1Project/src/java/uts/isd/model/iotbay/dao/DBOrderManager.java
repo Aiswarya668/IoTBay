@@ -254,4 +254,5 @@ public class DBOrderManager {
     public void deleteOrder(int orderID) throws SQLException {
         statement.executeUpdate("DELETE FROM IOTBAYUSER.CUSTOMERORDER WHERE ORDERID=" + orderID + "");
     }
+
 }

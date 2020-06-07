@@ -38,19 +38,59 @@ public class UpdateSupplierServlet extends HttpServlet {
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
                
         Supplier supplier = null;
+        
+        validator.clear(session);
                     
         try {
             supplier = supplierManager.findSupplier(contactName, supplierName);
             
-
-        session.setAttribute("supplier", supplier);
-        response.sendRedirect("updateDetailsSupplier.jsp");
+        }
         
+        catch (SQLException ex) {
+            Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        //validators
+       
+        //if any fields are empty?
+        if(validator.checkSearchEmpty(contactName,supplierName)){
+             session.setAttribute("supplierEmptyErr", "Error: All fields are mandatory!");
+             request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
+        }
+        
+        else if (!validator.validateContactName(contactName)) {
+            //1- set incorrect contactName error to the session 
+            session.setAttribute("contactNameErr", "Error: Contact name format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier name format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp     
+            request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
+       
+        } else if (!validator.validateSupplierName(supplierName)) {
+            //1- set incorrect supplierName error to the session 
+            session.setAttribute("supplierNameErr", "Error: Company name type format incorrect");
+            session.setAttribute("formatErr", "Error: Company name type format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp    
+            request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
+        }
+        
+        else if (supplier != null) {
+            session.setAttribute("supplier", supplier);
+            response.sendRedirect("updateDetailsSupplier.jsp");
 
+            session.setAttribute("exceptionSupplierErr", "Supplier with point of contact doesn't exist");
+            request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
+        }
+        
+        
+        else {
+            session.setAttribute("exceptionSupplierErr", "Supplier with point of contact doesn't exist");
+            request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
+        }
             
-       } catch (SQLException ex) {
-           Logger.getLogger(UpdateSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        //catch (SQLException ex) {
+       //    Logger.getLogger(UpdateSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
+       //}
         
         
         

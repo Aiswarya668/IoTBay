@@ -32,22 +32,26 @@
             String deletepriceErr = (String) session.getAttribute("deletepriceError");
             String deletestockErr = (String) session.getAttribute("deletestockErr");
             String deletedescriptionErr = (String) session.getAttribute("deletedescriptionErr");
+            String devicecreatedMsg = (String) session.getAttribute("devicecreatedMsg");
         %>
         
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-         <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
-         <p class="right"> <a class="button21" href="ViewDeviceServlet">Back to Browse</a> </p>
+         <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Back to Browse</a> </p>
         <div class="maincolumn2">
             <div class="card">
                 <h1>Create new device </span> </h1>
                 <form method="post" method="get" action="DeviceCreationServlet">
+                
+                    <p class ="success"><%=(devicecreatedMsg != null) ? devicecreatedMsg :""%></p>
                     <p class ="error"><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
                     <p class ="error"><%=(deletedeviceNameErr != null ? deletedeviceNameErr : "")%></p>
                     <p class ="error"><%=(deletetypeErr != null ? deletetypeErr : "")%></p>
                     <p class ="error"><%=(deletepriceErr != null ? deletepriceErr : "")%></p>
                     <p class ="error"><%=(deletestockErr != null ? deletestockErr : "")%></p>
                     <p class ="error"><%=(deletedescriptionErr != null ? deletedescriptionErr : "")%></p>
+                    <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     
                     <table>
                         <tr><td>Device Name:</td><td><input type="text" placeholder="<%=(deviceNameErr != null ? deviceNameErr :"Enter device name")%>" name="DeviceName"></td></tr  
@@ -59,8 +63,8 @@
                     <input type="hidden" name="NewDevice" value="true" />
                     <div>
                         <input class ="button4" type="submit" value="Create device">
-                        <a class ="button3" href="ViewDeviceServlet">Cancel</a>
-                        <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%></p>
+                        <a class ="button3" href="main.jsp">Cancel</a>
+                        
                     </div>
                 </form>
             </div>

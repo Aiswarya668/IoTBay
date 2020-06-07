@@ -21,6 +21,7 @@
 
 <body>
     <img src="images/Logo.png" alt="LOGO" style="width:15%; height:10%" class="left" />
+    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <div class="maincolumn1">
         <div class="card">
             <h1>Login</h1>
