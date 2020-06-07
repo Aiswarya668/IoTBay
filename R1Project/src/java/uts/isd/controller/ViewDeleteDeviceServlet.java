@@ -27,13 +27,13 @@ public class ViewDeleteDeviceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //1- retrieve the current session
+        //1) retrieve the current session
         HttpSession session = request.getSession();
 
-        //2- create an instance of the Validator class
+        //2) create an instance of the Validator class
         Validator validator = new Validator();
 
-        //3- capture the posted parameters/info fields 
+        //3) capture the posted parameters/info fields 
         //capture deviceID field
         String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
 
@@ -55,6 +55,7 @@ public class ViewDeleteDeviceServlet extends HttpServlet {
         //4) retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
+        //set device as null 
         Device device = null;
         validator.clear(session);
 
