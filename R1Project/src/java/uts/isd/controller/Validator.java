@@ -164,6 +164,10 @@ public class Validator implements Serializable {
         session.setAttribute("payHrEditErr", "");
 
         //deviceCreation clear()
+        session.setAttribute("deviceupdateMsg", "");
+        session.setAttribute("deviceDeletedMsg", "");
+        session.setAttribute("devicecreatedMsg", "");
+        session.setAttribute("deviceIDErr", "Enter device ID");
         session.setAttribute("deviceNameErr", "Enter device name");
         session.setAttribute("typeErr", "Enter device type");
         session.setAttribute("priceErr", "Enter price $0.00");

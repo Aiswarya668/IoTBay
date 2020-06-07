@@ -123,10 +123,13 @@ public class EditDeviceServlet extends HttpServlet {
                 //addDevice CRUD operation
                 deviceManager.updateDevice(Integer.parseInt(deviceID), deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);
                 //set session attribute
-                request.setAttribute("device", device);
-                //send to createdDevice.jsp
+                Device updatedDevice = deviceManager.findDeviceID(Integer.parseInt(deviceID));
+                session.setAttribute("device", updatedDevice);
+                // success message if updating customer successful
+                session.setAttribute("deviceupdateMsg", "Update was successful!");
+                // redirect user to the edit.jsp
+                request.getRequestDispatcher("editDevice.jsp").include(request, response);
                 
-                request.getRequestDispatcher("updateDeviceConfirmation.jsp").include(request, response);
             
           } catch (SQLException ex) {
                 //catch any exception

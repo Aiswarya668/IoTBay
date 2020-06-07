@@ -32,6 +32,7 @@
             String deletepriceErr = (String) session.getAttribute("deletepriceError");
             String deletestockErr = (String) session.getAttribute("deletestockErr");
             String deletedescriptionErr = (String) session.getAttribute("deletedescriptionErr");
+            String devicecreatedMsg = (String) session.getAttribute("devicecreatedMsg");
         %>
         
     <body>
@@ -43,6 +44,7 @@
                 <h1>Create new device </span> </h1>
                 <form method="post" method="get" action="DeviceCreationServlet">
                 
+                    <p class ="success"><%=(devicecreatedMsg != null) ? devicecreatedMsg :""%></p>
                     <p class ="error"><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
                     <p class ="error"><%=(deletedeviceNameErr != null ? deletedeviceNameErr : "")%></p>
                     <p class ="error"><%=(deletetypeErr != null ? deletetypeErr : "")%></p>

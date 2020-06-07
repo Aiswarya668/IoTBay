@@ -341,6 +341,14 @@ tbody {
     color: red;
 }
 
+.success{
+    font-family: Arial, Helvetica, sans-serif;
+    word-spacing: 1.5px;
+    letter-spacing: 0.4px;
+    line-height: 28px;
+    color: green;
+}
+
 .customer {
     border-collapse: collapse;
     width: 93%;

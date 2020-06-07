@@ -26,7 +26,7 @@
             String deletestockErr = (String) session.getAttribute("deletestockErr");
             String deletedescriptionErr = (String) session.getAttribute("deletedescriptionErr");
             String exceptionErr = (String) session.getAttribute("exceptionErr");
-            String updatedMsg = request.getParameter("updatedMsg");
+            String deviceupdateMsg = (String) session.getAttribute("deviceupdateMsg");
             String deviceEmptyErr = (String) session.getAttribute("deviceEmptyErr");
             String deletedeviceIDErr = (String) session.getAttribute("deletedeviceIDErr");
 
@@ -40,6 +40,7 @@
         <div class="maincolumn2">
             <div class="card">
                 <h1>Edit device </span></h1>
+                <p class ="success"><%=(deviceupdateMsg != null) ? deviceupdateMsg :""%></p>
                 <p class ="error"><%=(deviceEmptyErr != null ? deviceEmptyErr : "")%></p>
                 <p class ="error"><%=(deletedeviceIDErr != null ? deletedeviceIDErr : "")%></p>
                 <p class ="error"><%=(deletedeviceNameErr != null ? deletedeviceNameErr : "")%></p>
@@ -48,6 +49,7 @@
                 <p class ="error"><%=(deletestockErr != null ? deletestockErr : "")%></p>
                 <p class ="error"><%=(deletedescriptionErr != null ? deletedescriptionErr : "")%></p>
                 <p  class ="error"><%=(exceptionErr != null ? exceptionErr : "")%></p>
+                
                 
                 <form method="post" method="get" action="EditDeviceServlet">
 

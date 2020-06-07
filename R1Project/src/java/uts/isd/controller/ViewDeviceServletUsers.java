@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Servlet used throughout IoTBay to display the devices 
+ * Functionalities change is customer is registered or anonymous or if staff 
  */
 package uts.isd.controller;
 
@@ -25,19 +24,12 @@ import uts.isd.model.iotbay.dao.DBDeviceManager;
  */
 public class ViewDeviceServletUsers extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+       //Capture all fields 
        
-        //Create object of printwriter - and calling response of getWriter()
-        //PrintWriter out =response.getWriter();
-       
-         //1) deviceID is defined for the creation of the device   
-        int deviceID = 0; // Just default value assigned 
-            try {
-                deviceID = Integer.parseInt(request.getParameter("DeviceID"));
-                } catch (NumberFormatException e) {
-                    // log the error or ignore it
-                }
-            
-        
+        //1) capture the posted deviceID    
+        String deviceID = request.getParameter("DeviceID"); 
+              
         //2) capture the posted deviceName    
         String deviceName = request.getParameter("DeviceName");
         
@@ -46,39 +38,35 @@ public class ViewDeviceServletUsers extends HttpServlet {
         
         //4) capture the posted deviceCost - parse as a double as the input is a string in form  
         String cost = (request.getParameter("DeviceCost"));
-        //double cost = Double.parseDouble(request.getParameter("DeviceCost"));
         
         //5) capture the posted stockQuantity - parse as a int as the input is a string in form  
         String stockQuantity = (request.getParameter("DeviceStock"));
-        //int stockQuantity = Integer.parseInt(request.getParameter("DeviceStock"));
         
         //6) capture the posted description   
         String description = request.getParameter("DeviceDescription");
                     
         try {
-           //1) retrieve the current session 
+           //7) retrieve the current session 
             HttpSession session = request.getSession();
         
-            //2) create an instance of the Validator class to check inputs
+            //8) create an instance of the Validator class to check inputs
             Validator validator = new Validator();
         
             //9) retrieve the manager instance from session - ConnServlet            
              DBDeviceManager deviceManager = (DBDeviceManager)session.getAttribute("deviceManager");
-        
-            //validator.clear(session);
-            
-            
+                    
+            //10) fetch all devices from deviceManager and assign to ArrayList 
             ArrayList<Device> display = deviceManager.fetchDevice();
             
+            //11) setAttribute as display to show on browseCatalogue 
             request.setAttribute("display",display);     
             
+            //12) redirect to browseCatalogue jsp 
             request.getRequestDispatcher("browseCatalogueUsers.jsp").include(request, response);
-            
             
        } catch (SQLException ex) {
            Logger.getLogger(ViewDeviceServletUsers.class.getName()).log(Level.SEVERE, null, ex);
        }
-        
       
    }
    

@@ -14,8 +14,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -32,14 +30,11 @@
         Staff staff = (Staff) session.getAttribute("staff");
     %>
     
-    
     <% if (customer != null || staff != null) { %>
         <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
     <% } else { %>
         <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <% } %>
-    
-    
     
     <div class="deviceCatcolumn">
         <div class="deviceCatcard">
@@ -59,7 +54,13 @@
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>                          
+                            
+                            <% if (staff != null) { %>
+                            <td colspan="2" > Actions</td>
+                            <% }  else {%>
                             <td> Actions</td>
+                            <% }  %>
+
                         </tr>
 
                         <c:forEach items="${display}" var="display">
