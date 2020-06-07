@@ -34,7 +34,7 @@ public class PaymentDetailsDeleteServlet extends HttpServlet{
         
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
         
-        String customerEmail = customer.getEmail();
+        String customerEmail = (customer != null) ? customer.getEmail() : "anonymous@gmail.com";
         
         PaymentDetails paymentDetail = null;
         
@@ -42,6 +42,13 @@ public class PaymentDetailsDeleteServlet extends HttpServlet{
 
         validator.clear(session);
         try {
+            if (customerEmail.equals("anonymous@gmail.com")) {
+                paymentDetail = null;
+                request.setAttribute("paymentDetails", paymentDetail);
+                request.getRequestDispatcher("orderPayment.jsp").include(request, response);
+                return;
+            }
+            
             paymentDetail = paymentDetailsManager.findPaymentDetails(customerEmail);
             
             if (paymentDetail == null) {

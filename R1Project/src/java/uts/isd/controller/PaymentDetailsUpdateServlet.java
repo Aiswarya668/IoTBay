@@ -34,7 +34,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
         
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
         
-        String customerEmail = customer.getEmail();
+        String customerEmail = (customer != null) ? customer.getEmail() : "anonymous@gmail.com";
         
         String methodOfPayment = request.getParameter("methodOfPayment");
         
@@ -46,12 +46,16 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
         
         String isOrder = request.getParameter("isOrder");
         
+        
+        
         validator.clear(session);
         
         if (validator.checkPaymentDetailsEmpty(methodOfPayment,hashedCreditedCardNumber,cardSecurityCode,cardExpiryDate)) {
             
             session.setAttribute("paymentDetailsEmptyErr", "Error: All fields are mandatory!");
             if (isOrder.equals("true")) {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
@@ -61,6 +65,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
             session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect");    
             if (isOrder.equals("true")) {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
@@ -70,6 +76,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
             session.setAttribute("cardNumberFieldErr", "Error: Card Number format incorrect");
             if (isOrder.equals("true")) {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
@@ -79,6 +87,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
 
             session.setAttribute("cardCodeFieldErr", "Error: Card Security Code format incorrect");
             if (isOrder.equals("true")) {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
@@ -88,6 +98,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
             session.setAttribute("expiryDateFieldErr", "Error: Card Expiry Date format incorrect");
             if (isOrder.equals("true")) {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
@@ -95,6 +107,14 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
         } else {
             try {
+                
+                if (customerEmail.equals("anonymous@gmail.com")) {
+                    PaymentDetails paymentDetails = new PaymentDetails("",methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
+                    request.setAttribute("paymentDetails",paymentDetails);
+                    request.getRequestDispatcher("orderPayment.jsp").include(request, response);
+                    return;
+                }
+                
                 paymentDetailsManager.updatePaymentDetails(customerEmail, methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
                 
                 PaymentDetails paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);

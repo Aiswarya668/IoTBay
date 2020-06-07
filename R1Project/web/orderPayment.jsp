@@ -141,7 +141,9 @@
                             } else {
                         %>
                         <input class ="button4" type="submit" value="Update Payment Details">
-                        <a class = "button3" href="PaymentDetailsDeleteServlet">Delete Payment Details</a>
+                        <% session.setAttribute("paymentDetail",paymentDetail); %>
+                        
+                        <input class="button3" type="submit" value="Delete Payment Details" formaction="PaymentDetailsDeleteServlet">
                         <%
                             }
                         %>
