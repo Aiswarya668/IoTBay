@@ -133,11 +133,12 @@ public class Validator implements Serializable {
     }
     
     public void clear(HttpSession session) {
-        // login
+        // login and register
         session.setAttribute("emailErr", "Enter email");
         session.setAttribute("passErr", "Enter password");
         session.setAttribute("existErr", "");
         session.setAttribute("nameErr", "Enter name");
+        session.setAttribute("createMsg", "");
 
         // edit
         session.setAttribute("updateMsg", "");
@@ -156,6 +157,10 @@ public class Validator implements Serializable {
         session.setAttribute("managerEditErr", "");
         session.setAttribute("contractTypeEditErr", "");
         session.setAttribute("payHrEditErr", "");
+        
+        //delete
+        session.setAttribute("deleteMsg", "");
+        session.setAttribute("userDeleteErr", "");
 
         //deviceCreation clear()
         session.setAttribute("deviceNameErr", "Enter device name");
