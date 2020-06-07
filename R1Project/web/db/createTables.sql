@@ -61,7 +61,7 @@ CREATE TABLE Supplier(
 supplierEmail varchar(50) NOT NULL,
 supplierName varchar(30),
 contactName varchar(30),
-supplierAddress varchar(30),
+supplierAddress varchar(50),
 active boolean,
 PRIMARY KEY (supplierEmail)
 );

@@ -59,7 +59,7 @@
 
                         <c:forEach items="${display}" var="display">
                             <tr class="device tr">
-                                <td>${display.deviceID }</td>
+                                <td>${display.deviceID }</td
                                 <td>${display.deviceName }</td>
                                 <td>${display.type }</td>
                                 <td>${display.cost }</td>
