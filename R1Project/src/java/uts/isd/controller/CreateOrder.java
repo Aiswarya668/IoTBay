@@ -187,7 +187,7 @@ public class CreateOrder extends HttpServlet {
                 if (loggedInCustomer == null) {
 
                     // Make everything Anynomous
-                    userEmail = "Anynomous User Email";
+                    userEmail = "anonymous@gmail.com";
                     if (savedStatus.equals("SAVED")) {
                         orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, null,
                             totalCost, null,null, supplierEmail, shipmentPrice,

@@ -48,10 +48,8 @@ public class OrderHistory extends HttpServlet {
             String loggedInEmail = "";
             ArrayList<CustomerOrder> orders = new ArrayList<>();
 
-            if (loggedInCustomer == null) { //FIX THIS BLOCK
-
-                orders = orderManager.getOrdersByUserEmail("Anynomous User Email");
-                
+            if (loggedInCustomer == null) {
+                orders = null;
             } else {
                 orders = orderManager.getOrdersByUserEmail(loggedInCustomer.getEmail());
             }
@@ -67,5 +65,5 @@ public class OrderHistory extends HttpServlet {
         }
 
     }
-
+    
 }
