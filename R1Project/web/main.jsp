@@ -19,6 +19,12 @@
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
             boolean sysadmin = (session.getAttribute("sysadmin") != null);
+            String updateMsg = "";
+            String updatedMsg = (String) session.getAttribute("updateMsg");
+            if (updatedMsg != null) {
+                updateMsg = updatedMsg;
+                session.setAttribute("updateMsg", "");
+            }
             // common attributes amongst staff and customer
             String firstName = "";
             String lastName = "";
@@ -96,8 +102,8 @@
         
         <div class="maincolumn2">
             <div class="card">
-
                 <h1>User Profile</h1>
+                <p><%= (updateMsg != null) ? updateMsg : ""%></p>
                 <table id="profiletable">
                     <tr>
                         <th>First Name</th> <td> <%= firstName%> </td>
