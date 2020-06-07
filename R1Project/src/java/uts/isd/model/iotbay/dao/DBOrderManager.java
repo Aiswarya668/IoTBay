@@ -43,6 +43,7 @@ public class DBOrderManager {
      * Create Order into the database
      *
      * @param customerEmail
+     * @param paymentID
      * @param dateOrdered
      * @param totalPrice
      * @param estArrivalDate
@@ -56,32 +57,33 @@ public class DBOrderManager {
      * @param phoneNumber
      * @throws SQLException
      */
-    public void addOrder(String customerEmail, Timestamp dateOrdered, double totalPrice,
+    public void addOrder(String customerEmail, int paymentID, Timestamp dateOrdered, double totalPrice,
             Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
             String shipmentType, String status, String streetAddress, String unitNumber, String city,
             String state, String postalCode, String phoneNumber) throws SQLException {
         try {
             // create order then
-            String query = "insert into customerorder (customeremail, dateordered, totalprice, estarrivaldate, departuredate, supplierEmail, shipmentprice, shippingtype, status, streetaddress, unitnumber, city, state, postalcode, phonenumber) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "insert into customerorder (customeremail, dateordered, totalprice, estarrivaldate, departuredate, supplierEmail, shipmentprice, shippingtype, status, streetaddress, unitnumber, city, state, postalcode, phonenumber) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             System.out.println(query);
             PreparedStatement pStatement = connection.prepareStatement(query);
 
             pStatement.setString(1, customerEmail);
-            pStatement.setTimestamp(2, dateOrdered);
-            pStatement.setDouble(3, totalPrice);
-            pStatement.setTimestamp(4, estArrivalDate);
-            pStatement.setTimestamp(5, departureDate);
-            pStatement.setString(6, supplierEmail);
-            pStatement.setDouble(7, shipmentPrice);
-            pStatement.setString(8, shipmentType);
-            pStatement.setString(9, status);
-            pStatement.setString(10, streetAddress);
-            pStatement.setString(11, unitNumber);
-            pStatement.setString(12, city);
-            pStatement.setString(13, state);
-            pStatement.setString(14, postalCode);
-            pStatement.setString(15, phoneNumber);
+            pStatement.setInt(2, paymentID);
+            pStatement.setTimestamp(3, dateOrdered);
+            pStatement.setDouble(4, totalPrice);
+            pStatement.setTimestamp(5, estArrivalDate);
+            pStatement.setTimestamp(6, departureDate);
+            pStatement.setString(7, supplierEmail);
+            pStatement.setDouble(8, shipmentPrice);
+            pStatement.setString(9, shipmentType);
+            pStatement.setString(10, status);
+            pStatement.setString(11, streetAddress);
+            pStatement.setString(12, unitNumber);
+            pStatement.setString(13, city);
+            pStatement.setString(14, state);
+            pStatement.setString(15, postalCode);
+            pStatement.setString(16, phoneNumber);
             pStatement.executeUpdate();
 
             // Also save this to device T
@@ -114,6 +116,7 @@ public class DBOrderManager {
         while (rSet.next()) {
             // add all data to above array list
             String orderID = rSet.getString("ORDERID");
+            int paymentID = rSet.getInt("PAYMENTID");
             Date dateOrdered = rSet.getDate("DATEORDERED");
             double totalPrice = rSet.getDouble("TOTALPRICE");
             String estArrivalDate = rSet.getString("ESTARRIVALDATE");
@@ -153,6 +156,7 @@ public class DBOrderManager {
                     new CustomerOrder(
                             orderID,
                             user,
+                            paymentID,
                             dateOrdered,
                             totalPrice,
                             estArrivalDate,
@@ -186,7 +190,7 @@ public class DBOrderManager {
         while (rSet.next()) {
             // add all data to above array list
             String orderID = rSet.getString("ORDERID");
-
+            int paymentID = rSet.getInt("PAYMENTID");
             Date dateOrdered = rSet.getDate("DATEORDERED");
             double totalPrice = rSet.getDouble("TOTALPRICE");
             String estArrivalDate = rSet.getString("ESTARRIVALDATE");
@@ -226,6 +230,7 @@ public class DBOrderManager {
                     new CustomerOrder(
                             orderID,
                             user,
+                            paymentID,
                             dateOrdered,
                             totalPrice,
                             estArrivalDate,

@@ -144,10 +144,14 @@ public class Validator implements Serializable {
     }
     
      //supplier validators - check if search fields for update are empty
-       return  contactName.isEmpty() || supplierName.isEmpty();   
-     public boolean checkSearchEmpty(String contactName, String supplierName){       
+     public boolean checkSearchEmpty(String contactName, String supplierName){
+         return  contactName.isEmpty() || supplierName.isEmpty();   
     }
     
+     public boolean validateMethodOfPayment(String methodOfPayment) {
+         return validate(methodOfPaymentPattern,methodOfPayment);
+     }
+     
     public boolean validatehashedCreditedCardNumber (String cardNumber) {
         return validate(hashedCreditedCardNumberPattern, cardNumber);
     }

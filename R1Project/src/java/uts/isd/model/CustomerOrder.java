@@ -15,6 +15,7 @@ import java.util.Date;
 public class CustomerOrder implements Serializable {
     private String orderID;
     private User user;
+    private int paymentID;
     private Date dateOrdered;
     private double totalPrice;
     private String estimatedArrivalDate;
@@ -25,9 +26,10 @@ public class CustomerOrder implements Serializable {
     private String status;
 
     public CustomerOrder(){}
-    public CustomerOrder(String orderID, User user, Date dateOrdered, double totalPrice, String estimatedArrivalDate, Supplier supplier, double shippingCost, String dateTimeDeparture, String shippingType, String status) {
+    public CustomerOrder(String orderID, User user, int paymentID, Date dateOrdered, double totalPrice, String estimatedArrivalDate, Supplier supplier, double shippingCost, String dateTimeDeparture, String shippingType, String status) {
         this.orderID = orderID;
         this.user = user;
+        this.paymentID = paymentID;
         this.dateOrdered = dateOrdered;
         this.totalPrice = totalPrice;
         this.estimatedArrivalDate = estimatedArrivalDate;
@@ -53,7 +55,15 @@ public class CustomerOrder implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+    
+    public int getPaymentID(){
+        return paymentID;
+    }
 
+    public void setPaymentID(int paymentID){
+        this.paymentID = paymentID;
+    }
+    
     public Date getDateOrdered() {
         return dateOrdered;
     }

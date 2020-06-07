@@ -86,7 +86,7 @@ public class DBPaymentSnapshotsManager {
             
         return result;    }
     
-    public PaymentSnapshots findPaymentSnapshots(ArrayList<Integer> payIDArray) throws SQLException {
+    public ArrayList<PaymentSnapshots> findPaymentSnapshotsWithArray(ArrayList<Integer> payIDArray) throws SQLException {
         
         String stString = "(" + payIDArray.get(0);
         
@@ -98,6 +98,7 @@ public class DBPaymentSnapshotsManager {
         
         String query = "SELECT * FROM IOTBAYUSER.PAYMENTSNAPSHOTS WHERE PAYMENTID IN" + stString;
         ResultSet rs = st.executeQuery(query);
+        ArrayList<PaymentSnapshots> result = new ArrayList();
         
         while (rs.next()){
             int foundPaymentID = rs.getInt(1);
@@ -108,12 +109,11 @@ public class DBPaymentSnapshotsManager {
                 String foundPayDate = rs.getString(6);
                 String foundCardExpiryDate = rs.getString(5);
                 double foundAmount = rs.getDouble(7);        
-                
-                return new PaymentSnapshots(foundPaymentID, foundMethodOfPayment, foundHashedCreditedCardNumber,foundCardSecurityCode, foundCardExpiryDate, foundPayDate, foundAmount);
+
+                result.add(new PaymentSnapshots(foundPaymentID, foundMethodOfPayment, foundHashedCreditedCardNumber,foundCardSecurityCode, foundCardExpiryDate, foundPayDate, foundAmount));
             }
         }
-        
-        throw new SQLException("No payments exist for this customer");
+        return result;
     }
     
     public int findPaymentID(String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate, String payDate, double amount) throws SQLException {

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
 import uts.isd.model.CustomerOrder;
+import uts.isd.model.PaymentSnapshots;
 import uts.isd.model.iotbay.dao.DBOrderManager;
 import uts.isd.model.iotbay.dao.DBPaymentSnapshotsManager;
 
@@ -39,7 +40,7 @@ public class PaymentHistoryServlet {
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("");
         
         try {
-            ArrayList<CustomerOrder> orders = orderManager.fetchOrders(customerEmail);
+            ArrayList<CustomerOrder> orders = orderManager.getOrdersByUserEmail(customerEmail);
             
             if (orders != null) {
                 session.setAttribute("paymentHistory", null);
@@ -52,7 +53,7 @@ public class PaymentHistoryServlet {
                 payIDArray.add(orders.get(i).getPaymentID());
             }    
             
-            ArrayList<PaymentSnapshots> paymentHistory = paymentSnapshotsManager.findPaymentSnapshots(payIDArray);
+            ArrayList<PaymentSnapshots> paymentHistory = paymentSnapshotsManager.findPaymentSnapshotsWithArray(payIDArray);
                    
             
             request.setAttribute("paymentHistory", paymentHistory);
