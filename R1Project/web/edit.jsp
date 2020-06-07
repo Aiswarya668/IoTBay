@@ -31,7 +31,6 @@
             String cityErr = (String) session.getAttribute("cityEditErr");
             String stateErr = (String) session.getAttribute("stateEditErr");
             String postErr = (String) session.getAttribute("postEditErr");
-            String updatedMsg = (String) session.getAttribute("updateMsg");
             String managerErr = (String) session.getAttribute("managerEditErr");
             String contractTypeErr = (String) session.getAttribute("contractTypeEditErr");
             String payHrErr = (String) session.getAttribute("payHrEditErr");
@@ -94,7 +93,6 @@
         <div class="maincolumn2">
             <div class="card">
                 <h1>Edit profile</h1>
-                <p><%= (updatedMsg != null) ? updatedMsg : ""%></p>
                 <p><%= (existErr != null) ? existErr : ""%></p>
                 <p><%=(emailErr != null ? emailErr : "")%></p>
                 <p><%=(passErr != null ? passErr : "")%></p>
