@@ -19,6 +19,7 @@
 
     <body>
         <%
+            // get error messages from session
             String existErr = (String) session.getAttribute("existEditErr");
             String emailErr = (String) session.getAttribute("emailEditErr");
             String passErr = (String) session.getAttribute("passEditErr");
@@ -35,10 +36,14 @@
             String contractTypeErr = (String) session.getAttribute("contractTypeEditErr");
             String payHrErr = (String) session.getAttribute("payHrEditErr");
 
+            // get sysadmin status
             boolean sysadmin = (session.getAttribute("sysadmin") != null);
+
+            // get customer/staff objects to display details in form
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
             Staff s = null; // JSTL core tag to Java
+
             // common attributes amongst staff and customer
             String firstName = "";
             String lastName = "";
@@ -59,6 +64,7 @@
             String contractType = "";
             String payHr = "";
 
+            // get field values for customer or staff
             if (customer != null) {
                 firstName = customer.getFirstName();
                 lastName = customer.getLastName();
