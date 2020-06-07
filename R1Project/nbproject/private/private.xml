@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/OrderHistorySearch.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/CompletePaymentServlet.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/updateOrder.jsp</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/orderHistory.jsp</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/OrderPaymentServlet.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/CreateOrder.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/OrderHistory.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/orderPayment.jsp</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBOrderManager.java</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/updateOrder.java</file>
-            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/CreateOrder.java</file>
-            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/welcome.jsp</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Supplier.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/cancelOrder.java</file>
         </group>
     </open-files>
 </project-private>

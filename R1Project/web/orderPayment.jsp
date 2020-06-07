@@ -79,7 +79,7 @@
                             <td>${order.unitNumber}</td>
                             <td>${order.city}</td>
                             <td>${order.state}</td>
-                            <td>${order.postcode}</td>
+                            <td>${order.postalCode}</td>
                             <td>${order.phoneNumber}</td>
                         </tr>
                     </tbody>
@@ -107,11 +107,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${paymentDetail.CustomerEmail}</td>
-                            <td>${paymentDetail.methodOfPayment}</td>
-                            <td>${paymentDetail.hashedCreditedCardNumber}</td>
-                            <td>${paymentDetail.cardSecurityCode}</td>
-                            <td>${paymentDetail.cardExpiryDate}</td>
+                            <td><%=paymentDetail.getCustomerEmail()%></td>
+                            <td><%=paymentDetail.getMethodOfPayment()%></td>
+                            <td><%=paymentDetail.getHashedCreditedCardNumber()%></td>
+                            <td><%=paymentDetail.getCardSecurityCode()%></td>
+                            <td><%=paymentDetail.getCardExpiryDate()%></td>
                         </tr>
                     </tbody>
                 </table>
@@ -132,6 +132,7 @@
                         <tr><td>Credit Card Expiry Date</td><td><input type="text" placeholder="<%=(expiryDateFieldErr != null ? expiryDateFieldErr :"Enter credit card expirty date")%>" name="cardExpiryDate"></td></tr>  
                     </table>
                     <div>
+                    <br>
                         <%
                             if (paymentDetail == null) {
                         %>
@@ -144,10 +145,13 @@
                         <%
                             }
                         %>
-                        <a class="button2" href="">Cancel</a>
                         <p class ="error"><%=(exceptionErr != null ? exceptionErr : "")%></p>
                     </div>
                 </form>
+                <form>
+                    <a class="button4" href="">Cancel</a>
+                </form>
+                <br>
                 <form method="post" method="get" action="CompletePaymentServlet">
                     <input type="hidden" name="methodOfPayment" value="${paymentDetail.methodOfPayment}" />
                     <input type="hidden" name="hashedCreditedCardNumber" value="${paymentDetail.hashedCreditedCardNumber}" />

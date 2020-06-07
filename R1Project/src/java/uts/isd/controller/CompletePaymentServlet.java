@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,7 +30,9 @@ import uts.isd.model.iotbay.dao.DBPaymentSnapshotsManager;
  *
  * @author James
  */
-public class CompletePaymentServlet {
+@WebServlet(name = "CompletePaymentServlet", urlPatterns = {"/CompletePaymentServlet"})
+public class CompletePaymentServlet extends HttpServlet{
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();

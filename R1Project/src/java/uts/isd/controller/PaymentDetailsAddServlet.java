@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +23,9 @@ import uts.isd.model.iotbay.dao.DBPaymentDetailsManager;
  *
  * @author James
  */
-public class PaymentDetailsAddServlet {
+@WebServlet(name = "PaymentDetailsAddServlet", urlPatterns = {"/PaymentDetailsAddServlet"})
+public class PaymentDetailsAddServlet extends HttpServlet{
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
@@ -32,7 +36,7 @@ public class PaymentDetailsAddServlet {
         
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
         
-        String customerEmail = customer.getEmail();
+        String customerEmail = (customer != null) ? customer.getEmail() : "anonymous@gmail.com";
         
         String methodOfPayment = request.getParameter("methodOfPayment");
         
@@ -57,7 +61,8 @@ public class PaymentDetailsAddServlet {
             
         } else if (!validator.validateMethodOfPayment(methodOfPayment)) {
             
-            session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect");    
+            session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
@@ -67,6 +72,7 @@ public class PaymentDetailsAddServlet {
         } else if (!validator.validatehashedCreditedCardNumber(hashedCreditedCardNumber)) {
             
             session.setAttribute("cardNumberFieldErr", "Error: Card Number format incorrect");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
@@ -76,6 +82,7 @@ public class PaymentDetailsAddServlet {
         } else if (!validator.validatecardSecurityCode(cardSecurityCode)) {
 
             session.setAttribute("cardCodeFieldErr", "Error: Card Security Code format incorrect");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
@@ -85,6 +92,7 @@ public class PaymentDetailsAddServlet {
         } else if (!validator.validatecardExpiryDate(cardExpiryDate)) {   
             
             session.setAttribute("expiryDateFieldErr", "Error: Card Expiry Date format incorrect");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
@@ -93,10 +101,14 @@ public class PaymentDetailsAddServlet {
             
         } else {
             try {
-                paymentDetailsManager.addPaymentDetails(customerEmail, methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
-                
-                PaymentDetails paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);
-                
+                PaymentDetails paymentDetails = null;
+                if (!customerEmail.equals("anonymous@gmail.com")){
+                    paymentDetailsManager.addPaymentDetails(customerEmail, methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
+                    paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);
+                } else {
+                    paymentDetails = new PaymentDetails("", methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
+                }
+  
                 request.setAttribute("paymentDetails", paymentDetails);
                 
                 if (isOrder.equals("true")) {

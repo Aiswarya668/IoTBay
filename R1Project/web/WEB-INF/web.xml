@@ -9,10 +9,45 @@
         <servlet-name>SupplierListServlet</servlet-name>
         <servlet-class>uts.isd.controller.SupplierListServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>CreateOrder</servlet-name>
         <servlet-class>uts.isd.controller.CreateOrder</servlet-class>
     </servlet>
+    
+    
+    <servlet>
+        <servlet-name>OrderPaymentServlet</servlet-name>
+        <servlet-class>uts.isd.controller.OrderPaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompletePaymentServlet</servlet-name>
+        <servlet-class>uts.isd.controller.CompletePaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentDetailsAddServlet</servlet-name>
+        <servlet-class>uts.isd.controller.PaymentDetailsAddServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentDetailsDeleteServlet</servlet-name>
+        <servlet-class>uts.isd.controller.PaymentDetailsDeleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentDetailsServlet</servlet-name>
+        <servlet-class>uts.isd.controller.PaymentDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentDetailsUpdateServlet</servlet-name>
+        <servlet-class>uts.isd.controller.PaymentDetailsUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentHistoryServlet</servlet-name>
+        <servlet-class>uts.isd.controller.PaymentHistoryServlet</servlet-class>
+    </servlet>
+    
+    
+    
+    
+    
     <servlet>
         <servlet-name>OrderHistory</servlet-name>
         <servlet-class>uts.isd.controller.OrderHistory</servlet-class>
@@ -194,8 +229,39 @@
         <url-pattern>/UserDeleteServlet</url-pattern>
     </servlet-mapping>
     
-    
-        <servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>OrderPaymentServlet</servlet-name>
+        <url-pattern>/OrderPaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompletePaymentServlet</servlet-name>
+        <url-pattern>/CompletePaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentDetailsAddServlet</servlet-name>
+        <url-pattern>/PaymentDetailsAddServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentDetailsDeleteServlet</servlet-name>
+        <url-pattern>/PaymentDetailsDeleteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentDetailsServlet</servlet-name>
+        <url-pattern>/PaymentDetailsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentDetailsUpdateServlet</servlet-name>
+        <url-pattern>/PaymentDetailsUpdateServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentHistoryServlet</servlet-name>
+        <url-pattern>/PaymentHistoryServlet</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet-mapping>
         <servlet-name>CreateOrder</servlet-name>
         <url-pattern>/CreateOrder</url-pattern>
     </servlet-mapping>
