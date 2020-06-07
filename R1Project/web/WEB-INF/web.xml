@@ -33,6 +33,10 @@
     
     
     <servlet>
+        <servlet-name>UserListServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UserListServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddSupplierServlet</servlet-name>
         <servlet-class>uts.isd.controller.AddSupplierServlet</servlet-class>
     </servlet>
@@ -63,6 +67,10 @@
     <servlet>
         <servlet-name>EditDeviceServlet</servlet-name>
         <servlet-class>uts.isd.controller.EditDeviceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateDeviceServlet</servlet-name>
@@ -106,12 +114,20 @@
         <url-pattern>/ConnServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SupplierListServlet</servlet-name>
         <url-pattern>/SupplierListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListServlet</servlet-name>
+        <url-pattern>/UserListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddSupplierServlet</servlet-name>

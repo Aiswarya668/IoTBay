@@ -1,5 +1,5 @@
 insert into staff (staffemail, fname, lname, phonenumber, password, streetaddress, unitnumber, city, state, postalcode, manager, loginstatus, registerdate, contracttype, payhr, active) values ('sstocker0@newsvine.com', 'Shandee', 'Stocker', '3098723351', 'hjk0tbtgi', 'Prosacco St', '120', 'Peoria', 'Illinois', '6920', 'cbailes2@nasa.gov', false, '2020-12-24 14:58:14', 'Casual', 14.98, true),
-('cbailes2@nasa.gov', 'Wynne', 'Mully', '7204601057', 'L1b7yjz1uu6r', 'Willms St', '2', 'Littleton', 'Colorado', '2851', 'cbailes2@nasa.gov', false, '2020-12-22 00:53:31', 'Part Time', 68.36, true),
+('cbailes2@nasa.gov', 'Wynne', 'Mully', '7204601057', '1234', 'Willms St', '2', 'Littleton', 'Colorado', '2851', 'cbailes2@nasa.gov', false, '2020-12-22 00:53:31', 'Part Time', 68.36, true),
 ('dcurneen2@mayoclinic.com', 'Delia', 'Curneen', '3059900254', 'DHRP9wxD', 'Ernser St', '97365', 'Miami', 'Florida', '1636', 'cbailes2@nasa.gov', false, '2020-11-11 17:11:56', 'Full Time', 15.66, true),
 ('cquadling3@google.cn', 'Cammi', 'Quadling', '7085215792', 'yu4Rt7w', 'Schultz St', '9981', 'Schaumburg', 'Illinois', '8226', 'cbailes2@nasa.gov', true, '2020-09-25 01:33:48', 'Part Time', 94.12, true),
 ('rliddel4@engadget.com', 'Rabbi', 'Liddel', '2174651561', 'qYRqnRk', 'Swift St', '34295', 'Springfield', 'Illinois', '6265', 'cbailes2@nasa.gov', true, '2020-09-29 00:28:47', 'Full Time', 18.47, true),
@@ -97,4 +97,5 @@ insert into staff (staffemail, fname, lname, phonenumber, password, streetaddres
 ('hwilliamson2o@netscape.com', 'Hilliard', 'Williamson', '2397237778', '9WhCqe8bSe', 'Dare St', '3', 'Fort Myers', 'Florida', '3416', 'cbailes2@nasa.gov', true, '2020-12-23 16:20:52', 'Part Time', 32.62, true),
 ('rbisgrove2p@surveymonkey.com', 'Rose', 'Bisgrove', '5127759074', '0O6I0JTs5', 'Jacobi St', '07', 'Austin', 'Texas', '8196', 'cbailes2@nasa.gov', false, '2020-12-10 04:48:11', 'Full Time', 27.43, true),
 ('pewell2q@google.de', 'Perice', 'Ewell', '7021427250', 'crNzok69', 'Rogahn St', '62', 'Las Vegas', 'Nevada', '0815', 'cbailes2@nasa.gov', true, '2020-12-11 12:30:55', 'Full Time', 28.7, true),
-('aratnage2r@github.io', 'Andreas', 'Ratnage', '2108409529', 'HvljQDKIQ', 'Thompson St', '2154', 'San Antonio', 'Texas', '9725', 'cbailes2@nasa.gov', false, '2020-12-13 15:46:57', 'Full Time', 81.09, true);
+('aratnage2r@github.io', 'Andreas', 'Ratnage', '2108409529', 'HvljQDKIQ', 'Thompson St', '2154', 'San Antonio', 'Texas', '9725', 'cbailes2@nasa.gov', false, '2020-12-13 15:46:57', 'Full Time', 81.09, true),
+('admin@iotbay.com', 'System', 'Admin', '980000000', 'admin', 'Admin St', '24', 'Sydney', 'NSW', '2000', 'cbailes2@nasa.gov', false, '2020-05-18 15:46:57', 'Full Time', 35.5, true);

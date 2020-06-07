@@ -46,7 +46,9 @@ public class AddSupplierServlet extends HttpServlet {
         String supplierAddress = request.getParameter("supplierAddress");
         
         //capture the posted active status - parse as a boolean as the input is a string in form  
-        Boolean active = Boolean.parseBoolean(request.getParameter("active"));
+        // active = Boolean.parseBoolean(request.getParameter("active"));
+        //boolean active = (request.getParameter("active").equals("on") || request.getParameter("active").equals("null"));
+        boolean active = (request.getParameter("active") != null);
 
         //4) retrieve the manager instance from session - ConnServlet            
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
@@ -54,27 +56,66 @@ public class AddSupplierServlet extends HttpServlet {
         
         Supplier supplier = null;
         validator.clear(session);
-
+        
         try {
-            supplier = supplierManager.findSupplier(contactName, supplierName);
+            supplier = supplierManager.findSupplierPK(supplierEmail);
         } catch (SQLException ex) {
             Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (supplier != null) {
 
-            session.setAttribute("exceptionErr", "Supplier with point of contact already exists");
+            session.setAttribute("exceptionSupplierErr", "Supplier with point of contact already exists");
             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
-        } 
+        }
+        
+        //validators
+       
+        //if any fields are empty?
+        else if(validator.checkSupplierEmpty(contactName,supplierName,supplierEmail,supplierAddress)){
+             session.setAttribute("supplierEmptyErr", "Error: All fields are mandatory!");
+             request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+        }
+        
+        else if (!validator.validateContactName(contactName)) {
+            //1- set incorrect contactName error to the session 
+            session.setAttribute("contactNameErr", "Error: Contact name format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier name format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp     
+            request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+       
+        } else if (!validator.validateSupplierName(supplierName)) {
+            //1- set incorrect supplierName error to the session 
+            session.setAttribute("supplierNameErr", "Error: Company name type format incorrect");
+            session.setAttribute("formatErr", "Error: Company name type format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp    
+            request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+        
+        } else if (!validator.validateSupplierEmail(supplierEmail)) {
+            //1- set incorrect type error to the session 
+            session.setAttribute("supplierEmailErr", "Error: Supplier email format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier email format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp   
+            request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+        
+        } else if (!validator.validateSupplierAddress(supplierAddress)) {
+            //1- set incorrect type error to the session 
+            session.setAttribute("supplierAddressErr", "Error: Supplier address format incorrect");
+            session.setAttribute("formatErr", "Error: Supplier address format incorrect");
+            //2- redirect system admin back to the addSupplier.jsp    
+            request.getRequestDispatcher("addSupplier.jsp").include(request, response);
+        }
+        
         
         
         else {
             try {
                 supplierManager.addSupplier(contactName, supplierName, supplierEmail, supplierAddress, active);
                 request.setAttribute("supplier", supplier);
-                request.getRequestDispatcher("addedSupplier.jsp").include(request, response);
+                session.setAttribute("creationConfirmation", "Supplier creation was successful");
+                request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             } catch (SQLException ex) {
-                session.setAttribute("exceptionErr", "Registration failed");
+                session.setAttribute("exceptionSupplierErr", "Submission Failed");
                 request.getRequestDispatcher("addSupplier.jsp").include(request, response);
             }
 
@@ -82,5 +123,7 @@ public class AddSupplierServlet extends HttpServlet {
         
 
     }
+    
+    
 
 }
