@@ -16,9 +16,21 @@
     <body>
 
         <%
+            // get customer/staff objects
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
+
+            // get sysadmin status
             boolean sysadmin = (session.getAttribute("sysadmin") != null);
+
+            // get update message
+            String updateMsg = "";
+            String updatedMsg = (String) session.getAttribute("updateMsg");
+            if (updatedMsg != null) {
+                updateMsg = updatedMsg;
+                session.setAttribute("updateMsg", "");
+            }
+
             // common attributes amongst staff and customer
             String firstName = "";
             String lastName = "";
@@ -47,6 +59,7 @@
                 session.setAttribute("editor", null);
             }
 
+            // get field values for customer or staff
             if (customer != null) {
                 firstName = customer.getFirstName();
                 lastName = customer.getLastName();
@@ -64,7 +77,6 @@
                 lastName = staff.getLastName();
                 email = staff.getEmail();
                 password = staff.getPassword();
-//                gender = staff();
                 phoneNumber = staff.getPhoneNumber();
                 unitNumber = staff.getUnitNumber();
                 streetAddress = staff.getStreetAddress();
@@ -93,11 +105,11 @@
         <% } else {%> 
         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
         <% }%> 
-        
+
         <div class="maincolumn2">
             <div class="card">
-
                 <h1>User Profile</h1>
+                <p><%= (updateMsg != null) ? updateMsg : ""%></p>
                 <table id="profiletable">
                     <tr>
                         <th>First Name</th> <td> <%= firstName%> </td>

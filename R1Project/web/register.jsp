@@ -17,6 +17,7 @@
         <title>Registration Page</title>
     </head>
     <%
+        // get error messages from session
         String emailErr = (String) session.getAttribute("emailErr");
         String passErr = (String) session.getAttribute("passErr");
         String fNameErr = (String) session.getAttribute("fNameErr");

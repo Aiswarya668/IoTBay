@@ -173,6 +173,7 @@ public class Validator implements Serializable {
         session.setAttribute("userDeleteErr", "");
 
         //deviceCreation clear()
+        session.setAttribute("quantityErr", "");
         session.setAttribute("deviceupdateMsg", "");
         session.setAttribute("deviceDeletedMsg", "");
         session.setAttribute("devicecreatedMsg", "");

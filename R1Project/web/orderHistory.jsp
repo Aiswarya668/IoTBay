@@ -43,7 +43,7 @@
             </a>
 
             <hr/>
-             <a href="/listDevices.jsp ">Go Back</a>   
+             <a href="ViewDeviceServletUsers">Go Back</a>   
             <h3 class="iot-center">Your Order History</h3>
             
             

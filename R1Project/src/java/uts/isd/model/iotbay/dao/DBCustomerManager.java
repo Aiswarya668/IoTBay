@@ -30,7 +30,6 @@ public class DBCustomerManager {
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
 
-
         while (rs.next()) {
             String customerEmail = rs.getString(1);
             String customerFname = rs.getString(2);
@@ -45,49 +44,15 @@ public class DBCustomerManager {
             boolean customerLoginStatus = rs.getBoolean(11);
             java.util.Date customerRegisterDate = rs.getDate(12);
             String customerGender = rs.getString(13);
-                boolean customerActive = rs.getBoolean(14);
-                return new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
-                        customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
-                        customerRegisterDate, customerLoginStatus, customerActive);
+            boolean customerActive = rs.getBoolean(14);
+            return new Customer(customerFname, customerLname, customerEmail, customerPass, customerGender,
+                    customerUnit, customerSAdd, customerCity, customerState, customerPostC, customerPhone,
+                    customerRegisterDate, customerLoginStatus, customerActive);
         }
         stmt.close();
         throw new SQLException("No such customer exists");
     }
 
-    // //Find customer by email and password in the database
-    // public Customer findCustomer(String customerEmail, String customerPass)
-    // throws SQLException {
-    // //setup the select sql query string
-    // String query = "SELECT * FROM IOTBAYUSER.CUSTOMER WHERE CUSTOMEREMAIL='" +
-    // customerEmail + "' AND PASSWORD='" + customerPass + "'";
-    // //execute this query using the statement field
-    // //add the results to a ResultSet
-    // ResultSet rs = st.executeQuery(query);
-    // //search the ResultSet for a customer using the parameters
-    // while (rs.next()) {
-    // String customerEmail = rs.getString(1); // get string at index 2 (column 2)
-    // String customerPass = rs.getString(5); // get string at index 3
-    // if (customerEmail.equals(email) && customerPass.equals(password)) {
-    // String customerFName = rs.getString(2);
-    // String customerLName = rs.getString(3);
-    // String customerPhone = rs.getString(4);
-    // String customerStreetAddr = rs.getString(6);
-    // String customerUnitNo = rs.getString(7);
-    // String customerCity = rs.getString(8);
-    // String customerState = rs.getString(9);
-    // String customerPostCode = rs.getString(10);
-    // boolean customerLoginStatus = rs.getBoolean(11);
-    // java.util.Date customerRegisterDate = rs.getDate(12);
-    // String customerGender = rs.getString(13);
-    // return new Customer(customerFName, customerLName, customerEmail,
-    // customerPass, customerGender, customerUnitNo,
-    // customerStreetAddr, customerCity, customerState,
-    // customerPostCode, customerPhone,
-    // customerRegisterDate, customerLoginStatus);
-    // }
-    // }
-    // return null;
-    // }
     // Create (Add Customer data into the database)
     public void addCustomer(String customerFname, String customerLname, String customerEmail, String customerPass,
             String customerGender, String customerUnit, String customerSAdd, String customerCity, String customerState,
@@ -149,8 +114,7 @@ public class DBCustomerManager {
 
     // Delete (Delete a Customer from the database)
     public void deleteCustomer(String customerEmail) throws SQLException {
-//        st.executeUpdate("DELETE FROM IOTBAYUSER.CUSTOMER WHERE CUSTOMEREMAIL = '" + customerEmail + "'");
-        
+
         String query = "DELETE FROM IOTBAYUSER.CUSTOMER WHERE CUSTOMEREMAIL = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, customerEmail);
@@ -159,6 +123,7 @@ public class DBCustomerManager {
         stmt.close();
     }
 
+    // Fetch all customers
     public ArrayList<Customer> fetchCustomers() throws SQLException {
         String query = "SELECT * FROM Customer";
         ResultSet rs = st.executeQuery(query);
@@ -188,6 +153,7 @@ public class DBCustomerManager {
         return result;
     }
 
+    // Check if customer exists in database
     public boolean checkCustomer(String customerEmail) throws SQLException {
         String query = "SELECT * FROM IOTBAYUSER.Customer WHERE CUSTOMEREMAIL = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -202,7 +168,7 @@ public class DBCustomerManager {
             }
         }
         return false;
-        
+
     }
 
     // deactivate a customer - set their active status to false
@@ -215,6 +181,7 @@ public class DBCustomerManager {
         stmt.executeUpdate();
         stmt.close();
     }
+
     // activate a customer - set their active status to true
     public void activateCustomer(String customerEmail) throws SQLException {
         String query = "UPDATE IOTBAYUSER.CUSTOMER SET ACTIVE = ? WHERE CUSTOMEREMAIL = ?";

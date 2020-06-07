@@ -35,7 +35,7 @@ public class EditServlet extends HttpServlet {
 
         Customer customer = (Customer) session.getAttribute("customer");
         Staff staff = (Staff) session.getAttribute("staff");
-        // sysadmin user management - capture current userEmail
+        // sysadmin user management - capture current userEmail and userType
         String userEmail = "";
         String userType = "";
         if (request.getParameter("userEmail") != null && request.getParameter("userType") != null) {
@@ -44,12 +44,12 @@ public class EditServlet extends HttpServlet {
         } else if (staff != null) {
             userEmail = staff.getEmail();
             userType = "staff";
-            // sysadmin user management - capture the posted userType
         } else if (customer != null) {
             userEmail = customer.getEmail();
             userType = "customer";
         }
 
+        // get sysadmin status
         boolean sysadmin = (session.getAttribute("sysadmin") != null);
         // hold sysadmin credentials while editing another user
         if (sysadmin) {
@@ -80,14 +80,17 @@ public class EditServlet extends HttpServlet {
                 request.getRequestDispatcher("main.jsp").include(request, response);
             }
         } else if ((sysadmin && userType.equals("customer")) || (!sysadmin && customer != null)) {
+            // if sysadmin editing customer or customer editing themself
             // retrieve the manager instance from session - ConnServlet            
             DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
 
+            // reset current customer
             customer = null;
             session.setAttribute("customer", null);
             session.setAttribute("staff", null);
 
             try {
+                // set customer based on email
                 customer = customerManager.findCustomer(userEmail);
                 session.setAttribute("customer", customer);
                 session.setAttribute("staff", null); // staff and customer cannot be in session simultaneously
@@ -103,11 +106,11 @@ public class EditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //1- retrieve the current session
+        // retrieve the current session
         HttpSession session = request.getSession();
-        //2- create an instance of the Validator class
+        // create an instance of the Validator class
         Validator validator = new Validator();
-        //3- capture the posted parameters/info fields  
+        // capture the posted parameters/info fields  
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
         String email = request.getParameter("Email");
@@ -127,9 +130,11 @@ public class EditServlet extends HttpServlet {
         String contractType = request.getParameter("ContractType");
         String payHr = request.getParameter("PayHr");
 
-        //5- retrieve the manager instance from session
+        // retrieve the manager instance from session
         DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
         DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
+
+        // get sysadmin status
         boolean sysadmin = (session.getAttribute("sysadmin") != null);
 
         // retrieve old customer values from session
@@ -197,10 +202,9 @@ public class EditServlet extends HttpServlet {
             return;
         }
 
+        // reset
         Customer customer = null;
         Staff staff = null;
-
-        // reset
         validator.clear(session);
 
         try {
@@ -402,6 +406,7 @@ public class EditServlet extends HttpServlet {
                 }
             } else {
                 try {
+                    // update staff details
                     staffManager.updateStaff(email, firstName, lastName,
                             phoneNumber, password, streetAddress, unitNumber, city,
                             state, postCode, manager, contractType, Integer.parseInt(payHr), true);
