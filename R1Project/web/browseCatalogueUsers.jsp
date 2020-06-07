@@ -28,14 +28,15 @@
         Device device = (Device) session.getAttribute("display");
         Customer customer = (Customer) session.getAttribute("customer");
         Staff staff = (Staff) session.getAttribute("staff");
+         String quantityErr = (String) session.getAttribute("quantityErr");
     %>
-    
+
     <% if (customer != null || staff != null) { %>
-        <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+    <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
     <% } else { %>
-        <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <% } %>
-    
+
     <div class="deviceCatcolumn">
         <div class="deviceCatcard">
 
@@ -44,8 +45,10 @@
 
                 <h1>Device Catalogue</h1>
                 <form method="post" method="get">      
-                        Search device: <input id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name"> <input id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
-                    
+                    Search device: <input id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name"> <input id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
+
+                     <p class ="error"><%=(quantityErr != null) ? quantityErr :""%></p>
+                     
                     <table id="deviceTable" class="device Table">
                         <tr>
                             <td>Device ID</td>
@@ -54,10 +57,10 @@
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>                          
-                            
+
                             <% if (staff != null) { %>
                             <td colspan="2" > Actions</td>
-                            <% }  else {%>
+                            <% } else {%>
                             <td> Actions</td>
                             <% }  %>
 
@@ -75,8 +78,12 @@
                                 <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
                                 <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
                                 <% } else if (customer != null || customer == null) { %>
-                                <td><p class="right"> <a class="button1" href="createOrder.jsp ">Buy</a> </p></td>
+                                <td>
+                                    <a href="/CreateOrder?id=${display.deviceID}" class="button1">
+                                        Order
+                                    </a>        
                                 <% }%>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>
