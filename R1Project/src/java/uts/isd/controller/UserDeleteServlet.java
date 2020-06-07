@@ -30,26 +30,28 @@ public class UserDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {//        processRequest(request, response);
+            throws ServletException, IOException {
 
-        // 1- retrieve the current session
+        // retrieve the current session
         HttpSession session = request.getSession();
-        // 3- capture the posted email
+        // capture the posted email
         String customerEmail = request.getParameter("customerEmail");
         String staffEmail = request.getParameter("staffEmail");
-        // 4- capture the posted password
-//        String password = request.getParameter("Password");
-        // 5- retrieve the manager instance from session
+        // retrieve the manager instance from session
         DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
         DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
 
         Customer customer = null;
         Staff staff = null;
         try {
+            // customer exists
             if (customerManager.findCustomer(customerEmail) != null) {
+                // delete customer
                 customerManager.deleteCustomer(customerEmail);
+                // set confirmation message
                 session.setAttribute("deleteMsg", "Customer deleted (" + customerEmail + ")");
             } else {
+                // customer does not exist
                 session.setAttribute("userDeleteErr", "Customer does not exist.");
             }
         } catch (SQLException ex) {
@@ -57,10 +59,14 @@ public class UserDeleteServlet extends HttpServlet {
             Logger.getLogger(UserDeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
+            // staff exists
             if (staffManager.findStaff(staffEmail) != null) {
+                // delete staff
                 staffManager.deleteStaff(staffEmail);
+                // set confirmation message
                 session.setAttribute("deleteMsg", "Staff deleted (" + staffEmail + ")");
             } else {
+                // staff does not exist
                 session.setAttribute("userDeleteErr", "Staff does not exist.");
             }
         } catch (SQLException ex) {
