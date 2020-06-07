@@ -67,6 +67,10 @@ public class CreateOrder extends HttpServlet {
                 RequestDispatcher v = request.getRequestDispatcher("/createOrder.jsp");
                 v.forward(request, response);
             }
+            else if (theDevice.getStockQuantity() == 0) {
+                response.sendRedirect("ViewDeviceServletUsers");
+                session.setAttribute("quantityErr", "Error: Not enough stock!");
+            }
         } else {
             response.sendRedirect("/listDevices.jsp");
         }
