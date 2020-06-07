@@ -91,10 +91,12 @@ public class CreateOrder extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager"); //PROBS TAKE OUT
 
             DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
-
+            
+            ArrayList<CustomerOrder> Tester = orderManager.getOrdersById("-1");
+            
             Device theDevice = (Device) session.getAttribute("buyDevice");
 
             // if there is no device , please redirect it 
@@ -104,9 +106,6 @@ public class CreateOrder extends HttpServlet {
 
             // for tracking errors
             ArrayList<String> orderErrors = new ArrayList<>();
-
-            // create a actual order
-            CustomerOrder order = new CustomerOrder();
 
             // get all data from order form
             String amountFromInput = request.getParameter("amount");
@@ -153,8 +152,7 @@ public class CreateOrder extends HttpServlet {
             } else {
 
                 // set status of the device
-                String action
-                        = request.getParameter("action");
+                String action = request.getParameter("action");
                 System.out.println(action);
                 String savedStatus = "SAVED";
                 String submittedStatus = "SUBMITED";
@@ -165,88 +163,83 @@ public class CreateOrder extends HttpServlet {
                 } else if (submittedStatus.equalsIgnoreCase(action)) {
                     orderStatus = submittedStatus;
                 }
-
+                
+                
+                
                 // Make data to be saved to Customer order ready
-                String orderID = "" + (new Random()).nextInt(999999);
+                // String orderID = "" + (new Random()).nextInt(999999);
+                
                 // get customer from session
                 Customer loggedInCustomer = (Customer) request.getAttribute("customer");
 
                 String userEmail = "";
 
-                if (loggedInCustomer == null) {
-
-                    // Make everything Anynomous
-                    userEmail = "Anynomous User Email";
-
-                    User user = new User("Anynomous", "Anynomous", "Anynomous", "Anynomous", "Anynomous",
-                            unitNumber, streetAddress, city, state, postcode);
-                    Supplier sup = new Supplier("Anynomous", "Anynomous", "Anynomous", "Anynomous", true);
-
-                    CustomerOrder aOrder = new CustomerOrder(
-                            orderID,
-                            user,
-                            new Date(),
-                            totalCost + 10,
-                            new Date().toString(),
-                            sup, 10,
-                            new Date().toString(),
-                            "Air",
-                            orderStatus);
-
-                    if (session.getAttribute("allOrders") == null) {
-                        session.setAttribute("allOrders", new ArrayList<CustomerOrder>());
-                    }
-                    ArrayList<CustomerOrder> custOrders = (ArrayList) session.getAttribute("allOrders");
-                    custOrders.add(aOrder);
-                    System.out.println(custOrders);
-                    session.setAttribute("allOrders", custOrders);
-                   
-                } else {
-                    userEmail = loggedInCustomer.getEmail();
-                }
-                // Current Date
-                Timestamp dateOrdered = new Timestamp(new Date().getTime());
-
-                // Estimated Arrival Date 
-                // TODO: How to calculate them?? 
-                Timestamp estArrivalDate = new Timestamp(new Date().getTime());
-                Timestamp departureDate = new Timestamp(new Date().getTime());
-
                 // Get supplier Email Address
                 // TODO: Just fakeing it as there is no way to link device with supplier
-                String supplierEmail = "";
+                String supplierEmail = "fkaines28@mozilla.com";
                 // Also same for shipment Price
                 double shipmentPrice = totalCost + 10;
                 // Same for shipment Type
                 String shipmentType = "Air";
+                
+                
+                
+                if (loggedInCustomer == null) {
 
-                // Also change stock
-                if (orderStatus.equalsIgnoreCase("SUBMITED")) {
+                    // Make everything Anynomous
+                    userEmail = "Anynomous User Email";
+                    if (savedStatus.equals("SAVED")) {
+                        orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, null,
+                            totalCost, null,null, supplierEmail, shipmentPrice,
+                            shipmentType, orderStatus, streetAddress, unitNumber, city,
+                            state, postcode, phoneNumber);
+                        response.sendRedirect("/OrderHistory");
+                        
+                    }
+                    CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, null,
+                            totalCost, null, supplierEmail, shipmentPrice, null,
+                            shipmentType, orderStatus, streetAddress, unitNumber, city,
+                            state, postcode, phoneNumber);
 
-                    double currentStock = theDevice.getStockQuantity();
-                    theDevice.setStockQuantity((int) (currentStock - amount));
+//                    if (session.getAttribute("allOrders") == null) {
+//                        session.setAttribute("allOrders", new ArrayList<CustomerOrder>());
+//                    }
+//                    ArrayList<CustomerOrder> custOrders = (ArrayList) session.getAttribute("allOrders");
+//                    custOrders.add(aOrder);
+//                    System.out.println(custOrders);
+//                    session.setAttribute("allOrders", custOrders);
+                   
+                    session.setAttribute("order",aOrder);
+                    
+                    response.sendRedirect("/OrderPaymentServlet");
 
-                    // update DB of device
-
-                    deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
-                            theDevice.getStockQuantity(), theDevice.getDescription());
-
-                }
-
-                if (loggedInCustomer != null) {
+                } else {
+                    userEmail = loggedInCustomer.getEmail();
+                    
                     // addOrder(String customerEmail, String dateOrdered, double totalPrice,
                     // String estArrivalDate, String departureDate, String supplierEmail, double shipmentPrice,
                     // String shipmentType, String status, String streetAddress, String unitNumber, String city,
                     // String state, String postalCode,  String phoneNumber
-                    // Add all these data to DB
-                    orderManager.addOrder(userEmail, dateOrdered,
-                            totalCost, estArrivalDate, departureDate, supplierEmail, shipmentPrice,
+                    // Add all these data to DB                             
+                    
+                    if (savedStatus.equals("SAVED")) {
+                        orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, null,
+                            totalCost, null, null, supplierEmail, shipmentPrice,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
+                        response.sendRedirect("/OrderHistory");
+                        
+                    }
+                    
+                    CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, null,
+                            totalCost, null, supplierEmail, shipmentPrice, null,
+                            shipmentType, orderStatus, streetAddress, unitNumber, city,
+                            state, postcode, phoneNumber);
+                    
+                    session.setAttribute("order",aOrder);
+                    
+                    response.sendRedirect("/OrderPaymentServlet");
                 }
-
-                // Redirection to list of orders
-                response.sendRedirect("/OrderHistory");
             }
         } catch (SQLException e) {
             System.out.println(e);

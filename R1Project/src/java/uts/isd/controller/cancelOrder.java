@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
 import uts.isd.model.CustomerOrder;
+import uts.isd.model.Device;
 import uts.isd.model.iotbay.dao.DBDeviceManager;
 import uts.isd.model.iotbay.dao.DBOrderManager;
 
@@ -38,47 +39,40 @@ public class cancelOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
         // device manager to get details of the device
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+        
+        DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
         // get id of the order
-        String id = request.getParameter("id");
+        int id = Integer.parseInt(request.getParameter("id"));
 
         Customer cust = (Customer) session.getAttribute("customer");
-
-        if (cust == null) {
-            // get all orders from session
-            ArrayList<CustomerOrder> allOrders = (ArrayList) session.getAttribute("allOrders");
+        
+        try{
+            CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
+            int deviceID = foundOrder.getDeviceID();
+            int amount = foundOrder.getQuantity();
             
+            Device theDevice = deviceManager.findDeviceByID(deviceID);
             
-            if (allOrders.size() > 0) {
-                for (CustomerOrder c : allOrders) {
-                    if (c.getOrderID().equals(id)) {
-                      
-                        allOrders.remove(c);
-                        
-                        break;
-                    }
-                }
+            //Also change stock
+            double currentStock = theDevice.getStockQuantity();
+            theDevice.setStockQuantity((int) (currentStock - amount));
 
-            }
-            session.setAttribute("allOrders", allOrders);
-        } else {
-            try {
-                orderManager.deleteOrder(Integer.parseInt(id));
-            } catch (SQLException ex) {
-                Logger.getLogger(cancelOrder.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            // update DB of device
+            deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
+                    theDevice.getStockQuantity(), theDevice.getDescription());
+            
+            orderManager.deleteOrder(id);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(cancelOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        // if deleted get the Device and add a stock fro that order
-        
-        
-        
-        
-        
+
+        // if deleted get the Device and add a stock for that order
         
         RequestDispatcher v = request.getRequestDispatcher("/orderHistory.jsp");
         v.forward(request, response);

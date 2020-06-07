@@ -31,6 +31,7 @@ public class ConnServlet extends HttpServlet {
     private DBSupplierInformationManager supplierManager;
     private DBPaymentDetailsManager paymentDetailManager;
     private DBPaymentSnapshotsManager paymentSnapshotsManager;
+    private DBOrderManager orderManager;
     private Connection conn;
 
     @Override // Create and instance of DBConnector for the deployment session
@@ -63,6 +64,8 @@ public class ConnServlet extends HttpServlet {
             paymentDetailManager = new DBPaymentDetailsManager(conn);
             // instantiate new paymentSnapshotManager
             paymentSnapshotsManager = new DBPaymentSnapshotsManager(conn);
+            // instantiate new orderManager
+            orderManager = new DBOrderManager(conn);
             
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,6 +78,7 @@ public class ConnServlet extends HttpServlet {
         session.setAttribute("supplierManager", supplierManager);
         session.setAttribute("paymentDetailManager", paymentDetailManager);
         session.setAttribute("paymentSnapshotsManager",paymentSnapshotsManager);
+        session.setAttribute("orderManager",orderManager);
     }
 
     // Destroy the servlet and release the resources of the application (terminate

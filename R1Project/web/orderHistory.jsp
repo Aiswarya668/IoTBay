@@ -15,7 +15,7 @@
     // Search
      // errors
     ArrayList<String> searchErrors = (ArrayList<String>) session.getAttribute("searchErrors");
-
+    String paymentCompleted = (String) session.getAttribute("paymentCompleted");
 %>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
             <hr/>
              <a href="ViewDeviceServletUsers">Go Back</a>   
             <h3 class="iot-center">Your Order History</h3>
-            
+            <p><%=(paymentCompleted != null ? paymentCompleted : "")%></p>
             
              <%for (String error : searchErrors) {%><p class="alert alert-danger"><%=error%></p><%}%>
             <br />
@@ -92,15 +92,11 @@
                         <td><%= o.getDateOrdered() %></td>
 
                         <td>
-                            <%if(o.getStatus().equalsIgnoreCase("SUBMITED")){%>
-                        <a href="/cancelOrder?id=<%=o.getOrderID()%>" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure you want to cancel this order?')">Cancel</a>
-                    <%}%>
-                    
-                    
-                    <%if(o.getStatus().equals("SAVED") || o.getStatus().equalsIgnoreCase("SUBMITED")){%>
+                        <%if(o.getStatus().equalsIgnoreCase("SAVED")){%>
+                        <a href="/cancelOrder?id=<%=o.getOrderID()%>" class="btn btn-xs btn-danger">Cancel</a>
                         <a href="/updateOrder?id=<%=o.getOrderID()%>" class="btn btn-xs btn-primary">Update</a>
-                    <%}%>
-
+                        <a href="/OrderPaymentServlet?id=<%=o.getOrderID()%>" class="btn btn-xs btn-danger">Purchase</a>
+                        <%}%>
 
                         </td>
                     </tr>
@@ -112,7 +108,9 @@
             </div>
 
         </div>
-
+        <% 
+            session.setAttribute("paymentCompleted","");
+        %>
     </body>
 </html>
 

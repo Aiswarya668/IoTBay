@@ -5,6 +5,7 @@
  */
 package uts.isd.model;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -13,62 +14,93 @@ import java.util.Date;
  * @author aiswaryarajeev
  */
 public class CustomerOrder implements Serializable {
-    private String orderID;
-    private User user;
+    private int orderID;
+    private String customerEmail;
     private int paymentID;
-    private Date dateOrdered;
+    private int deviceID;
+    private int quantity;
+    private Timestamp dateOrdered;
     private double totalPrice;
-    private String estimatedArrivalDate;
-    private Supplier supplier;
+    private Timestamp estimatedArrivalDate;
+    private String supplierEmail;
     private double shippingCost;
-    private String dateTimeDeparture;
+    private Timestamp dateTimeDeparture;
     private String shippingType;
     private String status;
+    private String StreetAddress;
+    private String UnitNumber;
+    private String City;
+    private String State;
+    private String PostalCode;
+    private String PhoneNumber ;
 
-    public CustomerOrder(){}
-    public CustomerOrder(String orderID, User user, int paymentID, Date dateOrdered, double totalPrice, String estimatedArrivalDate, Supplier supplier, double shippingCost, String dateTimeDeparture, String shippingType, String status) {
+    public CustomerOrder(int orderID, String customerEmail, int paymentID, int deviceID, int quantity, Timestamp dateOrdered, double totalPrice, Timestamp estimatedArrivalDate, String supplierEmail, double shippingCost, Timestamp dateTimeDeparture, String shippingType, String status, String StreetAddress, String UnitNumber, String City, String State, String PostalCode, String PhoneNumber) {
         this.orderID = orderID;
-        this.user = user;
+        this.customerEmail = customerEmail;
         this.paymentID = paymentID;
+        this.deviceID = deviceID;
+        this.quantity = quantity;
         this.dateOrdered = dateOrdered;
         this.totalPrice = totalPrice;
         this.estimatedArrivalDate = estimatedArrivalDate;
-        this.supplier = supplier;
+        this.supplierEmail = supplierEmail;
         this.shippingCost = shippingCost;
         this.dateTimeDeparture = dateTimeDeparture;
         this.shippingType = shippingType;
         this.status = status;
+        this.StreetAddress = StreetAddress;
+        this.UnitNumber = UnitNumber;
+        this.City = City;
+        this.State = State;
+        this.PostalCode = PostalCode;
+        this.PhoneNumber = PhoneNumber;
     }
 
-    public String getOrderID() {
+    public int getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(String orderID) {
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
-    public User getUser() {
-        return user;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
-    
-    public int getPaymentID(){
+
+    public int getPaymentID() {
         return paymentID;
     }
 
-    public void setPaymentID(int paymentID){
+    public void setPaymentID(int paymentID) {
         this.paymentID = paymentID;
     }
-    
-    public Date getDateOrdered() {
+
+    public int getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(int deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Timestamp getDateOrdered() {
         return dateOrdered;
     }
 
-    public void setDateOrdered(Date dateOrdered) {
+    public void setDateOrdered(Timestamp dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
 
@@ -80,20 +112,20 @@ public class CustomerOrder implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public String getEstimatedArrivalDate() {
+    public Timestamp getEstimatedArrivalDate() {
         return estimatedArrivalDate;
     }
 
-    public void setEstimatedArrivalDate(String estimatedArrivalDate) {
+    public void setEstimatedArrivalDate(Timestamp estimatedArrivalDate) {
         this.estimatedArrivalDate = estimatedArrivalDate;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public String getSupplierEmail() {
+        return supplierEmail;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setSupplierEmail(String supplierEmail) {
+        this.supplierEmail = supplierEmail;
     }
 
     public double getShippingCost() {
@@ -104,11 +136,11 @@ public class CustomerOrder implements Serializable {
         this.shippingCost = shippingCost;
     }
 
-    public String getDateTimeDeparture() {
+    public Timestamp getDateTimeDeparture() {
         return dateTimeDeparture;
     }
 
-    public void setDateTimeDeparture(String dateTimeDeparture) {
+    public void setDateTimeDeparture(Timestamp dateTimeDeparture) {
         this.dateTimeDeparture = dateTimeDeparture;
     }
 
@@ -128,6 +160,55 @@ public class CustomerOrder implements Serializable {
         this.status = status;
     }
 
+    public String getStreetAddress() {
+        return StreetAddress;
+    }
+
+    public void setStreetAddress(String StreetAddress) {
+        this.StreetAddress = StreetAddress;
+    }
+
+    public String getUnitNumber() {
+        return UnitNumber;
+    }
+
+    public void setUnitNumber(String UnitNumber) {
+        this.UnitNumber = UnitNumber;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String City) {
+        this.City = City;
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String State) {
+        this.State = State;
+    }
+
+    public String getPostalCode() {
+        return PostalCode;
+    }
+
+    public void setPostalCode(String PostalCode) {
+        this.PostalCode = PostalCode;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String PhoneNumber) {
+        this.PhoneNumber = PhoneNumber;
+    }
+
     
+
     
 }

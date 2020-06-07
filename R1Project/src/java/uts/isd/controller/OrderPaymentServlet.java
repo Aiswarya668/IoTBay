@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
 import uts.isd.model.CustomerOrder;
 import uts.isd.model.PaymentDetails;
+import uts.isd.model.iotbay.dao.DBOrderManager;
 import uts.isd.model.iotbay.dao.DBPaymentDetailsManager;
 
 /**
@@ -32,6 +33,19 @@ public class OrderPaymentServlet {
         String customerEmail = customer.getEmail();
         
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
+        
+        String orderID = request.getParameter("id");
+        
+        if (!orderID.equals("")){
+            try{
+                DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+                CustomerOrder order = orderManager.getOrdersById(orderID).get(0);
+                session.setAttribute("order",order);
+                
+            } catch(SQLException ex) {
+                Logger.getLogger(PaymentHistoryServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+        }           
         
         try {
             PaymentDetails paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);

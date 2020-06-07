@@ -44,11 +44,15 @@
                     <thead>
                         <tr>
                             <th>Your Email</th>
+                            <th>Device</th>
+                            <th>Quantity</th>
                             <th>Date Ordered</th>
                             <th>Cost of Order</th>
                             <th>Estimated Order Departure Date</th>
                             <th>Estimated Order Arrival Date</th>
                             <th>Supplier Email</th>
+                            <th>Shipping Cost</th>
+                            <th>Shipping Type</th>
                             <th>Order Status</th>
                             <th>Street Address</th>
                             <th>Unit Number</th>
@@ -60,11 +64,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${order.CustomerEmail}</td>
+                            <td>${order.customerEmail}</td>
+                            <td>${order.deviceID}</td>
+                            <td>${order.quantity}</td>
                             <td>${order.dateOrdered}</td>
                             <td>${order.totalPrice}</td>
+                            <td>${order.dateTimeDeparture}</td>
                             <td>${order.estimatedArrivalDate}</td>
                             <td>${order.supplierEmail}</td>
+                            <td>${order.shippingCost}</td>
+                            <td>${order.shippingType}</td>
                             <td>${order.status}</td>
                             <td>${order.streetAddress}</td>
                             <td>${order.unitNumber}</td>

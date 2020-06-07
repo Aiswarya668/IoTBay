@@ -48,17 +48,12 @@ public class OrderHistory extends HttpServlet {
             String loggedInEmail = "";
             ArrayList<CustomerOrder> orders = new ArrayList<>();
 
-            if (loggedInCustomer == null) {
-                loggedInEmail = "Anonymous";
-                if (session.getAttribute("allOrders") == null) {
-                    session.setAttribute("allOrders", new ArrayList<CustomerOrder>());
-                }
-                System.out.println("------------Order Hisory-------------");
-                orders = (ArrayList<CustomerOrder>) session.getAttribute("allOrders");
-                System.out.println(orders);
+            if (loggedInCustomer == null) { //FIX THIS BLOCK
+
+                orders = orderManager.getOrdersByUserEmail("Anynomous User Email");
+                
             } else {
-                loggedInEmail = loggedInCustomer.getEmail();
-                orders = orderManager.getOrdersByUserEmail("minkpen4@comcast.net");
+                orders = orderManager.getOrdersByUserEmail(loggedInCustomer.getEmail());
             }
 
             session.setAttribute("allOrders", orders);

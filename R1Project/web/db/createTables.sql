@@ -81,6 +81,8 @@ CREATE TABLE CustomerOrder(
 OrderID int GENERATED ALWAYS AS IDENTITY NOT NULL,
 CustomerEmail varchar(50) NOT NULL,
 PaymentID int,
+deviceID int;
+quantity int;
 DateOrdered timestamp,
 TotalPrice double,
 EstArrivalDate timestamp,
