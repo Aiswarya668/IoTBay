@@ -12,6 +12,7 @@ import uts.isd.model.iotbay.dao.DBDeviceManager;
 /**
  *
  * @author aiswarya.r
+ * Checking deviceDBManager functionalities
  */
 public class TestDeviceDB {
     

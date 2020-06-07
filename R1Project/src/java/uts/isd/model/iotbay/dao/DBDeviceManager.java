@@ -62,7 +62,7 @@ public class DBDeviceManager {
         stmt.executeUpdate();
     }
     
-   //Update device details 
+    //Update device details 
     public void updateDevice(int deviceID, String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException{
         st.executeUpdate("UPDATE IOTBAYUSER.Device SET DEVICENAME='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICEID=" + deviceID + "");
     }
