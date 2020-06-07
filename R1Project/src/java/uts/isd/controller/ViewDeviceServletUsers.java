@@ -44,7 +44,8 @@ public class ViewDeviceServletUsers extends HttpServlet {
         
         //6) capture the posted description   
         String description = request.getParameter("DeviceDescription");
-                    
+     
+        
         try {
            //7) retrieve the current session 
             HttpSession session = request.getSession();
@@ -63,6 +64,9 @@ public class ViewDeviceServletUsers extends HttpServlet {
             
             //12) redirect to browseCatalogue jsp 
             request.getRequestDispatcher("browseCatalogueUsers.jsp").include(request, response);
+            
+            //clear session
+            validator.clear(session);
             
        } catch (SQLException ex) {
            Logger.getLogger(ViewDeviceServletUsers.class.getName()).log(Level.SEVERE, null, ex);
