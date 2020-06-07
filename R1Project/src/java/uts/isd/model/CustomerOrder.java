@@ -24,6 +24,7 @@ public class CustomerOrder implements Serializable {
     private String shippingType;
     private String status;
 
+    public CustomerOrder(){}
     public CustomerOrder(String orderID, User user, Date dateOrdered, double totalPrice, String estimatedArrivalDate, Supplier supplier, double shippingCost, String dateTimeDeparture, String shippingType, String status) {
         this.orderID = orderID;
         this.user = user;

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package uts.isd.model;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -12,14 +13,15 @@ import java.sql.Timestamp;
  * @author aiswaryarajeev
  */
 public class ApplicationAccessLogs implements Serializable {
+
     private String accessLogID;
     private String customerEmail;
     private String staffEmail;
     private Timestamp timestamp;
     private String logDescription;
 
-    public ApplicationAccessLogs(String accessLogID, String customerEmail, String staffEmail, 
-    Timestamp timestamp, String logDescription) {
+    public ApplicationAccessLogs(String accessLogID, String customerEmail, String staffEmail,
+            Timestamp timestamp, String logDescription) {
         this.accessLogID = accessLogID;
         this.customerEmail = customerEmail;
         this.staffEmail = staffEmail;
@@ -69,7 +71,7 @@ public class ApplicationAccessLogs implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("ID=%s; CustomerEmail=%s; StaffEmail=%s; Timestamp=%s; Description=%s;", 
-        accessLogID, customerEmail, staffEmail, timestamp, logDescription);
+        return String.format("ID=%s; CustomerEmail=%s; StaffEmail=%s; Timestamp=%s; Description=%s;",
+                accessLogID, customerEmail, staffEmail, timestamp, logDescription);
     }
 }

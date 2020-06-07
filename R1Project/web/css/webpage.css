@@ -27,7 +27,7 @@ body {
     font-weight: 500;
     font-size: 15px;
     /*background: #f1f1f1; */
-    background: url(backg.png)no-repeat; /* sourced from: https://blog.silvatronics.com.br/wp-content/uploads/2020/02/Curso-de-eletronica-online-professor-Andr%C3%A9-Cisp.jpg */
+    background: url(backg.png)repeat; /* sourced from: https://blog.silvatronics.com.br/wp-content/uploads/2020/02/Curso-de-eletronica-online-professor-Andr%C3%A9-Cisp.jpg */
     background-attachment: fixed;
 }
 
@@ -379,6 +379,14 @@ tbody {
     color: red;
 }
 
+.success{
+    font-family: Arial, Helvetica, sans-serif;
+    word-spacing: 1.5px;
+    letter-spacing: 0.4px;
+    line-height: 28px;
+    color: green;
+}
+
 .customer {
     border-collapse: collapse;
     width: 93%;
@@ -583,6 +591,48 @@ img {
     margin-left: auto;
     margin-right: auto;
 }
+
+/*Device Table - css */   
+
+.Dtable {	
+    padding-bottom: 5em;	
+    width: 93%;	
+    padding-left: 5em;	
+    padding-right: 5em;	
+    font-family: Arial, Helvetica, sans-serif;	
+    word-spacing: 1.5px;	
+    letter-spacing: 0.4px;	
+    line-height: 28px;	
+}
+
+/*Table CSS for Catalogue*/   
+
+.device Table{	
+    padding-bottom: 5em;	
+    width: 93%;	
+    padding-left: 5em;	
+    padding-right: 5em;	
+    font-family: Arial, Helvetica, sans-serif;	
+    word-spacing: 1.5px;	
+    letter-spacing: 0.4px;	
+    line-height: 28px;	
+}
+
+.deviceCatcolumn {	
+    position: absolute;	
+    left: 10%;	
+    right: 10%;	
+    margin: 10% 0 0 0%;	
+    text-align: center;	
+}
+
+.deviceCatcard {	
+   outline: 2px solid gray;	
+   background-color: white;	
+   padding: 20px;	
+   margin-top: 20px;	
+}
+
 
 /*Image allignment*/
 

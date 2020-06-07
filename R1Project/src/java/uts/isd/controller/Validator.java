@@ -10,19 +10,21 @@ public class Validator implements Serializable {
    // generic, common patterns
    private String deviceNamePattern = "(([a-zA-Z0-9]+))";
    private String singleIntPattern = "(\\d{0,20})";
-   private String deviceDescriptionPattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
+   private String sentencePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
 
    // online-user-access-specific management patterns
    private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
    private String passwordPattern = "[a-zA-Z0-9]{4,}";
    private String phonePattern = "0([0-9]{0,10})";      
     
+   //Device manager validator
     //type = Word with capital (space) word with capital
     private String deviceTypePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     //Numbers with 2 decimals (.00)
     private String deviceCostPattern = "(^-?\\d*\\.\\d{2}$)";
     //Positive integers of undefined length
     private String deviceStockPattern = "(^\\d+$)";
+    private String deviceIDPattern = "^[0-9]{0,}$";
    
 //supplier management validator patterns
     private String contactNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
@@ -53,7 +55,7 @@ public class Validator implements Serializable {
 
    // validator - needs to be valid single int
    public boolean validateSentence(String number) {
-     return validate(deviceDescriptionPattern, number);
+     return validate(sentencePattern, number);
    }
 
 
@@ -73,13 +75,21 @@ public class Validator implements Serializable {
    }
     
     //device validators - check if fields are empty
-     public boolean checkDeviceEmpty(String deviceName, String type, String cost, String stockQuantity, String description){       
-       return  deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
+     public boolean checkDeviceEmpty(String deviceID, String deviceName, String type, String cost, String stockQuantity, String description){       
+       return  deviceID.isEmpty()|| deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
     }
+     
+     public boolean checkDeviceFieldsEmpty(String deviceName, String type, String cost, String stockQuantity, String description){       
+       return deviceName.isEmpty() || type.isEmpty() || cost.isEmpty() || stockQuantity.isEmpty() || description.isEmpty() ;   
+    }
+     
+     public boolean validateDeviceID(String deviceID){
+         return validate(deviceIDPattern, deviceID);
+     }
     
     //device validators - check deviceName
     public boolean validateDeviceName(String deviceName){
-         return validate(deviceNamePattern, deviceName); 
+         return validate(sentencePattern, deviceName); 
     }
     
     //device validators - check deviceType
@@ -99,7 +109,7 @@ public class Validator implements Serializable {
     
     //device validators - check deviceDescription
     public boolean validateDeviceDesc(String description){
-         return validate(deviceDescriptionPattern, description); 
+         return validate(sentencePattern, description); 
     }
     
     //supplier validators - check contactName
@@ -163,6 +173,10 @@ public class Validator implements Serializable {
         session.setAttribute("userDeleteErr", "");
 
         //deviceCreation clear()
+        session.setAttribute("deviceupdateMsg", "");
+        session.setAttribute("deviceDeletedMsg", "");
+        session.setAttribute("devicecreatedMsg", "");
+        session.setAttribute("deviceIDErr", "Enter device ID");
         session.setAttribute("deviceNameErr", "Enter device name");
         session.setAttribute("typeErr", "Enter device type");
         session.setAttribute("priceErr", "Enter price $0.00");
@@ -175,6 +189,7 @@ public class Validator implements Serializable {
         session.setAttribute("deletedescriptionErr", "");
         session.setAttribute("exceptionErr", "");
         session.setAttribute("deviceEmptyErr", "");
+        session.setAttribute("deletedeviceIDErr", "");
         
         //supplierCreation clear()
         session.setAttribute("contactNameErr", "Enter contact name");

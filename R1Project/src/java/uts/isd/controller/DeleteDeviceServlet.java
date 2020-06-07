@@ -73,7 +73,7 @@ public class DeleteDeviceServlet extends HttpServlet {
         //validators
        
         //if any fields are empty?
-        else if(validator.checkDeviceEmpty(deviceName,type,cost,stockQuantity,description)){
+        else if(validator.checkDeviceEmpty(deviceID, deviceName,type,cost,stockQuantity,description)){
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
         }
@@ -111,9 +111,15 @@ public class DeleteDeviceServlet extends HttpServlet {
         
         else {
             // if every condition is met - deleting device
-            request.getRequestDispatcher("deleteDeviceConfirmation.jsp").include(request, response);
-             request.setAttribute("device", device);
+            //request.getRequestDispatcher("deleteDeviceConfirmation.jsp").include(request, response);
+             //request.setAttribute("device", device);
             deviceManager.deleteDevice(Integer.parseInt(deviceID));
+            Device deleteddDevice = deviceManager.findDeviceID(Integer.parseInt(deviceID));
+            session.setAttribute("device", deleteddDevice);
+                // success message if updating customer successful
+            session.setAttribute("deviceDeletedMsg", "Device was successfully deleted!");
+                // redirect user to the edit.jsp
+            request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
                 
             }
         }   catch (SQLException ex) {

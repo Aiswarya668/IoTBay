@@ -78,17 +78,22 @@ public class EditDeviceServlet extends HttpServlet {
        //validators
        
         //if any fields are empty?
-        else if(validator.checkDeviceEmpty(deviceName,type,cost,stockQuantity,description)){
+        else if(validator.checkDeviceEmpty(deviceID, deviceName,type,cost,stockQuantity,description)){
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("editDevice.jsp").include(request, response);
         }
-        //else if (!validator.validateDeviceName(deviceName)) {
+        else if (!validator.validateDeviceID(deviceID)) {
             //1- set incorrect name error to the session 
-        //    session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
+            session.setAttribute("deletedeviceIDErr", "Error: Device ID cannot be edited!");
         //    //2- redirect staff back to the addDevice.jsp     
-        //    request.getRequestDispatcher("editDevice.jsp").include(request, response);
+            request.getRequestDispatcher("editDevice.jsp").include(request, response);
+        }else if (!validator.validateDeviceName(deviceName)) {
+            //1- set incorrect name error to the session 
+            session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
+        //    //2- redirect staff back to the addDevice.jsp     
+            request.getRequestDispatcher("editDevice.jsp").include(request, response);
        
-        else if (!validator.validateDeviceType(type)) {
+        } else if (!validator.validateDeviceType(type)) {
             //1- set incorrect type error to the session 
             session.setAttribute("deletetypeErr", "Error: Device type format incorrect");
             //2- redirect staff back to the addDevice.jsp     
@@ -118,10 +123,13 @@ public class EditDeviceServlet extends HttpServlet {
                 //addDevice CRUD operation
                 deviceManager.updateDevice(Integer.parseInt(deviceID), deviceName, type, Double.parseDouble(cost), Integer.parseInt(stockQuantity), description);
                 //set session attribute
-                request.setAttribute("device", device);
-                //send to createdDevice.jsp
+                Device updatedDevice = deviceManager.findDeviceID(Integer.parseInt(deviceID));
+                session.setAttribute("device", updatedDevice);
+                // success message if updating customer successful
+                session.setAttribute("deviceupdateMsg", "Update was successful!");
+                // redirect user to the edit.jsp
+                request.getRequestDispatcher("editDevice.jsp").include(request, response);
                 
-                request.getRequestDispatcher("updateDeviceConfirmation.jsp").include(request, response);
             
           } catch (SQLException ex) {
                 //catch any exception

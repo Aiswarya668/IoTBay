@@ -4,14 +4,14 @@
     Author     : aiswarya.r
 --%>
 
+<%@page import="uts.isd.model.Staff"%>
+<%@page import="uts.isd.model.Customer"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="uts.isd.model.Device"%>
 <%@page import="uts.isd.model.iotbay.dao.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,23 +24,28 @@
         <title>Device Catalogue</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
-    <div class="maincolumn3">
-        <div class="card1">
+    <%
+        Device device = (Device) session.getAttribute("display");
+        Customer customer = (Customer) session.getAttribute("customer");
+        Staff staff = (Staff) session.getAttribute("staff");
+    %>
+    
+    <% if (customer != null || staff != null) { %>
+        <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+    <% } else { %>
+        <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <% } %>
+    
+    <div class="deviceCatcolumn">
+        <div class="deviceCatcard">
 
             </head>
             <body>
-                <%
-                    Device device = (Device) session.getAttribute("display");
-                %>
+
                 <h1>Device Catalogue</h1>
-                <form method="post" method="get">
-
-                    <form>
-                        Search device: <input type="text" id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name">
-                    <input type="text" id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
-                    </form>
-
+                <form method="post" method="get">      
+                        Search device: <input id="inputDeviceName" onkeyup="myFunction()" placeholder="Device Name" title="Type in a device name"> <input id="inputDeviceType" onkeyup="myFunction()" placeholder="Device Type" title="Type in a device type">
+                    
                     <table id="deviceTable" class="device Table">
                         <tr>
                             <td>Device ID</td>
@@ -49,8 +54,13 @@
                             <td>Cost</td>
                             <td>Stock</td>
                             <td>Description</td>                          
-                            <td> Actions</td>
                             
+                            <% if (staff != null) { %>
+                            <td colspan="2" > Actions</td>
+                            <% }  else {%>
+                            <td> Actions</td>
+                            <% }  %>
+
                         </tr>
 
                         <c:forEach items="${display}" var="display">
@@ -61,7 +71,12 @@
                                 <td>${display.cost }</td>
                                 <td>${display.stockQuantity }</td>
                                 <td>${display.description }</td>
-                                <td><p class="right"> <a class="button1" href="main.jsp ">Buy</a> </p></td>
+                                <% if (staff != null) { %>
+                                <td><p class="right"> <a class="button2" value='Update Device' href="UpdateDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Update</a> </p></td>
+                                <td><p class="right"> <a class="button3" value='Delete Device' href="ViewDeleteDeviceServlet?DeviceID=${display.deviceID}&DeviceName=${display.deviceName}&DeviceType=${display.type}&DeviceCost=${display.cost} & DeviceStock=${display.stockQuantity}&DeviceDescription=${display.description}">Delete</a> </p></td>
+                                <% } else if (customer != null || customer == null) { %>
+                                <td><p class="right"> <a class="button1" href="createOrder.jsp ">Buy</a> </p></td>
+                                <% }%>
                             </tr>
                         </c:forEach>
                     </table>
