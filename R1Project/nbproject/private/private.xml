@@ -3,38 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/logout.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBDeviceManager.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/register.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/createdDevice.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/welcome.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeleteDeviceServlet.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/DeleteDeviceServlet.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DB.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/main.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/editDevice.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/addDevice.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/deleteDeviceConfirmation.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/Validator.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/UpdateDeviceServlet.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/deleteDevice.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeviceServletUsers.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/LoginServlet.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/browseCatalogueUsers.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/edit.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/supplierList.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/goodbye.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBApplicationLogsManager.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/userLogs.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/updateDetailsSupplier.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/LogoutServlet.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBCustomerManager.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/updateDeviceConfirmation.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/index.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/login.jsp</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/web/css/webpage.css</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/EditDeviceServlet.java</file>
-            <file>file:/Users/aiswarya.r/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/ViewDeviceCreationServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/UpdateDetailsSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/addSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/updateDetailsSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/AddSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/removeSupplier.jsp</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/src/java/uts/isd/controller/UpdateSupplierServlet.java</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/css/webpage.css</file>
+            <file>file:/Users/Anastasia/Desktop/YR%202%20SEM%201/Information%20Software%20Development/IoTBay/R1Project/web/updateSupplier.jsp</file>
         </group>
     </open-files>
 </project-private>
