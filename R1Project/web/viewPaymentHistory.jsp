@@ -39,13 +39,14 @@
                 %>
 
                 <h1>Payment History</h1>
+                
+                <% if (order.size() == 0) {%>
+                <p>You do not have any payments yet!</p>            
+                <%} else {%>
                 <form>
                     Search Payment History: <input id="inputPaymentID" onkeyup="myFunction()" placeholder="E.g. PaymentID: 132" title="Type in a PaymentID"> <input id="inputDate" onkeyup="myFunction()" placeholder="E.g. Date: YYYY-MM-DD" title="Type in a Date">
                 </form>
                 
-                <%
-                    if (paymentHistory != null) {
-                %>
                 <form method="post" method="get">
                     <table id="paymentsTable">
                         <thead>
@@ -79,6 +80,7 @@
                             <%}%>
                         </tbody>
                     </table>
+                    
                     <script>
                         function myFunction() {
                             var input, input2, filter, filter2, table, tr, tdPaymentID, tdPayDate, i, txtValue;
@@ -104,17 +106,7 @@
                         }
                     </script>
                 </form>
-                <%
-                    } else {
-                %>
-                
-                <p>
-                    You do not have any payments right now.
-                </p>
-                
-                <%
-                    }
-                %>
+                <% } %>
             </body>
         </div>
         <div class="footer"></div>
