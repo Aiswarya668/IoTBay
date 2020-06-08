@@ -35,7 +35,7 @@
                 <p class ="error"><%= (supplierEmptyErr != null) ? supplierEmptyErr : ""%></p>
                 <p class ="error"><%= (formatErr != null) ? formatErr : ""%></p>
                 <p class ="error"><%= (exceptionSupplierErr != null) ? exceptionSupplierErr : ""%></p>
-                <p class ="error"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
+                <p class ="success"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
                 <form method="get" action="RemoveSupplierServlet">
                     
                   <table>

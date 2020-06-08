@@ -58,7 +58,7 @@
                 </table>
                     <h1>Supplier's New Details</h1>
                     
-                <p class ="error"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
+                <p class ="success"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
                 <p class ="error"><%= (supplierEmptyErr != null) ? supplierEmptyErr : ""%></p>
                 <p class ="error"><%= (formatErr != null) ? formatErr : ""%></p>
                 <p class ="error"><%= (exceptionSupplierErr != null) ? exceptionSupplierErr : ""%></p>
