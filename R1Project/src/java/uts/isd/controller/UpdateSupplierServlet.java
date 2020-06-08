@@ -27,30 +27,31 @@ public class UpdateSupplierServlet extends HttpServlet {
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
+       //retrieve the current session 
         HttpSession session = request.getSession();
         
+        //create an instance of the Validator class to check inputs
         Validator validator = new Validator();
         
+        //capture the posted contactName 
         String contactName = request.getParameter("contactName");
 
+        //capture the posted supplierName 
         String supplierName = request.getParameter("supplierName");
         
+        //retrieve the manager instance from session - ConnServlet 
         DBSupplierInformationManager supplierManager = (DBSupplierInformationManager) session.getAttribute("supplierManager");
-               
+        
+        //set supplier to null to see if supplier exists
         Supplier supplier = null;
         
+        //clear validators
         validator.clear(session);
-                    
+        
+        //check if supplier exists
         try {
-            supplier = supplierManager.findSupplier(contactName, supplierName);
-            
-        }
-        
-        catch (SQLException ex) {
-            Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+            supplier = supplierManager.findSupplier(contactName, supplierName);  
+
         //validators
        
         //if any fields are empty?
@@ -73,25 +74,24 @@ public class UpdateSupplierServlet extends HttpServlet {
             //2- redirect system admin back to the addSupplier.jsp    
             request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
         }
-        
+        //if supplier exists redirect to updateDetailsSupplier.jsp so system admin can fill in new details
         else if (supplier != null) {
             session.setAttribute("supplier", supplier);
             response.sendRedirect("updateDetailsSupplier.jsp");
-
         }
         
-        
+        //else supplier doesn't exist redirect to updateSupplier.jsp
         else {
             session.setAttribute("exceptionSupplierErr", "Supplier with point of contact doesn't exist");
             request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
         }
+   }
+   
             
-        //catch (SQLException ex) {
-       //    Logger.getLogger(UpdateSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
-       //}
-        
-        
-        
+        catch (SQLException ex) {
+            Logger.getLogger(AddSupplierServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
    }
 }
     
