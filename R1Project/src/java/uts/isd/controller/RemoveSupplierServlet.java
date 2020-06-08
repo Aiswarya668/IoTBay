@@ -72,9 +72,8 @@ public class RemoveSupplierServlet extends HttpServlet {
         }
         
         else {
-
-            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
             session.setAttribute("creationConfirmation", "Supplier with point of contact has been successfully deleted");
+            request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
             supplierManager.deleteSupplier(contactName, supplierName);
             
                 
