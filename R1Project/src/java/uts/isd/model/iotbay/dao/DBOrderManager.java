@@ -271,4 +271,40 @@ public class DBOrderManager {
         statement.executeUpdate("DELETE FROM IOTBAYUSER.CUSTOMERORDER WHERE ORDERID=" + orderID + "");
     }
 
+    public int findOrderID(String customerEmail, int paymentID, int deviceID, int quantity, Timestamp dateOrdered, double totalPrice,
+            Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
+            String shipmentType, String status, String streetAddress, String unitNumber, String city,
+            String state, String postalCode, String phoneNumber) throws SQLException{
+    
+        String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate=? AND DepartureDate=? AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        
+        pStatement.setString(1, customerEmail);
+        pStatement.setInt(2, paymentID);
+        pStatement.setInt(3, deviceID);
+        pStatement.setInt(4, quantity);
+        pStatement.setTimestamp(5, dateOrdered);
+        pStatement.setDouble(6, totalPrice);
+        pStatement.setTimestamp(7, estArrivalDate);
+        pStatement.setTimestamp(8, departureDate);
+        pStatement.setString(9, supplierEmail);
+        pStatement.setDouble(10, shipmentPrice);
+        pStatement.setString(11, shipmentType);
+        pStatement.setString(12, status);
+        pStatement.setString(13, streetAddress);
+        pStatement.setString(14, unitNumber);
+        pStatement.setString(15, city);
+        pStatement.setString(16, state);
+        pStatement.setString(17, postalCode);
+        pStatement.setString(18, phoneNumber);
+        
+        ResultSet rs = pStatement.executeQuery();
+        while (rs.next()) {
+            int orderID = rs.getInt("ORDERID");
+            return orderID;
+        }
+        return -1;
+        
+    }
+    
 }

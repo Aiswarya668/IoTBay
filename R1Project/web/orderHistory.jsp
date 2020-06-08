@@ -16,6 +16,8 @@
      // errors
     ArrayList<String> searchErrors = (ArrayList<String>) session.getAttribute("searchErrors");
     String paymentCompleted = (String) session.getAttribute("paymentCompleted");
+    String orderID = (String) session.getAttribute("orderID");
+    session.setAttribute("orderID", null);
 %>
 
 <!DOCTYPE html>
@@ -46,7 +48,7 @@
              <a href="ViewDeviceServletUsers">Go Back</a>   
             <h3 class="iot-center">Your Order History</h3>
             <p><%=(paymentCompleted != null ? paymentCompleted : "")%></p>
-            <p></p>
+            <p><%=(orderID == null ? "" : "This is your Order ID: " + orderID)%></p>
             
              <%for (String error : searchErrors) {%><p class="alert alert-danger"><%=error%></p><%}%>
             <br />

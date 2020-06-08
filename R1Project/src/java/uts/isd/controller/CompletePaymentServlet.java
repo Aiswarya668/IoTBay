@@ -77,14 +77,15 @@ public class CompletePaymentServlet extends HttpServlet{
             request.getRequestDispatcher("orderPayment.jsp").include(request, response);   
         } else {
             try {
+                Timestamp dateNow = new Timestamp(new Date().getTime());
                 long estDate = new Date().getTime() + 3600000*48;
                 long depDate = new Date().getTime() + 3600000*24;
                 
                 paymentSnapshotsManager.addPaymentSnapshots(methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amount);
                 int paymentID = paymentSnapshotsManager.findPaymentID(methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amount);
                 
-                orderManager.addOrder(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), new Timestamp(new Date().getTime()), order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
-                
+                orderManager.addOrder(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
+                int ID = orderManager.findOrderID(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
                 //Also change stock
                 double currentStock = theDevice.getStockQuantity();
                 theDevice.setStockQuantity((int) (currentStock - quantity));
@@ -94,11 +95,12 @@ public class CompletePaymentServlet extends HttpServlet{
                         theDevice.getStockQuantity(), theDevice.getDescription());
 
                 session.setAttribute("paymentCompleted", "Your payment has been completed!");
-                
+                String orderID = Integer.toString(ID);
+                session.setAttribute("orderID", orderID);
                 response.sendRedirect("/OrderHistory");
                 
             } catch (SQLException ex) {
-                session.setAttribute("exceptionErr", "Payment Creation Failed.");
+                session.setAttribute("exceptionErr", "Payment Failed.");
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
