@@ -28,17 +28,19 @@
         Device device = (Device) session.getAttribute("display");
         Customer customer = (Customer) session.getAttribute("customer");
         Staff staff = (Staff) session.getAttribute("staff");
-         String quantityErr = (String) session.getAttribute("quantityErr");
+        boolean sysadmin = (session.getAttribute("sysadmin") != null);
+        String quantityErr = (String) session.getAttribute("quantityErr");
     %>
 
-    <% if (staff != null) { %>
+    <% if (sysadmin || staff != null) { %>
     <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+    <p class="right"> <a class="button21" href="addDevice.jsp">Add Device</a> </p>
     <% } else if (customer != null) { %>
     <p class="right"> <a class="button21" href="OrderHistory">Order History</a></p>
     <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
-    <%}else { %>
-    <p class="right"> <a class="button21" href="OrderHistory">Order History</a></p>
-    <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+    <% } else  { %>
+     <p class="right"> <a class="button21" href="OrderHistory">Order History</a></p>
+     <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <% } %>
 
     <div class="deviceCatcolumn">
@@ -94,6 +96,7 @@
 
 
                     <script>
+                        //JavaScript functionality to graph the inputs of the table and filter by inputs 
                         function myFunction() {
                             var input, input2, filter, filter2, table, tr, tdDeviceName, tdType, i, txtValue;
                             input = document.getElementById("inputDeviceName");

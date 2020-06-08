@@ -39,7 +39,7 @@ public class SupplierListServlet extends HttpServlet {
         //capture the posted supplierAddress
         String supplierAddress = request.getParameter("supplierAddress");
         
-        //capture the posted active status - parse as a boolean as the input is a string in form  
+        //capture the posted active status  
         Boolean active = Boolean.parseBoolean(request.getParameter("active"));
                     
         try {
@@ -51,14 +51,18 @@ public class SupplierListServlet extends HttpServlet {
         
             //retrieve the manager instance from session - ConnServlet            
              DBSupplierInformationManager supplierManager = (DBSupplierInformationManager)session.getAttribute("supplierManager");
-
+             
+             //fetch all suppliers from DBSupplierInformationManager and assign to ArrayList 
             ArrayList<Supplier> show = supplierManager.fetchSuppliers();
             
+            //setAttribute as 'show' to display on supplierList.jsp
             request.setAttribute("show",show);     
             
+            //redirect to supplierList jsp 
             request.getRequestDispatcher("supplierList.jsp").include(request, response);
-            validator.clear(session);
             
+            //clear validators
+            validator.clear(session);
             
             
        } catch (SQLException ex) {

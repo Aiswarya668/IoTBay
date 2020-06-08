@@ -1,7 +1,7 @@
 <%-- 
-    Document   : welcome
+    Document   : goodbye
     Created on : Apr 14, 2020, 9:52:20 PM
-    Author     : aiswaryarajeev
+    Author     : kevin
 --%>
 
 <%@page import="java.sql.Connection"%>

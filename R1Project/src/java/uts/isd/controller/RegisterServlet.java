@@ -60,11 +60,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //1- retrieve the current session
+        // retrieve the current session
         HttpSession session = request.getSession();
-        //2- create an instance of the Validator class
+        // create an instance of the Validator class
         Validator validator = new Validator();
-        //3- capture the posted parameters/info fields  
+        // capture the posted parameters/info fields  
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
         String email = request.getParameter("Email");
@@ -79,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
         String manager = request.getParameter("Manager");
         String contractType = request.getParameter("ContractType");
         String payHr = request.getParameter("PayHr");
-        //5- retrieve the manager instance from session
+        // retrieve the manager instance from session
         DBCustomerManager customerManager
                 = (DBCustomerManager) session.getAttribute("customerManager");
         DBStaffManager staffManager
@@ -90,11 +90,13 @@ public class RegisterServlet extends HttpServlet {
         String userType = request.getParameter("userType");
         boolean sysadmin = (session.getAttribute("sysadmin") != null);
 
+        // reset
         Customer customer = null;
         Staff staff = null;
         validator.clear(session);
 
         try {
+            // get staff or customer
             if (userType.equals("staff")) {
                 staff = staffManager.findStaff(email);
             } else {
@@ -191,6 +193,7 @@ public class RegisterServlet extends HttpServlet {
                     staffManager.addStaff(email, firstName, lastName,
                             phoneNumber, password, streetAddress, unitNumber,
                             city, state, postCode, manager, contractType, payHr);
+                    // set confirmation message
                     session.setAttribute("createMsg", "Staff added (" + email + ")");
                     // add login log
                     logsManager.addStaffLog(staffManager.findStaff(email).getEmail(), "Login");
@@ -206,6 +209,7 @@ public class RegisterServlet extends HttpServlet {
                             password, gender, unitNumber, streetAddress, city,
                             state, postCode, phoneNumber);
                     session.setAttribute("customer", customerManager.findCustomer(email)); // login after created
+                    // set confirmation message
                     session.setAttribute("createMsg", "Customer added (" + email + ")");
                     // add login log
                     logsManager.addCustomerLog(customerManager.findCustomer(email).getEmail(), "Login");

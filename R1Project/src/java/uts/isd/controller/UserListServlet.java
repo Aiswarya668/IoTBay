@@ -31,16 +31,18 @@ public class UserListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //retrieve the current session 
+            // retrieve the current session 
             HttpSession session = request.getSession();
 
-            //retrieve the manager instance from session - ConnServlet            
+            // retrieve the manager instance from session - ConnServlet            
             DBCustomerManager customerManager = (DBCustomerManager) session.getAttribute("customerManager");
             DBStaffManager staffManager = (DBStaffManager) session.getAttribute("staffManager");
 
+            // get customer and staff list to display in table
             List<Customer> customers = customerManager.fetchCustomers();
             List<Staff> staffs = staffManager.fetchStaffs();
-
+            
+            // set customer/staff lists in session
             request.setAttribute("customers", customers);
             request.setAttribute("staffs", staffs);
 

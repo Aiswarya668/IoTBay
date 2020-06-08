@@ -32,12 +32,13 @@
         %>
 
             <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+            <p class="right"> <a  class="button21" href="SupplierListServlet">View Suppliers</a> </p>
 
         <div class="maincolumn2">
             <div class="card">
                 <h1>Add New Supplier </h1>
                 
-                <p class ="error"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
+                <p class ="success"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
                 <p class ="error"><%= (supplierEmptyErr != null) ? supplierEmptyErr : ""%></p>
                 <p class ="error"><%= (formatErr != null) ? formatErr : ""%></p>
                 <p class ="error"><%= (exceptionSupplierErr != null) ? exceptionSupplierErr : ""%></p>

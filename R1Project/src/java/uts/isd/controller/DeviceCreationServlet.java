@@ -28,9 +28,7 @@ public class DeviceCreationServlet extends HttpServlet {
         Validator validator = new Validator();
 
         //3) Capture all the posted fields 
-        // capture deviceID - noted it is string and needs to be parsed 
-        //String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
-
+       
         //4) capture the posted deviceName    
         String deviceName = request.getParameter("DeviceName");
 
@@ -49,7 +47,9 @@ public class DeviceCreationServlet extends HttpServlet {
         //9) retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
         
+        //set device to null to check if exsists 
         Device device = null;
+        //clear session 
         validator.clear(session);
 
         //Check if device exsists first
@@ -68,7 +68,6 @@ public class DeviceCreationServlet extends HttpServlet {
         } 
         
         //validators
-       
         //if any fields are empty?
         else if(validator.checkDeviceFieldsEmpty(deviceName,type,cost,stockQuantity,description)){
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
@@ -98,12 +97,14 @@ public class DeviceCreationServlet extends HttpServlet {
         } else if (!validator.validateDeviceStock(stockQuantity)) {
             //1- set incorrect type error to the session 
             session.setAttribute("stockErr", "Error: Device stock format incorrect");
+            session.setAttribute("deletestockErr", "Error: Device stock format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceDesc(description)) {
             //1- set incorrect type error to the session 
             session.setAttribute("descriptionErr", "Error: Device description format incorrect");
+             session.setAttribute("deletedescriptionErr", "Error: Device description format incorrect");
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("addDevice.jsp").include(request, response);
         

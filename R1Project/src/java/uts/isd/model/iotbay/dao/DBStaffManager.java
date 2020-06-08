@@ -101,7 +101,6 @@ public class DBStaffManager {
             String staffContractType, int staffPayHr, boolean staffActive)
             throws SQLException {;
         //code for update-operation
-//        st.executeUpdate("UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL='" + email + "', FNAME='" + fname + "', LNAME='" + lname + "', PHONENUMBER='" + phone + "', PASSWORD='" + password + "', STREETADDRESS='" + streetAddr + "', UNITNUMBER='" + unitNo + "', CITY='" + city + "', STATE='" + state + "', POSTALCODE='" + postCode + "', MANAGER='" + manager + "', CONTRACTTYPE='" + contractType + "', PAYHR=" + payHr + " WHERE STAFFEMAIL='" + email + "'");
         String query = "UPDATE IOTBAYUSER.STAFF SET STAFFEMAIL = ?, "
                 + "FNAME = ?, LNAME = ?, PHONENUMBER = ?, PASSWORD = ?, "
                 + "STREETADDRESS = ?, UNITNUMBER = ?, CITY = ?, STATE = ?, "
@@ -140,6 +139,7 @@ public class DBStaffManager {
         stmt.close();
     }
 
+    // Fetch all staff accounts
     public ArrayList<Staff> fetchStaffs() throws SQLException {
         String fetch = "SELECT * FROM STAFF";
         ResultSet rs = st.executeQuery(fetch);
@@ -171,6 +171,7 @@ public class DBStaffManager {
         return temp;
     }
 
+    // Check if staff exists in database
     public boolean checkStaff(String staffEmail) throws SQLException {
         String query = "SELECT * FROM IOTBAYUSER.STAFF "
                 + "where STAFFEMAIL = " + staffEmail;

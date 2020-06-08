@@ -27,10 +27,12 @@
         <title>User Management</title>
     </head>
     <%
+        // get confirmation and error messages from session
         String createMsg = (session.getAttribute("createMsg") != null) ? (String) session.getAttribute("createMsg") : "";
         String updateMsg = (session.getAttribute("updateMsg") != null) ? (String) session.getAttribute("updateMsg") : "";
         String deleteMsg = (session.getAttribute("deleteMsg") != null) ? (String) session.getAttribute("deleteMsg") : "";
         String userDeleteErr = (session.getAttribute("userDeleteErr") != null) ? (String) session.getAttribute("userDeleteErr") : "";
+        // clear confirmation and error messages so does not show again
         session.setAttribute("createMsg", "");
         session.setAttribute("updateMsg", "");
         session.setAttribute("deleteMsg", "");
@@ -45,9 +47,9 @@
             <div class="card">
                 <div>
                     <h1>User Management</h1>
-                    <p><%= (updateMsg != null) ? updateMsg : ""%></p>
-                    <p><%= (createMsg != null) ? createMsg : ""%></p>
-                    <p><%= (deleteMsg != null) ? deleteMsg : ""%></p>
+                    <p class ="success"><%= (updateMsg != null) ? updateMsg : ""%></p>
+                    <p class ="success"><%= (createMsg != null) ? createMsg : ""%></p>
+                    <p class ="success"><%= (deleteMsg != null) ? deleteMsg : ""%></p>
                     <p class="error">${userDeleteErr}</p>
                 </div>
                 <div>
