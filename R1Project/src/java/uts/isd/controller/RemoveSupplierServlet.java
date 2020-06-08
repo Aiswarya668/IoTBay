@@ -67,12 +67,12 @@ public class RemoveSupplierServlet extends HttpServlet {
      
                 
         } else if (supplier == null) {
-             session.setAttribute("exceptionErr", "Supplier with point of contact does not exist");
+             session.setAttribute("exceptionSupplierErr", "Supplier with point of contact does not exist");
             request.getRequestDispatcher("removeSupplier.jsp").include(request, response);    
         }
         
         else {
-            session.setAttribute("creationConfirmation", "Supplier with point of contact has been successfully deleted");
+            session.setAttribute("creationConfirmation", "Supplier with point of contact has been successfully deleted!");
             request.getRequestDispatcher("removeSupplier.jsp").include(request, response);
             supplierManager.deleteSupplier(contactName, supplierName);
             
