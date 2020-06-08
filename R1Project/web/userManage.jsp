@@ -47,10 +47,10 @@
             <div class="card">
                 <div>
                     <h1>User Management</h1>
-                    <p class ="success"><%= (updateMsg != null) ? updateMsg : ""%></p>
-                    <p class ="success"><%= (createMsg != null) ? createMsg : ""%></p>
-                    <p class ="success"><%= (deleteMsg != null) ? deleteMsg : ""%></p>
-                    <p class="error">${userDeleteErr}</p>
+                    <p class ="success" align="center"><%= (updateMsg != null) ? updateMsg : ""%></p>
+                    <p class ="success" align="center"><%= (createMsg != null) ? createMsg : ""%></p>
+                    <p class ="success" align="center"><%= (deleteMsg != null) ? deleteMsg : ""%></p>
+                    <p class="error" align="center">${userDeleteErr}</p>
                 </div>
                 <div>
                     <i class="material-icons global-search-icon">&#xE8B6;</i> 

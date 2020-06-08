@@ -9,14 +9,14 @@ A prototype Java web application for an online e-commerce website.
     2. `loadSampleCustomers.sql`
     3. `loadSampleStaff.sql`
     4. `loadSampleDevice.sql`
-    5. `loadSampleShippingCompany.sql`
+    5. `loadSampleSupplier.sql`
     6. `loadSampleCustomerOrder.sql`
-    7. `loadSampleOrderDeviceT.sql`
-    8. `loadSamplePaymentDetails.sql`
-    9. `loadSampleCartItem.sql`
-    10. `loadSampleApplicationAccessLogs-staff.sql`
-    11. `loadSampleApplicationAccessLogs-customer.sql`
-    12. `loadSampleSupportTicket.sql`
+    7. `loadSampleCartItem.sql`
+    8. `loadSampleApplicationAccessLogs-staff.sql`
+    9. `loadSampleApplicationAccessLogs-customer.sql`
+    10. `loadSampleSupportTicket.sql`
+    11. `loadSamplePaymentDetails.sql`
+    12. `loadSamplePaymentSnapshots.sql`
 
 ## Usage
 
@@ -27,7 +27,7 @@ A prototype Java web application for an online e-commerce website.
 
 ### Method 2: Run from WAR file
 
-1. Unzip `isd-at1-iotbay.war`
+1. Unzip `Assign1Prototype.war`
 2. Create a subfolder named `web` inside the unzipped folder
 3. Move all files in the unzipped folder into `web`
 4. Open [NetBeans IDE 8.2](https://netbeans.org/downloads/8.2/rc/) > New Project > Java Web > Web Application with Existing Sources
