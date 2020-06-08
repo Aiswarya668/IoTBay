@@ -39,19 +39,19 @@ public class cancelOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        //get session
         HttpSession session = request.getSession();
         // device manager to get details of the device
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
-        
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
         // get id of the order
         int id = Integer.parseInt(request.getParameter("id"));
-
+        //get customer from the session
         Customer cust = (Customer) session.getAttribute("customer");
         
         try{
+            //find order to cancel
             CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
             
             int deviceID = foundOrder.getDeviceID();
@@ -69,6 +69,7 @@ public class cancelOrder extends HttpServlet {
             
             orderManager.deleteOrder(id);
             
+            //find order in available orders that are shown on order history
             ArrayList<CustomerOrder> orders = (ArrayList) session.getAttribute("allOrders");
             CustomerOrder found = null;
             for (CustomerOrder o : orders) {
@@ -76,7 +77,9 @@ public class cancelOrder extends HttpServlet {
                     found = o;
                 }
             }
+            //remove found orders
             orders.remove(found);
+            //give new list of orders back to the user
             session.setAttribute("allOrders",orders);
             
         } catch (SQLException ex) {

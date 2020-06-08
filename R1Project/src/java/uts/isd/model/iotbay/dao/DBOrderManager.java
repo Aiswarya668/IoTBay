@@ -65,7 +65,7 @@ public class DBOrderManager {
 
             System.out.println(query);
             PreparedStatement pStatement = connection.prepareStatement(query);
-
+            //put all paramters into the query
             pStatement.setString(1, customerEmail);
             pStatement.setInt(2, paymentID);
             pStatement.setInt(3, deviceID);
@@ -236,7 +236,7 @@ public class DBOrderManager {
         
         String query = "UPDATE IOTBAYUSER.CUSTOMERORDER SET CustomerEmail=? , PaymentID=?, deviceID=?, quantity=?, DateOrdered=?, TotalPrice=?, EstArrivalDate=?, DepartureDate=?,supplierEmail=?, ShipmentPrice=?, ShippingType=?, Status=?, StreetAddress=?, UnitNumber=?, City=?, STATE=?, PostalCode=?, PHONENUMBER=? WHERE ORDERID=?";
         PreparedStatement pStatement = connection.prepareStatement(query);
-
+            //put all parameters into the query
             pStatement.setString(1, customerEmail);
             pStatement.setInt(2, paymentID);
             pStatement.setInt(3, deviceID);
@@ -270,16 +270,17 @@ public class DBOrderManager {
     public void deleteOrder(int orderID) throws SQLException {
         statement.executeUpdate("DELETE FROM IOTBAYUSER.CUSTOMERORDER WHERE ORDERID=" + orderID + "");
     }
-
+    //find orderID using other information to give to customers that have just completed payment for their order
     public int findOrderID(String customerEmail, int paymentID, int deviceID, int quantity, Timestamp dateOrdered, double totalPrice,
             Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
             String shipmentType, String status, String streetAddress, String unitNumber, String city,
             String state, String postalCode, String phoneNumber) throws SQLException{
         PreparedStatement pStatement = null;
+        //Complete this query if tf the order is saved instead of submitted - saved orders don't have information about estDate of Arrival and Depature
         if (status.equals( "SAVED")) {
             String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate IS NULL AND DepartureDate IS NULL AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";
             pStatement = connection.prepareStatement(query);
-        
+            //put all parameters into the query
             pStatement.setString(1, customerEmail);
             pStatement.setInt(2, paymentID);
             pStatement.setInt(3, deviceID);
@@ -297,9 +298,10 @@ public class DBOrderManager {
             pStatement.setString(15, postalCode);
             pStatement.setString(16, phoneNumber);
         } else {
+            //For orders which have been paid for and have an estimated date of arrival and departure
             String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate=? AND DepartureDate=? AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";  
             pStatement = connection.prepareStatement(query);
-        
+            //put all parameters in the query
             pStatement.setString(1, customerEmail);
             pStatement.setInt(2, paymentID);
             pStatement.setInt(3, deviceID);

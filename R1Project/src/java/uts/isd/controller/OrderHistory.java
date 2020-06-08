@@ -38,24 +38,30 @@ public class OrderHistory extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            //get session
             HttpSession session = request.getSession();
             // Get user from sessiom
             // User user = (User) session.getAttribute("loggedInUser");
             Customer loggedInCustomer = (Customer) session.getAttribute("customer");
+            //prepare DBmanager for CRUD operations
             DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+            
+            //get errors related to the orde
             session.setAttribute("orderErrors", new ArrayList<>());
-
+            
             String loggedInEmail = "";
             ArrayList<CustomerOrder> orders = new ArrayList<>();
 
+            //if customer is anonymous, don't show any orders on order history by default
             if (loggedInCustomer == null) {
                 orders = null;
             } else {
+                //else if a customer, find all orders related to them via their customer email
                 orders = orderManager.getOrdersByUserEmail(loggedInCustomer.getEmail());
             }
-
+            
+            //put orders on session to be shown on orderHistory page
             session.setAttribute("allOrders", orders);
-            // for later searching
             session.setAttribute("searchErrors", new ArrayList<String>());
             RequestDispatcher view = request.getRequestDispatcher("orderHistory.jsp");
             view.forward(request, response);

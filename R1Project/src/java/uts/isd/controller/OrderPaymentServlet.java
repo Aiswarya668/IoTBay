@@ -30,21 +30,23 @@ public class OrderPaymentServlet extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
+       //get session
         HttpSession session = request.getSession();
-        
+        //get customer from session
         Customer customer = (Customer) session.getAttribute("customer");
-       
+        //if there is no customer and it is an anonymous customer, set customer email to none 
         String customerEmail = (customer != null) ? customer.getEmail() : null;
-        
+        //prepare dbmanager for CRUD operations later on
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
-        
+        //get orderID from the request to find order for payment
         String orderID = request.getParameter("id");
-        
+        //prepare validator for validation
         Validator validator = new Validator();
-        
+        //clear errors on the session via the validator
         validator.clear(session);
         
+        //if there is an orderID, retrieve the order from the database to be sent to purchase to finish payment
+        //else just continue to use the order from the session prior
         if (orderID != null){
             try{
                 DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
@@ -55,7 +57,7 @@ public class OrderPaymentServlet extends HttpServlet{
                 Logger.getLogger(PaymentHistoryServlet.class.getName()).log(Level.SEVERE, null, ex);
             }   
         }           
-        
+        //Find payment details for customer for payment
         try {
             PaymentDetails paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);
                    

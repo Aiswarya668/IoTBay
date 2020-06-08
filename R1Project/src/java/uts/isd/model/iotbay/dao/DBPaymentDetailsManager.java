@@ -20,7 +20,7 @@ public class DBPaymentDetailsManager {
         st = conn.createStatement();
         this.conn = conn;
     }
-    
+    //find payment details using information from the customer email
     public PaymentDetails findPaymentDetails(String CustomerEmail) throws SQLException {
         String query = "SELECT * FROM IOTBAYUSER.PAYMENTDETAILS WHERE CUSTOMEREMAIL='" + CustomerEmail + "'";
         ResultSet rs = st.executeQuery(query);
@@ -32,17 +32,17 @@ public class DBPaymentDetailsManager {
                 String foundHashedCreditedCardNumber = rs.getString(3);
                 String foundCardSecurityCode = rs.getString(4);
                 String foundCardExpiryDate = rs.getString(5);
-                
+                //return payment details object with results found from query
                 return new PaymentDetails(foundCustomerEmail, foundMethodOfPayment, foundHashedCreditedCardNumber,foundCardSecurityCode, foundCardExpiryDate);
             }
         }
-        
+        //return null if nothing is found in the query
         return null;
     }
-    
+    //add payment details to the database
     public void addPaymentDetails(String CustomerEmail, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate) throws SQLException {
         String query = "INSERT INTO IOTBAYUSER.PAYMENTDETAILS (customeremail, MethodOfPayment, HashedCardNumber, CardSecurityCode, CardExpiryDate) VALUES (?,?,?,?,?)";
-        
+        //put parameters into the query
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, CustomerEmail);
         stmt.setString(2, methodOfPayment);
@@ -53,15 +53,15 @@ public class DBPaymentDetailsManager {
         stmt.executeUpdate();
         stmt.close();
     }
-     
+     //Update payment details using information from parameters on the customer email
     public void updatePaymentDetails(String CustomerEmail, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate) throws SQLException{
         st.executeUpdate("UPDATE IOTBAYUSER.PAYMENTDETAILS SET MethodOfPayment='" + methodOfPayment + "', HashedCardNumber='"+ hashedCreditedCardNumber + "', CardSecurityCode='" + cardSecurityCode + "', CardExpiryDate='" + cardExpiryDate + "' WHERE CUSTOMEREMAIL='" + CustomerEmail + "'");
     }
-    
+    //delete payment details using the customer email
     public void deletePaymentDetails(String CustomerEmail) throws SQLException {
         st.executeUpdate("DELETE FROM IOTBAYUSER.PAYMENTDETAILS WHERE CUSTOMEREMAIL='" + CustomerEmail + "'");
     }
-    
+    //retrieve all payment details from the database and return it in an array list of PaymentDetails
     public ArrayList<PaymentDetails> fetchPaymentDetails()throws SQLException{
         String fetch = "SELECT * FROM IOTBAYUSER.PAYMENTDETAILS";
         ResultSet rs = st.executeQuery(fetch);

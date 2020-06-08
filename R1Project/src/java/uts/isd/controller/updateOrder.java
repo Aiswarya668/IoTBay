@@ -48,9 +48,9 @@ public class updateOrder extends HttpServlet {
 
         // for setting up orders errors
         session.setAttribute("orderErrors", new ArrayList<String>());
-
+        //find Customer order that needs to be updated    
         CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
-        
+        //get information needed to update the order and give it to the JSP page
         request.setAttribute("orderIdTobeUpdated", request.getParameter("id"));
         request.setAttribute("updateOrder", foundOrder);
         
@@ -73,14 +73,16 @@ public class updateOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            //get session
             HttpSession session = request.getSession();
+            
+            //prepare DBManager for later CRUD operations
             DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
-
             DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
-
+            //find order that needs to be updated
             CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
             int deviceID = foundOrder.getDeviceID();
-            
+            //find the device that needs their stock level adjusted
             Device theDevice = deviceManager.findDeviceByID(deviceID);
             // for tracking errors
             ArrayList<String> orderErrors = new ArrayList<>();
@@ -134,12 +136,15 @@ public class updateOrder extends HttpServlet {
             } else {
 
                 // set status of the device
+                //orders that can be updated can only be on the SAVED state
                 String orderStatus = "SAVED";  
                 // deleteOrderFrist(orderActualID, session); 
                 // Make data to be saved to Customer order ready
                 // String orderID = "" + (new Random()).nextInt(999999);
                 // get customer from session
                 
+                
+                //upadate order in the database
                 orderManager.updateCustomerOrder(Integer.parseInt(request.getParameter("id")),foundOrder.getCustomerEmail(), -1, foundOrder.getDeviceID(), amount, foundOrder.getDateOrdered(),
                             totalCost, null, null, foundOrder.getSupplierEmail(), shippingCost,
                             foundOrder.getShippingType(), orderStatus, streetAddress, unitNumber, city,
