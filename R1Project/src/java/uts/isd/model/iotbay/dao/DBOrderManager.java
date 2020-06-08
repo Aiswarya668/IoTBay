@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package uts.isd.model.iotbay.dao;
 
 import java.sql.Connection;
@@ -13,8 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 //import java.util.Date;
 import uts.isd.model.CustomerOrder;
-import uts.isd.model.Supplier;
-import uts.isd.model.User;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -42,6 +41,7 @@ public class DBOrderManager {
      * Create Order into the database
      *
      * @param customerEmail
+     * @param paymentID
      * @param dateOrdered
      * @param totalPrice
      * @param estArrivalDate
@@ -55,32 +55,35 @@ public class DBOrderManager {
      * @param phoneNumber
      * @throws SQLException
      */
-    public void addOrder(String customerEmail, Timestamp dateOrdered, double totalPrice,
+    public void addOrder(String customerEmail, int paymentID, int deviceID, int quantity, Timestamp dateOrdered, double totalPrice,
             Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
             String shipmentType, String status, String streetAddress, String unitNumber, String city,
             String state, String postalCode, String phoneNumber) throws SQLException {
         try {
             // create order then
-            String query = "insert into customerorder (customeremail, dateordered, totalprice, estarrivaldate, departuredate, supplierEmail, shipmentprice, shippingtype, status, streetaddress, unitnumber, city, state, postalcode, phonenumber) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "insert into customerorder (customeremail, paymentID, deviceID, quantity, dateordered, totalprice, estarrivaldate, departuredate, supplierEmail, shipmentprice, shippingtype, status, streetaddress, unitnumber, city, state, postalcode, phonenumber) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             System.out.println(query);
             PreparedStatement pStatement = connection.prepareStatement(query);
 
             pStatement.setString(1, customerEmail);
-            pStatement.setTimestamp(2, dateOrdered);
-            pStatement.setDouble(3, totalPrice);
-            pStatement.setTimestamp(4, estArrivalDate);
-            pStatement.setTimestamp(5, departureDate);
-            pStatement.setString(6, supplierEmail);
-            pStatement.setDouble(7, shipmentPrice);
-            pStatement.setString(8, shipmentType);
-            pStatement.setString(9, status);
-            pStatement.setString(10, streetAddress);
-            pStatement.setString(11, unitNumber);
-            pStatement.setString(12, city);
-            pStatement.setString(13, state);
-            pStatement.setString(14, postalCode);
-            pStatement.setString(15, phoneNumber);
+            pStatement.setInt(2, paymentID);
+            pStatement.setInt(3, deviceID);
+            pStatement.setInt(4, quantity);
+            pStatement.setTimestamp(5, dateOrdered);
+            pStatement.setDouble(6, totalPrice);
+            pStatement.setTimestamp(7, estArrivalDate);
+            pStatement.setTimestamp(8, departureDate);
+            pStatement.setString(9, supplierEmail);
+            pStatement.setDouble(10, shipmentPrice);
+            pStatement.setString(11, shipmentType);
+            pStatement.setString(12, status);
+            pStatement.setString(13, streetAddress);
+            pStatement.setString(14, unitNumber);
+            pStatement.setString(15, city);
+            pStatement.setString(16, state);
+            pStatement.setString(17, postalCode);
+            pStatement.setString(18, phoneNumber);
             pStatement.executeUpdate();
 
             // Also save this to device T
@@ -112,11 +115,14 @@ public class DBOrderManager {
 
         while (rSet.next()) {
             // add all data to above array list
-            String orderID = rSet.getString("ORDERID");
-            Date dateOrdered = rSet.getDate("DATEORDERED");
+            int orderID = rSet.getInt("ORDERID");
+            int paymentID = rSet.getInt("PAYMENTID");
+            int deviceID = rSet.getInt("DEVICEID");
+            int quantity = rSet.getInt("QUANTITY");
+            Timestamp dateOrdered = rSet.getTimestamp("DATEORDERED");
             double totalPrice = rSet.getDouble("TOTALPRICE");
-            String estArrivalDate = rSet.getString("ESTARRIVALDATE");
-            String dateTimeDeparture = rSet.getString("DEPARTUREDATE");
+            Timestamp estArrivalDate = rSet.getTimestamp("ESTARRIVALDATE");
+            Timestamp dateTimeDeparture = rSet.getTimestamp("DEPARTUREDATE");
             String supplierEmail = rSet.getString("SUPPLIEREMAIL");
             double shippingCost = rSet.getDouble("SHIPMENTPRICE");
             String shippingType = rSet.getString("SHIPPINGTYPE");
@@ -129,37 +135,27 @@ public class DBOrderManager {
             String postCode = rSet.getString("POSTALCODE");
             String phoneNumber = rSet.getString("PHONENUMBER");
 
-            // get user details from email
-            String userSql = "";
-
-            // get current logged in user
-            User user = new User(
-                    "Fake Name",
-                    "Fake LastName",
-                    "minkpen4@comcast.net",
-                    "admin123",
-                    "Male",
-                    unitNumber,
-                    "Morisson Street",
-                    city,
-                    state,
-                    "2222"
-            );
-
-            Supplier supplier = new Supplier(supplierEmail, supplierEmail, postCode, "", true);
-
             customerOrders.add(
                     new CustomerOrder(
                             orderID,
-                            user,
+                            userEmail,
+                            paymentID,
+                            deviceID, 
+                            quantity,
                             dateOrdered,
                             totalPrice,
                             estArrivalDate,
-                            supplier,
+                            supplierEmail,
                             shippingCost,
                             dateTimeDeparture,
                             shippingType,
-                            status
+                            status,
+                            streetAddress,
+                            unitNumber,
+                            city,
+                            state,
+                            postCode,
+                            phoneNumber
                     )
             );
         }
@@ -184,12 +180,15 @@ public class DBOrderManager {
 
         while (rSet.next()) {
             // add all data to above array list
-            String orderID = rSet.getString("ORDERID");
-
-            Date dateOrdered = rSet.getDate("DATEORDERED");
+            int orderID = rSet.getInt("ORDERID");
+            String customerEmail = rSet.getString("CUSTOMEREMAIL");
+            int paymentID = rSet.getInt("PAYMENTID");
+            int deviceID = rSet.getInt("DEVICEID");
+            int quantity = rSet.getInt("QUANTITY");
+            Timestamp dateOrdered = rSet.getTimestamp("DATEORDERED");
             double totalPrice = rSet.getDouble("TOTALPRICE");
-            String estArrivalDate = rSet.getString("ESTARRIVALDATE");
-            String dateTimeDeparture = rSet.getString("DEPARTUREDATE");
+            Timestamp estArrivalDate = rSet.getTimestamp("ESTARRIVALDATE");
+            Timestamp dateTimeDeparture = rSet.getTimestamp("DEPARTUREDATE");
             String supplierEmail = rSet.getString("SUPPLIEREMAIL");
             double shippingCost = rSet.getDouble("SHIPMENTPRICE");
             String shippingType = rSet.getString("SHIPPINGTYPE");
@@ -202,37 +201,27 @@ public class DBOrderManager {
             String postCode = rSet.getString("POSTALCODE");
             String phoneNumber = rSet.getString("PHONENUMBER");
 
-            // get user details from email
-            String userSql = "";
-
-            // get current logged in user
-            User user = new User(
-                    "Fake Name",
-                    "Fake LastName",
-                    "minkpen4@comcast.net",
-                    "admin123",
-                    "Male",
-                    unitNumber,
-                    "Morisson Street",
-                    city,
-                    state,
-                    "2222"
-            );
-            // String supplierEmail, String supplierName, String contactName, String supplierAddress, Boolean active
-            Supplier supplier = new Supplier(supplierEmail, supplierEmail, postCode, streetAddress, true);
-
             customerOrders.add(
                     new CustomerOrder(
                             orderID,
-                            user,
+                            customerEmail,
+                            paymentID,
+                            deviceID,
+                            quantity,
                             dateOrdered,
                             totalPrice,
                             estArrivalDate,
-                            supplier,
+                            supplierEmail,
                             shippingCost,
                             dateTimeDeparture,
                             shippingType,
-                            status
+                            status,
+                            streetAddress,
+                            unitNumber,
+                            city,
+                            state,
+                            postCode,
+                            phoneNumber
                     )
             );
         }
@@ -240,8 +229,36 @@ public class DBOrderManager {
     }
 
     //Update device details 
-    public void updateCustomerOrder(String deviceName, String type, double cost, int stockQuantity, String description) throws SQLException {
-        statement.executeUpdate("UPDATE IOTBAYUSER.CUSTOMERORDER SET ='" + deviceName + "', TYPE='" + type + "', COST=" + cost + ", STOCKQUANTITY=" + stockQuantity + ", DESCRIPTION='" + description + "' WHERE DEVICENAME='" + deviceName + "'");
+    public void updateCustomerOrder(int orderID, String customerEmail, int paymentID, int deviceID, int quantity, Timestamp dateOrdered, double totalPrice,
+            Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
+            String shipmentType, String status, String streetAddress, String unitNumber, String city,
+            String state, String postalCode, String phoneNumber) throws SQLException {
+        
+        String query = "UPDATE IOTBAYUSER.CUSTOMERORDER SET CustomerEmail=? , PaymentID=?, deviceID=?, quantity=?, DateOrdered=?, TotalPrice=?, EstArrivalDate=?, DepartureDate=?,supplierEmail=?, ShipmentPrice=?, ShippingType=?, Status=?, StreetAddress=?, UnitNumber=?, City=?, STATE=?, PostalCode=?, PHONENUMBER=? WHERE ORDERID=?";
+        PreparedStatement pStatement = connection.prepareStatement(query);
+
+            pStatement.setString(1, customerEmail);
+            pStatement.setInt(2, paymentID);
+            pStatement.setInt(3, deviceID);
+            pStatement.setInt(4, quantity);
+            pStatement.setTimestamp(5, dateOrdered);
+            pStatement.setDouble(6, totalPrice);
+            pStatement.setTimestamp(7, estArrivalDate);
+            pStatement.setTimestamp(8, departureDate);
+            pStatement.setString(9, supplierEmail);
+            pStatement.setDouble(10, shipmentPrice);
+            pStatement.setString(11, shipmentType);
+            pStatement.setString(12, status);
+            pStatement.setString(13, streetAddress);
+            pStatement.setString(14, unitNumber);
+            pStatement.setString(15, city);
+            pStatement.setString(16, state);
+            pStatement.setString(17, postalCode);
+            pStatement.setString(18, phoneNumber);
+            pStatement.setInt(19, orderID);
+            
+            pStatement.executeUpdate();
+            pStatement.close();
     }
 
     /**
@@ -254,4 +271,63 @@ public class DBOrderManager {
         statement.executeUpdate("DELETE FROM IOTBAYUSER.CUSTOMERORDER WHERE ORDERID=" + orderID + "");
     }
 
+    public int findOrderID(String customerEmail, int paymentID, int deviceID, int quantity, Timestamp dateOrdered, double totalPrice,
+            Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
+            String shipmentType, String status, String streetAddress, String unitNumber, String city,
+            String state, String postalCode, String phoneNumber) throws SQLException{
+        PreparedStatement pStatement = null;
+        if (status.equals( "SAVED")) {
+            String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate IS NULL AND DepartureDate IS NULL AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";
+            pStatement = connection.prepareStatement(query);
+        
+            pStatement.setString(1, customerEmail);
+            pStatement.setInt(2, paymentID);
+            pStatement.setInt(3, deviceID);
+            pStatement.setInt(4, quantity);
+            pStatement.setTimestamp(5, dateOrdered);
+            pStatement.setDouble(6, totalPrice);
+            pStatement.setString(7, supplierEmail);
+            pStatement.setDouble(8, shipmentPrice);
+            pStatement.setString(9, shipmentType);
+            pStatement.setString(10, status);
+            pStatement.setString(11, streetAddress);
+            pStatement.setString(12, unitNumber);
+            pStatement.setString(13, city);
+            pStatement.setString(14, state);
+            pStatement.setString(15, postalCode);
+            pStatement.setString(16, phoneNumber);
+        } else {
+            String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate=? AND DepartureDate=? AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";  
+            pStatement = connection.prepareStatement(query);
+        
+            pStatement.setString(1, customerEmail);
+            pStatement.setInt(2, paymentID);
+            pStatement.setInt(3, deviceID);
+            pStatement.setInt(4, quantity);
+            pStatement.setTimestamp(5, dateOrdered);
+            pStatement.setDouble(6, totalPrice);
+            pStatement.setTimestamp(7, estArrivalDate);
+            pStatement.setTimestamp(8, departureDate);
+            pStatement.setString(9, supplierEmail);
+            pStatement.setDouble(10, shipmentPrice);
+            pStatement.setString(11, shipmentType);
+            pStatement.setString(12, status);
+            pStatement.setString(13, streetAddress);
+            pStatement.setString(14, unitNumber);
+            pStatement.setString(15, city);
+            pStatement.setString(16, state);
+            pStatement.setString(17, postalCode);
+            pStatement.setString(18, phoneNumber);
+        }
+        
+        ResultSet rs = pStatement.executeQuery();
+        while (rs.next()) {
+            int orderID = rs.getInt("ORDERID");
+            return orderID;
+        }
+        
+        return -1;
+        
+    }
+    
 }

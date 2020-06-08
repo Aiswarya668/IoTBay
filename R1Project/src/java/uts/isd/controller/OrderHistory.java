@@ -49,16 +49,9 @@ public class OrderHistory extends HttpServlet {
             ArrayList<CustomerOrder> orders = new ArrayList<>();
 
             if (loggedInCustomer == null) {
-                loggedInEmail = "Anonymous";
-                if (session.getAttribute("allOrders") == null) {
-                    session.setAttribute("allOrders", new ArrayList<CustomerOrder>());
-                }
-                System.out.println("------------Order Hisory-------------");
-                orders = (ArrayList<CustomerOrder>) session.getAttribute("allOrders");
-                System.out.println(orders);
+                orders = null;
             } else {
-                loggedInEmail = loggedInCustomer.getEmail();
-                orders = orderManager.getOrdersByUserEmail("minkpen4@comcast.net");
+                orders = orderManager.getOrdersByUserEmail(loggedInCustomer.getEmail());
             }
 
             session.setAttribute("allOrders", orders);
@@ -72,5 +65,5 @@ public class OrderHistory extends HttpServlet {
         }
 
     }
-
+    
 }

@@ -31,6 +31,12 @@ public class Validator implements Serializable {
     private String contactNamePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
     private String supplierNamePattern = "(?!^[\\d\\s!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]+$)^.+$";
     private String supplierEmailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
+   //payment details valdator patterns
+    private String methodOfPaymentPattern = "[A-Za-z\\s]*";
+    private String hashedCreditedCardNumberPattern = "[0-9]{16}|[0-9]{4}[\\s]?[0-9]{4}[\\s]?[0-9]{4}[\\s]?[0-9]{4}";
+    private String cardSecurityCodePattern = "^[0-9]{3}$";
+    private String cardExpiryDatePattern = "^[0-9]{4}-[0-9]{2}$";
+    
     private String supplierAddressPattern = "[A-Za-z0-9\\s,/]*";
 
    public Validator() {
@@ -48,7 +54,7 @@ public class Validator implements Serializable {
    public boolean validateSingleString(String string) {
      return validate(deviceNamePattern, string);
    }
-
+   
    // validator - needs to be valid single int
    public boolean validateSingleInt(String number) {
      return validate(singleIntPattern, number);
@@ -139,8 +145,28 @@ public class Validator implements Serializable {
     }
     
      //supplier validators - check if search fields for update are empty
-     public boolean checkSearchEmpty(String contactName, String supplierName){       
-       return  contactName.isEmpty() || supplierName.isEmpty();   
+     public boolean checkSearchEmpty(String contactName, String supplierName){
+         return  contactName.isEmpty() || supplierName.isEmpty();   
+    }
+    
+     public boolean validateMethodOfPayment(String methodOfPayment) {
+         return validate(methodOfPaymentPattern,methodOfPayment);
+     }
+     
+    public boolean validatehashedCreditedCardNumber (String cardNumber) {
+        return validate(hashedCreditedCardNumberPattern, cardNumber);
+    }
+    
+    public boolean validatecardSecurityCode (String securityCode) {
+        return validate(cardSecurityCodePattern, securityCode);
+    }
+    
+    public boolean validatecardExpiryDate (String cardExpiryDate){
+        return validate(cardExpiryDatePattern, cardExpiryDate);
+    }
+    
+    public boolean checkPaymentDetailsEmpty(String methodOfPayment, String cardNumber, String securityCode, String expiryDate) {
+        return methodOfPayment.isEmpty() || cardNumber.isEmpty() || securityCode.isEmpty() || expiryDate.isEmpty();
     }
     
     public void clear(HttpSession session) {
@@ -204,5 +230,13 @@ public class Validator implements Serializable {
         session.setAttribute("confirmationCreation", "");
         session.setAttribute("formatErr", "");
         //session.setAttribute("deleteActiveErr", "");
+        
+        //paymentDetail related errors clear()
+        session.setAttribute("paymentDetailsEmptyErr","");
+        session.setAttribute("methodFieldErr","");
+        session.setAttribute("cardNumberFieldErr","");
+        session.setAttribute("cardCodeFieldErr","");
+        session.setAttribute("expiryDateFieldErr",""); 
+        session.setAttribute("updateSucess","");
     }
 }

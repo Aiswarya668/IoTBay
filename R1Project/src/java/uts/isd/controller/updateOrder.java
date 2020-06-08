@@ -7,21 +7,18 @@ package uts.isd.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.Customer;
 import uts.isd.model.CustomerOrder;
 import uts.isd.model.Device;
-import uts.isd.model.Supplier;
-import uts.isd.model.User;
 import uts.isd.model.iotbay.dao.DBDeviceManager;
 import uts.isd.model.iotbay.dao.DBOrderManager;
 
@@ -43,49 +40,23 @@ public class updateOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // get session
-            HttpSession session = request.getSession();
-            // device manager to get details of the device
-            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+        // get session
+        HttpSession session = request.getSession();
+        // device manager to get details of the device
+        DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
 
-            // for setting up orders errors
-            session.setAttribute("orderErrors", new ArrayList<String>());
-             session.setAttribute("updateOrder", new CustomerOrder());
+        // for setting up orders errors
+        session.setAttribute("orderErrors", new ArrayList<String>());
 
-
-            // get id of the device that is to be ordered
-            int orderID = Integer.parseInt(request.getParameter("id"));
-            
-            session.setAttribute("orderIdTobeUpdated", request.getParameter("id"));
-
-            Customer cust = (Customer) session.getAttribute("customer");
-            
-            if (cust == null) {
-                System.out.println("Ayou? "+ request.getParameter("id"));
-                // get order ID from session
-                ArrayList<CustomerOrder> allOrdersFromSession = (ArrayList) session.getAttribute("allOrders");
-                System.out.println(allOrdersFromSession);
-                
-                for (CustomerOrder order : allOrdersFromSession) {
-                    if ( Integer.parseInt(order.getOrderID()) == orderID) {
-                        session.setAttribute("updateOrder", order);
-                        System.out.println("UPDATE =>");
-                        System.out.println(order.getUser().getState());
-                        break;
-                    }
-                }
-            } else {
-                // get orderID from DB
-                ArrayList<CustomerOrder> order = orderManager.getOrdersById(request.getParameter("id"));
-                session.setAttribute("updateOrder", order.get(0));
-            }
-
-            RequestDispatcher v = request.getRequestDispatcher("/updateOrder.jsp");
-            v.forward(request, response);
-
-        } catch (SQLException error) {
-            System.out.println(error);
-            error.getSQLState();
+        CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
+        
+        request.setAttribute("orderIdTobeUpdated", request.getParameter("id"));
+        request.setAttribute("updateOrder", foundOrder);
+        
+        RequestDispatcher v = request.getRequestDispatcher("/updateOrder.jsp");
+        v.forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(cancelOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -106,18 +77,13 @@ public class updateOrder extends HttpServlet {
 
             DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
-            Device theDevice = (Device) session.getAttribute("buyDevice");
-
-            // if there is no device , please redirect it 
-            if (theDevice == null) {
-                response.sendRedirect("/");
-            }
+            CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
+            int deviceID = foundOrder.getDeviceID();
+            
+            Device theDevice = deviceManager.findDeviceByID(deviceID);
 
             // for tracking errors
             ArrayList<String> orderErrors = new ArrayList<>();
-
-            // create a actual order
-            CustomerOrder order = new CustomerOrder();
 
             // get all data from order form
             String amountFromInput = request.getParameter("amount");
@@ -164,110 +130,23 @@ public class updateOrder extends HttpServlet {
             } else {
 
                 // set status of the device
-                String action
-                        = request.getParameter("action");
-                System.out.println(action);
-                String savedStatus = "SAVED";
-                String submittedStatus = "SUBMITED";
-                String orderStatus = "";
-
-                if (savedStatus.equalsIgnoreCase(action)) {
-                    orderStatus = savedStatus;
-                } else if ("Update".equalsIgnoreCase("Update")) {
-                    orderStatus = submittedStatus;
-                }
-
-                int orderActualID = Integer.parseInt(request.getParameter("id"));
-                    
-                    
-                 deleteOrderFrist(orderActualID, session);
+                String orderStatus = "SAVED";  
+                // deleteOrderFrist(orderActualID, session); 
                 // Make data to be saved to Customer order ready
-//                String orderID = "" + (new Random()).nextInt(999999);
+                // String orderID = "" + (new Random()).nextInt(999999);
                 // get customer from session
-                Customer loggedInCustomer = (Customer) request.getAttribute("customer");
-
-                String userEmail = "";
-
-                if (loggedInCustomer == null) {
-
-                    // Make everything Anynomous
-                    userEmail = "Anynomous User Email";
-
-                    User user = new User("Anynomous", "Anynomous", "Anynomous", "Anynomous", "Anynomous",
-                            "Anynomous", "Anynomous", "Anynomous", "Anynomous", "Anynomous");
-                    Supplier sup = new Supplier("Anynomous", "Anynomous", "Anynomous", "Anynomous", true);
-
-                    CustomerOrder aOrder = new CustomerOrder(
-                            request.getParameter("id"),
-                            user,
-                            new Date(),
-                            totalCost + 10,
-                            new Date().toString(),
-                            sup, 10,
-                            new Date().toString(),
-                            "Air",
-                            orderStatus);
-
-                    if (session.getAttribute("allOrders") == null) {
-                        session.setAttribute("allOrders", new ArrayList<CustomerOrder>());
-                    }
-                    
-                    
-                    
-                    ArrayList<CustomerOrder> custOrders = (ArrayList) session.getAttribute("allOrders");
-                    custOrders.add(aOrder);
-                    session.setAttribute("allOrders", custOrders);
-                    System.out.println("Anynomous ---------------->" + aOrder.toString());
-                } else {
-                    userEmail = loggedInCustomer.getEmail();
-                }
-                // Current Date
-                Timestamp dateOrdered = new Timestamp(new Date().getTime());
-
-                // Estimated Arrival Date 
-                // TODO: How to calculate them?? 
-                Timestamp estArrivalDate = new Timestamp(new Date().getTime());
-                Timestamp departureDate = new Timestamp(new Date().getTime());
-
-                // Get supplier Email Address
-                // TODO: Just fakeing it as there is no way to link device with supplier
-                String supplierEmail = "";
-                // Also same for shipment Price
-                double shipmentPrice = totalCost + 10;
-                // Same for shipment Type
-                String shipmentType = "Air";
-
-                // Also change stock
-                if (orderStatus.equalsIgnoreCase("SUBMITED")) {
-
-                    double currentStock = theDevice.getStockQuantity();
-                    theDevice.setStockQuantity((int) (currentStock - amount));
-
-                    // update DB of device
-                    deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
-                            theDevice.getStockQuantity(), theDevice.getDescription());
-
-                }
-
-                if (loggedInCustomer != null) {
-                    // addOrder(String customerEmail, String dateOrdered, double totalPrice,
-                    // String estArrivalDate, String departureDate, String supplierEmail, double shipmentPrice,
-                    // String shipmentType, String status, String streetAddress, String unitNumber, String city,
-                    // String state, String postalCode,  String phoneNumber
-                    // Add all these data to DB
-                    
-                    // Delete the order first
-                    deleteOrderFrist(Integer.parseInt(request.getParameter("id")), session);
-
-                    // Update Order Instead of add
-                    orderManager.addOrder(userEmail, dateOrdered,
-                            totalCost, estArrivalDate, departureDate, supplierEmail, shipmentPrice,
-                            shipmentType, orderStatus, streetAddress, unitNumber, city,
+                
+                orderManager.updateCustomerOrder(Integer.parseInt(request.getParameter("id")),foundOrder.getCustomerEmail(), -1, foundOrder.getDeviceID(), amount, foundOrder.getDateOrdered(),
+                            totalCost, null, null, foundOrder.getSupplierEmail(), foundOrder.getShippingCost(),
+                            foundOrder.getShippingType(), orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
-                }
-
+                
+                
                 // Redirection to list of orders
-                response.sendRedirect("/OrderHistory");
+                
+                session.setAttribute("updateSucess", "Order details successfully updated!");
+                RequestDispatcher v = request.getRequestDispatcher("/orderHistory.jsp");
+                v.forward(request, response);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -277,31 +156,31 @@ public class updateOrder extends HttpServlet {
 
     
     
-    public void deleteOrderFrist(int orderID, HttpSession session){
-        if(session.getAttribute("customer") == null){
-            // if the cutsomer is not logged in
-            ArrayList<CustomerOrder> allOrdersFromSession = (ArrayList) session.getAttribute("allOrders");
-            
-            for(CustomerOrder o: allOrdersFromSession){
-                if(Integer.parseInt(o.getOrderID()) == orderID){
-                   allOrdersFromSession.remove(o);
-                   break;
-                }
-            }
-            
-            session.setAttribute("allOrders", allOrdersFromSession);
-            
-        } else {
-            // if the customer is logged in
-            DBOrderManager manager = (DBOrderManager) session.getAttribute("orderManager");
-            try {
-                manager.deleteOrder(orderID);
-            } catch(SQLException e){
-                System.out.println(e);
-            }
-            
-            
-        }
-        
-    }
+//    public void deleteOrderFrist(int orderID, HttpSession session){
+//        if(session.getAttribute("customer") == null){
+//            // if the cutsomer is not logged in
+//            ArrayList<CustomerOrder> allOrdersFromSession = (ArrayList) session.getAttribute("allOrders");
+//            
+//            for(CustomerOrder o: allOrdersFromSession){
+//                if(Integer.parseInt(o.getOrderID()) == orderID){
+//                   allOrdersFromSession.remove(o);
+//                   break;
+//                }
+//            }
+//            
+//            session.setAttribute("allOrders", allOrdersFromSession);
+//            
+//        } else {
+//            // if the customer is logged in
+//            DBOrderManager manager = (DBOrderManager) session.getAttribute("orderManager");
+//            try {
+//                manager.deleteOrder(orderID);
+//            } catch(SQLException e){
+//                System.out.println(e);
+//            }
+//            
+//            
+//        }
+//        
+//    }
 }

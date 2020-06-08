@@ -41,45 +41,60 @@ public class OrderHistorySearch extends HttpServlet {
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
         // get id from url
         String id = request.getParameter("searchId");
+        
         if(id == null){
             id = "";
         }
+        
         if (id.equals("")) {
             ArrayList<String> searchErrors = new ArrayList<>();
             searchErrors.add("Enter valid search input");
 
             session.setAttribute("searchErrors", searchErrors);
+            
         } else {
            
             try {
                 // get Orders by the id of that esp. user
                 // if user is logged in search DB
+                orders = orderManager.getOrdersById(id);
                 Customer loggedInCustomer = (Customer)session.getAttribute("customer");
-                
-                
-                
                 if(loggedInCustomer == null){
                     // id not search session
-                    ArrayList<CustomerOrder> ordersFromSession = (ArrayList) session.getAttribute("allOrders");
-                    System.out.println("-------------Search---------------");
-                    System.out.println(ordersFromSession);
+                    ArrayList<CustomerOrder> foundOrders = new ArrayList<CustomerOrder>();
+                    for (CustomerOrder o: orders) {
+                        if(!o.getCustomerEmail().equals("anonymous@gmail.com")) {
+                             foundOrders.add(o);
+                        }
+                    }    
+                    for (CustomerOrder o: foundOrders) {
+                        orders.remove(o);
+                    }
                     
-                    for(CustomerOrder o: ordersFromSession){
-                        if(o.getOrderID().equalsIgnoreCase(id)){
-                            System.out.println(o);
-                            orders.add(o);
+                }  else {
+                    ArrayList<CustomerOrder> foundOrders = new ArrayList<CustomerOrder>();
+                    for (CustomerOrder o: orders) {
+                        if (!o.getCustomerEmail().equals(loggedInCustomer.getEmail())) {
+                            foundOrders.add(o);
                         }
                     }
-                }  else {
-                      orders = orderManager.getOrdersById(id);                   
+                    for (CustomerOrder o: foundOrders) {
+                        orders.remove(o);
+                    }
                 }
                 // Have to check if the order is of user or not
                 // TODO:
+                
+                if (orders.size() == 0){
+                    session.setAttribute("notFoundError", "No orders could be found.");
+                }
+                
                 session.setAttribute("allOrders", orders);
             } catch (SQLException e) {
                 System.out.println(e);
             }
         }
+        
         RequestDispatcher view = request.getRequestDispatcher("orderHistory.jsp");
         view.forward(request, response);
     }
