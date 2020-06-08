@@ -40,7 +40,7 @@ insert into device (devicename, type, cost, stockquantity, description)values
 
 ('Moisture Sensor', 'Climate Sensor', 9.99, 723, 'This analogue humidity sensor finds an excellent place in automatic irrigation systems. It is placed in the ground and measures the humidity by current flowing between the strands. The more humid the earth in between, the higher the (analog) signal.'),
 
-('Si4703 Radio', 'Wireless Sensor', 10.00, 372, 'The Si470x module offers the option to upgrade the Pi to a radio receiver, which can be very interesting in Car PCs or Raspberry Pi Jukeboxes.'),
+('Si4703 Radio', 'Wireless Sensor', 10.50, 372, 'The Si470x module offers the option to upgrade the Pi to a radio receiver, which can be very interesting in Car PCs or Raspberry Pi Jukeboxes.'),
 
 ('Power sockets', 'Wireless Sensor', 15.99, 215, 'In the field of home automation, wireless sockets are almost a standard, the vast majority of these devices work with 433 MHz radio signals. By reading the codes of the remote control with a receiver on the Raspberry Pi, one can switch these radio sockets individually.')
 
