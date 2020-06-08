@@ -47,9 +47,9 @@
             <div class="card">
                 <div>
                     <h1>User Management</h1>
-                    <p><%= (updateMsg != null) ? updateMsg : ""%></p>
-                    <p><%= (createMsg != null) ? createMsg : ""%></p>
-                    <p><%= (deleteMsg != null) ? deleteMsg : ""%></p>
+                    <p class ="success"><%= (updateMsg != null) ? updateMsg : ""%></p>
+                    <p class ="success"><%= (createMsg != null) ? createMsg : ""%></p>
+                    <p class ="success"><%= (deleteMsg != null) ? deleteMsg : ""%></p>
                     <p class="error">${userDeleteErr}</p>
                 </div>
                 <div>
