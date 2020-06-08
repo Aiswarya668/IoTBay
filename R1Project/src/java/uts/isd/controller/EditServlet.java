@@ -244,12 +244,12 @@ public class EditServlet extends HttpServlet {
             session.setAttribute("streetEditErr", "Error: Street address format incorrect");
             // redirect user back to the edit.jsp     
             response.sendRedirect("EditServlet");
-        } else if (!validator.validateSingleString(city)) {
+        } else if (!validator.validateSentence(city)) {
             // set incorrect email error to the session 
             session.setAttribute("emailEditErr", "Error: City format incorrect");
             // redirect user back to the edit.jsp     
             response.sendRedirect("EditServlet");
-        } else if (!validator.validateSingleString(state)) {
+        } else if (!validator.validateSentence(state)) {
             // set incorrect email error to the session 
             session.setAttribute("stateEditErr", "Error: State format incorrect");
             // redirect user back to the edit.jsp     
