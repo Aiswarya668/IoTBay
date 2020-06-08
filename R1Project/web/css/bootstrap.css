@@ -136,6 +136,10 @@ small {
   font-size: 80%;
 }
 
+.shift-right{
+    margin-left:20px;
+}
+
 sub,
 sup {
   position: relative;

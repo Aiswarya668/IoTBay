@@ -81,6 +81,7 @@ public class updateOrder extends HttpServlet {
             int deviceID = foundOrder.getDeviceID();
             
             Device theDevice = deviceManager.findDeviceByID(deviceID);
+            double deviceCost = theDevice.getCost();
 
             // for tracking errors
             ArrayList<String> orderErrors = new ArrayList<>();
@@ -137,7 +138,7 @@ public class updateOrder extends HttpServlet {
                 // get customer from session
                 
                 orderManager.updateCustomerOrder(Integer.parseInt(request.getParameter("id")),foundOrder.getCustomerEmail(), -1, foundOrder.getDeviceID(), amount, foundOrder.getDateOrdered(),
-                            totalCost, null, null, foundOrder.getSupplierEmail(), foundOrder.getShippingCost(),
+                            deviceCost*amount, null, null, foundOrder.getSupplierEmail(), (deviceCost*amount)+10,
                             foundOrder.getShippingType(), orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
                 

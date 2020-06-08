@@ -51,13 +51,14 @@
             </a>
 
             <hr/>
-             <a href="ViewDeviceServletUsers">Go Back</a>   
+            <a class="btn btn-xs btn-primary shift-right" href="ViewDeviceServletUsers">Go Back</a>   
             <h3 class="iot-center">Your Order History</h3>
-            <p><%=(paymentCompleted != null ? paymentCompleted : "")%></p>
-            <p><%=(orderID == null ? "" : "This is your Order ID: " + orderID)%></p>
-            <p><%= (notFoundError == null ? "" : notFoundError) %></p>
-            <p><%= (updateSucess == null ? "" : updateSucess) %></p>
-            <p><%= (CancelSuccess == null ? "" : CancelSuccess) %></p>
+            <br>
+            <p align="center"><%=(paymentCompleted != null ? paymentCompleted : "")%></p>
+            <p align="center"><%=(orderID == null ? "" : "This is your Order ID: " + orderID)%></p>
+            <p align="center"><%= (notFoundError == null ? "" : notFoundError) %></p>
+            <p align="center"><%= (updateSucess == null ? "" : updateSucess) %></p>
+            <p align="center"><%= (CancelSuccess == null ? "" : CancelSuccess) %></p>
             
             <%for (String error : searchErrors) {%><p class="alert alert-danger"><%=error%></p><%}%>
             <br />
@@ -81,8 +82,8 @@
                             <th>OrderID</th>
                             
                             <th>Est Arrival Time</th>
-                            <th>Shipping Cost</th>
-                            <th>Total Price</th>
+                            <th>Total Price + Shipping Cost ($)</th>
+                            <th>Total Price ($)</th>
                             <th>Status</th>
                             <th>Shipping Type</th>
                             <th>Date</th>
