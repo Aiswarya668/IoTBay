@@ -36,7 +36,7 @@
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
          <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
-         <p class="right"> <a class="button21" href="ViewDeviceServlet">Back to Browse</a> </p>
+         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Back to Browse</a> </p>
         <div class="maincolumn2">
             <div class="card">
                 <h1>Your Order Details </h1>
@@ -49,8 +49,6 @@
                             <th>Quantity</th>
                             <th>Date Ordered</th>
                             <th>Cost of Order</th>
-                            <th>Estimated Order Departure Date</th>
-                            <th>Estimated Order Arrival Date</th>
                             <th>Supplier Email</th>
                             <th>Shipping Cost</th>
                             <th>Shipping Type</th>
@@ -70,8 +68,6 @@
                             <td>${order.quantity}</td>
                             <td>${order.dateOrdered}</td>
                             <td>${order.totalPrice}</td>
-                            <td>${order.dateTimeDeparture}</td>
-                            <td>${order.estimatedArrivalDate}</td>
                             <td>${order.supplierEmail}</td>
                             <td>${order.shippingCost}</td>
                             <td>${order.shippingType}</td>
@@ -153,7 +149,7 @@
                     </div>
                 </form>
                 <form>
-                    <a class="button4" href="">Cancel</a>
+                    <a class="button4" href="CreateOrder?id=<%=order.getDeviceID()%>">Cancel</a>
                 </form>
                 <br>
                 <%

@@ -7,10 +7,8 @@ package uts.isd.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -19,11 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.Customer;
 import uts.isd.model.CustomerOrder;
 import uts.isd.model.Device;
-import uts.isd.model.Supplier;
-import uts.isd.model.User;
 import uts.isd.model.iotbay.dao.DBDeviceManager;
 import uts.isd.model.iotbay.dao.DBOrderManager;
 
@@ -58,8 +53,6 @@ public class updateOrder extends HttpServlet {
         request.setAttribute("orderIdTobeUpdated", request.getParameter("id"));
         request.setAttribute("updateOrder", foundOrder);
         
-        Customer cust = (Customer) session.getAttribute("customer");
-
         RequestDispatcher v = request.getRequestDispatcher("/updateOrder.jsp");
         v.forward(request, response);
         } catch (SQLException ex) {
@@ -86,7 +79,6 @@ public class updateOrder extends HttpServlet {
 
             CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
             int deviceID = foundOrder.getDeviceID();
-            int prevAmount = foundOrder.getQuantity();
             
             Device theDevice = deviceManager.findDeviceByID(deviceID);
 
@@ -138,28 +130,23 @@ public class updateOrder extends HttpServlet {
             } else {
 
                 // set status of the device
-                String orderStatus = "SAVED";
-  
-                // deleteOrderFrist(orderActualID, session); COULD BREAK
+                String orderStatus = "SAVED";  
+                // deleteOrderFrist(orderActualID, session); 
                 // Make data to be saved to Customer order ready
                 // String orderID = "" + (new Random()).nextInt(999999);
                 // get customer from session
                 
-                orderManager.updateCustomerOrder(Integer.parseInt(request.getParameter("id")),foundOrder.getCustomerEmail(), -1, foundOrder.getDeviceID(), amount, null,
+                orderManager.updateCustomerOrder(Integer.parseInt(request.getParameter("id")),foundOrder.getCustomerEmail(), -1, foundOrder.getDeviceID(), amount, foundOrder.getDateOrdered(),
                             totalCost, null, null, foundOrder.getSupplierEmail(), foundOrder.getShippingCost(),
                             foundOrder.getShippingType(), orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
                 
-                //Update Stock
-                double currentStock = theDevice.getStockQuantity();
-                theDevice.setStockQuantity((int) (currentStock + prevAmount - amount));
-
-                // update DB of device
-                deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
-                    theDevice.getStockQuantity(), theDevice.getDescription());
                 
                 // Redirection to list of orders
-                response.sendRedirect("/OrderHistory");
+                
+                session.setAttribute("updateSucess", "Order details successfully updated!");
+                RequestDispatcher v = request.getRequestDispatcher("/orderHistory.jsp");
+                v.forward(request, response);
             }
         } catch (SQLException e) {
             System.out.println(e);

@@ -170,7 +170,7 @@ public class CreateOrder extends HttpServlet {
                 // String orderID = "" + (new Random()).nextInt(999999);
                 
                 // get customer from session
-                Customer loggedInCustomer = (Customer) request.getAttribute("customer");
+                Customer loggedInCustomer = (Customer) session.getAttribute("customer");
 
                 String userEmail = "";
 
@@ -181,7 +181,7 @@ public class CreateOrder extends HttpServlet {
                 double shipmentPrice = totalCost + 10;
                 // Same for shipment Type
                 String shipmentType = "Air";
-                
+                Timestamp timeNow = new Timestamp(new Date().getTime());
                 
                 
                 if (loggedInCustomer == null) {
@@ -189,14 +189,23 @@ public class CreateOrder extends HttpServlet {
                     // Make everything Anynomous
                     userEmail = "anonymous@gmail.com";
                     if (orderStatus.equals("SAVED")) {
-                        orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, new Timestamp(new Date().getTime()),
+                        orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, null, supplierEmail, shipmentPrice,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
+                        
+                        int ID = orderManager.findOrderID(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
+                            totalCost, null, null, supplierEmail, shipmentPrice,
+                            shipmentType, orderStatus, streetAddress, unitNumber, city,
+                            state, postcode, phoneNumber);
+                        
+                        String orderID = Integer.toString(ID);
+                        session.setAttribute("orderID", orderID);
                         response.sendRedirect("/OrderHistory");
                         return;
                     }
-                    CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, new Timestamp(new Date().getTime()),
+                    
+                    CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, supplierEmail, shipmentPrice, null,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
@@ -224,7 +233,7 @@ public class CreateOrder extends HttpServlet {
                     // Add all these data to DB                             
                     
                     if (orderStatus.equals("SAVED")) {
-                        orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, null,
+                        orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, null, supplierEmail, shipmentPrice,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
@@ -233,7 +242,7 @@ public class CreateOrder extends HttpServlet {
                         
                     }
                     
-                    CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, null,
+                    CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, supplierEmail, shipmentPrice, null,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);

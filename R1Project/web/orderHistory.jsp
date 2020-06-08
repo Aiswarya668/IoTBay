@@ -17,7 +17,13 @@
     ArrayList<String> searchErrors = (ArrayList<String>) session.getAttribute("searchErrors");
     String paymentCompleted = (String) session.getAttribute("paymentCompleted");
     String orderID = (String) session.getAttribute("orderID");
+    String notFoundError = (String) session.getAttribute("notFoundError");
     session.setAttribute("orderID", null);
+    session.setAttribute("notFoundError", null);
+    String updateSucess = (String) session.getAttribute("updateSucess");
+    session.setAttribute("updateSucess", null);
+    String CancelSuccess = (String) session.getAttribute("CancelSuccess");
+    session.setAttribute("CancelSuccess", null);
 %>
 
 <!DOCTYPE html>
@@ -49,8 +55,11 @@
             <h3 class="iot-center">Your Order History</h3>
             <p><%=(paymentCompleted != null ? paymentCompleted : "")%></p>
             <p><%=(orderID == null ? "" : "This is your Order ID: " + orderID)%></p>
+            <p><%= (notFoundError == null ? "" : notFoundError) %></p>
+            <p><%= (updateSucess == null ? "" : updateSucess) %></p>
+            <p><%= (CancelSuccess == null ? "" : CancelSuccess) %></p>
             
-             <%for (String error : searchErrors) {%><p class="alert alert-danger"><%=error%></p><%}%>
+            <%for (String error : searchErrors) {%><p class="alert alert-danger"><%=error%></p><%}%>
             <br />
             <!-- Search Form-->
             <form action="/OrderHistorySearch" method="GET">
@@ -89,7 +98,7 @@
                     <tr>
                         <td><%= o.getOrderID() %></td>
                         
-                        <td><%= o.getEstimatedArrivalDate() %></td>
+                        <td><%= (o.getEstimatedArrivalDate() == null ? "Not Purchased Yet" : o.getEstimatedArrivalDate())%></td>
                         <td><%= o.getShippingCost() %></td>
                         <td><%= o.getTotalPrice()%></td>
                         <td><%= o.getStatus() %></td>

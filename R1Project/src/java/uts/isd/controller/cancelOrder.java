@@ -53,6 +53,7 @@ public class cancelOrder extends HttpServlet {
         
         try{
             CustomerOrder foundOrder = orderManager.getOrdersById(request.getParameter("id")).get(0);
+            
             int deviceID = foundOrder.getDeviceID();
             int amount = foundOrder.getQuantity();
             
@@ -68,11 +69,23 @@ public class cancelOrder extends HttpServlet {
             
             orderManager.deleteOrder(id);
             
+            ArrayList<CustomerOrder> orders = (ArrayList) session.getAttribute("allOrders");
+            CustomerOrder found = null;
+            for (CustomerOrder o : orders) {
+                if (o.getOrderID() == id) {
+                    found = o;
+                }
+            }
+            orders.remove(found);
+            session.setAttribute("allOrders",orders);
+            
         } catch (SQLException ex) {
             Logger.getLogger(cancelOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // if deleted get the Device and add a stock for that order
+        
+        session.setAttribute("CancelSuccess", "Order successfully canceled!");
         
         RequestDispatcher v = request.getRequestDispatcher("/orderHistory.jsp");
         v.forward(request, response);

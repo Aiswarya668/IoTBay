@@ -41,7 +41,7 @@ public class DBPaymentDetailsManager {
     }
     
     public void addPaymentDetails(String CustomerEmail, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate) throws SQLException {
-        String query = "INSERT INTO IOTBAYUSER.PAYMENTDETAILS (customeremail, methodofpayment, hashedcardnumber, cardsecuritycode, cardexpirydate) VALUES " + "(?,?,?,?,?)";
+        String query = "INSERT INTO IOTBAYUSER.PAYMENTDETAILS (customeremail, MethodOfPayment, HashedCardNumber, CardSecurityCode, CardExpiryDate) VALUES (?,?,?,?,?)";
         
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, CustomerEmail);
@@ -55,11 +55,11 @@ public class DBPaymentDetailsManager {
     }
      
     public void updatePaymentDetails(String CustomerEmail, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate) throws SQLException{
-        st.executeUpdate("UPDATE IOTBAYUSER.PAYMENTDETAILS SET CUSTOMEREMAIL='" + CustomerEmail + "', METHODOFPAYMENT='" + methodOfPayment + "', HASHEDCREDITCARDNUMBER='"+ hashedCreditedCardNumber + "', CARDSECURITYCODE='" + cardSecurityCode + "', CARDEXPIRYDATE='" + cardExpiryDate + "' WHERE CUSTOMEREMAIL='" + CustomerEmail + "'");
+        st.executeUpdate("UPDATE IOTBAYUSER.PAYMENTDETAILS SET MethodOfPayment='" + methodOfPayment + "', HashedCardNumber='"+ hashedCreditedCardNumber + "', CardSecurityCode='" + cardSecurityCode + "', CardExpiryDate='" + cardExpiryDate + "' WHERE CUSTOMEREMAIL='" + CustomerEmail + "'");
     }
     
     public void deletePaymentDetails(String CustomerEmail) throws SQLException {
-        st.executeUpdate("DELETE FROM IOTBAYUSER.PAYMENTDETAILS WHERE CUSTOMEREMAIL=" + CustomerEmail);
+        st.executeUpdate("DELETE FROM IOTBAYUSER.PAYMENTDETAILS WHERE CUSTOMEREMAIL='" + CustomerEmail + "'");
     }
     
     public ArrayList<PaymentDetails> fetchPaymentDetails()throws SQLException{

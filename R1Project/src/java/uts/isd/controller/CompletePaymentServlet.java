@@ -84,19 +84,35 @@ public class CompletePaymentServlet extends HttpServlet{
                 paymentSnapshotsManager.addPaymentSnapshots(methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amount);
                 int paymentID = paymentSnapshotsManager.findPaymentID(methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amount);
                 
-                orderManager.addOrder(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
-                int ID = orderManager.findOrderID(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
-                //Also change stock
-                double currentStock = theDevice.getStockQuantity();
-                theDevice.setStockQuantity((int) (currentStock - quantity));
+                if (order.getOrderID() == -1) {
+                    
+                    orderManager.addOrder(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
+                    int ID = orderManager.findOrderID(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
+                    //Also change stock
+                    double currentStock = theDevice.getStockQuantity();
+                    theDevice.setStockQuantity((int) (currentStock - quantity));
 
-                // update DB of device
-                deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
-                        theDevice.getStockQuantity(), theDevice.getDescription());
+                    // update DB of device
+                    deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
+                            theDevice.getStockQuantity(), theDevice.getDescription());
 
+                    String orderID = Integer.toString(ID);
+                    session.setAttribute("orderID", orderID); 
+                } else {
+                    
+                    orderManager.updateCustomerOrder(order.getOrderID(), customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), dateNow, order.getTotalPrice(), new Timestamp(estDate), new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), "SUBMITED", order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
+                    
+                    double currentStock = theDevice.getStockQuantity();
+                    theDevice.setStockQuantity((int) (currentStock - quantity));
+
+                    // update DB of device
+                    deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
+                            theDevice.getStockQuantity(), theDevice.getDescription());
+
+                    session.setAttribute("orderID", "" + order.getOrderID()); 
+                }
+                
                 session.setAttribute("paymentCompleted", "Your payment has been completed!");
-                String orderID = Integer.toString(ID);
-                session.setAttribute("orderID", orderID);
                 response.sendRedirect("/OrderHistory");
                 
             } catch (SQLException ex) {

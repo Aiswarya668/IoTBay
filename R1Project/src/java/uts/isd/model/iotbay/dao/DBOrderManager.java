@@ -234,7 +234,7 @@ public class DBOrderManager {
             String shipmentType, String status, String streetAddress, String unitNumber, String city,
             String state, String postalCode, String phoneNumber) throws SQLException {
         
-        String query = "UPDATE IOTBAYUSER.CUSTOMERORDER SET CUSTOMEREMAIL=? , PAYMENTID=?, DEVICEID=?, QUANTITY=?, DATEORDERED=?, TOTALPRICE=?, ESTARRIVAL=?, DEPARTURE=?, SUPPLIEREMAIL=?, SHIPMENTPRICE=?, SHIPMENTTYPE=?, STATUS=?, STREETADDRESS=?, UNITNUMBER=?, CITY=?, STATE=?, POSTALCODE=?, PHONENUMBER=? WHERE ORDERID=?";
+        String query = "UPDATE IOTBAYUSER.CUSTOMERORDER SET CustomerEmail=? , PaymentID=?, deviceID=?, quantity=?, DateOrdered=?, TotalPrice=?, EstArrivalDate=?, DepartureDate=?,supplierEmail=?, ShipmentPrice=?, ShippingType=?, Status=?, StreetAddress=?, UnitNumber=?, City=?, STATE=?, PostalCode=?, PHONENUMBER=? WHERE ORDERID=?";
         PreparedStatement pStatement = connection.prepareStatement(query);
 
             pStatement.setString(1, customerEmail);
@@ -275,34 +275,57 @@ public class DBOrderManager {
             Timestamp estArrivalDate, Timestamp departureDate, String supplierEmail, double shipmentPrice,
             String shipmentType, String status, String streetAddress, String unitNumber, String city,
             String state, String postalCode, String phoneNumber) throws SQLException{
-    
-        String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate=? AND DepartureDate=? AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";
-        PreparedStatement pStatement = connection.prepareStatement(query);
+        PreparedStatement pStatement = null;
+        if (status.equals( "SAVED")) {
+            String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate IS NULL AND DepartureDate IS NULL AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";
+            pStatement = connection.prepareStatement(query);
         
-        pStatement.setString(1, customerEmail);
-        pStatement.setInt(2, paymentID);
-        pStatement.setInt(3, deviceID);
-        pStatement.setInt(4, quantity);
-        pStatement.setTimestamp(5, dateOrdered);
-        pStatement.setDouble(6, totalPrice);
-        pStatement.setTimestamp(7, estArrivalDate);
-        pStatement.setTimestamp(8, departureDate);
-        pStatement.setString(9, supplierEmail);
-        pStatement.setDouble(10, shipmentPrice);
-        pStatement.setString(11, shipmentType);
-        pStatement.setString(12, status);
-        pStatement.setString(13, streetAddress);
-        pStatement.setString(14, unitNumber);
-        pStatement.setString(15, city);
-        pStatement.setString(16, state);
-        pStatement.setString(17, postalCode);
-        pStatement.setString(18, phoneNumber);
+            pStatement.setString(1, customerEmail);
+            pStatement.setInt(2, paymentID);
+            pStatement.setInt(3, deviceID);
+            pStatement.setInt(4, quantity);
+            pStatement.setTimestamp(5, dateOrdered);
+            pStatement.setDouble(6, totalPrice);
+            pStatement.setString(7, supplierEmail);
+            pStatement.setDouble(8, shipmentPrice);
+            pStatement.setString(9, shipmentType);
+            pStatement.setString(10, status);
+            pStatement.setString(11, streetAddress);
+            pStatement.setString(12, unitNumber);
+            pStatement.setString(13, city);
+            pStatement.setString(14, state);
+            pStatement.setString(15, postalCode);
+            pStatement.setString(16, phoneNumber);
+        } else {
+            String query = "SELECT * FROM IOTBAYUSER.CUSTOMERORDER WHERE CustomerEmail=? AND PaymentID=? AND deviceID=? AND quantity=? AND DateOrdered=? AND TotalPrice=? AND EstArrivalDate=? AND DepartureDate=? AND supplierEmail=? AND ShipmentPrice=? AND ShippingType=? AND Status=? AND StreetAddress=? AND UnitNumber=? AND City=? AND STATE=? AND PostalCode=? AND PhoneNumber=?";  
+            pStatement = connection.prepareStatement(query);
+        
+            pStatement.setString(1, customerEmail);
+            pStatement.setInt(2, paymentID);
+            pStatement.setInt(3, deviceID);
+            pStatement.setInt(4, quantity);
+            pStatement.setTimestamp(5, dateOrdered);
+            pStatement.setDouble(6, totalPrice);
+            pStatement.setTimestamp(7, estArrivalDate);
+            pStatement.setTimestamp(8, departureDate);
+            pStatement.setString(9, supplierEmail);
+            pStatement.setDouble(10, shipmentPrice);
+            pStatement.setString(11, shipmentType);
+            pStatement.setString(12, status);
+            pStatement.setString(13, streetAddress);
+            pStatement.setString(14, unitNumber);
+            pStatement.setString(15, city);
+            pStatement.setString(16, state);
+            pStatement.setString(17, postalCode);
+            pStatement.setString(18, phoneNumber);
+        }
         
         ResultSet rs = pStatement.executeQuery();
         while (rs.next()) {
             int orderID = rs.getInt("ORDERID");
             return orderID;
         }
+        
         return -1;
         
     }

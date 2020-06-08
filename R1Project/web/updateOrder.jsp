@@ -14,11 +14,10 @@
     // Get device that is to buy
 
     // Get current device
-    System.out.println("Ayo------------>s");
-    CustomerOrder updateOrder = (CustomerOrder) session.getAttribute("updateOrder");
-    System.out.println("Update-------------------->" + updateOrder.toString());
+    
+    CustomerOrder updateOrder = (CustomerOrder) request.getAttribute("updateOrder");
     ArrayList<String> errors = (ArrayList<String>) session.getAttribute("orderErrors");
-    String orderIDToBeupdated = (String) session.getAttribute("orderIdTobeUpdated");
+    String orderIDToBeupdated = (String) request.getAttribute("orderIdTobeUpdated");
 %>
 <html>
     <head>
@@ -54,7 +53,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Amount</label>
-                                <input class="form-control" type="text" name="amount" value="">
+                                <input class="form-control" type="text" name="amount" value="<%= updateOrder.getQuantity()%>">
                             </div>
 
 
@@ -69,7 +68,7 @@
                                            />
                                 </div>
                                            
-                                           <input type="hidden" name="id" value="<%= orderIDToBeupdated %>" />
+                                <input type="hidden" name="id" value="<%= orderIDToBeupdated %>" />
                                 <div class="col-md-8">
                                     <label>Street Address</label>
                                     <input 

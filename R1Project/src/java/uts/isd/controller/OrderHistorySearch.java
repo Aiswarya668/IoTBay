@@ -61,20 +61,34 @@ public class OrderHistorySearch extends HttpServlet {
                 Customer loggedInCustomer = (Customer)session.getAttribute("customer");
                 if(loggedInCustomer == null){
                     // id not search session
+                    ArrayList<CustomerOrder> foundOrders = new ArrayList<CustomerOrder>();
                     for (CustomerOrder o: orders) {
                         if(!o.getCustomerEmail().equals("anonymous@gmail.com")) {
-                            orders.remove(0);
+                             foundOrders.add(o);
                         }
-                    }                    
+                    }    
+                    for (CustomerOrder o: foundOrders) {
+                        orders.remove(o);
+                    }
+                    
                 }  else {
+                    ArrayList<CustomerOrder> foundOrders = new ArrayList<CustomerOrder>();
                     for (CustomerOrder o: orders) {
                         if (!o.getCustomerEmail().equals(loggedInCustomer.getEmail())) {
-                            orders.remove(0);
+                            foundOrders.add(o);
                         }
-                    }              
+                    }
+                    for (CustomerOrder o: foundOrders) {
+                        orders.remove(o);
+                    }
                 }
                 // Have to check if the order is of user or not
                 // TODO:
+                
+                if (orders.size() == 0){
+                    session.setAttribute("notFoundError", "No orders could be found.");
+                }
+                
                 session.setAttribute("allOrders", orders);
             } catch (SQLException e) {
                 System.out.println(e);

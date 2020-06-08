@@ -34,6 +34,7 @@
     <% if (customer != null || staff != null) { %>
     <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
     <% } else { %>
+    <p class="right"> <a class="button21" href="OrderHistory">Order History</a></p>
     <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <% } %>
 
