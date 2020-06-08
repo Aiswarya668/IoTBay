@@ -63,7 +63,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
         } else if (!validator.validateMethodOfPayment(methodOfPayment)) {
             
-            session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect");    
+            session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect. Only text allowed.");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -76,7 +77,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
         } else if (!validator.validatehashedCreditedCardNumber(hashedCreditedCardNumber)) {
             
-            session.setAttribute("cardNumberFieldErr", "Error: Card Number format incorrect");
+            session.setAttribute("cardNumberFieldErr", "Error: Card Number format incorrect. Format example: 1234132412341234");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -89,7 +91,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
         } else if (!validator.validatecardSecurityCode(cardSecurityCode)) {
 
-            session.setAttribute("cardCodeFieldErr", "Error: Card Security Code format incorrect");
+            session.setAttribute("cardCodeFieldErr", "Error: Card Security Code format incorrect. Format example: 123");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -102,7 +105,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
         } else if (!validator.validatecardExpiryDate(cardExpiryDate)) {   
             
-            session.setAttribute("expiryDateFieldErr", "Error: Card Expiry Date format incorrect");
+            session.setAttribute("expiryDateFieldErr", "Error: Card Expiry Date format incorrect. Format example: YYYY-MM");
+            session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);

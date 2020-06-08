@@ -71,14 +71,16 @@
                         %>
                         <h1>Manage Payment Details </h1>
                         <p class ="error"><%=(paymentDetailsEmptyErr != null ? paymentDetailsEmptyErr : "")%></p>
-
-
+                        <p class ="error"><%=(methodFieldErr != null ? methodFieldErr : "")%></p>
+                        <p class ="error"><%=(cardNumberFieldErr != null ? cardNumberFieldErr : "")%></p>
+                        <p class ="error"><%=(cardCodeFieldErr != null ? cardCodeFieldErr : "")%></p>
+                        <p class ="error"><%=(expiryDateFieldErr != null ? expiryDateFieldErr : "")%></p>
 
                         <table>
-                            <tr><td>Method of Payment:</td><td><input type="text" placeholder="<%=(methodFieldErr != null ? methodFieldErr : "Enter method of payment")%>" name="methodOfPayment"></td></tr  
-                            <tr><td>Credit Card Number:</td><td><input type="text" placeholder="<%=(cardNumberFieldErr != null ? cardNumberFieldErr : "Enter credit card number")%>" name="hashedCreditedCardNumber"></td></tr>
-                            <tr><td>Credit Card Security Code</td><td><input type="text" placeholder="<%=(cardCodeFieldErr != null ? cardCodeFieldErr : "Enter credit card security code")%>" name="cardSecurityCode"></td></tr>
-                            <tr><td>Credit Card Expiry Date</td><td><input type="text" placeholder="<%=(expiryDateFieldErr != null ? expiryDateFieldErr : "Enter credit card expirty date")%>" name="cardExpiryDate"></td></tr>  
+                            <tr><td>Method of Payment:</td><td><input type="text" placeholder="Enter method of payment" name="methodOfPayment"></td></tr  
+                            <tr><td>Credit Card Number:</td><td><input type="text" placeholder="Enter credit card number" name="hashedCreditedCardNumber"></td></tr>
+                            <tr><td>Credit Card Security Code</td><td><input type="text" placeholder="Enter credit card security code" name="cardSecurityCode"></td></tr>
+                            <tr><td>Credit Card Expiry Date</td><td><input type="text" placeholder="Enter credit card expirty date" name="cardExpiryDate"></td></tr>  
                         </table>
                         <br>
                         <div>

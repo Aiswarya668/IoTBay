@@ -52,7 +52,7 @@ public class CreateOrder extends HttpServlet {
         session.setAttribute("orderErrors", new ArrayList<String>());
         // get id of the device that is to be ordered
         int deviceID = Integer.parseInt(request.getParameter("id"));
-        System.out.println("DEvice iD = "+ deviceID);
+        System.out.println("DEvice iD = " + deviceID);
         Device theDevice = deviceManager.findDeviceByID(deviceID);
         System.out.println("Device =" + theDevice.toString());
         if (theDevice != null) {
@@ -62,12 +62,11 @@ public class CreateOrder extends HttpServlet {
                 session.setAttribute("buyDevice", theDevice);
                 // Emoty all error if have
                 session.setAttribute("orderErrors", new ArrayList<>());
-                
+
                 // returns the view
                 RequestDispatcher v = request.getRequestDispatcher("/createOrder.jsp");
                 v.forward(request, response);
-            }
-            else if (theDevice.getStockQuantity() == 0) {
+            } else if (theDevice.getStockQuantity() == 0) {
                 response.sendRedirect("ViewDeviceServletUsers");
                 session.setAttribute("quantityErr", "Error: Not enough stock!");
             }
@@ -94,9 +93,9 @@ public class CreateOrder extends HttpServlet {
             DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager"); //PROBS TAKE OUT
 
             DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
-            
+
             ArrayList<CustomerOrder> Tester = orderManager.getOrdersById("-1");
-            
+
             Device theDevice = (Device) session.getAttribute("buyDevice");
 
             // if there is no device , please redirect it 
@@ -112,7 +111,14 @@ public class CreateOrder extends HttpServlet {
             if (amountFromInput.equals("")) {
                 amountFromInput = "0";
             }
-            int amount = Integer.parseInt(amountFromInput);
+            int amount = 0;
+            // check if amount is integer
+            try {
+                amount = Integer.parseInt(amountFromInput);
+            } catch (NumberFormatException e) {
+                amount = -1;
+                orderErrors.add("Please enter an integer for amount.");
+            }
             // delivery address details
             String unitNumber = request.getParameter("unitnumber");
             String streetAddress = request.getParameter("streetaddress");
@@ -125,6 +131,33 @@ public class CreateOrder extends HttpServlet {
             // calculate total cost of the device
             double totalCost = costOfDevice * amount;
 
+            // form field validation
+            if (unitNumber.equals("") || unitNumber == null) {
+                orderErrors.add("Please enter a unit number.");
+            }
+            if (streetAddress.equals("") || streetAddress == null) {;
+                orderErrors.add("Please enter a street address.");
+            }
+            if (city.equals("") || city == null) {
+                orderErrors.add("Please enter a city.");
+            }
+            if (state.equals("") || state == null) {
+                orderErrors.add("Please enter a state.");
+            }
+            if (postcode.equals("") || postcode == null || postcode.length() != 4) {
+                orderErrors.add("Please enter a 4 digit post code.");
+            } else {
+                try {
+                    Integer.parseInt(postcode);
+                } catch (NumberFormatException e) {
+                    orderErrors.add("Please enter a 4 digit post code.");
+                }
+            }
+            if (phoneNumber.equals("") || phoneNumber == null) {;
+                orderErrors.add("Please enter a phone number.");
+            }
+
+            // check if enough stock
             if (theDevice.getStockQuantity() < 0) {
                 orderErrors.add("You can not buy more than the stock available.");
             }
@@ -134,7 +167,7 @@ public class CreateOrder extends HttpServlet {
             }
 
             if (amount == 0) {
-                orderErrors.add("Please enter atleast 1 amount.");
+                orderErrors.add("Please enter an amount.");
             }
 
             // set errors if any
@@ -163,12 +196,9 @@ public class CreateOrder extends HttpServlet {
                 } else if (submittedStatus.equalsIgnoreCase(action)) {
                     orderStatus = submittedStatus;
                 }
-                
-                
-                
+
                 // Make data to be saved to Customer order ready
                 // String orderID = "" + (new Random()).nextInt(999999);
-                
                 // get customer from session
                 Customer loggedInCustomer = (Customer) session.getAttribute("customer");
 
@@ -182,29 +212,28 @@ public class CreateOrder extends HttpServlet {
                 // Same for shipment Type
                 String shipmentType = "Air";
                 Timestamp timeNow = new Timestamp(new Date().getTime());
-                
-                
+
                 if (loggedInCustomer == null) {
 
                     // Make everything Anynomous
                     userEmail = "anonymous@gmail.com";
                     if (orderStatus.equals("SAVED")) {
                         orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
-                            totalCost, null, null, supplierEmail, shipmentPrice,
-                            shipmentType, orderStatus, streetAddress, unitNumber, city,
-                            state, postcode, phoneNumber);
-                        
+                                totalCost, null, null, supplierEmail, shipmentPrice,
+                                shipmentType, orderStatus, streetAddress, unitNumber, city,
+                                state, postcode, phoneNumber);
+
                         int ID = orderManager.findOrderID(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
-                            totalCost, null, null, supplierEmail, shipmentPrice,
-                            shipmentType, orderStatus, streetAddress, unitNumber, city,
-                            state, postcode, phoneNumber);
-                        
+                                totalCost, null, null, supplierEmail, shipmentPrice,
+                                shipmentType, orderStatus, streetAddress, unitNumber, city,
+                                state, postcode, phoneNumber);
+
                         String orderID = Integer.toString(ID);
                         session.setAttribute("orderID", orderID);
                         response.sendRedirect("/OrderHistory");
                         return;
                     }
-                    
+
                     CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, supplierEmail, shipmentPrice, null,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
@@ -217,38 +246,36 @@ public class CreateOrder extends HttpServlet {
 //                    custOrders.add(aOrder);
 //                    System.out.println(custOrders);
 //                    session.setAttribute("allOrders", custOrders);
-                   
-                    session.setAttribute("order",aOrder);
-                    
+                    session.setAttribute("order", aOrder);
+
                     response.sendRedirect("/OrderPaymentServlet");
                     return;
 
                 } else {
                     userEmail = loggedInCustomer.getEmail();
-                    
+
                     // addOrder(String customerEmail, String dateOrdered, double totalPrice,
                     // String estArrivalDate, String departureDate, String supplierEmail, double shipmentPrice,
                     // String shipmentType, String status, String streetAddress, String unitNumber, String city,
                     // String state, String postalCode,  String phoneNumber
                     // Add all these data to DB                             
-                    
                     if (orderStatus.equals("SAVED")) {
                         orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
-                            totalCost, null, null, supplierEmail, shipmentPrice,
-                            shipmentType, orderStatus, streetAddress, unitNumber, city,
-                            state, postcode, phoneNumber);
+                                totalCost, null, null, supplierEmail, shipmentPrice,
+                                shipmentType, orderStatus, streetAddress, unitNumber, city,
+                                state, postcode, phoneNumber);
                         response.sendRedirect("/OrderHistory");
                         return;
-                        
+
                     }
-                    
+
                     CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, supplierEmail, shipmentPrice, null,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
-                    
-                    session.setAttribute("order",aOrder);
-                    
+
+                    session.setAttribute("order", aOrder);
+
                     response.sendRedirect("/OrderPaymentServlet");
                     return;
                 }

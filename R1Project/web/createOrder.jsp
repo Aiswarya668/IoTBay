@@ -45,7 +45,9 @@
             <hr/>
             
             <div class="container">
-                <a href="ViewDeviceServletUsers">Go Back</a>   
+                <a class="btn btn-xs btn-primary" href="ViewDeviceServletUsers">Go Back</a>
+                <br>
+                <br>
                 <%for (String error : errors) {%><p class="alert alert-danger"><%=error%></p><%}%>
 
                 <form method="post">
