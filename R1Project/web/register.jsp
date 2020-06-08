@@ -1,7 +1,7 @@
 <%-- 
     Document   : register
     Created on : 12 Apr 2020, 12:52:48 pm
-    Author     : aiswarya.r
+    Author     : kevin
 --%>
 
 <%@page import="uts.isd.model.Staff"%>

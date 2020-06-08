@@ -26,13 +26,13 @@ public class DeleteDeviceServlet extends HttpServlet {
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //1- retrieve the current session
+        //1) retrieve the current session
         HttpSession session = request.getSession();
         
-        //2- create an instance of the Validator class
+        //2) create an instance of the Validator class
         Validator validator = new Validator();
         
-        //3- capture the posted parameters/info fields 
+        //3) capture the posted parameters/info fields 
         
         //capture deviceID field
         String deviceID = request.getParameter("DeviceID");
@@ -55,12 +55,18 @@ public class DeleteDeviceServlet extends HttpServlet {
         //4) retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
                
-        
+        //5) set device to null to see if device exists
         Device device = null;
         validator.clear(session);
 
         try {
+             //Check if the ID is not a string as needs to be parsed in 
+            if (validator.validateDeviceID(deviceID) == true) {
             device = deviceManager.findDeviceID(Integer.parseInt(deviceID));
+             //If empty or still redirect back to delete.jsp
+            }else{
+                 session.setAttribute("deletedeviceIDErr", "Error: Device ID cannot be edited!");
+            }
        
        //if device doesn't exsist after findDevice
         if (device == null) {
@@ -72,10 +78,15 @@ public class DeleteDeviceServlet extends HttpServlet {
         
         //validators
        
-        //if any fields are empty?
+        //if any fields are empty
         else if(validator.checkDeviceEmpty(deviceID, deviceName,type,cost,stockQuantity,description)){
              session.setAttribute("deviceEmptyErr", "Error: All fields are mandatory!");
              request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
+        }  else if (!validator.validateDeviceID(deviceID)) {
+            //1- set incorrect name error to the session 
+            session.setAttribute("deletedeviceIDErr", "Error: Device ID cannot be edited!");
+            //2- redirect staff back to the editDevice   
+            request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
         }
         else if (!validator.validateDeviceName(deviceName)) {
             //1- set incorrect name error to the session 
@@ -107,12 +118,10 @@ public class DeleteDeviceServlet extends HttpServlet {
             //2- redirect staff back to the addDevice.jsp     
             request.getRequestDispatcher("deleteDevice.jsp").include(request, response);
         
-        } //if all passess then add the device
+        } //if all passess then delete the device
         
         else {
             // if every condition is met - deleting device
-            //request.getRequestDispatcher("deleteDeviceConfirmation.jsp").include(request, response);
-             //request.setAttribute("device", device);
             deviceManager.deleteDevice(Integer.parseInt(deviceID));
             Device deleteddDevice = deviceManager.findDeviceID(Integer.parseInt(deviceID));
             session.setAttribute("device", deleteddDevice);

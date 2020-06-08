@@ -35,7 +35,7 @@ public class UpdateDeviceServlet extends HttpServlet {
 
         //3- capture the posted parameters/info fields 
         //capture deviceID field 
-        String deviceID = request.getParameter("DeviceID"); // Just default value assigned 
+        String deviceID = request.getParameter("DeviceID");
 
         //capture deviceName field
         String deviceName = request.getParameter("DeviceName");
@@ -76,8 +76,8 @@ public class UpdateDeviceServlet extends HttpServlet {
 
             }
         } catch (SQLException ex) {
-            // exception message if updating customer fails
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            // exception message if updating device fails
+            Logger.getLogger(UpdateDeviceServlet.class.getName()).log(Level.SEVERE, null, ex);
 
         }
     }

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Edit Device Servlet
  */
 package uts.isd.controller;
 
@@ -54,14 +52,22 @@ public class EditDeviceServlet extends HttpServlet {
         //retrieve the manager instance from session - ConnServlet            
         DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
 
-        
+        //4)Set device to null to see if exsists 
         Device device = null;
         
+        //clear session 
         validator.clear(session);
 
-        //Check if device exsists first
+        //Check if device exsists first 
         try {
+            //Check if the ID is not a string as needs to be parsed in 
+            if (validator.validateDeviceID(deviceID)) {
             device = deviceManager.findDeviceID(Integer.parseInt(deviceID));
+            //If empty or string then redirect back to editDevice
+            }else{
+                 session.setAttribute("deletedeviceIDErr", "Error: Device ID cannot be edited!");
+            }
+            
            
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +77,7 @@ public class EditDeviceServlet extends HttpServlet {
         if (device == null) {
             //device name & type don't exsists error 
             session.setAttribute("exceptionErr", "Device with that name and type does not exist in the database please try again");
-            // redirect back to addDevice
+            // redirect back to editDevice
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         } 
         
@@ -85,39 +91,39 @@ public class EditDeviceServlet extends HttpServlet {
         else if (!validator.validateDeviceID(deviceID)) {
             //1- set incorrect name error to the session 
             session.setAttribute("deletedeviceIDErr", "Error: Device ID cannot be edited!");
-        //    //2- redirect staff back to the addDevice.jsp     
+        //    //2- redirect staff back to the editDevice   
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         }else if (!validator.validateDeviceName(deviceName)) {
             //1- set incorrect name error to the session 
             session.setAttribute("deletedeviceNameErr", "Error: Device name format incorrect");
-        //    //2- redirect staff back to the addDevice.jsp     
+        //    //2- redirect staff back to the editDevice    
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
        
         } else if (!validator.validateDeviceType(type)) {
             //1- set incorrect type error to the session 
             session.setAttribute("deletetypeErr", "Error: Device type format incorrect");
-            //2- redirect staff back to the addDevice.jsp     
+            //2- redirect staff back to the editDevice
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceCost(cost)) {
             //1- set incorrect type error to the session 
             session.setAttribute("deletepriceErr", "Error: Device price format incorrect");
-            //2- redirect staff back to the addDevice.jsp     
+            //2- redirect staff back to the editDevice 
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceStock(stockQuantity)) {
             //1- set incorrect type error to the session 
             session.setAttribute("deletestockErr", "Error: Device stock format incorrect");
-            //2- redirect staff back to the addDevice.jsp     
+            //2- redirect staff back to the editDevice
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
         } else if (!validator.validateDeviceDesc(description)) {
             //1- set incorrect type error to the session 
             session.setAttribute("deletedescriptionErr", "Error: Device description format incorrect");
-            //2- redirect staff back to the addDevice.jsp     
+            //2- redirect staff back to the editDevice  
             request.getRequestDispatcher("editDevice.jsp").include(request, response);
         
-        } //if all passess then add the device
+        } //if all passess then edit the device
         else {
             try {
                 //addDevice CRUD operation
@@ -127,18 +133,19 @@ public class EditDeviceServlet extends HttpServlet {
                 session.setAttribute("device", updatedDevice);
                 // success message if updating customer successful
                 session.setAttribute("deviceupdateMsg", "Update was successful!");
-                // redirect user to the edit.jsp
+                // redirect user to the editDevice
                 request.getRequestDispatcher("editDevice.jsp").include(request, response);
                 
             
           } catch (SQLException ex) {
                 //catch any exception
                 session.setAttribute("exceptionErr", "Registration failed");
+                //redirec user to editDevice
                 request.getRequestDispatcher("editDevice.jsp").include(request, response);
             }
 
         }
 
     }
-    }
+ }
 
