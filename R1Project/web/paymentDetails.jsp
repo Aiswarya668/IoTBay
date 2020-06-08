@@ -44,7 +44,7 @@
                     <%
                     } else {
                     %>
-                    <table id="paymentDetails">
+                    <table id="paymentDetails" align="center">
                         <thead>
                             <tr>
                                 <th>Email</th>

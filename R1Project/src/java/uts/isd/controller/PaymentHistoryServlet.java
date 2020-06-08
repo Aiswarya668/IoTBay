@@ -44,8 +44,10 @@ public class PaymentHistoryServlet extends HttpServlet{
         try {
             ArrayList<CustomerOrder> orders = orderManager.getOrdersByUserEmail(customerEmail);
             
-            if (orders == null) {
+            if (orders.size()==0) {
                 session.setAttribute("paymentHistory", null);
+                request.setAttribute("order", orders);
+                request.getRequestDispatcher("viewPaymentHistory.jsp").include(request, response);
                 return;
             }
             

@@ -113,16 +113,6 @@ FOREIGN KEY (StaffEmail) REFERENCES Staff(StaffEmail) ON DELETE CASCADE,
 PRIMARY KEY (AccessLogID)
 );
 
-CREATE TABLE OrderDeviceT(
-DeviceID int NOT NULL,
-OrderID int NOT NULL, 
-Quantity integer, 
-Price double,
-FOREIGN KEY (DeviceID) REFERENCES Device(DeviceID),
-FOREIGN KEY (OrderID) REFERENCES CustomerOrder(OrderID) ON DELETE CASCADE,
-PRIMARY KEY (DeviceID, OrderID)
-);
-
 CREATE TABLE SupportTicket(
 TicketID int GENERATED ALWAYS AS IDENTITY NOT NULL,
 StaffEmail varchar(50),
