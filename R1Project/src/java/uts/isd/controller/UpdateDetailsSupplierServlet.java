@@ -69,37 +69,40 @@ public class UpdateDetailsSupplierServlet extends HttpServlet {
             //1- set incorrect contactName error to the session 
             session.setAttribute("contactNameErr", "Error: Contact name format incorrect");
             session.setAttribute("formatErr", "Error: Supplier name format incorrect");
-            //2- redirect system admin back to the addSupplier.jsp     
+            //2- redirect system admin back to the updateDetailsSupplier.jsp     
             request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
        
         } else if (!validator.validateSupplierName(supplierName)) {
             //1- set incorrect supplierName error to the session 
             session.setAttribute("supplierNameErr", "Error: Company name type format incorrect");
             session.setAttribute("formatErr", "Error: Company name type format incorrect");
-            //2- redirect system admin back to the addSupplier.jsp    
+            //2- redirect system admin back to the updateDetailsSupplier.jsp     
             request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
         
         } else if (!validator.validateSupplierEmail(supplierEmail)) {
             //1- set incorrect type error to the session 
             session.setAttribute("supplierEmailErr", "Error: Supplier email format incorrect");
             session.setAttribute("formatErr", "Error: Supplier email format incorrect");
-            //2- redirect system admin back to the addSupplier.jsp   
+            //2- redirect system admin back to the updateDetailsSupplier.jsp   
             request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
         
         } else if (!validator.validateSupplierAddress(supplierAddress)) {
             //1- set incorrect type error to the session 
             session.setAttribute("supplierAddressErr", "Error: Supplier address format incorrect");
             session.setAttribute("formatErr", "Error: Supplier address format incorrect");
-            //2- redirect system admin back to the addSupplier.jsp    
+            //2- redirect system admin back to the updateDetailsSupplier.jsp    
             request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
         }
              
         
-    
+    //if it passess all validations then update the supplier
     else {
     try {
+    //updateSupplier CRUD operation
     supplierManager.updateSupplier(supplierEmail, supplierName, contactName, supplierAddress, active, oldSupplierEmail);
+    //set session attribute
     session.setAttribute("creationConfirmation", "Update has been successful!");
+    //refirect to updateDetailsSupplier with the displayed success message
     request.getRequestDispatcher("updateDetailsSupplier.jsp").include(request, response);
     }   
         catch (SQLException ex) {
