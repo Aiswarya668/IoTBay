@@ -78,8 +78,6 @@ public class UpdateSupplierServlet extends HttpServlet {
             session.setAttribute("supplier", supplier);
             response.sendRedirect("updateDetailsSupplier.jsp");
 
-            session.setAttribute("exceptionSupplierErr", "Supplier with point of contact doesn't exist");
-            request.getRequestDispatcher("updateSupplier.jsp").include(request, response);
         }
         
         

@@ -37,7 +37,7 @@
             <div class="card">
                 <h1>Add New Supplier </h1>
                 
-                <p class ="error"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
+                <p class ="success"><%= (creationConfirmation != null) ? creationConfirmation : ""%></p>
                 <p class ="error"><%= (supplierEmptyErr != null) ? supplierEmptyErr : ""%></p>
                 <p class ="error"><%= (formatErr != null) ? formatErr : ""%></p>
                 <p class ="error"><%= (exceptionSupplierErr != null) ? exceptionSupplierErr : ""%></p>
