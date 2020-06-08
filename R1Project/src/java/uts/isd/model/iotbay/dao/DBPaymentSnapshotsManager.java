@@ -44,8 +44,8 @@ public class DBPaymentSnapshotsManager {
     }
     
     public void addPaymentSnapshots(String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate, String payDate, double amountPaid) throws SQLException {
-         String query = "INSERT INTO IOTBAYUSER.PAYMENTSNAPSHOTS (methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amountPaid) VALUES " + "(?,?,?,?,?,?)";
-        
+        String query = "INSERT INTO IOTBAYUSER.PaymentSnapshots (methodOfPayment, HashedCardNumber, CardSecurityCode, CardExpiryDate, PayDate, AmountPaid) VALUES (?,?,?,?,?,?)";
+
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, methodOfPayment);
         stmt.setString(2, hashedCreditedCardNumber);
@@ -55,11 +55,11 @@ public class DBPaymentSnapshotsManager {
         stmt.setDouble(6, amountPaid);
         
         stmt.executeUpdate();
-        stmt.close();
+
      }
      
     public void updatePaymentSnapshots(int paymentID, String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate, String payDate, double amountPaid) throws SQLException{
-        st.executeUpdate("UPDATE IOTBAYUSER.PAYMENTSNAPSHOTS SET METHODOFPAYMENT='" + methodOfPayment + "', HASHEDCREDITCARDNUMBER='"+ hashedCreditedCardNumber + "', CARDSECURITYCODE='" + cardSecurityCode + "', CARDEXPIRYDATE='" + cardExpiryDate + "', PAYDATE='" + payDate + "', AMOUNTPAID='" + amountPaid + "' WHERE PAYMENTID='" + paymentID + "'");
+        st.executeUpdate("UPDATE IOTBAYUSER.PAYMENTSNAPSHOTS SET METHODOFPAYMENT='" + methodOfPayment + "', HashedCardNumber='"+ hashedCreditedCardNumber + "', CARDSECURITYCODE='" + cardSecurityCode + "', CARDEXPIRYDATE='" + cardExpiryDate + "', PAYDATE='" + payDate + "', AMOUNTPAID='" + amountPaid + "' WHERE PAYMENTID='" + paymentID + "'");
     }
     
     public void deletePaymentSnapshots(int paymentID) throws SQLException {
@@ -117,7 +117,7 @@ public class DBPaymentSnapshotsManager {
     }
     
     public int findPaymentID(String methodOfPayment, String hashedCreditedCardNumber, String cardSecurityCode, String cardExpiryDate, String payDate, double amount) throws SQLException {
-        String query = "SELECT * FROM IOTBAYUSER.PAYMENTSNAPSHOTS WHERE METHODOFPAYMENT='" + methodOfPayment + "', HASHEDCREDITCARDNUMBER='"+ hashedCreditedCardNumber + "', CARDSECURITYCODE='" + cardSecurityCode + "', CARDEXPIRYDATE='" + cardExpiryDate + "', PAYDATE='" + payDate + "', AMOUNTPAID='" + amount + "'";
+        String query = "SELECT * FROM IOTBAYUSER.PAYMENTSNAPSHOTS WHERE MethodOfPayment='" + methodOfPayment + "' AND HashedCardNumber='"+ hashedCreditedCardNumber + "' AND CardSecurityCode='" + cardSecurityCode + "' AND CardExpiryDate='" + cardExpiryDate + "' AND PayDate='" + payDate + "' AND AmountPaid=" + amount + "";
         ResultSet rs = st.executeQuery(query);
         
         while (rs.next()){

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.Customer;
 import uts.isd.model.CustomerOrder;
 import uts.isd.model.Device;
-import uts.isd.model.PaymentSnapshots;
+import uts.isd.model.PaymentDetails;
 import uts.isd.model.iotbay.dao.DBDeviceManager;
 import uts.isd.model.iotbay.dao.DBOrderManager;
 import uts.isd.model.iotbay.dao.DBPaymentSnapshotsManager;
@@ -40,6 +39,8 @@ public class CompletePaymentServlet extends HttpServlet{
         Validator validator = new Validator();
         
         Customer customer = (Customer) session.getAttribute("customer");
+        
+        String customerEmail = (customer != null) ? customer.getEmail() : "anonymous@gmail.com";
         
         DBPaymentSnapshotsManager paymentSnapshotsManager = (DBPaymentSnapshotsManager) session.getAttribute("paymentSnapshotsManager");
         
@@ -65,33 +66,15 @@ public class CompletePaymentServlet extends HttpServlet{
         
         double amount = order.getTotalPrice();
         
+        int quantity = order.getQuantity();
+        
+        PaymentDetails details = (PaymentDetails) session.getAttribute("paymentDetail");
+        
         validator.clear(session);
         
-        if (validator.checkPaymentDetailsEmpty(methodOfPayment,hashedCreditedCardNumber,cardSecurityCode,cardExpiryDate)) {
-            
+        if (details == null) {
             session.setAttribute("paymentDetailsEmptyErr", "Error: No Payment Details Exists!");
-            request.getRequestDispatcher("orderPayment.jsp").include(request, response);
-            
-        } else if (!validator.validateMethodOfPayment(methodOfPayment)) {
-            
-            session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect");    
-            request.getRequestDispatcher("orderPayment.jsp").include(request, response);
-            
-        } else if (!validator.validatehashedCreditedCardNumber(hashedCreditedCardNumber)) {
-            
-            session.setAttribute("cardNumberFieldErr", "Error: Card Number format incorrect");
-            request.getRequestDispatcher("orderPayment.jsp").include(request, response);
-            
-        } else if (!validator.validatecardSecurityCode(cardSecurityCode)) {
-
-            session.setAttribute("cardCodeFieldErr", "Error: Card Security Code format incorrect");
-            request.getRequestDispatcher("orderPayment.jsp").include(request, response);
-            
-        } else if (!validator.validatecardExpiryDate(cardExpiryDate)) {   
-            
-            session.setAttribute("expiryDateFieldErr", "Error: Card Expiry Date format incorrect");
-            request.getRequestDispatcher("orderPayment.jsp").include(request, response);
-            
+            request.getRequestDispatcher("orderPayment.jsp").include(request, response);   
         } else {
             try {
                 long estDate = new Date().getTime() + 3600000*48;
@@ -99,11 +82,12 @@ public class CompletePaymentServlet extends HttpServlet{
                 
                 paymentSnapshotsManager.addPaymentSnapshots(methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amount);
                 int paymentID = paymentSnapshotsManager.findPaymentID(methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate, payDate, amount);
-                orderManager.addOrder(customer.getEmail(), paymentID, order.getDeviceID(), order.getQuantity(), new Timestamp(new Date().getTime()), order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
+                
+                orderManager.addOrder(customerEmail, paymentID, order.getDeviceID(), order.getQuantity(), new Timestamp(new Date().getTime()), order.getTotalPrice(), new Timestamp(estDate) , new Timestamp(depDate), order.getSupplierEmail(), order.getShippingCost(), order.getShippingType(), order.getStatus(), order.getStreetAddress(), order.getUnitNumber(), order.getCity(), order.getState(), order.getPostalCode(), order.getPhoneNumber());
                 
                 //Also change stock
                 double currentStock = theDevice.getStockQuantity();
-                theDevice.setStockQuantity((int) (currentStock - amount));
+                theDevice.setStockQuantity((int) (currentStock - quantity));
 
                 // update DB of device
                 deviceManager.updateDevice(theDevice.getDeviceID(), theDevice.getDeviceName(), theDevice.getType(), theDevice.getCost(),
@@ -114,7 +98,9 @@ public class CompletePaymentServlet extends HttpServlet{
                 response.sendRedirect("/OrderHistory");
                 
             } catch (SQLException ex) {
-                session.setAttribute("exceptionErr", "Payment Detail Creation Failed.");
+                session.setAttribute("exceptionErr", "Payment Creation Failed.");
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             }
         

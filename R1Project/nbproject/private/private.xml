@@ -8,14 +8,18 @@
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/updateOrder.jsp</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/orderHistory.jsp</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/OrderPaymentServlet.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/PaymentDetailsUpdateServlet.java</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/CreateOrder.java</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/OrderHistory.java</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/orderPayment.jsp</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBOrderManager.java</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/updateOrder.java</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/model/Supplier.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/PaymentDetailsAddServlet.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/model/PaymentSnapshots.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/web/db/createTables.sql</file>
             <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/controller/cancelOrder.java</file>
+            <file>file:/C:/Users/James/Desktop/IoTBay/R1Project/src/java/uts/isd/model/iotbay/dao/DBPaymentSnapshotsManager.java</file>
         </group>
     </open-files>
 </project-private>

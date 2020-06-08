@@ -73,6 +73,8 @@ public class PaymentDetailsDeleteServlet extends HttpServlet{
         } catch (SQLException ex) {
                 session.setAttribute("exceptionErr", "Payment Detail Deletion Failed.");
                 if (isOrder.equals("true")) {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);

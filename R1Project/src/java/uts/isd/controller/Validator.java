@@ -235,6 +235,7 @@ public class Validator implements Serializable {
         session.setAttribute("methodFieldErr","");
         session.setAttribute("cardNumberFieldErr","");
         session.setAttribute("cardCodeFieldErr","");
-        session.setAttribute("expiryDateFieldErr","");
+        session.setAttribute("expiryDateFieldErr",""); 
+        session.setAttribute("updateSucess","");
     }
 }

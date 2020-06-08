@@ -46,8 +46,6 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
         
         String isOrder = request.getParameter("isOrder");
         
-        
-        
         validator.clear(session);
         
         if (validator.checkPaymentDetailsEmpty(methodOfPayment,hashedCreditedCardNumber,cardSecurityCode,cardExpiryDate)) {
@@ -111,6 +109,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 if (customerEmail.equals("anonymous@gmail.com")) {
                     PaymentDetails paymentDetails = new PaymentDetails("",methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
                     request.setAttribute("paymentDetails",paymentDetails);
+                    session.setAttribute("updateSucess", "Your payment details were successfully updated!");
                     request.getRequestDispatcher("orderPayment.jsp").include(request, response);
                     return;
                 }
@@ -121,6 +120,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 
                 request.setAttribute("paymentDetails", paymentDetails);
                 
+                session.setAttribute("updateSucess", "Your payment details were successfully updated!");
+                
                 if (isOrder.equals("true")) {
                     request.getRequestDispatcher("orderPayment.jsp").include(request, response);
                 } else {
@@ -129,6 +130,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             } catch (SQLException ex) {
                 session.setAttribute("exceptionErr", "Payment Detail Creation Failed.");
                 if (isOrder.equals("true")) {
+                    PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                    request.setAttribute("paymentDetails",paymentDetails);
                     request.getRequestDispatcher("orderPayment.jsp").include(request, response);
                 } else {
                     request.getRequestDispatcher("paymentDetails.jsp").include(request, response);

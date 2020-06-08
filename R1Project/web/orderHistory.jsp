@@ -46,6 +46,7 @@
              <a href="ViewDeviceServletUsers">Go Back</a>   
             <h3 class="iot-center">Your Order History</h3>
             <p><%=(paymentCompleted != null ? paymentCompleted : "")%></p>
+            <p></p>
             
              <%for (String error : searchErrors) {%><p class="alert alert-danger"><%=error%></p><%}%>
             <br />
@@ -79,6 +80,8 @@
                     </thead>
 
                     <tbody>
+                        <% if(orders!=null) {%>
+                        
                         <% for (CustomerOrder o : orders) {%>
 
                     <tr>
@@ -100,7 +103,7 @@
 
                         </td>
                     </tr>
-                    <%}%>
+                    <%}%><%}%>
 
                     </tbody>
                 </table> 

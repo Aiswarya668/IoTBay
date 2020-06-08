@@ -23,6 +23,7 @@
     </head>
         <%    
             String paymentDetailsEmptyErr = (String) session.getAttribute("paymentDetailsEmptyErr");
+            String updateSucess = (String) session.getAttribute("updateSucess");
             String methodFieldErr = (String) session.getAttribute("methodFieldErr");
             String cardNumberFieldErr = (String) session.getAttribute("cardNumberFieldErr");
             String cardCodeFieldErr = (String) session.getAttribute("cardCodeFieldErr");
@@ -95,6 +96,7 @@
                 <%
                     } else {
                 %>
+                <p class="success"><%=(updateSucess != null ? updateSucess : "")%></p>
                 <table id="paymentDetails">
                     <thead>
                         <tr>
@@ -154,6 +156,10 @@
                     <a class="button4" href="">Cancel</a>
                 </form>
                 <br>
+                <%
+                            if (paymentDetail != null) {
+                %>
+                
                 <form method="post" method="get" action="CompletePaymentServlet">
                     <input type="hidden" name="methodOfPayment" value="${paymentDetail.methodOfPayment}" />
                     <input type="hidden" name="hashedCreditedCardNumber" value="${paymentDetail.hashedCreditedCardNumber}" />
@@ -161,6 +167,7 @@
                     <input type="hidden" name="cardExpiryDate" value="${paymentDetail.cardExpiryDate}" />
                     <input class ="button4" type="submit" value="Purchase">
                 </form>
+                <%}%>  
             </div>
         </div>
     </body>
