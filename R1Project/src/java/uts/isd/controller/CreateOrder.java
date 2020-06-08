@@ -8,6 +8,7 @@ package uts.isd.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -66,6 +67,7 @@ public class CreateOrder extends HttpServlet {
                 // returns the view
                 RequestDispatcher v = request.getRequestDispatcher("/createOrder.jsp");
                 v.forward(request, response);
+             //if no stock left then send back tot he catalogue
             } else if (theDevice.getStockQuantity() == 0) {
                 response.sendRedirect("ViewDeviceServletUsers");
                 session.setAttribute("quantityErr", "Error: Not enough stock!");
@@ -89,13 +91,13 @@ public class CreateOrder extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            //get session
             HttpSession session = request.getSession();
-            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager"); //PROBS TAKE OUT
+            //get db managers ready for CRUD operations
+            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
 
             DBDeviceManager deviceManager = (DBDeviceManager) session.getAttribute("deviceManager");
-
-            ArrayList<CustomerOrder> Tester = orderManager.getOrdersById("-1");
-
+            //retrieve the device from the deviceID passed in from the request
             Device theDevice = (Device) session.getAttribute("buyDevice");
 
             // if there is no device , please redirect it 
@@ -212,17 +214,19 @@ public class CreateOrder extends HttpServlet {
                 // Same for shipment Type
                 String shipmentType = "Air";
                 Timestamp timeNow = new Timestamp(new Date().getTime());
-
+                
                 if (loggedInCustomer == null) {
 
                     // Make everything Anynomous
                     userEmail = "anonymous@gmail.com";
+                    //If order is to be saved, commit it to the database with missing information about payments and dates
                     if (orderStatus.equals("SAVED")) {
                         orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                                 totalCost, null, null, supplierEmail, shipmentPrice,
                                 shipmentType, orderStatus, streetAddress, unitNumber, city,
                                 state, postcode, phoneNumber);
-
+                        
+                        //find orderID from the above made database commit and pass it onto the orderHistory page
                         int ID = orderManager.findOrderID(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                                 totalCost, null, null, supplierEmail, shipmentPrice,
                                 shipmentType, orderStatus, streetAddress, unitNumber, city,
@@ -233,7 +237,7 @@ public class CreateOrder extends HttpServlet {
                         response.sendRedirect("/OrderHistory");
                         return;
                     }
-
+                    //anonymous user makes a customer order object to send to order payment page
                     CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, supplierEmail, shipmentPrice, null,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,
@@ -258,17 +262,22 @@ public class CreateOrder extends HttpServlet {
                     // String estArrivalDate, String departureDate, String supplierEmail, double shipmentPrice,
                     // String shipmentType, String status, String streetAddress, String unitNumber, String city,
                     // String state, String postalCode,  String phoneNumber
-                    // Add all these data to DB                             
+                    // Add all these data to DB   
+                    
+                    ////If order is to be saved, commit it to the database with missing information about payments and dates
                     if (orderStatus.equals("SAVED")) {
                         orderManager.addOrder(userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                                 totalCost, null, null, supplierEmail, shipmentPrice,
                                 shipmentType, orderStatus, streetAddress, unitNumber, city,
                                 state, postcode, phoneNumber);
+                        //no need for orderId because orders can be found via customerEmail
+                        
                         response.sendRedirect("/OrderHistory");
                         return;
 
                     }
 
+                    //Customer makes a customer order object to send to order payment page
                     CustomerOrder aOrder = new CustomerOrder(-1, userEmail, -1, theDevice.getDeviceID(), amount, timeNow,
                             totalCost, null, supplierEmail, shipmentPrice, null,
                             shipmentType, orderStatus, streetAddress, unitNumber, city,

@@ -28,20 +28,21 @@ import uts.isd.model.iotbay.dao.DBPaymentDetailsManager;
 public class PaymentDetailsServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
+       //get session
         HttpSession session = request.getSession();
-        
+        //get customer from the session
         Customer customer = (Customer) session.getAttribute("customer");
-        
+        //get the customer's email
         String customerEmail = customer.getEmail();
-        
+        //prepare DBmanager for later CRUD operations
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
         
         try {
+            //find customer's payment details
             PaymentDetails paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);
-                   
-            request.setAttribute("paymentDetails", paymentDetails);     
             
+            //give the found payment details back to the JSP page to be shown       
+            request.setAttribute("paymentDetails", paymentDetails);     
             request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
             
             return;

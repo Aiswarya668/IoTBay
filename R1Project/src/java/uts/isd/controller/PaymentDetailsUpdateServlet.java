@@ -25,32 +25,33 @@ import uts.isd.model.iotbay.dao.DBPaymentDetailsManager;
 public class PaymentDetailsUpdateServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        //get Session
         HttpSession session = request.getSession();
-        
+        //create validator for later validation
         Validator validator = new Validator();
-        
+        //get customer from the session
         Customer customer = (Customer) session.getAttribute("customer");
-        
+        //prepare DBmanager for later crud operations
         DBPaymentDetailsManager paymentDetailsManager = (DBPaymentDetailsManager) session.getAttribute("paymentDetailManager");
-        
+        //if the customer is anonymous, give them a default anonymous user email
         String customerEmail = (customer != null) ? customer.getEmail() : "anonymous@gmail.com";
         
+        //prepare parameters in the request for later payment detail updating
         String methodOfPayment = request.getParameter("methodOfPayment");
-        
-        String hashedCreditedCardNumber = request.getParameter("hashedCreditedCardNumber");
-                
+        String hashedCreditedCardNumber = request.getParameter("hashedCreditedCardNumber");    
         String cardSecurityCode = request.getParameter("cardSecurityCode");
-        
         String cardExpiryDate = request.getParameter("cardExpiryDate");
         
+        //Check if the request is coming from an order or from the customer's management
         String isOrder = request.getParameter("isOrder");
         
+        //clear errors in the session via the validator
         validator.clear(session);
-        
+        //perform validation checks
         if (validator.checkPaymentDetailsEmpty(methodOfPayment,hashedCreditedCardNumber,cardSecurityCode,cardExpiryDate)) {
             
             session.setAttribute("paymentDetailsEmptyErr", "Error: All fields are mandatory!");
+            //redirect to appropriate page
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -65,6 +66,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
             session.setAttribute("methodFieldErr", "Error: Method of Payment format incorrect. Only text allowed.");
             session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
+            //redirect to appropriate page
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -79,6 +81,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
             session.setAttribute("cardNumberFieldErr", "Error: Card Number format incorrect. Format example: 1234132412341234");
             session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
+            //redirect to appropriate page
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -93,6 +96,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
 
             session.setAttribute("cardCodeFieldErr", "Error: Card Security Code format incorrect. Format example: 123");
             session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
+            //redirect to appropriate page
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -107,6 +111,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
             session.setAttribute("expiryDateFieldErr", "Error: Card Expiry Date format incorrect. Format example: YYYY-MM");
             session.setAttribute("paymentDetailsEmptyErr", "Error: Fields are of the wrong format!");
+            //redirect to appropriate page
             if (isOrder.equals("true")) {
                 PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                 request.setAttribute("paymentDetails",paymentDetails);
@@ -119,7 +124,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
             
         } else {
             try {
-                
+                //if anonymous user, update the payment details object instead of updating the database
                 if (customerEmail.equals("anonymous@gmail.com")) {
                     PaymentDetails paymentDetails = new PaymentDetails("",methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
                     request.setAttribute("paymentDetails",paymentDetails);
@@ -127,7 +132,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                     request.getRequestDispatcher("orderPayment.jsp").include(request, response);
                     return;
                 }
-                
+                //if a customer, update payment details by finding them on the database
                 paymentDetailsManager.updatePaymentDetails(customerEmail, methodOfPayment, hashedCreditedCardNumber, cardSecurityCode, cardExpiryDate);
                 
                 PaymentDetails paymentDetails = paymentDetailsManager.findPaymentDetails(customerEmail);
@@ -135,7 +140,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 request.setAttribute("paymentDetails", paymentDetails);
                 
                 session.setAttribute("updateSucess", "Your payment details were successfully updated!");
-                
+                //redirect to appropriate page
                 if (isOrder.equals("true")) {
                     request.getRequestDispatcher("orderPayment.jsp").include(request, response);
                 } else {
@@ -143,6 +148,7 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 }
             } catch (SQLException ex) {
                 session.setAttribute("exceptionErr", "Payment Detail Creation Failed.");
+                //redirect to appropriate page
                 if (isOrder.equals("true")) {
                     PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
                     request.setAttribute("paymentDetails",paymentDetails);

@@ -36,8 +36,9 @@ public class OrderHistorySearch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ArrayList<CustomerOrder> orders = new ArrayList<>();
+        //get session
         HttpSession session = request.getSession();
-        
+        //prepare DBmanager for CRUD operations later
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
         // get id from url
         String id = request.getParameter("searchId");
@@ -45,7 +46,7 @@ public class OrderHistorySearch extends HttpServlet {
         if(id == null){
             id = "";
         }
-        
+        //if no id was inputtd into the filter, redirect back to order history and show an error
         if (id.equals("")) {
             ArrayList<String> searchErrors = new ArrayList<>();
             searchErrors.add("Enter valid search input");
@@ -59,6 +60,8 @@ public class OrderHistorySearch extends HttpServlet {
                 // if user is logged in search DB
                 orders = orderManager.getOrdersById(id);
                 Customer loggedInCustomer = (Customer)session.getAttribute("customer");
+                
+                //if and loops prevent other customers from looking at the orders of other customers by verifying against their customer email 
                 if(loggedInCustomer == null){
                     // id not search session
                     ArrayList<CustomerOrder> foundOrders = new ArrayList<CustomerOrder>();
@@ -82,13 +85,12 @@ public class OrderHistorySearch extends HttpServlet {
                         orders.remove(o);
                     }
                 }
-                // Have to check if the order is of user or not
-                // TODO:
-                
+
+                //if no orders are found, send an error
                 if (orders.size() == 0){
                     session.setAttribute("notFoundError", "No orders could be found.");
                 }
-                
+                //put all found orders with the filter onto the session to be displayed on orderhistory
                 session.setAttribute("allOrders", orders);
             } catch (SQLException e) {
                 System.out.println(e);
