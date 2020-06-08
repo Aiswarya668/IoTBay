@@ -36,7 +36,9 @@
 
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left" />
+        <% if (!sysadmin) { %>
         <p class="right"> Already registered? <a class="button21" href="login.jsp">Login</a> </p>
+        <% }%>
         <div class="maincolumn2">
             <div class="card">
                 <% if (userType.equals("customer")) { %>

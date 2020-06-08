@@ -36,7 +36,7 @@
         %>
             <body>
 
-                <h1>Search Supplier to be Updated</h1>
+                <h1>Supplier to be Updated</h1>
                 
                 <p class ="error"><%= (supplierEmptyErr != null) ? supplierEmptyErr : ""%></p>
                 <p class ="error"><%= (formatErr != null) ? formatErr : ""%></p>
