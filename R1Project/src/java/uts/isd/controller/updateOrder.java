@@ -7,6 +7,7 @@ package uts.isd.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -81,8 +82,6 @@ public class updateOrder extends HttpServlet {
             int deviceID = foundOrder.getDeviceID();
             
             Device theDevice = deviceManager.findDeviceByID(deviceID);
-            double deviceCost = theDevice.getCost();
-
             // for tracking errors
             ArrayList<String> orderErrors = new ArrayList<>();
 
@@ -101,8 +100,10 @@ public class updateOrder extends HttpServlet {
             String phoneNumber = request.getParameter("phonenumber");
             double costOfDevice = theDevice.getCost();
 
-            // calculate total cost of the device
-            double totalCost = costOfDevice * amount;
+            // calculate total cost of the device and set to 2.d.p
+            DecimalFormat df = new DecimalFormat("0.00");
+            double totalCost = Double.parseDouble(df.format(costOfDevice * amount));
+            double shippingCost = Double.parseDouble(df.format((costOfDevice * amount) + 10));
 
             if (theDevice.getStockQuantity() < 0) {
                 orderErrors.add("You can not buy more than the stock available.");
@@ -127,6 +128,8 @@ public class updateOrder extends HttpServlet {
             if (orderErrors.size() > 0) {
 
                 RequestDispatcher view = request.getRequestDispatcher("updateOrder.jsp");
+                request.setAttribute("orderIdTobeUpdated", request.getParameter("id"));
+                request.setAttribute("updateOrder",foundOrder);
                 view.forward(request, response);
             } else {
 
@@ -138,10 +141,25 @@ public class updateOrder extends HttpServlet {
                 // get customer from session
                 
                 orderManager.updateCustomerOrder(Integer.parseInt(request.getParameter("id")),foundOrder.getCustomerEmail(), -1, foundOrder.getDeviceID(), amount, foundOrder.getDateOrdered(),
-                            deviceCost*amount, null, null, foundOrder.getSupplierEmail(), (deviceCost*amount)+10,
+                            totalCost, null, null, foundOrder.getSupplierEmail(), shippingCost,
                             foundOrder.getShippingType(), orderStatus, streetAddress, unitNumber, city,
                             state, postcode, phoneNumber);
                 
+                //Update the order in all orders so that the new amount and details are shown in order history
+                ArrayList<CustomerOrder> orders = (ArrayList) session.getAttribute("allOrders");
+                for (CustomerOrder o: orders) {
+                    if(o.getOrderID() == Integer.parseInt(request.getParameter("id"))) {
+                        o.setQuantity(amount);
+                        o.setTotalPrice(totalCost);
+                        o.setShippingCost(shippingCost);
+                        o.setCity(city);
+                        o.setStreetAddress(streetAddress);
+                        o.setUnitNumber(unitNumber);
+                        o.setState(state);
+                        o.setPostalCode(postcode);
+                        o.setPhoneNumber(phoneNumber);
+                    }
+                }
                 
                 // Redirection to list of orders
                 
