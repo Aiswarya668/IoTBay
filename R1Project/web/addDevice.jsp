@@ -66,7 +66,7 @@
                     <input type="hidden" name="NewDevice" value="true" />
                     <div>
                         <input class ="button4" type="submit" value="Create device">
-                        <a class ="button3" href="main.jsp">Cancel</a>
+                        <a class ="button3" href="ViewDeviceServletUsers">Cancel</a>
 
                     </div>
                 </form>

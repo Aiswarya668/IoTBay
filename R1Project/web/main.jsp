@@ -91,17 +91,16 @@
 
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
 
-
+        <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
         <p class="right"> <a class="button21" href="EditServlet">Edit Profile</a> </p>
         <p class="right"> <a class="button21" href="UserLogsServlet">User Logs</a> </p>
-        <p class="right"> <a  class="button21" href="logout.jsp">Logout</a> </p>
         <% if (sysadmin) { %>
         <p class="right"> <a class ="button21" href="SupplierListServlet">View Suppliers</a> </p>
         <p class="right"> <a class ="button21" href="UserListServlet">View Users</a> </p>
+        <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
 
         <% } else if (staff != null) { %>
         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
-        <p class="right"> <a class="button21" href="addDevice.jsp">Add Devices</a> </p>
         <% } else {%> 
         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
         <% }%> 
