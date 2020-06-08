@@ -97,8 +97,12 @@ public class DBPaymentSnapshotsManager {
         stString += ")";
         
         String query = "SELECT * FROM IOTBAYUSER.PAYMENTSNAPSHOTS WHERE PAYMENTID IN" + stString;
+        
         ResultSet rs = st.executeQuery(query);
-        ArrayList<PaymentSnapshots> result = new ArrayList();
+        
+        ArrayList<PaymentSnapshots> result = new ArrayList<PaymentSnapshots>();
+        
+        PaymentSnapshots paymentSnapshot = null;
         
         while (rs.next()){
             int foundPaymentID = rs.getInt(1);
@@ -106,11 +110,11 @@ public class DBPaymentSnapshotsManager {
                 String foundMethodOfPayment = rs.getString(2);
                 String foundHashedCreditedCardNumber = rs.getString(3);
                 String foundCardSecurityCode = rs.getString(4);
-                String foundPayDate = rs.getString(6);
                 String foundCardExpiryDate = rs.getString(5);
+                String foundPayDate = rs.getString(6);
                 double foundAmount = rs.getDouble(7);        
-
-                result.add(new PaymentSnapshots(foundPaymentID, foundMethodOfPayment, foundHashedCreditedCardNumber,foundCardSecurityCode, foundCardExpiryDate, foundPayDate, foundAmount));
+                paymentSnapshot = new PaymentSnapshots(foundPaymentID, foundMethodOfPayment, foundHashedCreditedCardNumber,foundCardSecurityCode, foundCardExpiryDate, foundPayDate, foundAmount);
+                result.add(paymentSnapshot);
             }
         }
         return result;

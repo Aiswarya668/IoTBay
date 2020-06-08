@@ -92,6 +92,8 @@
         <p class="right"> <a class="button21" href="addDevice.jsp">Add Devices</a> </p>
         <% } else {%> 
         <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Device Catalogue</a> </p>
+        <p class="right"> <a class="button21" href="PaymentDetailsServlet">Manage Payment Details</a></p>
+        <p class="right"> <a class="button21" href="PaymentHistoryServlet">Payment History</a></p>
         <% }%> 
         
         <div class="maincolumn2">

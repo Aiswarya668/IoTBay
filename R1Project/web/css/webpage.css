@@ -296,6 +296,9 @@ table {
     width:100%;
 }
 
+#paymentDetails {
+    width:50%;
+}
 .table{
     padding-bottom: 5em;
     font-family: Arial, Helvetica, sans-serif;

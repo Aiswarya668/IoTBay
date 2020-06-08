@@ -25,69 +25,75 @@
         <title>Payment History</title>
 
     <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
-    <p class="right"> <a class="button21" href="paymentDetails.jsp">Cancel</a> </p> 
-    <p class="right"> <a class="button21" href="paymentDetails.jsp">Manage Payment Details</a> </p>
+    <p class="right"> <a class="button21" href="main.jsp">Main</a> </p> 
     
-    <div class="maincolumn2">
-        <div class="card">
+    <div class="deviceCatcolumn">
+        <div class="deviceCatcard">
 
             </head>
             <body>
 
                 <%
-                    PaymentSnapshots paymentHistory = (PaymentSnapshots) request.getAttribute("paymentHistory");
-                    CustomerOrder order = (CustomerOrder) session.getAttribute("order");
-                    String creationConfirmation = (String) request.getParameter("creationConfirmation");
+                    ArrayList<PaymentSnapshots> paymentHistory = (ArrayList<PaymentSnapshots>) request.getAttribute("paymentHistory");
+                    ArrayList<CustomerOrder> order = (ArrayList<CustomerOrder>) request.getAttribute("order");
                 %>
 
-                <h1>Supplier Information Management</h1>
-                <span><%=creationConfirmation != null ? creationConfirmation : ""%></span>
+                <h1>Payment History</h1>
                 <form>
-                    Search Payment History: <input type="text" id="inputPaymentID" onkeyup="myFunction()" placeholder="E.g. PaymentID: 132" title="Type in a PaymentID">
-                    <input type="text" id="inputDate" onkeyup="myFunction()" placeholder="E.g. Date: YYYY-MM-DD" title="Type in a Date">
+                    Search Payment History: <input id="inputPaymentID" onkeyup="myFunction()" placeholder="E.g. PaymentID: 132" title="Type in a PaymentID"> <input id="inputDate" onkeyup="myFunction()" placeholder="E.g. Date: YYYY-MM-DD" title="Type in a Date">
                 </form>
                 
                 <%
                     if (paymentHistory != null) {
                 %>
                 <form method="post" method="get">
-                    <table border="1" id="paymentsTable">
+                    <table id="paymentsTable">
                         <thead>
                             <tr>
-                                <th>Contact Name</th>
-                                <th>Company</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Status</th>
+                                <th>Payment ID</th>
+                                <th>Order ID</th>
+                                <th>Device ID</th>
+                                <th>Quantity</th>
+                                <th>Method of Payment</th>
+                                <th>Card Number</th>
+                                <th>Card Security Code</th>
+                                <th>Card Expiry Date</th>
+                                <th>Date Paid</th>
+                                <th>Amount Paid</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${paymentHistory}" var="paymentHistory" varStatus="loop">
+                            <% for (int i = 0; i < paymentHistory.size();i++ ) {%>
                                 <tr>
-                                    <td>${paymentHistory.contactName}</td>
-                                    <td>${paymentHistory.supplierName}</td>
-                                    <td>${Order.supplierEmail}</td>
-                                    <td>${Order[loop.index].paymentID}</td>
-                                    <td>${show.active ? "Activated" : "Deactivated"}</td>
+                                    <td><%= paymentHistory.get(i).getPaymentID()%></td>
+                                    <td><%= order.get(i).getOrderID() %></td>
+                                    <td><%= order.get(i).getDeviceID() %></td>
+                                    <td><%= order.get(i).getQuantity() %></td>
+                                    <td><%= paymentHistory.get(i).getMethodOfPayment() %></td>
+                                    <td><%= paymentHistory.get(i).getHashedCreditedCardNumber() %></td>
+                                    <td><%= paymentHistory.get(i).getCardSecurityCode() %></td>
+                                    <td><%= paymentHistory.get(i).getCardExpiryDate() %></td>
+                                    <td><%= paymentHistory.get(i).getPayDate() %></td>
+                                    <td><%= paymentHistory.get(i).getAmountPaid() %></td>
                                 </tr>
-                            </c:forEach>
+                            <%}%>
                         </tbody>
                     </table>
                     <script>
                         function myFunction() {
-                            var input, input2, filter, filter2, table, tr, tdContactName, tdCompany, i, txtValue;
-                            input = document.getElementById("inputContactName");
+                            var input, input2, filter, filter2, table, tr, tdPaymentID, tdPayDate, i, txtValue;
+                            input = document.getElementById("inputPaymentID");
                             filter = input.value.toUpperCase();
-                            input2 = document.getElementById("inputCompany");
+                            input2 = document.getElementById("inputDate");
                             filter2 = input2.value.toUpperCase();
-                            table = document.getElementById("supplierTable");
+                            table = document.getElementById("paymentsTable");
                             tr = table.getElementsByTagName("tr");
                             for (i = 0; i < tr.length; i++) {
-                                tdContactName = tr[i].getElementsByTagName("td")[0];
-                                tdCompany = tr[i].getElementsByTagName("td")[1];
-                                if (tdContactName && tdCompany) {
-                                    txtValue = tdContactName.textContent || tdCompany.innerText;
-                                    txtValue2 = tdCompany.textContent || tdType.innerText;
+                                tdPaymentID = tr[i].getElementsByTagName("td")[0];
+                                tdPayDate = tr[i].getElementsByTagName("td")[8];
+                                if (tdPaymentID && tdPayDate) {
+                                    txtValue = tdPaymentID.textContent || tdPaymentID.innerText;
+                                    txtValue2 = tdPayDate.textContent || tdPayDate.innerText;
                                     if (txtValue.toUpperCase().indexOf(filter) > -1 && txtValue2.toUpperCase().indexOf(filter2) > -1) {
                                         tr[i].style.display = "";
                                     } else {

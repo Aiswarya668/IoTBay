@@ -85,6 +85,6 @@ public class PaymentSnapshots {
     public void setAmountPaid(double amountPaid) {
         this.amountPaid = amountPaid;
     }
-        
+
     
 }

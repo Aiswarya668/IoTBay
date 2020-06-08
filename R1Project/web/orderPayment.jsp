@@ -4,6 +4,7 @@
     Author     : James
 --%>
 
+<%@page import="uts.isd.model.Customer"%>
 <%@page import="uts.isd.model.CustomerOrder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,14 +32,19 @@
             String exceptionErr = (String) session.getAttribute("exceptionErr");
             PaymentDetails paymentDetail = (PaymentDetails) request.getAttribute("paymentDetails");
             CustomerOrder order = (CustomerOrder) session.getAttribute("order");
+            Customer customer = (Customer) session.getAttribute("customer");
         %>
         
     <body>
         <img src="images/Logo.png" alt="LOGO" style="width:20%; height:10%" class="left"/>
+         <% if (customer == null) {%>
          <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
+         <% } else {%>
+         <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
+         <%}%>
          <p class="right"> <a class="button21" href="ViewDeviceServletUsers">Back to Browse</a> </p>
-        <div class="maincolumn2">
-            <div class="card">
+        <div id="logsmaincolumn">
+                <div class="card">
                 <h1>Your Order Details </h1>
                 
                 <table id="orderDetails">
@@ -50,6 +56,24 @@
                             <th>Date Ordered</th>
                             <th>Cost of Order</th>
                             <th>Supplier Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${order.customerEmail}</td>
+                            <td>${order.deviceID}</td>
+                            <td>${order.quantity}</td>
+                            <td>${order.dateOrdered}</td>
+                            <td>${order.totalPrice}</td>
+                            <td>${order.supplierEmail}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                        <br>
+                        <br>
+                <table>
+                    <thead>
+                        <tr>
                             <th>Shipping Cost</th>
                             <th>Shipping Type</th>
                             <th>Order Status</th>
@@ -63,12 +87,6 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${order.customerEmail}</td>
-                            <td>${order.deviceID}</td>
-                            <td>${order.quantity}</td>
-                            <td>${order.dateOrdered}</td>
-                            <td>${order.totalPrice}</td>
-                            <td>${order.supplierEmail}</td>
                             <td>${order.shippingCost}</td>
                             <td>${order.shippingType}</td>
                             <td>${order.status}</td>
@@ -93,7 +111,7 @@
                     } else {
                 %>
                 <p class="success"><%=(updateSucess != null ? updateSucess : "")%></p>
-                <table id="paymentDetails">
+                <table>
                     <thead>
                         <tr>
                             <th>Email</th>
@@ -123,7 +141,7 @@
                     
                     
                     
-                    <table>
+                    <table id="paymentDetails" align="center">
                         <tr><td>Method of Payment:</td><td><input type="text" placeholder="<%=(methodFieldErr != null ? methodFieldErr :"Enter method of payment")%>" name="methodOfPayment"></td></tr  
                         <tr><td>Credit Card Number:</td><td><input type="text" placeholder="<%=(cardNumberFieldErr != null ? cardNumberFieldErr :"Enter credit card number")%>" name="hashedCreditedCardNumber"></td></tr>
                         <tr><td>Credit Card Security Code</td><td><input type="text" placeholder="<%=(cardCodeFieldErr != null ? cardCodeFieldErr :"Enter credit card security code")%>" name="cardSecurityCode"></td></tr>

@@ -48,7 +48,6 @@ public class ViewDeviceServletUsers extends HttpServlet {
         try {
            //7) retrieve the current session 
             HttpSession session = request.getSession();
-        
             //8) create an instance of the Validator class to check inputs
             Validator validator = new Validator();
         

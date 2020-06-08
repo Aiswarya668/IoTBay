@@ -56,6 +56,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
             }
             
@@ -67,6 +69,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
             }
             
@@ -78,6 +82,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
             }
             
@@ -89,6 +95,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
             }
             
@@ -100,6 +108,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                 request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("orderPayment.jsp").include(request, response);
             } else {
+                PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                request.setAttribute("paymentDetails",paymentDetails);
                 request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
             }
             
@@ -134,6 +144,8 @@ public class PaymentDetailsUpdateServlet extends HttpServlet{
                     request.setAttribute("paymentDetails",paymentDetails);
                     request.getRequestDispatcher("orderPayment.jsp").include(request, response);
                 } else {
+                    PaymentDetails paymentDetails = (PaymentDetails) session.getAttribute("paymentDetail");
+                    request.setAttribute("paymentDetails",paymentDetails);
                     request.getRequestDispatcher("paymentDetails.jsp").include(request, response);
                 }
             }

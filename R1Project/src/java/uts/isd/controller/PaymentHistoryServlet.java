@@ -31,22 +31,20 @@ public class PaymentHistoryServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-        //Create object of printwriter - and calling response of getWriter()
-        //PrintWriter out =response.getWriter();
         HttpSession session = request.getSession();
         
         Customer customer = (Customer) session.getAttribute("customer");
         
-        String customerEmail = customer.getEmail();
+        String customerEmail = (customer != null) ? customer.getEmail() : "anonymous@gmail.com";
         
         DBPaymentSnapshotsManager paymentSnapshotsManager = (DBPaymentSnapshotsManager) session.getAttribute("paymentSnapshotsManager");
         
-        DBOrderManager orderManager = (DBOrderManager) session.getAttribute("");
+        DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
         
         try {
             ArrayList<CustomerOrder> orders = orderManager.getOrdersByUserEmail(customerEmail);
             
-            if (orders != null) {
+            if (orders == null) {
                 session.setAttribute("paymentHistory", null);
                 return;
             }
@@ -61,7 +59,7 @@ public class PaymentHistoryServlet extends HttpServlet{
                    
             
             request.setAttribute("paymentHistory", paymentHistory);
-            request.setAttribute("orders",orders);
+            request.setAttribute("order", orders);
             
             request.getRequestDispatcher("viewPaymentHistory.jsp").include(request, response);
             
