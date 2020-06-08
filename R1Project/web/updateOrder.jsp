@@ -14,11 +14,10 @@
     // Get device that is to buy
 
     // Get current device
-    System.out.println("Ayo------------>s");
-    CustomerOrder updateOrder = (CustomerOrder) session.getAttribute("updateOrder");
-    System.out.println("Update-------------------->" + updateOrder.toString());
+    
+    CustomerOrder updateOrder = (CustomerOrder) request.getAttribute("updateOrder");
     ArrayList<String> errors = (ArrayList<String>) session.getAttribute("orderErrors");
-    String orderIDToBeupdated = (String) session.getAttribute("orderIdTobeUpdated");
+    String orderIDToBeupdated = (String) request.getAttribute("orderIdTobeUpdated");
 %>
 <html>
     <head>
@@ -54,7 +53,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Amount</label>
-                                <input class="form-control" type="text" name="amount" value="">
+                                <input class="form-control" type="text" name="amount" value="<%= updateOrder.getQuantity()%>">
                             </div>
 
 
@@ -65,18 +64,18 @@
                                     <label>Unit Number</label>
                                     <input class="form-control" 
                                            type="text" 
-                                           name="unitnumber" value="<%= updateOrder.getUser().getUnitNumber()%>" 
+                                           name="unitnumber" value="<%= updateOrder.getUnitNumber()%>" 
                                            />
                                 </div>
                                            
-                                           <input type="hidden" name="id" value="<%= orderIDToBeupdated %>" />
+                                <input type="hidden" name="id" value="<%= orderIDToBeupdated %>" />
                                 <div class="col-md-8">
                                     <label>Street Address</label>
                                     <input 
                                         class="form-control" 
                                         type="text" 
                                         name="streetaddress" 
-                                        value="<%= updateOrder.getUser().getStreetAddress()%>" />
+                                        value="<%= updateOrder.getStreetAddress()%>" />
                                 </div>
                             </div>
                             <div class="row">
@@ -84,7 +83,7 @@
                                     <label>City</label>
                                     <input class="form-control" 
                                            type="text" 
-                                           name="city" value="<%= updateOrder.getUser().getCity()%>" 
+                                           name="city" value="<%= updateOrder.getCity()%>" 
                                            />
                                 </div>
                                 <div class="col-md-4">
@@ -93,7 +92,7 @@
                                         class="form-control" 
                                         type="text" 
                                         name="state" 
-                                        value="<%= updateOrder.getUser().getState()%>" />
+                                        value="<%= updateOrder.getState()%>" />
                                 </div>
                                 <div class="col-md-4">
                                     <label>Post Code</label>
@@ -101,14 +100,13 @@
                                         class="form-control" 
                                         type="text" 
                                         name="postcode" 
-                                        value="<%= updateOrder.getUser().getPostcode()%>" />
+                                        value="<%= updateOrder.getPostalCode()%>" />
                                 </div>
                             </div>
                         </div>
                     </div> 
                     <div  style="display: flex; align-items:center; justify-content: flex-end; margin-top:2rem;">
-                        <input name="action" type="submit" value="Saved" 
-                               style="margin-right:1em;" class="btn btn-warning" />
+                        <input name="id" type="hidden" value="${request.getAttribtue("id")}"/>
                         <input name="action" type="submit" value="Update"  class="btn btn-success"/>
                     </div>
                 </form>

@@ -98,4 +98,5 @@ insert into customer (customeremail, fname, lname, phonenumber, password, street
 ('rtrenouth2o@gizmodo.com', 'Raeann', 'Trenouth', '2023068037', 'xV8C2n5o', 'Heidenreich St', '91559', 'Washington', 'District of Columbia', '2624', true, '2020-10-15 18:53:52', 'male', true),
 ('tdohms2p@mashable.com', 'Thatcher', 'Dohms', '5019357552', 'k6zWwNe', 'Kreiger St', '340', 'Little Rock', 'Arkansas', '0571', false, '2020-11-21 16:13:56', 'female', true),
 ('ntomaino2q@harvard.edu', 'Netta', 'Tomaino', '2028572858', '4RxTg1l', 'Bode St', '98', 'Washington', 'District of Columbia', '6968', true, '2020-04-24 03:43:56', 'female', true),
-('iheyball2r@lycos.com', 'Isobel', 'Heyball', '3237261255', 'vNfvmX', 'Steuber St', '843', 'Los Angeles', 'California', '9506', true, '2020-12-14 03:36:14', 'female', true);
+('iheyball2r@lycos.com', 'Isobel', 'Heyball', '3237261255', 'vNfvmX', 'Steuber St', '843', 'Los Angeles', 'California', '9506', true, '2020-12-14 03:36:14', 'female', true),
+('anonymous@gmail.com', 'Anon', 'Ymous', '3237261255', 'vNfvmX', 'Steuber St', '843', 'Los Angeles', 'California', '9506', true, '2020-12-14 03:36:14', 'female', true);

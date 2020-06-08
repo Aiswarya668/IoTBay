@@ -36,8 +36,10 @@
     <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
     <p class="right"> <a class="button21" href="addDevice.jsp">Add Device</a> </p>
     <% } else if (customer != null) { %>
+    <p class="right"> <a class="button21" href="OrderHistory">Order History</a></p>
     <p class="right"> <a class="button21" href="main.jsp">Main</a> </p>
     <% } else  { %>
+     <p class="right"> <a class="button21" href="OrderHistory">Order History</a></p>
      <p class="right"> <a class="button21" href="index.jsp">Home</a> </p>
     <% } %>
 
