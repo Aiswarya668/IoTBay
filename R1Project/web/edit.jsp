@@ -39,8 +39,6 @@
             // get sysadmin status
             boolean sysadmin = (session.getAttribute("sysadmin") != null);
 
-<<<<<<< HEAD
-=======
             // get update message
             String updateMsg = "";
             String updatedMsg = (String) session.getAttribute("updateMsg");
@@ -49,7 +47,6 @@
                 session.setAttribute("updateMsg", "");
             }
 
->>>>>>> final fixes
             // get customer/staff objects to display details in form
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
