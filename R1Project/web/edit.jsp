@@ -39,6 +39,17 @@
             // get sysadmin status
             boolean sysadmin = (session.getAttribute("sysadmin") != null);
 
+<<<<<<< HEAD
+=======
+            // get update message
+            String updateMsg = "";
+            String updatedMsg = (String) session.getAttribute("updateMsg");
+            if (updatedMsg != null) {
+                updateMsg = updatedMsg;
+                session.setAttribute("updateMsg", "");
+            }
+
+>>>>>>> final fixes
             // get customer/staff objects to display details in form
             Customer customer = (Customer) session.getAttribute("customer");
             Staff staff = (Staff) session.getAttribute("staff");
@@ -99,6 +110,7 @@
         <div class="maincolumn2">
             <div class="card">
                 <h1>Edit profile</h1>
+                <p><%= (updateMsg != null) ? updateMsg : ""%></p>
                 <p><%= (existErr != null) ? existErr : ""%></p>
                 <p><%=(emailErr != null ? emailErr : "")%></p>
                 <p><%=(passErr != null ? passErr : "")%></p>
